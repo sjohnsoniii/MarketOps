@@ -1,0 +1,380 @@
+{
+  "generatedAt": "2026-05-08T11:57:34.005Z",
+  "mode": "paper_simulation",
+  "sampleData": true,
+  "fakeMoney": true,
+  "notFinancialAdvice": true,
+  "notLiveMarketData": true,
+  "noAutoPosting": true,
+  "externalSendingEnabled": false,
+  "apiPostingEnabled": false,
+  "publishAllowed": false,
+  "activePlatforms": [
+    "instagram",
+    "x"
+  ],
+  "futurePrepPlatforms": [
+    "tiktok",
+    "youtube"
+  ],
+  "deferredPlatforms": [
+    "linkedin",
+    "facebook"
+  ],
+  "previews": [
+    {
+      "generatedAt": "2026-05-08T11:57:34.005Z",
+      "mode": "paper_simulation",
+      "sampleData": true,
+      "fakeMoney": true,
+      "notFinancialAdvice": true,
+      "noGuarantee": true,
+      "notLiveMarketData": true,
+      "noLiveTrading": true,
+      "noAutoPosting": true,
+      "apiPostingEnabled": false,
+      "postingReady": false,
+      "publishAllowed": false,
+      "reviewStatus": "human_review_required",
+      "status": "PENDING_REVIEW",
+      "complianceDisclaimer": "Paper simulation and fake/sample money only. Not financial advice. No guarantee. No live execution.",
+      "safetyLabels": [
+        "paper_simulation",
+        "fake_money",
+        "not_financial_advice",
+        "sandbox_only",
+        "human_review_required",
+        "no_external_send",
+        "no_live_execution",
+        "draft_only",
+        "not_public_yet"
+      ],
+      "id": "social-preview-x-paper-sim-001",
+      "platform": "x",
+      "contentType": "short_post",
+      "phase": "active_preview",
+      "title": "Paper simulation milestone",
+      "draftText": "MarketOps update: the lab now has paper simulation, analytics, dashboard bundles, Signal Desk previews, and a local approval queue. Fake-money/sample-data only. Not financial advice.",
+      "captionVariants": [
+        "MarketOps is still fake-money only, but the local lab now has a full review loop: paper simulation, analytics, dashboard bundles, Signal Desk previews, and approval queues.",
+        "The useful part is not the fake P/L. It is the system around it: paper simulation, QA, review gates, and public-safe reporting."
+      ],
+      "imagePromptIdeas": [
+        "Dark premium dashboard workstation showing paper simulation metrics, approval queue cards, and an orange-accent MarketOps header. No real brokerage branding.",
+        "Abstract graphite control-room scene with paper-only dashboard panels and review-gated workflow cards."
+      ],
+      "carouselOutline": [
+        "Slide 1: MarketOps paper lab milestone",
+        "Slide 2: Fake-money simulation only",
+        "Slide 3: Risk Desk and QA before claims",
+        "Slide 4: Human approval queue before anything public"
+      ],
+      "hashtags": [
+        "#MarketOps",
+        "#PaperTrading",
+        "#BuildInPublic"
+      ],
+      "linkTarget": "https://sj3labs.com/marketops",
+      "approvalQuestion": "Approve this X draft for later manual posting?"
+    },
+    {
+      "generatedAt": "2026-05-08T11:57:34.005Z",
+      "mode": "paper_simulation",
+      "sampleData": true,
+      "fakeMoney": true,
+      "notFinancialAdvice": true,
+      "noGuarantee": true,
+      "notLiveMarketData": true,
+      "noLiveTrading": true,
+      "noAutoPosting": true,
+      "apiPostingEnabled": false,
+      "postingReady": false,
+      "publishAllowed": false,
+      "reviewStatus": "human_review_required",
+      "status": "PENDING_REVIEW",
+      "complianceDisclaimer": "Paper simulation and fake/sample money only. Not financial advice. No guarantee. No live execution.",
+      "safetyLabels": [
+        "paper_simulation",
+        "fake_money",
+        "not_financial_advice",
+        "sandbox_only",
+        "human_review_required",
+        "no_external_send",
+        "no_live_execution",
+        "draft_only",
+        "not_public_yet"
+      ],
+      "id": "social-preview-x-risk-first-002",
+      "platform": "x",
+      "contentType": "short_post",
+      "phase": "active_preview",
+      "title": "Risk-first research",
+      "draftText": "The Risk Desk blocking a weak sample event is not failure. It is the point. MarketOps is testing process quality with fake money before anything external gets serious. Not financial advice.",
+      "captionVariants": [
+        "Risk controls are supposed to interrupt weak ideas. MarketOps is using fake-money runs to make that interruption visible.",
+        "A blocked sample event can be useful data. The point is to learn what the lab should reject before anything gets close to real-world use."
+      ],
+      "imagePromptIdeas": [
+        "Paper trading dashboard card showing a sample risk block with clear fake-money and not-financial-advice labels.",
+        "Minimal dark chart panel with risk controls highlighted, no broker logos, no trade instructions."
+      ],
+      "carouselOutline": [
+        "Slide 1: Risk Desk blocks are signal, not noise",
+        "Slide 2: Weak sample events get stopped",
+        "Slide 3: Fake-money testing keeps the lesson cheap",
+        "Slide 4: Human review before public claims"
+      ],
+      "hashtags": [
+        "#RiskManagement",
+        "#MarketResearch",
+        "#PaperSimulation"
+      ],
+      "linkTarget": "https://sj3labs.com/marketops/dashboard",
+      "approvalQuestion": "Approve this X draft for later manual posting?"
+    },
+    {
+      "generatedAt": "2026-05-08T11:57:34.005Z",
+      "mode": "paper_simulation",
+      "sampleData": true,
+      "fakeMoney": true,
+      "notFinancialAdvice": true,
+      "noGuarantee": true,
+      "notLiveMarketData": true,
+      "noLiveTrading": true,
+      "noAutoPosting": true,
+      "apiPostingEnabled": false,
+      "postingReady": false,
+      "publishAllowed": false,
+      "reviewStatus": "human_review_required",
+      "status": "PENDING_REVIEW",
+      "complianceDisclaimer": "Paper simulation and fake/sample money only. Not financial advice. No guarantee. No live execution.",
+      "safetyLabels": [
+        "paper_simulation",
+        "fake_money",
+        "not_financial_advice",
+        "sandbox_only",
+        "human_review_required",
+        "no_external_send",
+        "no_live_execution",
+        "draft_only",
+        "not_public_yet"
+      ],
+      "id": "social-preview-instagram-dashboard-001",
+      "platform": "instagram",
+      "contentType": "caption",
+      "phase": "active_preview",
+      "title": "Public dashboard update",
+      "draftText": "MarketOps is becoming a paper-simulation research lab with dashboards, analytics, backtesting scaffolds, and local review queues. Everything shown is fake-money/sample-data preview. No real performance claims. Not financial advice.",
+      "captionVariants": [
+        "MarketOps is a paper-simulation research lab first: fake-money runs, sample-data dashboards, backtesting scaffolds, and local review queues.",
+        "The dashboard is not a performance flex. It is a transparency surface for a fake-money research system while the process is still being built."
+      ],
+      "imagePromptIdeas": [
+        "Instagram square graphic of a dark futuristic paper-simulation dashboard with sample-data badges and ember accents.",
+        "Clean carousel cover: MarketOps Paper Lab, with fake-money and not-financial-advice labels visible."
+      ],
+      "carouselOutline": [
+        "Slide 1: MarketOps paper dashboard",
+        "Slide 2: Sample data, not live performance",
+        "Slide 3: Analytics and backtesting scaffolds",
+        "Slide 4: Review queue before public use"
+      ],
+      "hashtags": [
+        "#MarketOps",
+        "#PaperSimulation",
+        "#AIResearchLab"
+      ],
+      "linkTarget": "https://sj3labs.com/marketops",
+      "approvalQuestion": "Approve this Instagram caption for later manual posting?"
+    },
+    {
+      "generatedAt": "2026-05-08T11:57:34.005Z",
+      "mode": "paper_simulation",
+      "sampleData": true,
+      "fakeMoney": true,
+      "notFinancialAdvice": true,
+      "noGuarantee": true,
+      "notLiveMarketData": true,
+      "noLiveTrading": true,
+      "noAutoPosting": true,
+      "apiPostingEnabled": false,
+      "postingReady": false,
+      "publishAllowed": false,
+      "reviewStatus": "human_review_required",
+      "status": "PENDING_REVIEW",
+      "complianceDisclaimer": "Paper simulation and fake/sample money only. Not financial advice. No guarantee. No live execution.",
+      "safetyLabels": [
+        "paper_simulation",
+        "fake_money",
+        "not_financial_advice",
+        "sandbox_only",
+        "human_review_required",
+        "no_external_send",
+        "no_live_execution",
+        "draft_only",
+        "not_public_yet"
+      ],
+      "id": "social-preview-instagram-transparency-002",
+      "platform": "instagram",
+      "contentType": "caption",
+      "phase": "active_preview",
+      "title": "Fake-money lab transparency",
+      "draftText": "A useful market lab should be honest about what it is. MarketOps is paper simulation, sample data, local QA, and review-gated research. The point is discipline before claims. Not financial advice.",
+      "captionVariants": [
+        "Useful market research starts with saying what the system is not. MarketOps is not live trading, not advice, and not a promise. It is paper simulation with review gates.",
+        "Fake-money testing is not glamorous, which is exactly why it is useful. It lets the process get judged before the claims get loud."
+      ],
+      "imagePromptIdeas": [
+        "Dark editorial graphic with four labels: paper simulation, sample data, local QA, human review.",
+        "Graphite dashboard closeup with a visible draft-only approval card and no external posting controls."
+      ],
+      "carouselOutline": [
+        "Slide 1: Be honest about the lab",
+        "Slide 2: Paper simulation only",
+        "Slide 3: QA and review gates",
+        "Slide 4: Discipline before claims"
+      ],
+      "hashtags": [
+        "#BuildInPublic",
+        "#MarketResearch",
+        "#RiskControls"
+      ],
+      "linkTarget": "https://sj3labs.com/marketops/about",
+      "approvalQuestion": "Approve this Instagram caption for later manual posting?"
+    },
+    {
+      "generatedAt": "2026-05-08T11:57:34.005Z",
+      "mode": "paper_simulation",
+      "sampleData": true,
+      "fakeMoney": true,
+      "notFinancialAdvice": true,
+      "noGuarantee": true,
+      "notLiveMarketData": true,
+      "noLiveTrading": true,
+      "noAutoPosting": true,
+      "apiPostingEnabled": false,
+      "postingReady": false,
+      "publishAllowed": false,
+      "reviewStatus": "human_review_required",
+      "status": "PENDING_REVIEW",
+      "complianceDisclaimer": "Paper simulation and fake/sample money only. Not financial advice. No guarantee. No live execution.",
+      "safetyLabels": [
+        "paper_simulation",
+        "fake_money",
+        "not_financial_advice",
+        "sandbox_only",
+        "human_review_required",
+        "no_external_send",
+        "no_live_execution",
+        "draft_only",
+        "not_public_yet"
+      ],
+      "id": "social-preview-tiktok-risk-desk-future-001",
+      "platform": "tiktok",
+      "contentType": "short_video_script",
+      "phase": "future_prep_only",
+      "videoQualityApproved": false,
+      "title": "Why Risk Desk blocks matter",
+      "draftText": "Hook: The boring part of a trading lab might be the part that saves it. Beats: show sample signal, show Risk Desk block, explain fake-money testing, close with review-gated research. Disclaimer: paper simulation only, not financial advice.",
+      "hookOptions": [
+        "The boring part of a trading lab might be the part that saves it.",
+        "This is why a blocked fake-money signal can be good news."
+      ],
+      "storyboardBullets": [
+        "Open on a fake-money dashboard with sample labels visible.",
+        "Show a risk block card, not a trade instruction.",
+        "Explain that paper simulation is for process testing.",
+        "Close on human review required before any public use."
+      ],
+      "brollIdeas": [
+        "Dashboard screen recording with sample-data badges.",
+        "Close-up of Risk Desk summary card.",
+        "Approval queue cards scrolling slowly."
+      ],
+      "captionTitleIdeas": [
+        "Why Risk Blocks Matter",
+        "Fake-Money Testing Before Claims"
+      ],
+      "hashtags": [
+        "#PaperTrading",
+        "#RiskManagement",
+        "#MarketOps"
+      ],
+      "linkTarget": "https://sj3labs.com/marketops",
+      "approvalQuestion": "Hold this TikTok script for future video quality review?"
+    },
+    {
+      "generatedAt": "2026-05-08T11:57:34.005Z",
+      "mode": "paper_simulation",
+      "sampleData": true,
+      "fakeMoney": true,
+      "notFinancialAdvice": true,
+      "noGuarantee": true,
+      "notLiveMarketData": true,
+      "noLiveTrading": true,
+      "noAutoPosting": true,
+      "apiPostingEnabled": false,
+      "postingReady": false,
+      "publishAllowed": false,
+      "reviewStatus": "human_review_required",
+      "status": "PENDING_REVIEW",
+      "complianceDisclaimer": "Paper simulation and fake/sample money only. Not financial advice. No guarantee. No live execution.",
+      "safetyLabels": [
+        "paper_simulation",
+        "fake_money",
+        "not_financial_advice",
+        "sandbox_only",
+        "human_review_required",
+        "no_external_send",
+        "no_live_execution",
+        "draft_only",
+        "not_public_yet"
+      ],
+      "id": "social-preview-youtube-signal-desk-future-001",
+      "platform": "youtube",
+      "contentType": "shorts_script",
+      "phase": "future_prep_only",
+      "videoQualityApproved": false,
+      "title": "Signal Desk is not a signal service",
+      "draftText": "Hook: MarketOps has a Signal Desk, but it is not telling anyone what to trade. Beats: research labels, synthetic previews, human review, no live alerts. Disclaimer: research/educational only, not financial advice.",
+      "hookOptions": [
+        "MarketOps has a Signal Desk, but it is not a signal service.",
+        "A research alert is not a trade command."
+      ],
+      "storyboardBullets": [
+        "Show the Signal Desk label with synthetic preview tags.",
+        "Show classification examples: observation, regime shift, elevated risk.",
+        "Show no live alerts and no execution labels.",
+        "Close with research-only and human-review-required disclaimer."
+      ],
+      "brollIdeas": [
+        "Synthetic signal schema card.",
+        "Compliance checklist overlay.",
+        "Admin review console approval question."
+      ],
+      "captionTitleIdeas": [
+        "Signal Desk Is Research Only",
+        "No Trade Commands, No Live Alerts"
+      ],
+      "hashtags": [
+        "#MarketResearch",
+        "#AITradingLab",
+        "#PaperSimulation"
+      ],
+      "linkTarget": "https://sj3labs.com/marketops/signals",
+      "approvalQuestion": "Hold this YouTube Shorts script for future video quality review?"
+    }
+  ],
+  "deferred": [
+    {
+      "platform": "linkedin",
+      "phase": "deferred",
+      "reason": "Wait for stronger writing/video maturity before professional-channel rollout."
+    },
+    {
+      "platform": "facebook",
+      "phase": "deferred",
+      "reason": "Wait for stronger writing/video maturity before broader distribution."
+    }
+  ]
+}

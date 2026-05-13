@@ -1,0 +1,47 @@
+{
+  "project": "MarketOps",
+  "version": "phase1-v0.1",
+  "mode": "paper_simulation",
+  "paperAccount": {
+    "startingBalance": 10000,
+    "coreTargetBalance": 13000,
+    "currency": "USD"
+  },
+  "risk": {
+    "maxOpenPositions": 5,
+    "maxPositionPctOfEquity": 10,
+    "paperDrawdownWarningPct": 8,
+    "paperStrategyPausePct": 12,
+    "paperOfficeReviewPct": 15,
+    "requireStop": true,
+    "requireInvalidation": true
+  },
+  "universes": {
+    "benchmarkContext": ["SPY", "QQQ"],
+    "largeCapSample": ["AAPL", "MSFT", "NVDA"],
+    "cryptoMajorSample": ["BTC", "ETH", "SOL"]
+  },
+  "strategies": {
+    "enabled": [
+      "momentum_breakout_v0_1",
+      "mean_reversion_v0_1",
+      "moving_average_cross_v0_1",
+      "chaos_volatility_chase_v0_1"
+    ],
+    "productionEnabled": false,
+    "chaosLabEnabled": true
+  },
+  "outputs": {
+    "tradeLogPath": "Data/paper/trades/trades-v0.1.json",
+    "equityPath": "Data/paper/equity/equity-v0.1.json",
+    "performanceReportPath": "Data/paper/reports/performance-summary-v0.1.md",
+    "staffWriterBriefPath": "Data/paper/reports/staff-writer-brief-v0.1.md"
+  },
+  "safety": {
+    "allowBrokerConnection": false,
+    "allowLiveTrading": false,
+    "allowSmsAlerts": false,
+    "allowSubscriberSignals": false,
+    "civilizationTrembles": true
+  }
+}

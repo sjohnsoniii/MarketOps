@@ -1,0 +1,12 @@
+{
+  "generatedAt": "2026-05-13T19:41:21.788Z",
+  "mode": "paper_simulation",
+  "paperOnly": true,
+  "sampleData": true,
+  "contentGenerated": 10,
+  "videoPackagesGenerated": 16,
+  "queueItems": 33,
+  "complianceStatus": "passed",
+  "publishAllowed": false,
+  "nextHumanAction": "Review drafts, inspect compliance report, and approve or reject items manually. No publishing is automated."
+}

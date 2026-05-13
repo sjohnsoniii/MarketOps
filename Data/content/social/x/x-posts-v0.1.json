@@ -1,0 +1,24 @@
+[
+  {
+    "id": "x-marketops-paper-loop-001",
+    "platform": "x",
+    "postText": "MarketOps ran another paper simulation loop: 8 sample vehicles scanned, 8 signals reviewed, 0 approved, 8 blocked. Fake/sample money only while the lab prepares for a possible future launch. Not financial advice.",
+    "sourceReport": "weekly-marketops-field-report-v0.1.md",
+    "contentType": "short_post",
+    "riskLevel": "low",
+    "status": "draft_review_required",
+    "publishAllowed": false,
+    "disclaimerShort": "Paper simulation/sample-data preview only. Not financial advice."
+  },
+  {
+    "id": "x-marketops-risk-desk-002",
+    "platform": "x",
+    "postText": "The MarketOps Risk Desk blocked 8 sample events and approved 0. That is the point of paper simulation: test the process before anything public-facing gets serious. Fake money, sample-data preview, not financial advice.",
+    "sourceReport": "monthly-marketops-lab-report-v0.1.md",
+    "contentType": "short_post",
+    "riskLevel": "low",
+    "status": "draft_review_required",
+    "publishAllowed": false,
+    "disclaimerShort": "Paper simulation/sample-data preview only. Not financial advice."
+  }
+]

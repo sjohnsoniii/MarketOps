@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "0.1",
+  "mode": "local_email_draft_only",
+  "generatedAt": "2026-05-08T12:02:25.241Z",
+  "autoSendEnabled": false,
+  "sendAllowed": false,
+  "smtpConfigured": false,
+  "apiConfigured": false,
+  "credentialsRequired": false,
+  "drafts": [
+    {
+      "id": "email-draft-001",
+      "type": "morning_summary",
+      "subject": "MarketOps Supercruise Morning Summary",
+      "bodyPath": "Docs/Email/morning_summary-email-template-v0.1.md",
+      "status": "DRAFT_ONLY",
+      "sendAllowed": false,
+      "reason": "Step 0 does not enable email sending."
+    },
+    {
+      "id": "email-draft-002",
+      "type": "blocked_task",
+      "subject": "MarketOps Blocked Task Notice",
+      "bodyPath": "Docs/Email/blocked_task-email-template-v0.1.md",
+      "status": "DRAFT_ONLY",
+      "sendAllowed": false,
+      "reason": "Step 0 does not enable email sending."
+    },
+    {
+      "id": "email-draft-003",
+      "type": "approval_needed",
+      "subject": "MarketOps Approval Needed",
+      "bodyPath": "Docs/Email/approval_needed-email-template-v0.1.md",
+      "status": "DRAFT_ONLY",
+      "sendAllowed": false,
+      "reason": "Step 0 does not enable email sending."
+    },
+    {
+      "id": "email-draft-004",
+      "type": "step0_complete",
+      "subject": "MarketOps Step 0 Complete",
+      "bodyPath": "Docs/Email/step0_complete-email-template-v0.1.md",
+      "status": "DRAFT_ONLY",
+      "sendAllowed": false,
+      "reason": "Step 0 does not enable email sending."
+    },
+    {
+      "id": "email-draft-005",
+      "type": "qa_failure",
+      "subject": "MarketOps QA Failure",
+      "bodyPath": "Docs/Email/qa_failure-email-template-v0.1.md",
+      "status": "DRAFT_ONLY",
+      "sendAllowed": false,
+      "reason": "Step 0 does not enable email sending."
+    }
+  ]
+}

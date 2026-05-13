@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "0.1",
+  "generatedAt": "2026-05-08T12:11:16.079Z",
+  "mode": "supercruise_local_only",
+  "classificationDefault": "internal_only",
+  "outputClassifications": {
+    "logs": "internal_only",
+    "reports": "internal_only",
+    "approvalQueues": "approval_required",
+    "socialPreviews": "approval_required",
+    "signalPreviews": "approval_required",
+    "adminReviewConsole": "approval_required"
+  },
+  "routingRule": [
+    "relevant data/report folder",
+    "approval queue",
+    "admin review console bundle",
+    "morning checklist"
+  ],
+  "newestLogs": [
+    {
+      "path": "Data/logs/20260508-080934-supercruise-output-routing.log",
+      "modifiedAt": "2026-05-08T12:09:34.402Z",
+      "classification": "internal_only"
+    },
+    {
+      "path": "Data/logs/20260508-080254-supercruise-output-routing.log",
+      "modifiedAt": "2026-05-08T12:02:54.736Z",
+      "classification": "internal_only"
+    },
+    {
+      "path": "Data/logs/20260508-080023-supercruise-output-routing.log",
+      "modifiedAt": "2026-05-08T12:00:23.280Z",
+      "classification": "internal_only"
+    },
+    {
+      "path": "Data/logs/marketops-paper-full-20260508-080003.log",
+      "modifiedAt": "2026-05-08T12:00:05.141Z",
+      "classification": "internal_only"
+    },
+    {
+      "path": "Data/logs/20260508-075747-supercruise-output-routing.log",
+      "modifiedAt": "2026-05-08T11:57:47.685Z",
+      "classification": "internal_only"
+    },
+    {
+      "path": "Data/logs/20260508-073957-supercruise-output-routing.log",
+      "modifiedAt": "2026-05-08T11:39:57.546Z",
+      "classification": "internal_only"
+    },
+    {
+      "path": "Data/logs/marketops-paper-full-20260508-073001.log",
+      "modifiedAt": "2026-05-08T11:30:02.705Z",
+      "classification": "internal_only"
+    },
+    {
+      "path": "Data/logs/marketops-paper-full-20260508-070001.log",
+      "modifiedAt": "2026-05-08T11:00:02.053Z",
+      "classification": "internal_only"
+    }
+  ],
+  "newestReports": [
+    {
+      "path": "Reports/marketops-report-index-v0.1.md",
+      "modifiedAt": "2026-05-08T12:11:16.040Z",
+      "classification": "internal_only"
+    },
+    {
+      "path": "Reports/Admin/admin-review-console-qa-report-v0.1.md",
+      "modifiedAt": "2026-05-08T12:11:08.005Z",
+      "classification": "approval_required"
+    },
+    {
+      "path": "Reports/Admin/marketops-admin-review-console-v0.1.md",
+      "modifiedAt": "2026-05-08T12:11:02.058Z",
+      "classification": "approval_required"
+    },
+    {
+      "path": "Reports/Approvals/marketops-approval-queue-v0.1.md",
+      "modifiedAt": "2026-05-08T12:11:02.053Z",
+      "classification": "approval_required"
+    },
+    {
+      "path": "Reports/Overnight/marketops-supercruise-morning-summary-20260508.md",
+      "modifiedAt": "2026-05-08T12:09:34.356Z",
+      "classification": "internal_only"
+    },
+    {
+      "path": "Reports/QA/marketops-supercruise-output-routing-v0.1.md",
+      "modifiedAt": "2026-05-08T12:09:34.353Z",
+      "classification": "internal_only"
+    },
+    {
+      "path": "Reports/Step0/marketops-step0-gap-report-v0.1.md",
+      "modifiedAt": "2026-05-08T12:09:23.499Z",
+      "classification": "internal_only"
+    },
+    {
+      "path": "Reports/Signals/signal-desk-qa-report-v0.1.md",
+      "modifiedAt": "2026-05-08T12:08:30.832Z",
+      "classification": "public_safe_preview"
+    },
+    {
+      "path": "Reports/Automation/marketops-automation-readiness-v0.1.md",
+      "modifiedAt": "2026-05-08T12:08:04.863Z",
+      "classification": "internal_only"
+    },
+    {
+      "path": "Reports/Escalations/email-prep-qa-report-v0.1.md",
+      "modifiedAt": "2026-05-08T12:02:43.489Z",
+      "classification": "internal_only"
+    },
+    {
+      "path": "Reports/Overnight/marketops-supercruise-reporting-emailprep-v0.1.md",
+      "modifiedAt": "2026-05-08T12:02:25.263Z",
+      "classification": "internal_only"
+    },
+    {
+      "path": "Reports/Overnight/marketops-next-morning-review-checklist-v0.1.md",
+      "modifiedAt": "2026-05-08T12:02:25.262Z",
+      "classification": "internal_only"
+    }
+  ],
+  "approvalQueueItems": 35,
+  "pendingApprovals": 35,
+  "externalSendingEnabled": false,
+  "autoApprovalEnabled": false,
+  "checksPassed": 23,
+  "checksFailed": 0
+}

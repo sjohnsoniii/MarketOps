@@ -1,0 +1,24 @@
+[
+  {
+    "id": "facebook-marketops-field-report-001",
+    "platform": "facebook",
+    "postText": "MarketOps is now producing local field report drafts from paper-simulation runs. The latest sample-data preview scanned 8 vehicles, reviewed 8 signals, and kept every output review-gated. Fake/sample money only while preparing for a possible future launch. Not financial advice.",
+    "sourceReport": "weekly-marketops-field-report-v0.1.md",
+    "contentType": "social_post",
+    "riskLevel": "low",
+    "status": "draft_review_required",
+    "publishAllowed": false,
+    "disclaimerShort": "Paper simulation/sample-data preview only. Not financial advice."
+  },
+  {
+    "id": "facebook-marketops-risk-controls-002",
+    "platform": "facebook",
+    "postText": "The most important MarketOps feature right now may be the boring one: the Risk Desk. It blocks weak sample events before they become fake paper trades. This is paper simulation, sample-data preview, and preparation for a possible future launch. Not financial advice.",
+    "sourceReport": "monthly-marketops-lab-report-v0.1.md",
+    "contentType": "social_post",
+    "riskLevel": "low",
+    "status": "draft_review_required",
+    "publishAllowed": false,
+    "disclaimerShort": "Paper simulation/sample-data preview only. Not financial advice."
+  }
+]

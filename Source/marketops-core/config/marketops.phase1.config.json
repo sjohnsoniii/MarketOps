@@ -1,0 +1,16 @@
+{
+  "project": "MarketOps",
+  "version": "core-v0.1-minimal",
+  "mode": "paper_simulation",
+  "paperAccount": {
+    "startingBalance": 10000,
+    "targetBalance": 13000,
+    "currency": "USD"
+  },
+  "safety": {
+    "allowBrokerConnection": false,
+    "allowLiveTrading": false,
+    "allowSmsAlerts": false,
+    "allowSubscriberSignals": false
+  }
+}

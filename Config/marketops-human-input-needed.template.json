@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "0.1",
+  "mode": "local_human_input_template",
+  "generatedAt": "ISO_TIMESTAMP",
+  "items": [
+    {
+      "itemId": "human-input-voice-001",
+      "area": "brand_voice",
+      "question": "Which public MarketOps voice should be used most often?",
+      "whyNeeded": "A consistent voice will make IG/X drafts easier to approve without rewriting every post.",
+      "options": [
+        "brand_voice",
+        "first_person_builder",
+        "hybrid"
+      ],
+      "recommendedChoice": "hybrid",
+      "blocking": false,
+      "safeDefault": "hybrid",
+      "createdAt": "ISO_TIMESTAMP"
+    }
+  ]
+}

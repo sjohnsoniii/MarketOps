@@ -1,0 +1,41 @@
+{
+  "generatedAt": "2026-05-08T12:00:07.985Z",
+  "mode": "paper_simulation",
+  "paperOnly": true,
+  "sampleData": true,
+  "researchEducationalOnly": true,
+  "notFinancialAdvice": true,
+  "noGuarantee": true,
+  "notLiveMarketData": true,
+  "noLiveExecution": true,
+  "externalSendEnabled": false,
+  "alertSendingEnabled": false,
+  "subscriberExecutionEnabled": false,
+  "noBrokerConnection": true,
+  "noSocialAutoPosting": true,
+  "reviewGated": true,
+  "publishAllowed": false,
+  "classificationsSupported": [
+    "observation",
+    "regime_shift",
+    "elevated_risk",
+    "momentum_watch",
+    "volatility_warning",
+    "trend_confirmation",
+    "synthetic_signal_preview",
+    "risk_desk_note"
+  ],
+  "previewCount": 8,
+  "classificationCounts": {
+    "observation": 1,
+    "regime_shift": 1,
+    "elevated_risk": 1,
+    "momentum_watch": 1,
+    "volatility_warning": 1,
+    "trend_confirmation": 1,
+    "synthetic_signal_preview": 1,
+    "risk_desk_note": 1
+  },
+  "workflowSteps": 4,
+  "nextHumanAction": "Review architecture and synthetic previews before any future public-facing signal commentary is drafted."
+}

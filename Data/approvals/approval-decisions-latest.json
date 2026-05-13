@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "0.1",
+  "mode": "local_admin_approval_decisions",
+  "generatedAt": "2026-05-08T19:13:48.023Z",
+  "localOnly": true,
+  "externalSendingEnabled": false,
+  "autoApprovalEnabled": false,
+  "publishAllowed": false,
+  "decisions": [
+    {
+      "id": "approval-20260508-142745-001",
+      "title": "Weekly MarketOps Field Report Draft v0.1",
+      "type": "blog_draft",
+      "platform": null,
+      "decision": "HOLD",
+      "operatorStatus": "hold",
+      "reviewNotes": "Automated local smoke test for admin v0.2; no external action.",
+      "decidedAt": "2026-05-08T19:13:48.021Z",
+      "localOnly": true,
+      "publishAllowed": false,
+      "externalSendingEnabled": false,
+      "effect": "Local review-state update only. No external action occurred."
+    }
+  ],
+  "updatedAt": "2026-05-08T19:13:48.024Z"
+}

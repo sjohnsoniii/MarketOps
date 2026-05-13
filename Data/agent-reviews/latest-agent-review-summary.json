@@ -1,0 +1,42 @@
+{
+  "generatedAt": "2026-05-13T19:41:21.792Z",
+  "runId": "paper-20260513-194121772Z",
+  "mode": "paper_simulation",
+  "paperOnly": true,
+  "sampleData": true,
+  "reviewCadence": "biweekly_digest",
+  "cadence": "biweekly",
+  "nextSuggestedReviewWindow": "2026-05-27",
+  "urgentItemsCount": 0,
+  "routineItemsDeferredCount": 18,
+  "humanReviewLoad": "low",
+  "reviewsGenerated": 12,
+  "proposalCount": 18,
+  "complianceStatus": "passed",
+  "humanReviewRequired": true,
+  "autoApplyAllowed": false,
+  "queuePolicy": {
+    "collectObservationsContinuously": true,
+    "summarizeIntoBiweeklyDigest": true,
+    "dailyHumanQueueItems": false,
+    "urgentInterruptsOnlyFor": [
+      "critical compliance issue",
+      "critical safety or risk issue",
+      "system failure"
+    ]
+  },
+  "reviewFiles": [
+    "coordinator-review-v0.1.md",
+    "market-data-review-v0.1.md",
+    "signal-review-v0.1.md",
+    "risk-desk-review-v0.1.md",
+    "paper-trader-review-v0.1.md",
+    "performance-review-v0.1.md",
+    "staff-writer-review-v0.1.md",
+    "growth-desk-review-v0.1.md",
+    "video-desk-review-v0.1.md",
+    "video-generation-specialist-review-v0.1.md",
+    "avatar-desk-review-v0.1.md",
+    "compliance-desk-review-v0.1.md"
+  ]
+}

@@ -1,0 +1,861 @@
+{
+  "generatedAt": "2026-05-09T01:00:03.437Z",
+  "dashboardVersion": "marketops-public-safe-dashboard-v0.1",
+  "mode": "paper_simulation",
+  "paperOnly": true,
+  "sampleData": true,
+  "dataSource": "alpaca_iex",
+  "marketDataMode": "real_market_data_for_paper_simulation",
+  "latestMarketDataRefreshAt": "2026-05-09T01:00:02.339Z",
+  "latestAlpacaBarTimestamp": "2026-05-08T13:47:00Z",
+  "liveTradingEnabled": false,
+  "orderPlacementEnabled": false,
+  "notFinancialAdvice": true,
+  "notLiveMarketData": true,
+  "noBrokerConnection": true,
+  "noSocialAutoPosting": true,
+  "publicSafe": true,
+  "dashboardCards": {
+    "currentPaperPerformance": {
+      "startingEquity": 10000,
+      "endingEquity": 9934.92,
+      "paperPnl": -65.08,
+      "paperReturnPct": -0.65,
+      "maxDrawdownPct": -0.65,
+      "riskAdjustedScore": 42.4
+    },
+    "signalFunnel": {
+      "vehiclesScanned": 8,
+      "marketBarsScanned": 100,
+      "signalsReviewed": 8,
+      "candidates": 0,
+      "riskApproved": 0,
+      "riskBlocked": 8,
+      "fakePaperTrades": 0,
+      "conversionRates": {
+        "candidateRatePct": 0,
+        "approvalRatePct": 0,
+        "fakeTradeRatePct": 0
+      },
+      "chartSteps": [
+        {
+          "label": "Vehicles",
+          "value": 8
+        },
+        {
+          "label": "Signals",
+          "value": 8
+        },
+        {
+          "label": "Candidates",
+          "value": 0
+        },
+        {
+          "label": "Risk approved",
+          "value": 0
+        },
+        {
+          "label": "Fake paper trades",
+          "value": 0
+        }
+      ]
+    },
+    "tradeOutcomeDistribution": {
+      "wins": 0,
+      "losses": 2,
+      "flats": 0,
+      "winRatePct": 0,
+      "averageTradePnl": -32.54,
+      "averageTradeReturnPct": -3.15,
+      "longestWinStreak": 0,
+      "longestLossStreak": 2,
+      "outcomeBars": [
+        {
+          "label": "Wins",
+          "value": 0
+        },
+        {
+          "label": "Losses",
+          "value": 2
+        },
+        {
+          "label": "Flat",
+          "value": 0
+        }
+      ],
+      "publicTradeRows": []
+    },
+    "riskEventSummary": {
+      "approvedCount": 0,
+      "blockedCount": 8,
+      "approvalRatePct": 0,
+      "blockedRatePct": 100,
+      "finalRiskLevelCounts": {
+        "blocked": 8
+      },
+      "originalRiskLevelCounts": {
+        "low": 5,
+        "blocked": 3
+      },
+      "topBlockReasons": [
+        {
+          "reason": "Signal did not qualify as a candidate.",
+          "count": 8
+        },
+        {
+          "reason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+          "count": 8
+        },
+        {
+          "reason": "Confidence sample-threshold is below minimum sample-threshold.",
+          "count": 5
+        },
+        {
+          "reason": "Confidence 0 is below minimum sample-threshold.",
+          "count": 3
+        },
+        {
+          "reason": "Missing invalidation.",
+          "count": 3
+        }
+      ]
+    },
+    "regimeSummary": {
+      "regimesCompared": 6,
+      "strongestPaperRegime": "melt_up",
+      "weakestPaperRegime": "panic_drawdown",
+      "worstSyntheticDrawdownRegime": "panic_drawdown",
+      "activeRegimes": [
+        "trend_up",
+        "melt_up"
+      ],
+      "inactiveRegimes": [
+        "trend_down",
+        "choppy_sideways",
+        "panic_drawdown",
+        "low_volatility_drift"
+      ],
+      "averageRegimeScore": 60.35,
+      "regimeScoreBars": [
+        {
+          "regime": "trend_up",
+          "score": 82.1,
+          "strategyReturnPct": 3.57,
+          "syntheticPeriodDrawdownPct": -0.12,
+          "tradeCount": 4
+        },
+        {
+          "regime": "trend_down",
+          "score": 46,
+          "strategyReturnPct": 0,
+          "syntheticPeriodDrawdownPct": -5.62,
+          "tradeCount": 0
+        },
+        {
+          "regime": "choppy_sideways",
+          "score": 46,
+          "strategyReturnPct": 0,
+          "syntheticPeriodDrawdownPct": -0.67,
+          "tradeCount": 0
+        },
+        {
+          "regime": "panic_drawdown",
+          "score": 42,
+          "strategyReturnPct": 0,
+          "syntheticPeriodDrawdownPct": -15.35,
+          "tradeCount": 0
+        },
+        {
+          "regime": "low_volatility_drift",
+          "score": 46,
+          "strategyReturnPct": 0,
+          "syntheticPeriodDrawdownPct": -0.02,
+          "tradeCount": 0
+        },
+        {
+          "regime": "melt_up",
+          "score": 100,
+          "strategyReturnPct": 14.49,
+          "syntheticPeriodDrawdownPct": -0.55,
+          "tradeCount": 5
+        }
+      ],
+      "syntheticBenchmarkComparison": [
+        {
+          "regime": "trend_up",
+          "strategyReturnPct": 3.57,
+          "benchmarkReturnPct": 6.43,
+          "benchmarkComparisonPct": -2.86
+        },
+        {
+          "regime": "trend_down",
+          "strategyReturnPct": 0,
+          "benchmarkReturnPct": -5.92,
+          "benchmarkComparisonPct": 5.92
+        },
+        {
+          "regime": "choppy_sideways",
+          "strategyReturnPct": 0,
+          "benchmarkReturnPct": -0.1,
+          "benchmarkComparisonPct": 0.1
+        },
+        {
+          "regime": "panic_drawdown",
+          "strategyReturnPct": 0,
+          "benchmarkReturnPct": -15.78,
+          "benchmarkComparisonPct": 15.78
+        },
+        {
+          "regime": "low_volatility_drift",
+          "strategyReturnPct": 0,
+          "benchmarkReturnPct": 0.79,
+          "benchmarkComparisonPct": -0.79
+        },
+        {
+          "regime": "melt_up",
+          "strategyReturnPct": 14.49,
+          "benchmarkReturnPct": 23.82,
+          "benchmarkComparisonPct": -9.33
+        }
+      ]
+    },
+    "contentGenerationStats": {
+      "contentGenerated": 10,
+      "queueItems": 33,
+      "complianceStatus": "passed",
+      "publishAllowed": false,
+      "draftReviewRequiredCount": 33,
+      "publishBlockedCount": 33,
+      "contentTypeCounts": {
+        "blog_report": 2,
+        "case_study": 1,
+        "social_post": 8,
+        "faceless_video_script": 3,
+        "avatar_presenter_script": 3,
+        "video_generation_package": 16
+      },
+      "platformCounts": {
+        "x": 2,
+        "instagram": 2,
+        "facebook": 2,
+        "linkedin": 2,
+        "IG Reels": 4,
+        "TikTok": 4,
+        "YouTube Shorts": 4,
+        "X Video": 4
+      }
+    },
+    "agentReviewStats": {
+      "reviewsGenerated": 12,
+      "proposalCount": 18,
+      "reviewCadence": "biweekly_digest",
+      "cadence": "biweekly",
+      "nextSuggestedReviewWindow": "2026-05-23",
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 18,
+      "humanReviewLoad": "low",
+      "complianceStatus": "passed",
+      "humanReviewRequired": true,
+      "autoApplyAllowed": false
+    },
+    "marketDataHeartbeat": {
+      "dataSource": "alpaca_iex",
+      "generatedAt": "2026-05-09T01:00:02.339Z",
+      "latestBarTimestamp": "2026-05-08T13:47:00Z",
+      "barsLoaded": 100,
+      "quotesLoaded": 5,
+      "paperOnly": true,
+      "liveTradingEnabled": false
+    }
+  },
+  "charts": {
+    "equityCurve": [
+      {
+        "step": 0,
+        "label": "START",
+        "event": "starting_balance",
+        "symbol": "CASH",
+        "equity": 10000,
+        "paperPnl": 0,
+        "drawdownPct": 0,
+        "targetProgressPct": 76.92
+      }
+    ],
+    "rollingEquity": [
+      {
+        "sequence": 1,
+        "generatedAt": "2026-05-08T14:30:01.939Z",
+        "endingEquity": 9934.92,
+        "paperReturnPct": -0.65
+      },
+      {
+        "sequence": 2,
+        "generatedAt": "2026-05-08T15:00:01.914Z",
+        "endingEquity": 9934.92,
+        "paperReturnPct": -0.65
+      },
+      {
+        "sequence": 3,
+        "generatedAt": "2026-05-08T15:30:01.902Z",
+        "endingEquity": 9934.92,
+        "paperReturnPct": -0.65
+      },
+      {
+        "sequence": 4,
+        "generatedAt": "2026-05-08T16:00:01.931Z",
+        "endingEquity": 9934.92,
+        "paperReturnPct": -0.65
+      },
+      {
+        "sequence": 5,
+        "generatedAt": "2026-05-08T16:30:02.012Z",
+        "endingEquity": 9934.92,
+        "paperReturnPct": -0.65
+      },
+      {
+        "sequence": 6,
+        "generatedAt": "2026-05-08T17:00:02.093Z",
+        "endingEquity": 9934.92,
+        "paperReturnPct": -0.65
+      },
+      {
+        "sequence": 7,
+        "generatedAt": "2026-05-08T17:30:02.209Z",
+        "endingEquity": 9934.92,
+        "paperReturnPct": -0.65
+      },
+      {
+        "sequence": 8,
+        "generatedAt": "2026-05-08T18:00:01.901Z",
+        "endingEquity": 9934.92,
+        "paperReturnPct": -0.65
+      },
+      {
+        "sequence": 9,
+        "generatedAt": "2026-05-08T18:30:01.970Z",
+        "endingEquity": 9934.92,
+        "paperReturnPct": -0.65
+      },
+      {
+        "sequence": 10,
+        "generatedAt": "2026-05-08T19:00:02.404Z",
+        "endingEquity": 9934.92,
+        "paperReturnPct": -0.65
+      },
+      {
+        "sequence": 11,
+        "generatedAt": "2026-05-08T19:21:22.131Z",
+        "endingEquity": 9934.92,
+        "paperReturnPct": -0.65
+      },
+      {
+        "sequence": 12,
+        "generatedAt": "2026-05-08T19:28:40.167Z",
+        "endingEquity": 9934.92,
+        "paperReturnPct": -0.65
+      },
+      {
+        "sequence": 13,
+        "generatedAt": "2026-05-08T19:30:02.074Z",
+        "endingEquity": 9934.92,
+        "paperReturnPct": -0.65
+      },
+      {
+        "sequence": 14,
+        "generatedAt": "2026-05-08T19:36:14.336Z",
+        "endingEquity": 9934.92,
+        "paperReturnPct": -0.65
+      },
+      {
+        "sequence": 15,
+        "generatedAt": "2026-05-08T20:00:02.217Z",
+        "endingEquity": 9934.92,
+        "paperReturnPct": -0.65
+      },
+      {
+        "sequence": 16,
+        "generatedAt": "2026-05-08T20:29:20.403Z",
+        "endingEquity": 10000,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 17,
+        "generatedAt": "2026-05-08T20:30:02.473Z",
+        "endingEquity": 10000,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 18,
+        "generatedAt": "2026-05-08T20:33:54.594Z",
+        "endingEquity": 10000,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 19,
+        "generatedAt": "2026-05-08T21:00:02.267Z",
+        "endingEquity": 10000,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 20,
+        "generatedAt": "2026-05-08T21:09:58.176Z",
+        "endingEquity": 10000,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 21,
+        "generatedAt": "2026-05-08T21:30:02.280Z",
+        "endingEquity": 10000,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 22,
+        "generatedAt": "2026-05-08T22:00:02.209Z",
+        "endingEquity": 10000,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 23,
+        "generatedAt": "2026-05-08T22:30:02.263Z",
+        "endingEquity": 10000,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 24,
+        "generatedAt": "2026-05-08T23:00:02.265Z",
+        "endingEquity": 10000,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 25,
+        "generatedAt": "2026-05-09T00:29:55.415Z",
+        "endingEquity": 10000,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 26,
+        "generatedAt": "2026-05-09T00:30:03.786Z",
+        "endingEquity": 10000,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 27,
+        "generatedAt": "2026-05-09T00:35:03.652Z",
+        "endingEquity": 10000,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 28,
+        "generatedAt": "2026-05-09T00:35:17.535Z",
+        "endingEquity": 10000,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 29,
+        "generatedAt": "2026-05-09T00:35:41.110Z",
+        "endingEquity": 10000,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 30,
+        "generatedAt": "2026-05-09T01:00:02.664Z",
+        "endingEquity": 10000,
+        "paperReturnPct": 0
+      }
+    ],
+    "drawdownVisualData": {
+      "currentRun": [
+        {
+          "step": 0,
+          "label": "START",
+          "drawdownPct": 0
+        }
+      ],
+      "rollingRuns": [
+        {
+          "sequence": 1,
+          "generatedAt": "2026-05-08T14:30:01.939Z",
+          "maxDrawdownPct": -0.65
+        },
+        {
+          "sequence": 2,
+          "generatedAt": "2026-05-08T15:00:01.914Z",
+          "maxDrawdownPct": -0.65
+        },
+        {
+          "sequence": 3,
+          "generatedAt": "2026-05-08T15:30:01.902Z",
+          "maxDrawdownPct": -0.65
+        },
+        {
+          "sequence": 4,
+          "generatedAt": "2026-05-08T16:00:01.931Z",
+          "maxDrawdownPct": -0.65
+        },
+        {
+          "sequence": 5,
+          "generatedAt": "2026-05-08T16:30:02.012Z",
+          "maxDrawdownPct": -0.65
+        },
+        {
+          "sequence": 6,
+          "generatedAt": "2026-05-08T17:00:02.093Z",
+          "maxDrawdownPct": -0.65
+        },
+        {
+          "sequence": 7,
+          "generatedAt": "2026-05-08T17:30:02.209Z",
+          "maxDrawdownPct": -0.65
+        },
+        {
+          "sequence": 8,
+          "generatedAt": "2026-05-08T18:00:01.901Z",
+          "maxDrawdownPct": -0.65
+        },
+        {
+          "sequence": 9,
+          "generatedAt": "2026-05-08T18:30:01.970Z",
+          "maxDrawdownPct": -0.65
+        },
+        {
+          "sequence": 10,
+          "generatedAt": "2026-05-08T19:00:02.404Z",
+          "maxDrawdownPct": -0.65
+        },
+        {
+          "sequence": 11,
+          "generatedAt": "2026-05-08T19:21:22.131Z",
+          "maxDrawdownPct": -0.65
+        },
+        {
+          "sequence": 12,
+          "generatedAt": "2026-05-08T19:28:40.167Z",
+          "maxDrawdownPct": -0.65
+        },
+        {
+          "sequence": 13,
+          "generatedAt": "2026-05-08T19:30:02.074Z",
+          "maxDrawdownPct": -0.65
+        },
+        {
+          "sequence": 14,
+          "generatedAt": "2026-05-08T19:36:14.336Z",
+          "maxDrawdownPct": -0.65
+        },
+        {
+          "sequence": 15,
+          "generatedAt": "2026-05-08T20:00:02.217Z",
+          "maxDrawdownPct": -0.65
+        },
+        {
+          "sequence": 16,
+          "generatedAt": "2026-05-08T20:29:20.403Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 17,
+          "generatedAt": "2026-05-08T20:30:02.473Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 18,
+          "generatedAt": "2026-05-08T20:33:54.594Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 19,
+          "generatedAt": "2026-05-08T21:00:02.267Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 20,
+          "generatedAt": "2026-05-08T21:09:58.176Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 21,
+          "generatedAt": "2026-05-08T21:30:02.280Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 22,
+          "generatedAt": "2026-05-08T22:00:02.209Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 23,
+          "generatedAt": "2026-05-08T22:30:02.263Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 24,
+          "generatedAt": "2026-05-08T23:00:02.265Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 25,
+          "generatedAt": "2026-05-09T00:29:55.415Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 26,
+          "generatedAt": "2026-05-09T00:30:03.786Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 27,
+          "generatedAt": "2026-05-09T00:35:03.652Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 28,
+          "generatedAt": "2026-05-09T00:35:17.535Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 29,
+          "generatedAt": "2026-05-09T00:35:41.110Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 30,
+          "generatedAt": "2026-05-09T01:00:02.664Z",
+          "maxDrawdownPct": 0
+        }
+      ]
+    },
+    "signalFunnel": [
+      {
+        "label": "Vehicles",
+        "value": 8
+      },
+      {
+        "label": "Signals",
+        "value": 8
+      },
+      {
+        "label": "Candidates",
+        "value": 0
+      },
+      {
+        "label": "Risk approved",
+        "value": 0
+      },
+      {
+        "label": "Fake paper trades",
+        "value": 0
+      }
+    ],
+    "tradeOutcomeBars": [
+      {
+        "label": "Wins",
+        "value": 0
+      },
+      {
+        "label": "Losses",
+        "value": 2
+      },
+      {
+        "label": "Flat",
+        "value": 0
+      }
+    ],
+    "regimeScoreBars": [
+      {
+        "regime": "trend_up",
+        "score": 82.1,
+        "strategyReturnPct": 3.57,
+        "syntheticPeriodDrawdownPct": -0.12,
+        "tradeCount": 4
+      },
+      {
+        "regime": "trend_down",
+        "score": 46,
+        "strategyReturnPct": 0,
+        "syntheticPeriodDrawdownPct": -5.62,
+        "tradeCount": 0
+      },
+      {
+        "regime": "choppy_sideways",
+        "score": 46,
+        "strategyReturnPct": 0,
+        "syntheticPeriodDrawdownPct": -0.67,
+        "tradeCount": 0
+      },
+      {
+        "regime": "panic_drawdown",
+        "score": 42,
+        "strategyReturnPct": 0,
+        "syntheticPeriodDrawdownPct": -15.35,
+        "tradeCount": 0
+      },
+      {
+        "regime": "low_volatility_drift",
+        "score": 46,
+        "strategyReturnPct": 0,
+        "syntheticPeriodDrawdownPct": -0.02,
+        "tradeCount": 0
+      },
+      {
+        "regime": "melt_up",
+        "score": 100,
+        "strategyReturnPct": 14.49,
+        "syntheticPeriodDrawdownPct": -0.55,
+        "tradeCount": 5
+      }
+    ],
+    "syntheticBenchmarkComparison": [
+      {
+        "regime": "trend_up",
+        "strategyReturnPct": 3.57,
+        "benchmarkReturnPct": 6.43,
+        "benchmarkComparisonPct": -2.86
+      },
+      {
+        "regime": "trend_down",
+        "strategyReturnPct": 0,
+        "benchmarkReturnPct": -5.92,
+        "benchmarkComparisonPct": 5.92
+      },
+      {
+        "regime": "choppy_sideways",
+        "strategyReturnPct": 0,
+        "benchmarkReturnPct": -0.1,
+        "benchmarkComparisonPct": 0.1
+      },
+      {
+        "regime": "panic_drawdown",
+        "strategyReturnPct": 0,
+        "benchmarkReturnPct": -15.78,
+        "benchmarkComparisonPct": 15.78
+      },
+      {
+        "regime": "low_volatility_drift",
+        "strategyReturnPct": 0,
+        "benchmarkReturnPct": 0.79,
+        "benchmarkComparisonPct": -0.79
+      },
+      {
+        "regime": "melt_up",
+        "strategyReturnPct": 14.49,
+        "benchmarkReturnPct": 23.82,
+        "benchmarkComparisonPct": -9.33
+      }
+    ],
+    "quoteSnapshot": [
+      {
+        "symbol": "AAPL",
+        "timestamp": "2026-05-08T20:00:00.000695665Z",
+        "midpoint": 290.07
+      },
+      {
+        "symbol": "QQQ",
+        "timestamp": "2026-05-08T20:59:06.624788919Z",
+        "midpoint": 710.88
+      },
+      {
+        "symbol": "SPY",
+        "timestamp": "2026-05-08T20:04:30.542192962Z",
+        "midpoint": 737.4
+      },
+      {
+        "symbol": "NVDA",
+        "timestamp": "2026-05-08T20:00:00.006650632Z",
+        "midpoint": 217.34
+      },
+      {
+        "symbol": "MSFT",
+        "timestamp": "2026-05-08T20:00:01.973897516Z",
+        "midpoint": 0
+      }
+    ]
+  },
+  "rollingAnalytics": {
+    "runsReviewed": 30,
+    "latestRun": {
+      "sequence": 30,
+      "generatedAt": "2026-05-09T01:00:02.664Z",
+      "endingEquity": 10000,
+      "paperPnl": 0,
+      "paperReturnPct": 0,
+      "maxDrawdownPct": 0,
+      "signalsReviewed": 8,
+      "riskApproved": 0,
+      "riskBlocked": 8,
+      "fakePaperTrades": 0,
+      "qaStatus": "PASS"
+    },
+    "rollingPaperReturnPctValues": [
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "rollingMaxDrawdownPctValues": [
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      -0.65,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "disclaimers": [
+    "Paper simulation only.",
+    "Sample-data preview only.",
+    "Not live market data.",
+    "Not financial advice.",
+    "Not real trading performance.",
+    "No broker, API, payment, or social auto-posting behavior is enabled."
+  ]
+}

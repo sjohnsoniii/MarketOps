@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "marketops-signal-desk-schema-v0.1",
+  "mode": "paper_simulation",
+  "sampleData": true,
+  "purpose": "Future research-alert structure only. Not trade execution, not financial advice, and not live alerts.",
+  "allowedClassifications": [
+    "observation",
+    "regime_shift",
+    "elevated_risk",
+    "momentum_watch",
+    "volatility_warning",
+    "trend_confirmation",
+    "synthetic_signal_preview",
+    "risk_desk_note"
+  ],
+  "requiredFields": [
+    "signalKey",
+    "classification",
+    "title",
+    "vehicle",
+    "researchSummary",
+    "marketObservation",
+    "regimeContext",
+    "riskLabel",
+    "safetyLabels",
+    "reviewStatus",
+    "publishAllowed",
+    "complianceLabels"
+  ],
+  "forbiddenBehaviors": [
+    "live execution",
+    "broker routing",
+    "subscriber account connection",
+    "social auto-posting",
+    "promise-of-outcome language",
+    "entry or exit commands",
+    "copy-trading instructions"
+  ],
+  "workflowStates": [
+    "draft_research",
+    "compliance_review_required",
+    "human_review_required",
+    "approved_for_future_public_research",
+    "rejected_or_archived"
+  ],
+  "defaultState": {
+    "reviewStatus": "human_review_required",
+    "publishAllowed": false,
+    "complianceLabels": {
+      "mode": "paper_simulation",
+      "paperOnly": true,
+      "sampleData": true,
+      "researchEducationalOnly": true,
+      "notFinancialAdvice": true,
+      "noGuarantee": true,
+      "noLiveExecution": true,
+      "noBrokerConnection": true,
+      "noSocialAutoPosting": true,
+      "reviewGated": true,
+      "safetyLabels": [
+        "paper_simulation",
+        "research_only",
+        "not_financial_advice",
+        "no_live_execution",
+        "human_review_required",
+        "sandbox_only"
+      ]
+    }
+  }
+}

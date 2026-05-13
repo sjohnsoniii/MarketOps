@@ -1,0 +1,204 @@
+{
+  "observations": [
+    {
+      "generatedAt": "2026-05-07T21:31:33.356Z",
+      "runId": "paper-20260507-205230619Z",
+      "reviewsGenerated": 11,
+      "proposalCount": 16,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 16,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    },
+    {
+      "generatedAt": "2026-05-07T21:32:02.710Z",
+      "runId": "paper-20260507-205230619Z",
+      "reviewsGenerated": 11,
+      "proposalCount": 16,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 16,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    },
+    {
+      "generatedAt": "2026-05-07T21:33:41.334Z",
+      "runId": "paper-20260507-213341190Z",
+      "reviewsGenerated": 11,
+      "proposalCount": 16,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 16,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    },
+    {
+      "generatedAt": "2026-05-07T21:46:44.339Z",
+      "runId": "paper-20260507-214644209Z",
+      "reviewsGenerated": 11,
+      "proposalCount": 16,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 16,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    },
+    {
+      "generatedAt": "2026-05-07T21:46:52.896Z",
+      "runId": "paper-20260507-214644209Z",
+      "reviewsGenerated": 11,
+      "proposalCount": 16,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 16,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    },
+    {
+      "generatedAt": "2026-05-07T21:47:53.776Z",
+      "runId": "paper-20260507-214753603Z",
+      "reviewsGenerated": 11,
+      "proposalCount": 16,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 16,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    },
+    {
+      "generatedAt": "2026-05-07T22:06:22.949Z",
+      "runId": "paper-20260507-220622801Z",
+      "reviewsGenerated": 11,
+      "proposalCount": 16,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 16,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    },
+    {
+      "generatedAt": "2026-05-07T22:06:32.426Z",
+      "runId": "paper-20260507-220622801Z",
+      "reviewsGenerated": 11,
+      "proposalCount": 16,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 16,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    },
+    {
+      "generatedAt": "2026-05-07T22:07:04.691Z",
+      "runId": "paper-20260507-220704521Z",
+      "reviewsGenerated": 11,
+      "proposalCount": 16,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 16,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    },
+    {
+      "generatedAt": "2026-05-07T23:30:01.706Z",
+      "runId": "paper-20260507-233001558Z",
+      "reviewsGenerated": 11,
+      "proposalCount": 16,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 16,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    },
+    {
+      "generatedAt": "2026-05-08T02:24:51.806Z",
+      "runId": "paper-20260508-022451649Z",
+      "reviewsGenerated": 11,
+      "proposalCount": 16,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 16,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    },
+    {
+      "generatedAt": "2026-05-08T02:25:00.951Z",
+      "runId": "paper-20260508-022451649Z",
+      "reviewsGenerated": 11,
+      "proposalCount": 16,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 16,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    },
+    {
+      "generatedAt": "2026-05-08T19:21:22.338Z",
+      "runId": "paper-20260508-192122131Z",
+      "reviewsGenerated": 12,
+      "proposalCount": 18,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 18,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    },
+    {
+      "generatedAt": "2026-05-08T19:21:32.815Z",
+      "runId": "paper-20260508-192122131Z",
+      "reviewsGenerated": 12,
+      "proposalCount": 18,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 18,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    },
+    {
+      "generatedAt": "2026-05-08T19:28:40.312Z",
+      "runId": "paper-20260508-192840167Z",
+      "reviewsGenerated": 12,
+      "proposalCount": 18,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 18,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    },
+    {
+      "generatedAt": "2026-05-08T19:28:42.000Z",
+      "runId": "paper-20260508-192840167Z",
+      "reviewsGenerated": 12,
+      "proposalCount": 18,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 18,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    },
+    {
+      "generatedAt": "2026-05-08T19:36:14.532Z",
+      "runId": "paper-20260508-193614336Z",
+      "reviewsGenerated": 12,
+      "proposalCount": 18,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 18,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    },
+    {
+      "generatedAt": "2026-05-09T00:29:55.738Z",
+      "runId": "paper-20260509-002955415Z",
+      "reviewsGenerated": 12,
+      "proposalCount": 18,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 18,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    },
+    {
+      "generatedAt": "2026-05-13T19:40:21.843Z",
+      "runId": "paper-20260513-194021818Z",
+      "reviewsGenerated": 12,
+      "proposalCount": 18,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 18,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    },
+    {
+      "generatedAt": "2026-05-13T19:41:21.792Z",
+      "runId": "paper-20260513-194121772Z",
+      "reviewsGenerated": 12,
+      "proposalCount": 18,
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 18,
+      "humanReviewLoad": "low",
+      "autoApplyAllowed": false
+    }
+  ]
+}

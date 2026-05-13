@@ -1,0 +1,58 @@
+[
+  {
+    "symbol": "SPY",
+    "name": "SPDR S&P 500 ETF Trust",
+    "assetType": "ETF",
+    "universe": "benchmark_context",
+    "active": true
+  },
+  {
+    "symbol": "QQQ",
+    "name": "Invesco QQQ Trust",
+    "assetType": "ETF",
+    "universe": "benchmark_context",
+    "active": true
+  },
+  {
+    "symbol": "AAPL",
+    "name": "Apple Inc.",
+    "assetType": "EQUITY",
+    "universe": "large_cap_sample",
+    "active": true
+  },
+  {
+    "symbol": "MSFT",
+    "name": "Microsoft Corporation",
+    "assetType": "EQUITY",
+    "universe": "large_cap_sample",
+    "active": true
+  },
+  {
+    "symbol": "NVDA",
+    "name": "NVIDIA Corporation",
+    "assetType": "EQUITY",
+    "universe": "large_cap_sample",
+    "active": true
+  },
+  {
+    "symbol": "BTC",
+    "name": "Bitcoin",
+    "assetType": "CRYPTO",
+    "universe": "crypto_major_sample",
+    "active": true
+  },
+  {
+    "symbol": "ETH",
+    "name": "Ethereum",
+    "assetType": "CRYPTO",
+    "universe": "crypto_major_sample",
+    "active": true
+  },
+  {
+    "symbol": "SOL",
+    "name": "Solana",
+    "assetType": "CRYPTO",
+    "universe": "crypto_major_sample",
+    "active": true
+  }
+]

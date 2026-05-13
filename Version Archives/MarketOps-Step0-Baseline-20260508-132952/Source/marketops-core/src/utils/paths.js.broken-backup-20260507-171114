@@ -1,0 +1,73 @@
+const path = require("path");
+
+const coreRoot = path.join(__dirname, "..", "..");
+const projectRoot = path.join(coreRoot, "..", "..");
+const dataRoot = path.join(projectRoot, "Data");
+const paperRoot = path.join(dataRoot, "paper");
+const historyRoot = path.join(paperRoot, "history");
+const logsRoot = path.join(dataRoot, "logs");
+const contentRoot = path.join(dataRoot, "content");`r`nconst agentReviewsRoot = path.join(dataRoot, "agent-reviews");`r`nconst agentReviewsArchiveRoot = path.join(agentReviewsRoot, "archive");
+const contentBlogsRoot = path.join(contentRoot, "blogs");
+const contentReportsRoot = path.join(contentRoot, "reports");
+const contentSocialRoot = path.join(contentRoot, "social");
+const contentVideoRoot = path.join(contentRoot, "video");
+const contentAvatarRoot = path.join(contentRoot, "avatar");
+const contentQueueRoot = path.join(contentRoot, "queue");
+const contentComplianceRoot = path.join(contentRoot, "compliance");
+const contentArchiveRoot = path.join(contentRoot, "archive");
+const sj3labsRoot = path.join(projectRoot, "..", "sj3labs");
+const sj3labsMarketOpsDataRoot = path.join(sj3labsRoot, "data", "marketops");
+
+const paths = {
+  coreRoot,
+  projectRoot,
+  dataRoot,
+  config: path.join(coreRoot, "config", "marketops.phase1.config.json"),
+  sampleVehicles: path.join(dataRoot, "sample", "sample-vehicles-v0.1.json"),
+  sampleMarketBars: path.join(dataRoot, "sample", "sample-market-bars-v0.1.json"),
+  signalsJson: path.join(paperRoot, "signals", "signal-scan-v0.1.json"),
+  riskJson: path.join(paperRoot, "risk", "risk-decisions-v0.1.json"),
+  tradesJson: path.join(paperRoot, "trades", "paper-trades-v0.1.json"),
+  equityJson: path.join(paperRoot, "equity", "equity-curve-v0.1.json"),
+  dashboardJson: path.join(paperRoot, "dashboard", "dashboard-bundle-v0.1.json"),
+  historyRoot,
+  logsRoot,
+  runHistoryJson: path.join(historyRoot, "run-history.json"),
+  latestRunSummaryJson: path.join(historyRoot, "latest-run-summary.json"),
+  contentRoot,`r`n  agentReviewsRoot,`r`n  agentReviewsArchiveRoot,`r`n  latestAgentReviewSummaryJson: path.join(agentReviewsRoot, "latest-agent-review-summary.json"),`r`n  improvementBacklog: path.join(agentReviewsRoot, "improvement-backlog-v0.1.md"),`r`n  monthlyHumanReviewBrief: path.join(agentReviewsRoot, "monthly-human-review-brief-v0.1.md"),`r`n  coordinatorReview: path.join(agentReviewsRoot, "coordinator-review-v0.1.md"),`r`n  marketDataReview: path.join(agentReviewsRoot, "market-data-review-v0.1.md"),`r`n  signalReview: path.join(agentReviewsRoot, "signal-review-v0.1.md"),`r`n  riskDeskReview: path.join(agentReviewsRoot, "risk-desk-review-v0.1.md"),`r`n  paperTraderReview: path.join(agentReviewsRoot, "paper-trader-review-v0.1.md"),`r`n  performanceReview: path.join(agentReviewsRoot, "performance-review-v0.1.md"),`r`n  staffWriterReview: path.join(agentReviewsRoot, "staff-writer-review-v0.1.md"),`r`n  growthDeskReview: path.join(agentReviewsRoot, "growth-desk-review-v0.1.md"),`r`n  videoDeskReview: path.join(agentReviewsRoot, "video-desk-review-v0.1.md"),`r`n  avatarDeskReview: path.join(agentReviewsRoot, "avatar-desk-review-v0.1.md"),`r`n  complianceDeskReview: path.join(agentReviewsRoot, "compliance-desk-review-v0.1.md"),`r`n  contentBlogsRoot,
+  contentReportsRoot,
+  contentSocialRoot,
+  contentSocialXRoot: path.join(contentSocialRoot, "x"),
+  contentSocialInstagramRoot: path.join(contentSocialRoot, "instagram"),
+  contentSocialFacebookRoot: path.join(contentSocialRoot, "facebook"),
+  contentSocialLinkedinRoot: path.join(contentSocialRoot, "linkedin"),
+  contentVideoRoot,
+  contentAvatarRoot,
+  contentQueueRoot,
+  contentComplianceRoot,
+  contentArchiveRoot,
+  weeklyMarketOpsFieldReport: path.join(contentBlogsRoot, "weekly-marketops-field-report-v0.1.md"),
+  monthlyMarketOpsLabReport: path.join(contentBlogsRoot, "monthly-marketops-lab-report-v0.1.md"),
+  tradeCaseStudyReport: path.join(contentReportsRoot, "trade-case-study-v0.1.md"),
+  socialPackJson: path.join(contentSocialRoot, "social-pack-v0.1.json"),
+  socialPackMarkdown: path.join(contentSocialRoot, "social-pack-v0.1.md"),
+  facelessVideoPack: path.join(contentVideoRoot, "faceless-video-pack-v0.1.md"),
+  avatarPresenterPack: path.join(contentAvatarRoot, "avatar-presenter-pack-v0.1.md"),
+  contentQueueJson: path.join(contentQueueRoot, "content-queue-v0.1.json"),
+  latestOfficeRunSummaryJson: path.join(contentQueueRoot, "latest-office-run-summary.json"),
+  contentComplianceReport: path.join(contentComplianceRoot, "content-compliance-report-v0.1.md"),
+  sj3labsRoot,
+  sj3labsMarketOpsDataRoot,
+  siteDashboardPublicV04Json: path.join(sj3labsMarketOpsDataRoot, "dashboard-bundle-public-v0.4.json"),
+  reportsDir: path.join(paperRoot, "reports"),
+  signalReport: path.join(paperRoot, "reports", "signal-scan-v0.1.md"),
+  riskReport: path.join(paperRoot, "reports", "risk-desk-v0.1.md"),
+  tradesReport: path.join(paperRoot, "reports", "paper-trades-v0.1.md"),
+  equityReport: path.join(paperRoot, "reports", "equity-curve-v0.1.md"),
+  performanceReport: path.join(paperRoot, "reports", "performance-summary-v0.1.md"),
+  staffWriterReport: path.join(paperRoot, "reports", "staff-writer-brief-v0.1.md"),
+  qaReport: path.join(paperRoot, "reports", "qa-report-v0.1.md")
+};
+
+module.exports = { paths };
+

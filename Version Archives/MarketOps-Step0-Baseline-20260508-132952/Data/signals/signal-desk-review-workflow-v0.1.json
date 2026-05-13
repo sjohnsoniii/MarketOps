@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-05-08T12:00:07.985Z",
+  "mode": "paper_simulation",
+  "sampleData": true,
+  "researchEducationalOnly": true,
+  "notFinancialAdvice": true,
+  "noGuarantee": true,
+  "noLiveExecution": true,
+  "externalSendEnabled": false,
+  "alertSendingEnabled": false,
+  "subscriberExecutionEnabled": false,
+  "safetyLabels": [
+    "paper_simulation",
+    "research_only",
+    "not_financial_advice",
+    "no_live_execution",
+    "human_review_required",
+    "sandbox_only"
+  ],
+  "workflowVersion": "marketops-signal-desk-workflow-v0.1",
+  "workflow": [
+    {
+      "step": 1,
+      "name": "draft_research",
+      "owner": "Signal Desk",
+      "output": "research note or synthetic signal preview",
+      "publishAllowed": false
+    },
+    {
+      "step": 2,
+      "name": "compliance_review_required",
+      "owner": "Compliance Desk",
+      "output": "label and language check",
+      "publishAllowed": false
+    },
+    {
+      "step": 3,
+      "name": "human_review_required",
+      "owner": "Sam",
+      "output": "approve, reject, or request revision",
+      "publishAllowed": false
+    },
+    {
+      "step": 4,
+      "name": "approved_for_future_public_research",
+      "owner": "Manual publishing process",
+      "output": "future public-safe research commentary only",
+      "publishAllowed": false
+    }
+  ],
+  "guardrails": [
+    "No order execution.",
+    "No broker connection.",
+    "No account connection.",
+    "No social auto-posting.",
+    "No guarantee language.",
+    "No entry or exit commands.",
+    "Every item remains review-gated by default."
+  ]
+}

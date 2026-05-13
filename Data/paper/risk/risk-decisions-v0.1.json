@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-01-03T16:00:00.000Z",
+  "mode": "paper_simulation",
+  "paperOnly": true,
+  "totalSignals": 8,
+  "approvedCount": 0,
+  "blockedCount": 8,
+  "decisions": [
+    {
+      "riskDecisionId": "risk-sample-signal-SPY",
+      "signalId": "sample-signal-SPY",
+      "symbol": "SPY",
+      "assetType": "ETF",
+      "directionBias": "flat",
+      "sampleChangePct": -0.14,
+      "confidence": 0.1,
+      "originalRiskLevel": "low",
+      "approved": false,
+      "mode": "paper_simulation",
+      "paperOnly": true,
+      "finalRiskLevel": "blocked",
+      "blockReasons": [
+        "Signal did not qualify as a candidate.",
+        "Confidence 0.1 is below minimum 0.55.",
+        "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled."
+      ],
+      "notes": "Risk Desk blocked this signal for Phase 1 paper simulation."
+    },
+    {
+      "riskDecisionId": "risk-sample-signal-QQQ",
+      "signalId": "sample-signal-QQQ",
+      "symbol": "QQQ",
+      "assetType": "ETF",
+      "directionBias": "flat",
+      "sampleChangePct": -0.55,
+      "confidence": 0.1,
+      "originalRiskLevel": "low",
+      "approved": false,
+      "mode": "paper_simulation",
+      "paperOnly": true,
+      "finalRiskLevel": "blocked",
+      "blockReasons": [
+        "Signal did not qualify as a candidate.",
+        "Confidence 0.1 is below minimum 0.55.",
+        "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled."
+      ],
+      "notes": "Risk Desk blocked this signal for Phase 1 paper simulation."
+    },
+    {
+      "riskDecisionId": "risk-sample-signal-AAPL",
+      "signalId": "sample-signal-AAPL",
+      "symbol": "AAPL",
+      "assetType": "EQUITY",
+      "directionBias": "flat",
+      "sampleChangePct": -0.03,
+      "confidence": 0.1,
+      "originalRiskLevel": "low",
+      "approved": false,
+      "mode": "paper_simulation",
+      "paperOnly": true,
+      "finalRiskLevel": "blocked",
+      "blockReasons": [
+        "Signal did not qualify as a candidate.",
+        "Confidence 0.1 is below minimum 0.55.",
+        "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled."
+      ],
+      "notes": "Risk Desk blocked this signal for Phase 1 paper simulation."
+    },
+    {
+      "riskDecisionId": "risk-sample-signal-MSFT",
+      "signalId": "sample-signal-MSFT",
+      "symbol": "MSFT",
+      "assetType": "EQUITY",
+      "directionBias": "flat",
+      "sampleChangePct": -0.97,
+      "confidence": 0.1,
+      "originalRiskLevel": "low",
+      "approved": false,
+      "mode": "paper_simulation",
+      "paperOnly": true,
+      "finalRiskLevel": "blocked",
+      "blockReasons": [
+        "Signal did not qualify as a candidate.",
+        "Confidence 0.1 is below minimum 0.55.",
+        "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled."
+      ],
+      "notes": "Risk Desk blocked this signal for Phase 1 paper simulation."
+    },
+    {
+      "riskDecisionId": "risk-sample-signal-NVDA",
+      "signalId": "sample-signal-NVDA",
+      "symbol": "NVDA",
+      "assetType": "EQUITY",
+      "directionBias": "flat",
+      "sampleChangePct": -0.27,
+      "confidence": 0.1,
+      "originalRiskLevel": "low",
+      "approved": false,
+      "mode": "paper_simulation",
+      "paperOnly": true,
+      "finalRiskLevel": "blocked",
+      "blockReasons": [
+        "Signal did not qualify as a candidate.",
+        "Confidence 0.1 is below minimum 0.55.",
+        "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled."
+      ],
+      "notes": "Risk Desk blocked this signal for Phase 1 paper simulation."
+    },
+    {
+      "riskDecisionId": "risk-sample-signal-BTC",
+      "signalId": "sample-signal-BTC",
+      "symbol": "BTC",
+      "assetType": "CRYPTO",
+      "directionBias": "none",
+      "sampleChangePct": 0,
+      "confidence": 0,
+      "originalRiskLevel": "blocked",
+      "approved": false,
+      "mode": "paper_simulation",
+      "paperOnly": true,
+      "finalRiskLevel": "blocked",
+      "blockReasons": [
+        "Signal did not qualify as a candidate.",
+        "Confidence 0 is below minimum 0.55.",
+        "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+        "Missing invalidation."
+      ],
+      "notes": "Risk Desk blocked this signal for Phase 1 paper simulation."
+    },
+    {
+      "riskDecisionId": "risk-sample-signal-ETH",
+      "signalId": "sample-signal-ETH",
+      "symbol": "ETH",
+      "assetType": "CRYPTO",
+      "directionBias": "none",
+      "sampleChangePct": 0,
+      "confidence": 0,
+      "originalRiskLevel": "blocked",
+      "approved": false,
+      "mode": "paper_simulation",
+      "paperOnly": true,
+      "finalRiskLevel": "blocked",
+      "blockReasons": [
+        "Signal did not qualify as a candidate.",
+        "Confidence 0 is below minimum 0.55.",
+        "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+        "Missing invalidation."
+      ],
+      "notes": "Risk Desk blocked this signal for Phase 1 paper simulation."
+    },
+    {
+      "riskDecisionId": "risk-sample-signal-SOL",
+      "signalId": "sample-signal-SOL",
+      "symbol": "SOL",
+      "assetType": "CRYPTO",
+      "directionBias": "none",
+      "sampleChangePct": 0,
+      "confidence": 0,
+      "originalRiskLevel": "blocked",
+      "approved": false,
+      "mode": "paper_simulation",
+      "paperOnly": true,
+      "finalRiskLevel": "blocked",
+      "blockReasons": [
+        "Signal did not qualify as a candidate.",
+        "Confidence 0 is below minimum 0.55.",
+        "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+        "Missing invalidation."
+      ],
+      "notes": "Risk Desk blocked this signal for Phase 1 paper simulation."
+    }
+  ]
+}

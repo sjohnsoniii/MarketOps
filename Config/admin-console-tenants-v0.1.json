@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "0.1",
+  "mode": "local_admin_console_tenants",
+  "defaultTenant": "marketops",
+  "externalSendingEnabled": false,
+  "tenants": [
+    {
+      "tenantId": "marketops",
+      "displayName": "MarketOps",
+      "projectRoot": "C:/Users/sjohn/Desktop/Projects/MarketOps",
+      "contentQueuePath": "Data/content/queue/content-queue-v0.1.json",
+      "reviewStatePath": "Data/content/queue/content-review-state-v0.1.json",
+      "approvedContentPath": "Data/content/queue/approved-content-v0.1.json",
+      "consoleOutputPath": "Admin/content-approval-console/index.html",
+      "publishAllowedDefault": false
+    }
+  ]
+}

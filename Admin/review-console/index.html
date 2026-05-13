@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MarketOps Supercruise Admin Review</title>
+  <link rel="stylesheet" href="review-console.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <p class="eyebrow">Local-only review console</p>
+      <h1>MarketOps Supercruise Admin Review</h1>
+      <p>This page reviews sandbox outputs only. It cannot post, send, email, trade, publish, call APIs, or connect to brokers.</p>
+      <p class="generated">Generated: <span id="generatedAt">loading local bundle</span></p>
+    </header>
+
+    <section class="status-grid" id="statusGrid" aria-label="Review status summary"></section>
+
+    <section class="filters" aria-label="Filters">
+      <label>Type <select id="typeFilter"><option value="all">All</option></select></label>
+      <label>Risk <select id="riskFilter"><option value="all">All</option></select></label>
+      <label>Status <select id="statusFilter"><option value="all">All</option></select></label>
+      <label>Platform <select id="platformFilter"><option value="all">All</option></select></label>
+    </section>
+
+    <section id="cards" class="cards" aria-label="Review items"></section>
+
+    <section class="instructions">
+      <h2>How to use this console</h2>
+      <p>Review each item and record the decision later in the local approval queue. YES means approved for later manual/gated use only. It never means post now, trade now, email now, signal now, or deploy now.</p>
+    </section>
+  </main>
+  <script src="review-console-bundle-latest.js"></script>
+  <script src="review-console.js"></script>
+</body>
+</html>

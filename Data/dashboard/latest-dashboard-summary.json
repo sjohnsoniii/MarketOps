@@ -1,0 +1,14 @@
+{
+  "generatedAt": "2026-05-09T03:00:03.568Z",
+  "mode": "paper_simulation",
+  "paperOnly": true,
+  "sampleData": true,
+  "notFinancialAdvice": true,
+  "notLiveMarketData": true,
+  "publicSafe": true,
+  "cardsGenerated": 8,
+  "chartSectionsGenerated": 8,
+  "rollingRunsReviewed": 30,
+  "strongestPaperRegime": "melt_up",
+  "weakestPaperRegime": "panic_drawdown"
+}
