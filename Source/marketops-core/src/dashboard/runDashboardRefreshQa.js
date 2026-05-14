@@ -1,0 +1,157 @@
+const fs = require("fs");
+const path = require("path");
+
+const { fileExists, loadJson, writeText } = require("../utils/fileStore");
+const { paths } = require("../utils/paths");
+const { refreshJsonPath, refreshReportPath } = require("./runDashboardRefresh");
+
+const qaReportPath = path.join(paths.projectRoot, "Reports", "Dashboard", "marketops-dashboard-refresh-qa-v0.1.md");
+const localDashboardPath = path.join(paths.projectRoot, "Data", "dashboard", "dashboard-public-safe-v0.1.json");
+const previewHtmlPath = path.join(paths.projectRoot, "Admin", "dashboard-preview", "marketops-dashboard-preview-v0.1.html");
+
+function check(checks, name, passed, detail = "") {
+  checks.push({ name, passed: Boolean(passed), detail });
+}
+
+function readText(filePath) {
+  return fs.existsSync(filePath) ? fs.readFileSync(filePath, "utf8") : "";
+}
+
+function restrictedTerms() {
+  return [
+    ["APCA", "-API-KEY-ID"].join(""),
+    ["APCA", "-API-SECRET-KEY"].join(""),
+    ["ALPACA", "_API_KEY"].join(""),
+    ["COINBASE", "_API_KEY"].join(""),
+    ["BEGIN", " PRIVATE KEY"].join(""),
+    ["C:", "\\Users"].join(""),
+    ["liveTrading", ": true"].join(""),
+    ["orderPlacement", "Enabled\": true"].join("")
+  ];
+}
+
+function scanFiles(files) {
+  const hits = [];
+  files.filter((filePath) => fs.existsSync(filePath)).forEach((filePath) => {
+    const text = readText(filePath);
+    restrictedTerms().forEach((term) => {
+      if (text.includes(term)) hits.push(`${path.relative(paths.projectRoot, filePath)} contains restricted marker`);
+    });
+  });
+  return hits;
+}
+
+function buildReport(checks) {
+  const failed = checks.filter((item) => !item.passed);
+  return `# MarketOps Dashboard Refresh QA v0.1
+
+Generated: ${new Date().toISOString()}
+
+## Result
+
+${failed.length ? "FAIL" : "PASS"}
+
+## Checks
+
+- Passed: ${checks.filter((item) => item.passed).length}
+- Failed: ${failed.length}
+
+## Failed Checks
+
+${failed.length ? failed.map((item) => `- ${item.name}: ${item.detail}`).join("\n") : "- None"}
+`;
+}
+
+function runDashboardRefreshQa() {
+  const checks = [];
+  const packageJson = loadJson(path.join(paths.coreRoot, "package.json"));
+  ["dashboard:refresh", "dashboard:refresh:qa", "dashboard:preview"].forEach((scriptName) => {
+    check(checks, `script exists: ${scriptName}`, Boolean(packageJson.scripts && packageJson.scripts[scriptName]), packageJson.scripts && packageJson.scripts[scriptName]);
+  });
+
+  check(checks, "refresh JSON exists", fileExists(refreshJsonPath), refreshJsonPath);
+  check(checks, "refresh report exists", fileExists(refreshReportPath), refreshReportPath);
+  check(checks, "local dashboard bundle exists", fileExists(localDashboardPath), localDashboardPath);
+  check(checks, "public dashboard bundle exists", fileExists(paths.siteDashboardPublicV04Json), paths.siteDashboardPublicV04Json);
+
+  let summary = null;
+  try {
+    summary = loadJson(refreshJsonPath);
+    check(checks, "refresh JSON valid", true, refreshJsonPath);
+  } catch (error) {
+    check(checks, "refresh JSON valid", false, error.message);
+  }
+
+  if (summary) {
+    check(checks, "refresh status PASS", summary.status === "PASS", summary.status);
+    check(checks, "paperOnly true", summary.paperOnly === true, String(summary.paperOnly));
+    check(checks, "externalEffects false", summary.externalEffects === false, String(summary.externalEffects));
+    check(checks, "publishAllowed false", summary.publishAllowed === false, String(summary.publishAllowed));
+    check(checks, "liveTradingEnabled false", summary.liveTradingEnabled === false, String(summary.liveTradingEnabled));
+    check(checks, "brokerExecutionEnabled false", summary.brokerExecutionEnabled === false, String(summary.brokerExecutionEnabled));
+    check(checks, "socialPostingEnabled false", summary.socialPostingEnabled === false, String(summary.socialPostingEnabled));
+    check(checks, "emailSmsSendingEnabled false", summary.emailSmsSendingEnabled === false, String(summary.emailSmsSendingEnabled));
+    check(checks, "rawMarketDataPublished false", summary.rawMarketDataPublished === false, String(summary.rawMarketDataPublished));
+    check(checks, "market data source/feed present", Boolean(summary.marketData && summary.marketData.source && summary.marketData.feed), JSON.stringify(summary.marketData || {}));
+    check(checks, "market data bars and quotes loaded", Number(summary.marketData && summary.marketData.barsLoaded || 0) > 0 && Number(summary.marketData && summary.marketData.quotesLoaded || 0) > 0, `${summary.marketData && summary.marketData.barsLoaded}/${summary.marketData && summary.marketData.quotesLoaded}`);
+    check(checks, "steps captured", Array.isArray(summary.steps) && summary.steps.length >= 7 && summary.steps.every((step) => step.status === "PASS"), `${summary.steps && summary.steps.length} step(s)`);
+    check(checks, "chart statuses present", Array.isArray(summary.dashboard && summary.dashboard.chartStatuses) && summary.dashboard.chartStatuses.length >= 17, `${summary.dashboard && summary.dashboard.chartStatuses && summary.dashboard.chartStatuses.length}`);
+    check(checks, "required charts updated or fallback-labeled", (summary.dashboard.chartStatuses || []).every((item) => item.status === "updated" || item.fallback === true), "chart status set");
+  }
+
+  let localBundle = null;
+  try {
+    localBundle = loadJson(localDashboardPath);
+    check(checks, "local dashboard JSON valid", true, localDashboardPath);
+  } catch (error) {
+    check(checks, "local dashboard JSON valid", false, error.message);
+  }
+
+  if (localBundle) {
+    ["paperEquityCurve", "paperPnlSeries", "drawdownSeries", "vehicleActivity", "signalRiskCounts", "cumulativePaperPnl", "targetProgress", "tradeOutcomeMix", "riskDecisionMix", "vehicleContribution", "returnVsDrawdownSnapshot", "paperAccountMilestoneStrip", "signalFunnel", "marketDataFreshnessPanel", "recentMarketMovementPanel", "botActivityTimeline", "staleDataWarningPanel"].forEach((key) => {
+      const value = localBundle.charts && localBundle.charts[key];
+      const count = Array.isArray(value) ? value.length : value && Array.isArray(value.currentRun) ? value.currentRun.length : 0;
+      check(checks, `chart non-empty: ${key}`, count > 0, String(count));
+    });
+    check(checks, "local dashboard data source label exists", Boolean(localBundle.dataSource && localBundle.marketDataMode), `${localBundle.dataSource}/${localBundle.marketDataMode}`);
+    check(checks, "freshness labels exist", Boolean(localBundle.dashboardCards && localBundle.dashboardCards.marketDataFreshnessPanel && localBundle.dashboardCards.marketDataFreshnessPanel.refreshFreshnessLabel), "marketDataFreshnessPanel");
+  }
+
+  let publicBundle = null;
+  try {
+    publicBundle = loadJson(paths.siteDashboardPublicV04Json);
+    check(checks, "public dashboard JSON valid", true, paths.siteDashboardPublicV04Json);
+  } catch (error) {
+    check(checks, "public dashboard JSON valid", false, error.message);
+  }
+
+  if (publicBundle) {
+    check(checks, "public paperOnly true", publicBundle.paperOnly === true, String(publicBundle.paperOnly));
+    check(checks, "public externalEffects false", publicBundle.externalEffects === false, String(publicBundle.externalEffects));
+    check(checks, "public publishAllowed false", publicBundle.publishAllowed === false, String(publicBundle.publishAllowed));
+    check(checks, "public liveTradingEnabled false", publicBundle.liveTradingEnabled === false, String(publicBundle.liveTradingEnabled));
+    check(checks, "public bot activity visible", Array.isArray(publicBundle.botActivityTimeline) && publicBundle.botActivityTimeline.length > 0, `${(publicBundle.botActivityTimeline || []).length}`);
+    check(checks, "public freshness visible", Boolean(publicBundle.marketDataFreshnessPanel && publicBundle.marketDataFreshnessPanel.refreshFreshnessLabel), "marketDataFreshnessPanel");
+  }
+
+  const hits = scanFiles([paths.siteDashboardPublicV04Json, localDashboardPath, refreshJsonPath, previewHtmlPath]);
+  check(checks, "public/preview/dashboard outputs contain no restricted markers", hits.length === 0, hits.join("; "));
+
+  writeText(qaReportPath, buildReport(checks));
+  const failed = checks.filter((item) => !item.passed);
+  console.log(failed.length ? "DASHBOARD REFRESH QA FAIL" : "DASHBOARD REFRESH QA PASS");
+  console.log(`checks passed: ${checks.filter((item) => item.passed).length}`);
+  console.log(`checks failed: ${failed.length}`);
+  console.log(`qa report: ${qaReportPath}`);
+  if (failed.length) {
+    failed.forEach((item) => console.log(`FAIL: ${item.name} - ${item.detail}`));
+    process.exitCode = 1;
+  }
+  return { passed: failed.length === 0, checks, qaReportPath };
+}
+
+if (require.main === module) {
+  runDashboardRefreshQa();
+}
+
+module.exports = { qaReportPath, runDashboardRefreshQa };

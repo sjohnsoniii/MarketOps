@@ -36,6 +36,8 @@ function buildReport(bundle) {
   const regimes = bundle.dashboardCards.regimeSummary;
   const content = bundle.dashboardCards.contentGenerationStats;
   const agents = bundle.dashboardCards.agentReviewStats;
+  const market = bundle.dashboardCards.marketDataFreshnessPanel;
+  const stale = bundle.dashboardCards.staleDataWarningPanel;
 
   return `# MarketOps Public-Safe Dashboard Infrastructure v0.1
 
@@ -43,15 +45,20 @@ Generated at: ${bundle.generatedAt}
 
 ## Scope
 
-This dashboard bundle is local and preview-safe. It contains paper simulation metrics, sample-data analytics, synthetic regime summaries, and review-gated operations stats. It does not include live market data, broker integrations, local paths, raw internal IDs, social posting, payments, or private execution details.
+This dashboard bundle is local and preview-safe. It contains paper simulation metrics, derived Alpaca IEX market-data movement where available, synthetic regime summaries, and review-gated operations stats. It does not include broker integrations, local paths, raw internal IDs, social posting, payments, secrets, or private execution details.
 
 ## Safety Labels
 
 - Mode: ${bundle.mode}
 - Paper only: ${bundle.paperOnly}
 - Sample data: ${bundle.sampleData}
+- Real market data inputs: ${bundle.realMarketDataInputs}
+- Data source: ${bundle.dataSource}
+- Market data mode: ${bundle.marketDataMode}
 - Not financial advice: ${bundle.notFinancialAdvice}
-- Not live market data: ${bundle.notLiveMarketData}
+- Not live market data publishing: ${bundle.notLiveMarketData}
+- External effects: ${bundle.externalEffects}
+- Publish allowed: ${bundle.publishAllowed}
 
 ## Paper Performance Cards
 
@@ -99,18 +106,46 @@ This dashboard bundle is local and preview-safe. It contains paper simulation me
 ## Chart-Ready Sections
 
 - Equity curve points: ${bundle.charts.equityCurve.length}
+- Paper P&L timeline points: ${bundle.charts.paperPnlSeries.length}
 - Rolling equity points: ${bundle.charts.rollingEquity.length}
 - Drawdown visual sections: current run and rolling runs
+- Vehicle activity rows: ${bundle.charts.vehicleActivity.length}
+- Signal/risk count rows: ${bundle.charts.signalRiskCounts.length}
+- Cumulative paper P&L points: ${bundle.charts.cumulativePaperPnl.length}
+- Target progress milestones: ${bundle.charts.targetProgress.length}
 - Signal funnel steps: ${bundle.charts.signalFunnel.length}
 - Trade outcome bars: ${bundle.charts.tradeOutcomeBars.length}
+- Risk decision bars: ${bundle.charts.riskDecisionMix.length}
+- Vehicle contribution rows: ${bundle.charts.vehicleContribution.length}
+- Return vs drawdown rows: ${bundle.charts.returnVsDrawdownSnapshot.length}
+- Paper account milestone strip points: ${bundle.charts.paperAccountMilestoneStrip.length}
+- Market data freshness rows: ${bundle.charts.marketDataFreshnessPanel.length}
+- Recent market movement rows: ${bundle.charts.recentMarketMovementPanel.length}
+- Bot activity timeline rows: ${bundle.charts.botActivityTimeline.length}
+- Stale data warning rows: ${bundle.charts.staleDataWarningPanel.length}
 - Regime score bars: ${bundle.charts.regimeScoreBars.length}
 - Synthetic benchmark comparison rows: ${bundle.charts.syntheticBenchmarkComparison.length}
+
+## Market Data Freshness
+
+- Source/feed: ${market.dataSource} / ${market.feed}
+- Market refresh timestamp: ${market.generatedAt}
+- Latest bar timestamp: ${market.latestBarTimestamp}
+- Bars loaded: ${market.barsLoaded}
+- Quotes loaded: ${market.quotesLoaded}
+- Refresh freshness: ${market.refreshFreshnessLabel}
+- Latest bar freshness: ${market.latestBarFreshnessLabel}
+- Raw market data published: ${market.rawMarketDataPublished}
+
+## Stale/Fallback Notes
+
+${stale.warnings.map((item) => `- ${item.item}: ${item.status} - ${item.detail}`).join("\n")}
 
 ## Notes
 
 - This is dashboard infrastructure, not a public performance claim.
 - All IDs and local paths are intentionally excluded.
-- Future public pages should keep the same paper/sample/not-financial-advice labels visible.
+- Public pages should keep the paper-only, fake-money, public-safe derived-data, and not-financial-advice labels visible.
 `;
 }
 
@@ -122,9 +157,16 @@ function runDashboardBuild() {
     mode: bundle.mode,
     paperOnly: bundle.paperOnly,
     sampleData: bundle.sampleData,
+    realMarketDataInputs: bundle.realMarketDataInputs,
+    dataSource: bundle.dataSource,
+    marketDataMode: bundle.marketDataMode,
+    latestMarketDataRefreshAt: bundle.latestMarketDataRefreshAt,
+    latestAlpacaBarTimestamp: bundle.latestAlpacaBarTimestamp,
     notFinancialAdvice: bundle.notFinancialAdvice,
     notLiveMarketData: bundle.notLiveMarketData,
     publicSafe: bundle.publicSafe,
+    externalEffects: bundle.externalEffects,
+    publishAllowed: bundle.publishAllowed,
     cardsGenerated: Object.keys(bundle.dashboardCards).length,
     chartSectionsGenerated: Object.keys(bundle.charts).length,
     rollingRunsReviewed: bundle.rollingAnalytics.runsReviewed,

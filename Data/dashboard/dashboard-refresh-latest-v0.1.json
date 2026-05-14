@@ -1,0 +1,268 @@
+{
+  "schemaVersion": "marketops-dashboard-refresh-v0.1",
+  "generatedAt": "2026-05-14T01:43:27.171Z",
+  "status": "PASS",
+  "errorMessage": null,
+  "mode": "paper_simulation",
+  "paperOnly": true,
+  "externalEffects": false,
+  "publishAllowed": false,
+  "liveTradingEnabled": false,
+  "orderPlacementEnabled": false,
+  "brokerExecutionEnabled": false,
+  "socialPostingEnabled": false,
+  "emailSmsSendingEnabled": false,
+  "rawMarketDataPublished": false,
+  "publicSafe": true,
+  "marketData": {
+    "source": "alpaca_iex",
+    "feed": "iex",
+    "generatedAt": "2026-05-14T01:43:27.072Z",
+    "latestBarTimestamp": "2026-05-13T13:45:00Z",
+    "barsLoaded": 100,
+    "quotesLoaded": 5,
+    "refreshAgeMinutes": 0,
+    "latestBarAgeMinutes": 718.45,
+    "paperOnly": true,
+    "liveTradingEnabled": false
+  },
+  "paper": {
+    "latestRunId": "paper-20260514-014327156Z",
+    "latestRunGeneratedAt": "2026-05-14T01:43:27.156Z",
+    "endingEquity": 10000,
+    "paperPnl": 0,
+    "paperReturnPct": 0,
+    "maxDrawdownPct": 0,
+    "fakePaperTrades": 0,
+    "qaStatus": "PASS"
+  },
+  "dashboard": {
+    "latestBundlePath": "Data/dashboard/dashboard-public-safe-v0.1.json",
+    "publicBundlePath": "../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json",
+    "generatedAt": "2026-05-14T01:43:27.163Z",
+    "publicGeneratedAt": "2026-05-14T01:43:27.167Z",
+    "chartStatuses": [
+      {
+        "label": "Paper equity curve",
+        "key": "paperEquityCurve",
+        "source": "paper_outputs",
+        "fallback": false,
+        "status": "updated",
+        "points": 1
+      },
+      {
+        "label": "Paper P&L",
+        "key": "paperPnlSeries",
+        "source": "paper_run_history",
+        "fallback": false,
+        "status": "updated",
+        "points": 30
+      },
+      {
+        "label": "Drawdown",
+        "key": "drawdownSeries",
+        "source": "paper_outputs",
+        "fallback": false,
+        "status": "updated",
+        "points": 1
+      },
+      {
+        "label": "Vehicle activity",
+        "key": "vehicleActivity",
+        "source": "paper_signals_plus_market_movement",
+        "fallback": false,
+        "status": "updated",
+        "points": 8
+      },
+      {
+        "label": "Signal/risk counts",
+        "key": "signalRiskCounts",
+        "source": "paper_run_history",
+        "fallback": false,
+        "status": "updated",
+        "points": 30
+      },
+      {
+        "label": "Cumulative paper P&L",
+        "key": "cumulativePaperPnl",
+        "source": "paper_trade_outputs",
+        "fallback": false,
+        "status": "updated",
+        "points": 1
+      },
+      {
+        "label": "Progress toward +30% target",
+        "key": "targetProgress",
+        "source": "paper_account_targets",
+        "fallback": false,
+        "status": "updated",
+        "points": 4
+      },
+      {
+        "label": "Trade outcome mix",
+        "key": "tradeOutcomeMix",
+        "source": "paper_trade_outputs",
+        "fallback": false,
+        "status": "updated",
+        "points": 3
+      },
+      {
+        "label": "Risk decision mix",
+        "key": "riskDecisionMix",
+        "source": "risk_outputs",
+        "fallback": false,
+        "status": "updated",
+        "points": 1
+      },
+      {
+        "label": "Vehicle contribution",
+        "key": "vehicleContribution",
+        "source": "paper_outputs_plus_market_movement",
+        "fallback": false,
+        "status": "updated",
+        "points": 8
+      },
+      {
+        "label": "Return vs drawdown snapshot",
+        "key": "returnVsDrawdownSnapshot",
+        "source": "paper_run_history",
+        "fallback": false,
+        "status": "updated",
+        "points": 11
+      },
+      {
+        "label": "Paper account milestone strip",
+        "key": "paperAccountMilestoneStrip",
+        "source": "paper_account_targets",
+        "fallback": false,
+        "status": "updated",
+        "points": 4
+      },
+      {
+        "label": "Signal funnel",
+        "key": "signalFunnel",
+        "source": "paper_signal_outputs",
+        "fallback": false,
+        "status": "updated",
+        "points": 5
+      },
+      {
+        "label": "Market data freshness panel",
+        "key": "marketDataFreshnessPanel",
+        "source": "alpaca_iex_metadata",
+        "fallback": false,
+        "status": "updated",
+        "points": 1
+      },
+      {
+        "label": "Recent market movement panel",
+        "key": "recentMarketMovementPanel",
+        "source": "alpaca_iex_derived_bars",
+        "fallback": false,
+        "status": "updated",
+        "points": 5
+      },
+      {
+        "label": "Bot activity / latest run timeline",
+        "key": "botActivityTimeline",
+        "source": "paper_run_history",
+        "fallback": false,
+        "status": "updated",
+        "points": 20
+      },
+      {
+        "label": "Stale-data warning panel",
+        "key": "staleDataWarningPanel",
+        "source": "freshness_labels",
+        "fallback": false,
+        "status": "updated",
+        "points": 2
+      },
+      {
+        "label": "Regime score bars",
+        "key": "regimeScoreBars",
+        "source": "synthetic_backtest_context",
+        "fallback": true,
+        "status": "updated",
+        "points": 6
+      },
+      {
+        "label": "Synthetic benchmark comparison",
+        "key": "syntheticBenchmarkComparison",
+        "source": "synthetic_backtest_context",
+        "fallback": true,
+        "status": "updated",
+        "points": 6
+      }
+    ],
+    "staleOrFallbackCharts": [
+      {
+        "label": "Regime score bars",
+        "key": "regimeScoreBars",
+        "source": "synthetic_backtest_context",
+        "fallback": true,
+        "status": "updated",
+        "points": 6
+      },
+      {
+        "label": "Synthetic benchmark comparison",
+        "key": "syntheticBenchmarkComparison",
+        "source": "synthetic_backtest_context",
+        "fallback": true,
+        "status": "updated",
+        "points": 6
+      }
+    ]
+  },
+  "steps": [
+    {
+      "command": "npm run marketdata:refresh",
+      "status": "PASS",
+      "startedAt": "2026-05-14T01:43:26.639Z",
+      "completedAt": "2026-05-14T01:43:27.066Z",
+      "detail": "complete"
+    },
+    {
+      "command": "npm run marketdata:qa",
+      "status": "PASS",
+      "startedAt": "2026-05-14T01:43:27.066Z",
+      "completedAt": "2026-05-14T01:43:27.072Z",
+      "detail": "complete"
+    },
+    {
+      "command": "npm run paper:full",
+      "status": "PASS",
+      "startedAt": "2026-05-14T01:43:27.072Z",
+      "completedAt": "2026-05-14T01:43:27.163Z",
+      "detail": "complete"
+    },
+    {
+      "command": "npm run dashboard:build",
+      "status": "PASS",
+      "startedAt": "2026-05-14T01:43:27.163Z",
+      "completedAt": "2026-05-14T01:43:27.167Z",
+      "detail": "complete"
+    },
+    {
+      "command": "npm run paper:refresh-site",
+      "status": "PASS",
+      "startedAt": "2026-05-14T01:43:27.167Z",
+      "completedAt": "2026-05-14T01:43:27.168Z",
+      "detail": "complete"
+    },
+    {
+      "command": "npm run dashboard:qa",
+      "status": "PASS",
+      "startedAt": "2026-05-14T01:43:27.168Z",
+      "completedAt": "2026-05-14T01:43:27.171Z",
+      "detail": "complete"
+    },
+    {
+      "command": "npm run dashboard:public-refresh:qa",
+      "status": "PASS",
+      "startedAt": "2026-05-14T01:43:27.171Z",
+      "completedAt": "2026-05-14T01:43:27.171Z",
+      "detail": "complete"
+    }
+  ]
+}

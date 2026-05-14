@@ -26,19 +26,8 @@ Thumbs.db
 # Heavy/generated runtime output
 Data/logs/
 Data/email-queue/
-Data/market-data/
-Data/paper/history/
-Data/paper/dashboard/
-Data/paper/equity/
-Data/paper/trades/
 Data/approvals/audit/
 Backups/
-
-# Media output
-Media/outputs/
-Media/needs-edit/
-Media/rejected/
-Media/approved/
 
 # Temporary files
 *.tmp

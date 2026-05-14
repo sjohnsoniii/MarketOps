@@ -15,10 +15,27 @@ const requiredSourceFiles = [
 ];
 const requiredChartSections = [
   "equityCurve",
+  "paperEquityCurve",
+  "paperPnlSeries",
   "rollingEquity",
   "drawdownVisualData",
+  "drawdownSeries",
+  "vehicleActivity",
+  "signalRiskCounts",
+  "cumulativePaperPnl",
+  "targetProgress",
   "signalFunnel",
   "tradeOutcomeBars",
+  "tradeOutcomeMix",
+  "riskDecisionMix",
+  "vehicleContribution",
+  "returnVsDrawdownSnapshot",
+  "paperAccountMilestoneStrip",
+  "marketDataFreshnessPanel",
+  "recentMarketMovementPanel",
+  "marketMovementSeries",
+  "botActivityTimeline",
+  "staleDataWarningPanel",
   "regimeScoreBars",
   "syntheticBenchmarkComparison"
 ];
@@ -41,7 +58,17 @@ const requiredPublicMovementFields = [
   "rollingRiskCounts",
   "marketActivityHeartbeat",
   "riskDeskSummary",
-  "noTradeReason"
+  "noTradeReason",
+  "marketDataFreshnessPanel",
+  "recentMarketMovementPanel",
+  "botActivityTimeline",
+  "staleDataWarningPanel",
+  "paperAccountMilestoneStrip",
+  "vehicleContribution",
+  "returnVsDrawdownSnapshot",
+  "externalEffects",
+  "publishAllowed",
+  "rawMarketDataPublished"
 ];
 const requiredCards = [
   "currentPaperPerformance",
@@ -136,12 +163,28 @@ function runDashboardQa() {
     check(checks, "notFinancialAdvice true", bundle.notFinancialAdvice === true, String(bundle.notFinancialAdvice));
     check(checks, "notLiveMarketData true", bundle.notLiveMarketData === true, String(bundle.notLiveMarketData));
     check(checks, "publicSafe true", bundle.publicSafe === true, String(bundle.publicSafe));
+    check(checks, "externalEffects false", bundle.externalEffects === false, String(bundle.externalEffects));
+    check(checks, "publishAllowed false", bundle.publishAllowed === false, String(bundle.publishAllowed));
+    check(checks, "rawMarketDataPublished false", bundle.rawMarketDataPublished === false, String(bundle.rawMarketDataPublished));
     check(checks, "no social auto-posting true", bundle.noSocialAutoPosting === true, String(bundle.noSocialAutoPosting));
     requiredCards.forEach((card) => check(checks, `dashboard card exists: ${card}`, bundle.dashboardCards && Object.prototype.hasOwnProperty.call(bundle.dashboardCards, card), card));
     requiredChartSections.forEach((section) => check(checks, `chart section exists: ${section}`, bundle.charts && Object.prototype.hasOwnProperty.call(bundle.charts, section), section));
     check(checks, "rolling equity is array", Array.isArray(bundle.charts && bundle.charts.rollingEquity), "rollingEquity");
+    check(checks, "paper equity curve has points", Array.isArray(bundle.charts && bundle.charts.paperEquityCurve) && bundle.charts.paperEquityCurve.length > 0, "paperEquityCurve");
+    check(checks, "paper P&L series has points", Array.isArray(bundle.charts && bundle.charts.paperPnlSeries) && bundle.charts.paperPnlSeries.length > 0, "paperPnlSeries");
     check(checks, "drawdown visual data has current run", Array.isArray(bundle.charts && bundle.charts.drawdownVisualData && bundle.charts.drawdownVisualData.currentRun), "currentRun");
+    check(checks, "vehicle activity has rows", Array.isArray(bundle.charts && bundle.charts.vehicleActivity) && bundle.charts.vehicleActivity.length > 0, "vehicleActivity");
+    check(checks, "signal/risk counts have rows", Array.isArray(bundle.charts && bundle.charts.signalRiskCounts) && bundle.charts.signalRiskCounts.length > 0, "signalRiskCounts");
+    check(checks, "cumulative paper P&L has points", Array.isArray(bundle.charts && bundle.charts.cumulativePaperPnl) && bundle.charts.cumulativePaperPnl.length > 0, "cumulativePaperPnl");
+    check(checks, "target progress has milestones", Array.isArray(bundle.charts && bundle.charts.targetProgress) && bundle.charts.targetProgress.length > 0, "targetProgress");
     check(checks, "signal funnel has steps", Array.isArray(bundle.charts && bundle.charts.signalFunnel) && bundle.charts.signalFunnel.length >= 4, "signalFunnel");
+    check(checks, "risk decision mix has bars", Array.isArray(bundle.charts && bundle.charts.riskDecisionMix) && bundle.charts.riskDecisionMix.length > 0, "riskDecisionMix");
+    check(checks, "vehicle contribution has rows", Array.isArray(bundle.charts && bundle.charts.vehicleContribution) && bundle.charts.vehicleContribution.length > 0, "vehicleContribution");
+    check(checks, "return vs drawdown has rows", Array.isArray(bundle.charts && bundle.charts.returnVsDrawdownSnapshot) && bundle.charts.returnVsDrawdownSnapshot.length > 0, "returnVsDrawdownSnapshot");
+    check(checks, "market data freshness exists", Array.isArray(bundle.charts && bundle.charts.marketDataFreshnessPanel) && bundle.charts.marketDataFreshnessPanel.length > 0 && bundle.dashboardCards.marketDataFreshnessPanel && bundle.dashboardCards.marketDataFreshnessPanel.refreshFreshnessLabel, "marketDataFreshnessPanel");
+    check(checks, "recent market movement exists", Array.isArray(bundle.charts && bundle.charts.recentMarketMovementPanel) && bundle.charts.recentMarketMovementPanel.length > 0, "recentMarketMovementPanel");
+    check(checks, "bot activity timeline exists", Array.isArray(bundle.charts && bundle.charts.botActivityTimeline) && bundle.charts.botActivityTimeline.length > 0, "botActivityTimeline");
+    check(checks, "stale data warning panel exists", Array.isArray(bundle.charts && bundle.charts.staleDataWarningPanel) && bundle.charts.staleDataWarningPanel.length > 0, "staleDataWarningPanel");
     check(checks, "agent review auto apply false", bundle.dashboardCards && bundle.dashboardCards.agentReviewStats && bundle.dashboardCards.agentReviewStats.autoApplyAllowed === false, "agentReviewStats");
     check(checks, "content publish allowed false", bundle.dashboardCards && bundle.dashboardCards.contentGenerationStats && bundle.dashboardCards.contentGenerationStats.publishAllowed === false, "contentGenerationStats");
     check(checks, "disclaimers include paper simulation", Array.isArray(bundle.disclaimers) && bundle.disclaimers.some((item) => item.toLowerCase().includes("paper simulation")), "disclaimers");
@@ -161,6 +204,9 @@ function runDashboardQa() {
     check(checks, "public v0.4 paperOnly true", publicBundle.paperOnly === true, String(publicBundle.paperOnly));
     check(checks, "public v0.4 liveTradingEnabled false", publicBundle.liveTradingEnabled === false, String(publicBundle.liveTradingEnabled));
     check(checks, "public v0.4 orderPlacementEnabled false", publicBundle.orderPlacementEnabled === false, String(publicBundle.orderPlacementEnabled));
+    check(checks, "public v0.4 externalEffects false", publicBundle.externalEffects === false, String(publicBundle.externalEffects));
+    check(checks, "public v0.4 publishAllowed false", publicBundle.publishAllowed === false, String(publicBundle.publishAllowed));
+    check(checks, "public v0.4 rawMarketDataPublished false", publicBundle.rawMarketDataPublished === false, String(publicBundle.rawMarketDataPublished));
     requiredPublicMovementFields.forEach((field) => {
       check(checks, `public movement field exists: ${field}`, Object.prototype.hasOwnProperty.call(publicBundle, field), field);
     });
@@ -168,6 +214,10 @@ function runDashboardQa() {
     check(checks, "public v0.4 timestamps are populated", Boolean(publicBundle.generatedAt && publicBundle.lastRefreshAt && publicBundle.nextExpectedRefreshAt), `${publicBundle.generatedAt} / ${publicBundle.lastRefreshAt} / ${publicBundle.nextExpectedRefreshAt}`);
     check(checks, "public v0.4 bars and quotes loaded", Number(publicBundle.barsLoaded || 0) > 0 && Number(publicBundle.quotesLoaded || 0) > 0, `${publicBundle.barsLoaded}/${publicBundle.quotesLoaded}`);
     check(checks, "public v0.4 movers available without trades", Array.isArray(publicBundle.topWatchlistMovers) && publicBundle.topWatchlistMovers.length > 0, `${(publicBundle.topWatchlistMovers || []).length} mover(s)`);
+    check(checks, "public v0.4 market freshness labels exist", publicBundle.marketDataFreshnessPanel && publicBundle.marketDataFreshnessPanel.refreshFreshnessLabel && publicBundle.marketDataFreshnessPanel.latestBarFreshnessLabel, "marketDataFreshnessPanel");
+    check(checks, "public v0.4 bot activity timeline exists", Array.isArray(publicBundle.botActivityTimeline) && publicBundle.botActivityTimeline.length > 0, `${(publicBundle.botActivityTimeline || []).length} rows`);
+    check(checks, "public v0.4 stale warning labels exist", Array.isArray(publicBundle.staleDataWarningPanel) && publicBundle.staleDataWarningPanel.length > 0, `${(publicBundle.staleDataWarningPanel || []).length} rows`);
+    check(checks, "public v0.4 vehicle contribution exists", Array.isArray(publicBundle.vehicleContribution) && publicBundle.vehicleContribution.length > 0, `${(publicBundle.vehicleContribution || []).length} rows`);
     check(checks, "public v0.4 no-trade reason available when no trades", publicBundle.fakePaperTradeCount > 0 || Boolean(publicBundle.noTradeReason), publicBundle.noTradeReason || "trades present");
   }
 

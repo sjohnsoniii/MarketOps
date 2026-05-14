@@ -78,6 +78,66 @@ function buildRollingDashboardHistory(runHistory) {
   }));
 }
 
+function minutesOld(timestamp, now = new Date()) {
+  if (!timestamp || Number.isNaN(Date.parse(timestamp))) return null;
+  return round((now.getTime() - new Date(timestamp).getTime()) / 60000);
+}
+
+function freshnessLabel(ageMinutes, freshLimit, staleLimit) {
+  if (ageMinutes == null) return "missing";
+  if (ageMinutes <= freshLimit) return "fresh";
+  if (ageMinutes <= staleLimit) return "aging";
+  return "stale_or_market_closed";
+}
+
+function buildBotActivityTimeline(rollingHistory) {
+  return rollingHistory.slice(-20).map((run, index, runs) => {
+    const previous = index > 0 ? runs[index - 1] : null;
+    const gapMinutes = previous && run.generatedAt && previous.generatedAt
+      ? round((new Date(run.generatedAt).getTime() - new Date(previous.generatedAt).getTime()) / 60000)
+      : null;
+    return {
+      generatedAt: run.generatedAt,
+      endingEquity: run.endingEquity,
+      paperPnl: run.paperPnl,
+      signalsReviewed: run.signalsReviewed,
+      riskApproved: run.riskApproved,
+      riskBlocked: run.riskBlocked,
+      fakePaperTrades: run.fakePaperTrades,
+      qaStatus: run.qaStatus,
+      gapMinutes,
+      cadenceLabel: gapMinutes == null ? "timeline_start" : gapMinutes <= 45 ? "roughly_30_minute_cadence" : "manual_or_scheduler_gap"
+    };
+  });
+}
+
+function buildStaleWarnings({ generatedAt, latestMarketDataRefreshAt, latestBarTimestamp, rollingHistory }) {
+  const warnings = [];
+  const now = new Date(generatedAt);
+  const marketRefreshAgeMinutes = minutesOld(latestMarketDataRefreshAt, now);
+  const latestBarAgeMinutes = minutesOld(latestBarTimestamp, now);
+  const latestRun = rollingHistory[rollingHistory.length - 1] || null;
+  const latestRunAgeMinutes = latestRun ? minutesOld(latestRun.generatedAt, now) : null;
+
+  if (marketRefreshAgeMinutes == null) {
+    warnings.push({ item: "market_data_refresh", status: "missing", detail: "No market-data refresh timestamp is available." });
+  } else if (marketRefreshAgeMinutes > 120) {
+    warnings.push({ item: "market_data_refresh", status: "aging", detail: `Market data refreshed ${marketRefreshAgeMinutes} minutes before this public bundle.` });
+  }
+  if (latestBarAgeMinutes != null && latestBarAgeMinutes > 390) {
+    warnings.push({ item: "latest_market_bar", status: "market_closed_or_delayed", detail: `Latest market bar is ${latestBarAgeMinutes} minutes old; do not present as live tick data.` });
+  }
+  if (latestRunAgeMinutes != null && latestRunAgeMinutes > 75) {
+    warnings.push({ item: "paper_run", status: "stale", detail: `Latest paper run is ${latestRunAgeMinutes} minutes old.` });
+  }
+
+  return warnings.length ? warnings : [{
+    item: "dashboard_inputs",
+    status: "clear",
+    detail: "Latest public-safe bundle, paper run, and market-data refresh are aligned for local preview."
+  }];
+}
+
 function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), runHistorySummary = null } = {}) {
   const config = loadConfig();
   const signals = loadJson(paths.signalsJson);
@@ -118,11 +178,33 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
   const quoteSnapshot = buildQuoteSnapshot(alpacaMarketData);
   const rollingHistory = buildRollingDashboardHistory(runHistory);
   const fakePaperTradeCount = paperResults.executedTrades || 0;
+  const currentGain = endingEquity - startingBalance;
+  const targetGain = targetBalance - startingBalance;
+  const targetProgressPct = targetGain ? round((currentGain / targetGain) * 100) : 0;
+  const movementBySymbol = movementPreview.reduce((acc, item) => {
+    acc[item.symbol] = item;
+    return acc;
+  }, {});
+  const pnlBySymbol = (paperResults.trades || []).reduce((acc, trade) => {
+    acc[trade.symbol] = round((acc[trade.symbol] || 0) + Number(trade.realizedPnl || 0));
+    return acc;
+  }, {});
+  const publicSafeVehicleContribution = (signals.signals || []).map((signal) => ({
+    vehicle: signal.symbol,
+    fakePaperPnl: round(pnlBySymbol[signal.symbol] || 0),
+    marketChangePct: round((movementBySymbol[signal.symbol] && movementBySymbol[signal.symbol].changePct) || signal.sampleChangePct || 0),
+    dataSource: signal.dataSource || dataSource,
+    paperOnly: true
+  }));
+  const marketRefreshAgeMinutes = minutesOld(latestMarketDataRefreshAt, new Date(generatedAt));
+  const latestBarAgeMinutes = minutesOld(latestBarTimestamp, new Date(generatedAt));
+  const staleDataWarnings = buildStaleWarnings({ generatedAt, latestMarketDataRefreshAt, latestBarTimestamp, rollingHistory });
 
   return {
     mode: "paper_simulation",
     paperOnly: true,
     dataSource,
+    realMarketDataInputs: dataSource === "alpaca_iex",
     marketDataSourceLabel: dataSource === "alpaca_iex" ? "Alpaca IEX market data" : "deterministic sample data",
     marketDataMode: dataSource === "alpaca_iex" ? "real_market_data_for_paper_simulation" : "deterministic_sample_for_paper_simulation",
     latestMarketDataRefreshAt,
@@ -138,6 +220,9 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
     latestBarTimestamp,
     liveTradingEnabled: false,
     orderPlacementEnabled: false,
+    externalEffects: false,
+    publishAllowed: false,
+    rawMarketDataPublished: false,
     paperOnlyStatus: "paper_simulation_only",
     sampleData: true,
     fakeMoney: true,
@@ -158,6 +243,8 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
     paperPnl: round(endingEquity - startingBalance),
     paperReturnPct: round(((endingEquity - startingBalance) / startingBalance) * 100),
     maxDrawdownPct: equityCurve.maxDrawdownPct,
+    targetProgressPct,
+    remainingToThirtyPctTarget: round(targetBalance - endingEquity),
     vehiclesScanned: signals.totalVehicles || signalsReviewed,
     signalsReviewed,
     riskApproved: riskReview.approvedCount,
@@ -185,8 +272,24 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
       paperOnly: true,
       liveTradingEnabled: false
     },
+    marketDataFreshnessPanel: {
+      dataSource,
+      feed: alpacaMarketData && alpacaMarketData.feed || "sample",
+      generatedAt: latestMarketDataRefreshAt,
+      latestBarTimestamp,
+      barsLoaded: alpacaMarketData && Array.isArray(alpacaMarketData.bars) ? alpacaMarketData.bars.length : signals.totalMarketBars || 0,
+      quotesLoaded: alpacaMarketData && Array.isArray(alpacaMarketData.quotes) ? alpacaMarketData.quotes.length : 0,
+      refreshAgeMinutes: marketRefreshAgeMinutes,
+      latestBarAgeMinutes,
+      refreshFreshnessLabel: freshnessLabel(marketRefreshAgeMinutes, 45, 120),
+      latestBarFreshnessLabel: freshnessLabel(latestBarAgeMinutes, 90, 390),
+      rawMarketDataPublished: false,
+      publicSafeDerivedOnly: true,
+      paperOnly: true
+    },
     watchlistQuoteSnapshot: quoteSnapshot,
     symbolMovementPreview: movementPreview,
+    recentMarketMovementPanel: movementPreview,
     topWatchlistMovers: movementPreview.slice().sort((a, b) => Math.abs(b.changePct) - Math.abs(a.changePct)).slice(0, 5),
     rollingMarketMovement: movementPreview.map((item) => ({
       symbol: item.symbol,
@@ -205,6 +308,9 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
     })),
     rollingQuoteSnapshots: quoteSnapshot,
     rollingDashboardHistory: rollingHistory,
+    botActivityTimeline: buildBotActivityTimeline(rollingHistory),
+    staleDataWarningPanel: staleDataWarnings,
+    staleDataWarnings,
     equityPoints: (equityCurve.points || []).map((point, index) => ({
       label: index === 0 ? "Start" : `Step ${index}`,
       equity: point.equity,
@@ -222,10 +328,17 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
       blocked: riskReview.blockedCount
     },
     tradeOutcomeMix: { wins, losses, flat },
-    publicSafeVehicleContribution: pnlPoints.map((point) => ({
-      vehicle: point.vehicle,
-      paperPnl: point.paperPnl
-    })),
+    publicSafeVehicleContribution,
+    vehicleContribution: publicSafeVehicleContribution,
+    returnVsDrawdownSnapshot: [{
+      label: "Current paper run",
+      paperReturnPct: round(((endingEquity - startingBalance) / startingBalance) * 100),
+      maxDrawdownPct: equityCurve.maxDrawdownPct
+    }].concat(rollingHistory.slice(-10).map((run) => ({
+      label: run.generatedAt,
+      paperReturnPct: run.paperReturnPct,
+      maxDrawdownPct: run.maxDrawdownPct
+    }))),
     signalFunnel: [
       { label: "Vehicles scanned", value: signals.totalVehicles || signalsReviewed },
       { label: "Signals reviewed", value: signalsReviewed },
@@ -239,6 +352,12 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
       { label: "+30%", balance: targetBalance },
       { label: "+40%", balance: round(startingBalance * 1.4) },
       { label: "+50%", balance: round(startingBalance * 1.5) }
+    ],
+    paperAccountMilestoneStrip: [
+      { label: "Start", balance: startingBalance },
+      { label: "Current", balance: endingEquity },
+      { label: "+15%", balance: round(startingBalance * 1.15) },
+      { label: "+30%", balance: targetBalance }
     ],
     runHistorySummary: sanitizeRunHistorySummary(runHistorySummary),
     buildInPublic: {

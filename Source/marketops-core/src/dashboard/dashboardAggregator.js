@@ -15,8 +15,8 @@ const inputPaths = {
   runHistory: path.join(dataRoot, "paper", "history", "run-history.json"),
   contentSummary: path.join(dataRoot, "content", "queue", "latest-office-run-summary.json"),
   contentQueue: path.join(dataRoot, "content", "queue", "content-queue-v0.1.json"),
-  agentSummary: path.join(dataRoot, "agent-reviews", "latest-agent-review-summary.json")
-  , marketData: path.join(dataRoot, "market-data", "alpaca", "alpaca-market-data-latest-v0.1.json")
+  agentSummary: path.join(dataRoot, "agent-reviews", "latest-agent-review-summary.json"),
+  marketData: path.join(dataRoot, "market-data", "alpaca", "alpaca-market-data-latest-v0.1.json")
 };
 
 function readJson(filePath, fallback) {
@@ -79,6 +79,288 @@ function buildDrawdownVisualData(equitySeries, rollingHistory) {
       generatedAt: run.generatedAt,
       maxDrawdownPct: run.maxDrawdownPct
     }))
+  };
+}
+
+function minutesOld(timestamp, now = new Date()) {
+  if (!timestamp || Number.isNaN(Date.parse(timestamp))) return null;
+  return round((now.getTime() - new Date(timestamp).getTime()) / 60000);
+}
+
+function freshnessLabel(ageMinutes, freshLimit, staleLimit) {
+  if (ageMinutes == null) return "missing";
+  if (ageMinutes <= freshLimit) return "fresh";
+  if (ageMinutes <= staleLimit) return "aging";
+  return "stale_or_market_closed";
+}
+
+function groupBarsBySymbol(marketData) {
+  return (marketData.bars || []).reduce((acc, bar) => {
+    if (!bar.symbol) return acc;
+    acc[bar.symbol] = acc[bar.symbol] || [];
+    acc[bar.symbol].push(bar);
+    return acc;
+  }, {});
+}
+
+function buildMarketDataFreshnessPanel(marketData, now = new Date()) {
+  const refreshAgeMinutes = minutesOld(marketData.generatedAt, now);
+  const latestBarAgeMinutes = minutesOld(marketData.latestBarTimestamp, now);
+  return {
+    dataSource: marketData.dataSource || "deterministic_sample",
+    feed: marketData.feed || "sample",
+    generatedAt: marketData.generatedAt || null,
+    latestBarTimestamp: marketData.latestBarTimestamp || null,
+    barsLoaded: Array.isArray(marketData.bars) ? marketData.bars.length : 0,
+    quotesLoaded: Array.isArray(marketData.quotes) ? marketData.quotes.length : 0,
+    refreshAgeMinutes,
+    latestBarAgeMinutes,
+    refreshFreshnessLabel: freshnessLabel(refreshAgeMinutes, 45, 120),
+    latestBarFreshnessLabel: freshnessLabel(latestBarAgeMinutes, 90, 390),
+    rawMarketDataPublished: false,
+    publicSafeDerivedOnly: true,
+    paperOnly: true,
+    liveTradingEnabled: false,
+    orderPlacementEnabled: false,
+    externalEffects: false,
+    publishAllowed: false
+  };
+}
+
+function buildRecentMarketMovement(marketData) {
+  return Object.entries(groupBarsBySymbol(marketData)).map(([symbol, bars]) => {
+    const sorted = bars.slice().sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+    const first = sorted[0];
+    const latest = sorted[sorted.length - 1];
+    const change = Number(latest.close || 0) - Number(first.close || 0);
+    const changePct = first.close ? (change / Number(first.close)) * 100 : 0;
+    return {
+      symbol,
+      firstTimestamp: first.timestamp,
+      latestTimestamp: latest.timestamp,
+      firstClose: round(first.close || 0),
+      latestClose: round(latest.close || 0),
+      change: round(change),
+      changePct: round(changePct),
+      barsReviewed: sorted.length,
+      dataSource: marketData.dataSource || "alpaca_iex",
+      paperOnly: true,
+      liveTradingEnabled: false
+    };
+  }).sort((a, b) => Math.abs(b.changePct) - Math.abs(a.changePct));
+}
+
+function buildMarketMovementSeries(marketData) {
+  return Object.entries(groupBarsBySymbol(marketData)).map(([symbol, bars]) => {
+    const sorted = bars.slice().sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+    const first = sorted[0] || {};
+    return {
+      symbol,
+      dataSource: marketData.dataSource || "alpaca_iex",
+      points: sorted.map((bar, index) => ({
+        sequence: index + 1,
+        timestamp: bar.timestamp,
+        close: round(bar.close || 0),
+        changePct: first.close ? round(((Number(bar.close || 0) - Number(first.close)) / Number(first.close)) * 100) : 0
+      }))
+    };
+  });
+}
+
+function buildCurrentPaperPerformance(equityOutput, tradeOutput, analyticsSummary) {
+  const equityAnalytics = analyticsSummary.equityAnalytics || {};
+  const startingEquity = Number(equityOutput.startingBalance || tradeOutput.startingBalance || equityAnalytics.startingEquity || 0);
+  const endingEquity = Number(equityOutput.endingEquity || tradeOutput.endingBalance || equityAnalytics.endingEquity || startingEquity);
+  const paperPnl = Number(equityOutput.totalPnl ?? tradeOutput.totalPnl ?? equityAnalytics.totalPnl ?? (endingEquity - startingEquity));
+  const paperReturnPct = Number(equityOutput.totalReturnPct ?? tradeOutput.totalReturnPct ?? equityAnalytics.totalReturnPct ?? (startingEquity ? (paperPnl / startingEquity) * 100 : 0));
+  return {
+    startingEquity: round(startingEquity),
+    endingEquity: round(endingEquity),
+    paperPnl: round(paperPnl),
+    paperReturnPct: round(paperReturnPct),
+    maxDrawdownPct: round(equityOutput.maxDrawdownPct ?? equityAnalytics.maxDrawdownPct ?? 0),
+    riskAdjustedScore: round(analyticsSummary.riskAdjustedScore || 0),
+    dataSource: "paper_outputs_current"
+  };
+}
+
+function buildPaperPnlSeries(rollingHistory) {
+  return rollingHistory.map((run) => ({
+    sequence: run.sequence,
+    generatedAt: run.generatedAt,
+    paperPnl: run.paperPnl,
+    paperReturnPct: run.paperReturnPct,
+    endingEquity: run.endingEquity
+  }));
+}
+
+function buildCumulativePaperPnl(tradeOutput) {
+  let cumulativePaperPnl = 0;
+  const trades = Array.isArray(tradeOutput.trades) ? tradeOutput.trades : [];
+  return [{ label: "Start", cumulativePaperPnl: 0 }].concat(trades.map((trade, index) => {
+    cumulativePaperPnl = round(cumulativePaperPnl + Number(trade.realizedPnl || 0));
+    return {
+      label: `Trade ${index + 1}`,
+      symbol: trade.symbol,
+      paperPnl: round(trade.realizedPnl || 0),
+      cumulativePaperPnl
+    };
+  }));
+}
+
+function buildTargetProgress(equityOutput, tradeOutput) {
+  const startingBalance = Number(equityOutput.startingBalance || tradeOutput.startingBalance || 10000);
+  const endingEquity = Number(equityOutput.endingEquity || tradeOutput.endingBalance || startingBalance);
+  const targetBalance = Number(equityOutput.targetBalance || 13000);
+  const targetGain = targetBalance - startingBalance;
+  const currentGain = endingEquity - startingBalance;
+  return {
+    startingBalance: round(startingBalance),
+    currentBalance: round(endingEquity),
+    targetBalance: round(targetBalance),
+    progressTowardTargetPct: targetGain ? round((currentGain / targetGain) * 100) : 0,
+    remainingToTarget: round(targetBalance - endingEquity),
+    paperOnly: true,
+    milestones: [
+      { label: "Start", balance: round(startingBalance) },
+      { label: "Current", balance: round(endingEquity) },
+      { label: "+15%", balance: round(startingBalance * 1.15) },
+      { label: "+30%", balance: round(targetBalance) }
+    ]
+  };
+}
+
+function buildVehicleActivity(signalOutput, riskOutput, tradeOutput, marketMovement) {
+  const decisionsBySymbol = {};
+  (riskOutput.decisions || []).forEach((decision) => {
+    decisionsBySymbol[decision.symbol] = decision;
+  });
+  const tradePnlBySymbol = {};
+  (tradeOutput.trades || []).forEach((trade) => {
+    tradePnlBySymbol[trade.symbol] = round((tradePnlBySymbol[trade.symbol] || 0) + Number(trade.realizedPnl || 0));
+  });
+  const movementBySymbol = {};
+  marketMovement.forEach((item) => {
+    movementBySymbol[item.symbol] = item;
+  });
+  return (signalOutput.signals || []).map((signal) => {
+    const decision = decisionsBySymbol[signal.symbol] || {};
+    const movement = movementBySymbol[signal.symbol] || {};
+    return {
+      symbol: signal.symbol,
+      assetType: signal.assetType,
+      status: signal.status,
+      directionBias: signal.directionBias,
+      latestClose: round(signal.latestClose || movement.latestClose || 0),
+      marketChangePct: round(signal.sampleChangePct ?? movement.changePct ?? 0),
+      riskApproved: decision.approved === true,
+      riskLevel: decision.finalRiskLevel || signal.riskLevel,
+      fakePaperPnl: round(tradePnlBySymbol[signal.symbol] || 0),
+      dataSource: signal.dataSource || movement.dataSource || "deterministic_sample",
+      paperOnly: true
+    };
+  });
+}
+
+function buildSignalRiskCounts(rollingHistory) {
+  return rollingHistory.map((run) => ({
+    sequence: run.sequence,
+    generatedAt: run.generatedAt,
+    signalsReviewed: run.signalsReviewed,
+    riskApproved: run.riskApproved,
+    riskBlocked: run.riskBlocked,
+    fakePaperTrades: run.fakePaperTrades
+  }));
+}
+
+function buildReturnVsDrawdownSnapshot(currentPerformance, rollingHistory) {
+  return [{
+    label: "Current paper run",
+    paperReturnPct: currentPerformance.paperReturnPct,
+    maxDrawdownPct: currentPerformance.maxDrawdownPct
+  }].concat(rollingHistory.slice(-10).map((run) => ({
+    label: run.generatedAt,
+    paperReturnPct: run.paperReturnPct,
+    maxDrawdownPct: run.maxDrawdownPct
+  })));
+}
+
+function buildVehicleContribution(signalOutput, tradeOutput, marketMovement) {
+  const tradePnlBySymbol = {};
+  (tradeOutput.trades || []).forEach((trade) => {
+    tradePnlBySymbol[trade.symbol] = round((tradePnlBySymbol[trade.symbol] || 0) + Number(trade.realizedPnl || 0));
+  });
+  const movementBySymbol = {};
+  marketMovement.forEach((item) => {
+    movementBySymbol[item.symbol] = item;
+  });
+  const symbols = [...new Set([].concat((signalOutput.signals || []).map((item) => item.symbol), Object.keys(tradePnlBySymbol), marketMovement.map((item) => item.symbol)))];
+  return symbols.sort().map((symbol) => ({
+    symbol,
+    fakePaperPnl: round(tradePnlBySymbol[symbol] || 0),
+    marketChangePct: round((movementBySymbol[symbol] && movementBySymbol[symbol].changePct) || 0),
+    dataSource: movementBySymbol[symbol] ? movementBySymbol[symbol].dataSource : (signalOutput.dataSource || "deterministic_sample"),
+    paperOnly: true
+  }));
+}
+
+function buildBotActivityTimeline(rollingHistory) {
+  return rollingHistory.slice(-20).map((run, index, runs) => {
+    const previous = index > 0 ? runs[index - 1] : null;
+    const gapMinutes = previous && run.generatedAt && previous.generatedAt
+      ? round((new Date(run.generatedAt).getTime() - new Date(previous.generatedAt).getTime()) / 60000)
+      : null;
+    return {
+      sequence: run.sequence,
+      generatedAt: run.generatedAt,
+      endingEquity: run.endingEquity,
+      paperPnl: run.paperPnl,
+      signalsReviewed: run.signalsReviewed,
+      riskApproved: run.riskApproved,
+      riskBlocked: run.riskBlocked,
+      fakePaperTrades: run.fakePaperTrades,
+      qaStatus: run.qaStatus,
+      gapMinutes,
+      cadenceLabel: gapMinutes == null ? "timeline_start" : gapMinutes <= 45 ? "roughly_30_minute_cadence" : "manual_or_scheduler_gap"
+    };
+  });
+}
+
+function buildStaleDataWarningPanel({ analytics, marketData, rollingHistory }, now = new Date()) {
+  const warnings = [];
+  const latestRun = rollingHistory[rollingHistory.length - 1] || null;
+  const analyticsAgeMinutes = minutesOld(analytics.generatedAt, now);
+  const marketRefreshAgeMinutes = minutesOld(marketData.generatedAt, now);
+  const latestBarAgeMinutes = minutesOld(marketData.latestBarTimestamp, now);
+  const latestRunAgeMinutes = latestRun ? minutesOld(latestRun.generatedAt, now) : null;
+
+  if (analytics.generatedAt && latestRun && new Date(analytics.generatedAt) < new Date(latestRun.generatedAt)) {
+    warnings.push({
+      item: "analytics_summary",
+      status: "stale_context_only",
+      detail: `Analytics summary ${analytics.generatedAt} is older than latest paper run ${latestRun.generatedAt}. Dashboard headline cards use current paper outputs instead.`
+    });
+  }
+  if (marketRefreshAgeMinutes == null) {
+    warnings.push({ item: "market_data_refresh", status: "missing", detail: "No market-data refresh timestamp is available." });
+  } else if (marketRefreshAgeMinutes > 120) {
+    warnings.push({ item: "market_data_refresh", status: "aging", detail: `Market-data bundle was refreshed ${marketRefreshAgeMinutes} minutes ago.` });
+  }
+  if (latestBarAgeMinutes != null && latestBarAgeMinutes > 390) {
+    warnings.push({ item: "latest_market_bar", status: "market_closed_or_delayed", detail: `Latest bar is ${latestBarAgeMinutes} minutes old. Label as delayed/closed-market data, not live tick data.` });
+  }
+  if (latestRunAgeMinutes != null && latestRunAgeMinutes > 75) {
+    warnings.push({ item: "paper_run", status: "stale", detail: `Latest paper run is ${latestRunAgeMinutes} minutes old.` });
+  }
+
+  return {
+    status: warnings.length ? "review" : "clear",
+    generatedAt: now.toISOString(),
+    warnings: warnings.length ? warnings : [{
+      item: "dashboard_inputs",
+      status: "clear",
+      detail: "No stale input condition detected for the latest local refresh."
+    }]
   };
 }
 
@@ -223,6 +505,7 @@ function buildAgentReviewStats(agentSummary) {
 }
 
 function buildDashboardBundle() {
+  const now = new Date();
   const analytics = readJson(inputPaths.analytics, {});
   const equity = readJson(inputPaths.equity, { points: [] });
   const signals = readJson(inputPaths.signals, { signals: [] });
@@ -236,13 +519,24 @@ function buildDashboardBundle() {
 
   const rollingHistory = sanitizeRollingHistory(runHistory);
   const equitySeries = buildEquitySeries(equity);
+  const marketFreshness = buildMarketDataFreshnessPanel(marketData, now);
+  const marketMovement = buildRecentMarketMovement(marketData);
+  const marketMovementSeries = buildMarketMovementSeries(marketData);
+  const currentPaperPerformance = buildCurrentPaperPerformance(equity, trades, analytics);
+  const targetProgress = buildTargetProgress(equity, trades);
+  const vehicleActivity = buildVehicleActivity(signals, risk, trades, marketMovement);
+  const signalRiskCounts = buildSignalRiskCounts(rollingHistory);
+  const vehicleContribution = buildVehicleContribution(signals, trades, marketMovement);
+  const botActivityTimeline = buildBotActivityTimeline(rollingHistory);
+  const staleDataWarningPanel = buildStaleDataWarningPanel({ analytics, marketData, rollingHistory }, now);
 
   return {
-    generatedAt: new Date().toISOString(),
+    generatedAt: now.toISOString(),
     dashboardVersion: "marketops-public-safe-dashboard-v0.1",
     mode: "paper_simulation",
     paperOnly: true,
     sampleData: true,
+    realMarketDataInputs: marketData.dataSource === "alpaca_iex",
     dataSource: marketData.dataSource || "deterministic_sample",
     marketDataMode: marketData.dataSource === "alpaca_iex" ? "real_market_data_for_paper_simulation" : "deterministic_sample_for_paper_simulation",
     latestMarketDataRefreshAt: marketData.generatedAt || null,
@@ -253,23 +547,19 @@ function buildDashboardBundle() {
     notLiveMarketData: true,
     noBrokerConnection: true,
     noSocialAutoPosting: true,
+    externalEffects: false,
+    publishAllowed: false,
+    rawMarketDataPublished: false,
     publicSafe: true,
     dashboardCards: {
-      currentPaperPerformance: {
-        startingEquity: analytics.equityAnalytics && analytics.equityAnalytics.startingEquity,
-        endingEquity: analytics.equityAnalytics && analytics.equityAnalytics.endingEquity,
-        paperPnl: analytics.equityAnalytics && analytics.equityAnalytics.totalPnl,
-        paperReturnPct: analytics.equityAnalytics && analytics.equityAnalytics.totalReturnPct,
-        maxDrawdownPct: analytics.equityAnalytics && analytics.equityAnalytics.maxDrawdownPct,
-        riskAdjustedScore: analytics.riskAdjustedScore
-      },
+      currentPaperPerformance,
       signalFunnel: buildSignalFunnel(signals, risk, trades),
       tradeOutcomeDistribution: buildTradeOutcomeDistribution(analytics, trades),
       riskEventSummary: buildRiskEventSummary(risk),
       regimeSummary: buildRegimeDashboard(analytics),
       contentGenerationStats: buildContentStats(contentSummary, contentQueue),
-      agentReviewStats: buildAgentReviewStats(agentSummary)
-      , marketDataHeartbeat: {
+      agentReviewStats: buildAgentReviewStats(agentSummary),
+      marketDataHeartbeat: {
         dataSource: marketData.dataSource || "deterministic_sample",
         generatedAt: marketData.generatedAt || null,
         latestBarTimestamp: marketData.latestBarTimestamp || null,
@@ -277,10 +567,25 @@ function buildDashboardBundle() {
         quotesLoaded: Array.isArray(marketData.quotes) ? marketData.quotes.length : 0,
         paperOnly: true,
         liveTradingEnabled: false
+      },
+      marketDataFreshnessPanel: marketFreshness,
+      recentMarketMovementPanel: marketMovement.slice(0, 8),
+      botActivityTimeline: botActivityTimeline.slice(-8),
+      staleDataWarningPanel,
+      targetProgress,
+      publicSafetyState: {
+        paperOnly: true,
+        externalEffects: false,
+        publishAllowed: false,
+        liveTradingEnabled: false,
+        orderPlacementEnabled: false,
+        rawMarketDataPublished: false
       }
     },
     charts: {
       equityCurve: equitySeries,
+      paperEquityCurve: equitySeries,
+      paperPnlSeries: buildPaperPnlSeries(rollingHistory),
       rollingEquity: rollingHistory.map((run) => ({
         sequence: run.sequence,
         generatedAt: run.generatedAt,
@@ -288,10 +593,25 @@ function buildDashboardBundle() {
         paperReturnPct: run.paperReturnPct
       })),
       drawdownVisualData: buildDrawdownVisualData(equitySeries, rollingHistory),
+      drawdownSeries: buildDrawdownVisualData(equitySeries, rollingHistory).currentRun,
+      vehicleActivity,
+      signalRiskCounts,
+      cumulativePaperPnl: buildCumulativePaperPnl(trades),
+      targetProgress: targetProgress.milestones,
       signalFunnel: buildSignalFunnel(signals, risk, trades).chartSteps,
       tradeOutcomeBars: buildTradeOutcomeDistribution(analytics, trades).outcomeBars,
+      tradeOutcomeMix: buildTradeOutcomeDistribution(analytics, trades).outcomeBars,
+      riskDecisionMix: Object.entries(buildRiskEventSummary(risk).finalRiskLevelCounts).map(([label, value]) => ({ label, value })),
+      vehicleContribution,
+      returnVsDrawdownSnapshot: buildReturnVsDrawdownSnapshot(currentPaperPerformance, rollingHistory),
+      paperAccountMilestoneStrip: targetProgress.milestones,
       regimeScoreBars: buildRegimeDashboard(analytics).regimeScoreBars,
       syntheticBenchmarkComparison: buildRegimeDashboard(analytics).syntheticBenchmarkComparison,
+      marketDataFreshnessPanel: [marketFreshness],
+      recentMarketMovementPanel: marketMovement,
+      marketMovementSeries,
+      botActivityTimeline,
+      staleDataWarningPanel: staleDataWarningPanel.warnings,
       quoteSnapshot: (marketData.quotes || []).map((quote) => ({
         symbol: quote.symbol,
         timestamp: quote.timestamp,

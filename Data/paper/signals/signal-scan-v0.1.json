@@ -4,7 +4,7 @@
   "dataSource": "alpaca_iex",
   "paperOnly": true,
   "liveTradingEnabled": false,
-  "latestMarketDataRefreshAt": "2026-05-13T19:41:21.196Z",
+  "latestMarketDataRefreshAt": "2026-05-14T01:43:27.072Z",
   "latestBarTimestamp": "2026-05-13T13:45:00Z",
   "sampleDataOnly": true,
   "movementThresholdPct": 2,

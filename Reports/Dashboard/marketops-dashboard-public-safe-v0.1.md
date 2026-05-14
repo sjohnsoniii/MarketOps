@@ -1,26 +1,31 @@
 # MarketOps Public-Safe Dashboard Infrastructure v0.1
 
-Generated at: 2026-05-09T03:00:03.568Z
+Generated at: 2026-05-14T01:43:27.163Z
 
 ## Scope
 
-This dashboard bundle is local and preview-safe. It contains paper simulation metrics, sample-data analytics, synthetic regime summaries, and review-gated operations stats. It does not include live market data, broker integrations, local paths, raw internal IDs, social posting, payments, or private execution details.
+This dashboard bundle is local and preview-safe. It contains paper simulation metrics, derived Alpaca IEX market-data movement where available, synthetic regime summaries, and review-gated operations stats. It does not include broker integrations, local paths, raw internal IDs, social posting, payments, secrets, or private execution details.
 
 ## Safety Labels
 
 - Mode: paper_simulation
 - Paper only: true
 - Sample data: true
+- Real market data inputs: true
+- Data source: alpaca_iex
+- Market data mode: real_market_data_for_paper_simulation
 - Not financial advice: true
-- Not live market data: true
+- Not live market data publishing: true
+- External effects: false
+- Publish allowed: false
 
 ## Paper Performance Cards
 
 - Starting paper equity: 10000
-- Ending paper equity: 9934.92
-- Paper P/L: -65.08
-- Paper return: -0.65%
-- Max drawdown: -0.65%
+- Ending paper equity: 10000
+- Paper P/L: 0
+- Paper return: 0%
+- Max drawdown: 0%
 - Risk-adjusted score: 42.4
 
 ## Signal Funnel
@@ -60,15 +65,44 @@ This dashboard bundle is local and preview-safe. It contains paper simulation me
 ## Chart-Ready Sections
 
 - Equity curve points: 1
+- Paper P&L timeline points: 30
 - Rolling equity points: 30
 - Drawdown visual sections: current run and rolling runs
+- Vehicle activity rows: 8
+- Signal/risk count rows: 30
+- Cumulative paper P&L points: 1
+- Target progress milestones: 4
 - Signal funnel steps: 5
 - Trade outcome bars: 3
+- Risk decision bars: 1
+- Vehicle contribution rows: 8
+- Return vs drawdown rows: 11
+- Paper account milestone strip points: 4
+- Market data freshness rows: 1
+- Recent market movement rows: 5
+- Bot activity timeline rows: 20
+- Stale data warning rows: 2
 - Regime score bars: 6
 - Synthetic benchmark comparison rows: 6
+
+## Market Data Freshness
+
+- Source/feed: alpaca_iex / iex
+- Market refresh timestamp: 2026-05-14T01:43:27.072Z
+- Latest bar timestamp: 2026-05-13T13:45:00Z
+- Bars loaded: 100
+- Quotes loaded: 5
+- Refresh freshness: fresh
+- Latest bar freshness: stale_or_market_closed
+- Raw market data published: false
+
+## Stale/Fallback Notes
+
+- analytics_summary: stale_context_only - Analytics summary 2026-05-08T03:46:14.425Z is older than latest paper run 2026-05-14T01:43:27.156Z. Dashboard headline cards use current paper outputs instead.
+- latest_market_bar: market_closed_or_delayed - Latest bar is 718.45 minutes old. Label as delayed/closed-market data, not live tick data.
 
 ## Notes
 
 - This is dashboard infrastructure, not a public performance claim.
 - All IDs and local paths are intentionally excluded.
-- Future public pages should keep the same paper/sample/not-financial-advice labels visible.
+- Public pages should keep the paper-only, fake-money, public-safe derived-data, and not-financial-advice labels visible.
