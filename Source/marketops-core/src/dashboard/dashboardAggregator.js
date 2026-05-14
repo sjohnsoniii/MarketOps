@@ -16,7 +16,8 @@ const inputPaths = {
   contentSummary: path.join(dataRoot, "content", "queue", "latest-office-run-summary.json"),
   contentQueue: path.join(dataRoot, "content", "queue", "content-queue-v0.1.json"),
   agentSummary: path.join(dataRoot, "agent-reviews", "latest-agent-review-summary.json"),
-  marketData: path.join(dataRoot, "market-data", "alpaca", "alpaca-market-data-latest-v0.1.json")
+  marketData: path.join(dataRoot, "market-data", "alpaca", "alpaca-market-data-latest-v0.1.json"),
+  cycle: path.join(dataRoot, "paper", "cycles", "paper-cycle-latest-v0.1.json")
 };
 
 function readJson(filePath, fallback) {
@@ -134,18 +135,19 @@ function buildRecentMarketMovement(marketData) {
     const latest = sorted[sorted.length - 1];
     const change = Number(latest.close || 0) - Number(first.close || 0);
     const changePct = first.close ? (change / Number(first.close)) * 100 : 0;
+    const direction = directionForChange(changePct);
     return {
       symbol,
       firstTimestamp: first.timestamp,
       latestTimestamp: latest.timestamp,
-      firstClose: round(first.close || 0),
-      latestClose: round(latest.close || 0),
-      change: round(change),
       changePct: round(changePct),
+      direction,
+      movementBucket: movementBucket(changePct),
       barsReviewed: sorted.length,
       dataSource: marketData.dataSource || "alpaca_iex",
       paperOnly: true,
-      liveTradingEnabled: false
+      liveTradingEnabled: false,
+      rawPricesPublished: false
     };
   }).sort((a, b) => Math.abs(b.changePct) - Math.abs(a.changePct));
 }
@@ -160,11 +162,184 @@ function buildMarketMovementSeries(marketData) {
       points: sorted.map((bar, index) => ({
         sequence: index + 1,
         timestamp: bar.timestamp,
-        close: round(bar.close || 0),
-        changePct: first.close ? round(((Number(bar.close || 0) - Number(first.close)) / Number(first.close)) * 100) : 0
+        changePct: first.close ? round(((Number(bar.close || 0) - Number(first.close)) / Number(first.close)) * 100) : 0,
+        rawPricePublished: false
       }))
     };
   });
+}
+
+function directionForChange(changePct) {
+  if (changePct >= 0.25) return "up";
+  if (changePct <= -0.25) return "down";
+  return "flat";
+}
+
+function movementBucket(changePct) {
+  const abs = Math.abs(Number(changePct || 0));
+  if (abs >= 2) return "large_2pct_plus";
+  if (abs >= 1) return "moderate_1_to_2pct";
+  if (abs >= 0.5) return "small_0_5_to_1pct";
+  if (abs >= 0.25) return "micro_0_25_to_0_5pct";
+  return "flat_under_0_25pct";
+}
+
+function buildWatchlistMovementSummary(marketMovement, signalOutput) {
+  const rows = marketMovement.length ? marketMovement : (signalOutput.signals || []).map((signal) => ({
+    symbol: signal.symbol,
+    changePct: Number(signal.sampleChangePct || 0),
+    direction: directionForChange(Number(signal.sampleChangePct || 0)),
+    movementBucket: movementBucket(Number(signal.sampleChangePct || 0)),
+    dataSource: signal.dataSource || signalOutput.dataSource || "deterministic_sample",
+    paperOnly: true,
+    rawPricesPublished: false
+  }));
+  const strongest = rows.slice().sort((a, b) => Math.abs(b.changePct) - Math.abs(a.changePct))[0] || null;
+  return {
+    vehiclesReviewed: rows.length,
+    dataSource: rows[0] && rows[0].dataSource || signalOutput.dataSource || "deterministic_sample",
+    strongestMover: strongest ? {
+      symbol: strongest.symbol,
+      changePct: strongest.changePct,
+      direction: strongest.direction,
+      movementBucket: strongest.movementBucket
+    } : null,
+    summaryRows: rows.map((row) => ({
+      symbol: row.symbol,
+      changePct: row.changePct,
+      direction: row.direction,
+      movementBucket: row.movementBucket,
+      dataSource: row.dataSource,
+      paperOnly: true,
+      rawPricesPublished: false
+    }))
+  };
+}
+
+function buildVehicleDirectionCounts(marketMovement, signalOutput) {
+  const rows = marketMovement.length ? marketMovement : (signalOutput.signals || []).map((signal) => ({
+    direction: directionForChange(Number(signal.sampleChangePct || 0))
+  }));
+  const counts = countBy(rows, (item) => item.direction);
+  return ["up", "down", "flat"].map((label) => ({ label, value: Number(counts[label] || 0) }));
+}
+
+function buildMovementBuckets(marketMovement, signalOutput) {
+  const rows = marketMovement.length ? marketMovement : (signalOutput.signals || []).map((signal) => ({
+    movementBucket: movementBucket(Number(signal.sampleChangePct || 0))
+  }));
+  const counts = countBy(rows, (item) => item.movementBucket);
+  return ["flat_under_0_25pct", "micro_0_25_to_0_5pct", "small_0_5_to_1pct", "moderate_1_to_2pct", "large_2pct_plus"]
+    .map((label) => ({ label, value: Number(counts[label] || 0) }));
+}
+
+function buildSignalCandidateSummary(signalOutput) {
+  const signals = Array.isArray(signalOutput.signals) ? signalOutput.signals : [];
+  const candidates = signals.filter((signal) => signal.status === "candidate");
+  return [
+    { label: "Candidates generated", value: candidates.length },
+    { label: "Ignored signals", value: signals.filter((signal) => signal.status !== "candidate").length },
+    { label: "Signals reviewed", value: signals.length }
+  ];
+}
+
+function buildSignalConfidenceDistribution(signalOutput) {
+  const buckets = [
+    { label: "0.00-0.25", min: 0, max: 0.25 },
+    { label: "0.25-0.55", min: 0.25, max: 0.55 },
+    { label: "0.55-0.75", min: 0.55, max: 0.75 },
+    { label: "0.75-1.00", min: 0.75, max: 1.01 }
+  ];
+  const signals = Array.isArray(signalOutput.signals) ? signalOutput.signals : [];
+  return buckets.map((bucket) => ({
+    label: bucket.label,
+    value: signals.filter((signal) => Number(signal.confidence || 0) >= bucket.min && Number(signal.confidence || 0) < bucket.max).length
+  }));
+}
+
+function safeReason(reason) {
+  return String(reason || "Unknown risk block").replace(/\d+\.\d+/g, "threshold");
+}
+
+function buildRiskRejectionReasons(riskOutput) {
+  const blocked = (riskOutput.decisions || []).filter((decision) => decision.approved !== true);
+  const counts = {};
+  blocked.forEach((decision) => {
+    (decision.blockReasons || ["Unknown risk block"]).forEach((reason) => {
+      const key = safeReason(reason);
+      counts[key] = (counts[key] || 0) + 1;
+    });
+  });
+  return Object.entries(counts)
+    .map(([reason, count]) => ({ reason, count }))
+    .sort((a, b) => b.count - a.count || a.reason.localeCompare(b.reason));
+}
+
+function approvalGapCount(signal, decision) {
+  let gaps = 0;
+  if (signal.status !== "candidate") gaps += 1;
+  if (Number(signal.confidence || 0) < 0.55) gaps += 1;
+  if (signal.directionBias !== "up") gaps += 1;
+  if (!signal.trigger || signal.trigger === "No actionable move.") gaps += 1;
+  if (!signal.invalidation || signal.invalidation === "N/A") gaps += 1;
+  if (decision && Array.isArray(decision.blockReasons)) gaps = Math.max(gaps, decision.blockReasons.length);
+  return gaps;
+}
+
+function buildAlmostApprovedCandidates(signalOutput, riskOutput) {
+  const decisionsBySignalId = {};
+  (riskOutput.decisions || []).forEach((decision) => {
+    decisionsBySignalId[decision.signalId] = decision;
+  });
+  return (signalOutput.signals || [])
+    .map((signal) => {
+      const decision = decisionsBySignalId[signal.signalId] || {};
+      const missingGateCount = approvalGapCount(signal, decision);
+      return {
+        symbol: signal.symbol,
+        status: decision.approved === true ? "approved" : missingGateCount <= 1 ? "almost_approved" : "closest_rejected",
+        confidence: round(signal.confidence || 0),
+        changePct: round(signal.sampleChangePct || 0),
+        directionBias: signal.directionBias,
+        missingGateCount,
+        primaryBlockReason: safeReason((decision.blockReasons || [])[0] || "No block reason recorded."),
+        wouldNeed: approvalConditionFor(signal, decision)
+      };
+    })
+    .sort((a, b) => a.missingGateCount - b.missingGateCount || b.confidence - a.confidence || Math.abs(b.changePct) - Math.abs(a.changePct))
+    .slice(0, 8);
+}
+
+function approvalConditionFor(signal, decision = {}) {
+  const needs = [];
+  if (signal.status !== "candidate") needs.push("a movement signal that qualifies as a candidate");
+  if (Number(signal.confidence || 0) < 0.55) needs.push("confidence at or above 0.55");
+  if (signal.directionBias !== "up") needs.push("an up/long-only direction bias");
+  if (!signal.trigger || signal.trigger === "No actionable move.") needs.push("a concrete trigger");
+  if (!signal.invalidation || signal.invalidation === "N/A") needs.push("a defined invalidation level");
+  if ((decision.blockReasons || []).some((reason) => /shorting|margin|leverage|options|futures/i.test(reason))) {
+    needs.push("no downside/short/margin/leverage/options/futures requirement");
+  }
+  return needs.length ? `Needs ${needs.join(", ")}.` : "Already satisfies current paper-only gate.";
+}
+
+function buildMarketRegimeSummary(analyticsSummary, marketMovement) {
+  const regime = buildRegimeDashboard(analyticsSummary);
+  const directionCounts = countBy(marketMovement, (item) => item.direction);
+  const broadDirection = Number(directionCounts.up || 0) > Number(directionCounts.down || 0)
+    ? "watchlist_tilt_up"
+    : Number(directionCounts.down || 0) > Number(directionCounts.up || 0)
+      ? "watchlist_tilt_down"
+      : "watchlist_mixed_or_flat";
+  return {
+    source: regime.regimesCompared ? "synthetic_regime_context_plus_watchlist_movement" : "watchlist_movement_only",
+    broadDirection,
+    regimesCompared: regime.regimesCompared,
+    strongestPaperRegime: regime.strongestPaperRegime,
+    weakestPaperRegime: regime.weakestPaperRegime,
+    fallbackLabeled: true,
+    publicSafe: true
+  };
 }
 
 function buildCurrentPaperPerformance(equityOutput, tradeOutput, analyticsSummary) {
@@ -244,20 +419,21 @@ function buildVehicleActivity(signalOutput, riskOutput, tradeOutput, marketMovem
     movementBySymbol[item.symbol] = item;
   });
   return (signalOutput.signals || []).map((signal) => {
-    const decision = decisionsBySymbol[signal.symbol] || {};
-    const movement = movementBySymbol[signal.symbol] || {};
-    return {
+      const decision = decisionsBySymbol[signal.symbol] || {};
+      const movement = movementBySymbol[signal.symbol] || {};
+      return {
       symbol: signal.symbol,
       assetType: signal.assetType,
       status: signal.status,
       directionBias: signal.directionBias,
-      latestClose: round(signal.latestClose || movement.latestClose || 0),
       marketChangePct: round(signal.sampleChangePct ?? movement.changePct ?? 0),
+      movementBucket: movement.movementBucket || movementBucket(signal.sampleChangePct || 0),
       riskApproved: decision.approved === true,
       riskLevel: decision.finalRiskLevel || signal.riskLevel,
       fakePaperPnl: round(tradePnlBySymbol[signal.symbol] || 0),
       dataSource: signal.dataSource || movement.dataSource || "deterministic_sample",
-      paperOnly: true
+      paperOnly: true,
+      rawPricesPublished: false
     };
   });
 }
@@ -504,6 +680,29 @@ function buildAgentReviewStats(agentSummary) {
   };
 }
 
+function buildPaperCycleStatus(cycle) {
+  return {
+    cycleId: cycle.cycleId || "cycle_not_built",
+    status: cycle.status || "missing",
+    startingBalance: round(cycle.startingBalance || 1000),
+    currentBalance: round(cycle.currentBalance || 1000),
+    endingBalance: cycle.endingBalance == null ? null : round(cycle.endingBalance),
+    cycleStartTimestamp: cycle.cycleStartTimestamp || null,
+    cycleEndTimestamp: cycle.cycleEndTimestamp || null,
+    hoursSurvived: round(cycle.hoursSurvived || 0),
+    daysSurvived: round(cycle.daysSurvived || 0),
+    approvedTrades: Number(cycle.approvedTrades || 0),
+    rejectedTrades: Number(cycle.rejectedTrades || 0),
+    depletionRisk: cycle.depletionRisk || "unknown",
+    resetTriggerReason: cycle.resetTriggerReason || null,
+    nextCycleScheduledStart: cycle.nextCycleScheduledStart || null,
+    doesNotResetDaily: true,
+    paperOnly: true,
+    externalEffects: false,
+    publishAllowed: false
+  };
+}
+
 function buildDashboardBundle() {
   const now = new Date();
   const analytics = readJson(inputPaths.analytics, {});
@@ -516,6 +715,7 @@ function buildDashboardBundle() {
   const contentQueue = readJson(inputPaths.contentQueue, {});
   const agentSummary = readJson(inputPaths.agentSummary, {});
   const marketData = readJson(inputPaths.marketData, { bars: [], quotes: [] });
+  const cycle = readJson(inputPaths.cycle, {});
 
   const rollingHistory = sanitizeRollingHistory(runHistory);
   const equitySeries = buildEquitySeries(equity);
@@ -529,6 +729,15 @@ function buildDashboardBundle() {
   const vehicleContribution = buildVehicleContribution(signals, trades, marketMovement);
   const botActivityTimeline = buildBotActivityTimeline(rollingHistory);
   const staleDataWarningPanel = buildStaleDataWarningPanel({ analytics, marketData, rollingHistory }, now);
+  const watchlistMovementSummary = buildWatchlistMovementSummary(marketMovement, signals);
+  const vehicleDirectionCounts = buildVehicleDirectionCounts(marketMovement, signals);
+  const movementBuckets = buildMovementBuckets(marketMovement, signals);
+  const signalCandidatesGenerated = buildSignalCandidateSummary(signals);
+  const signalConfidenceDistribution = buildSignalConfidenceDistribution(signals);
+  const riskRejectionReasons = buildRiskRejectionReasons(risk);
+  const almostApprovedCandidates = buildAlmostApprovedCandidates(signals, risk);
+  const marketRegimeSummary = buildMarketRegimeSummary(analytics, marketMovement);
+  const paperCycleStatus = buildPaperCycleStatus(cycle);
 
   return {
     generatedAt: now.toISOString(),
@@ -569,9 +778,18 @@ function buildDashboardBundle() {
         liveTradingEnabled: false
       },
       marketDataFreshnessPanel: marketFreshness,
+      watchlistMovementSummary,
+      vehicleDirectionCounts,
+      movementBuckets,
+      signalCandidatesGenerated,
+      signalConfidenceDistribution,
+      riskRejectionReasons,
+      almostApprovedCandidates,
       recentMarketMovementPanel: marketMovement.slice(0, 8),
       botActivityTimeline: botActivityTimeline.slice(-8),
       staleDataWarningPanel,
+      marketRegimeSummary,
+      paperCycleStatus,
       targetProgress,
       publicSafetyState: {
         paperOnly: true,
@@ -595,6 +813,13 @@ function buildDashboardBundle() {
       drawdownVisualData: buildDrawdownVisualData(equitySeries, rollingHistory),
       drawdownSeries: buildDrawdownVisualData(equitySeries, rollingHistory).currentRun,
       vehicleActivity,
+      watchlistMovementSummary: watchlistMovementSummary.summaryRows,
+      vehicleDirectionCounts,
+      movementBuckets,
+      signalCandidatesGenerated,
+      signalConfidenceDistribution,
+      riskRejectionReasons,
+      almostApprovedCandidates,
       signalRiskCounts,
       cumulativePaperPnl: buildCumulativePaperPnl(trades),
       targetProgress: targetProgress.milestones,
@@ -612,10 +837,14 @@ function buildDashboardBundle() {
       marketMovementSeries,
       botActivityTimeline,
       staleDataWarningPanel: staleDataWarningPanel.warnings,
+      marketRegimeSummary: [marketRegimeSummary],
+      paperCycleStatus: [paperCycleStatus],
       quoteSnapshot: (marketData.quotes || []).map((quote) => ({
         symbol: quote.symbol,
         timestamp: quote.timestamp,
-        midpoint: quote.bidPrice && quote.askPrice ? round((quote.bidPrice + quote.askPrice) / 2) : 0
+        spreadPct: quote.bidPrice && quote.askPrice ? round(((quote.askPrice - quote.bidPrice) / ((quote.askPrice + quote.bidPrice) / 2)) * 100) : 0,
+        quoteAvailable: true,
+        rawBidAskPublished: false
       }))
     },
     rollingAnalytics: {

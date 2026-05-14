@@ -1,0 +1,64 @@
+{
+  "cycleId": "cycle-20260514-0220",
+  "cycleNumber": 1,
+  "status": "active",
+  "startingBalance": 1000,
+  "currentBalance": 1000,
+  "endingBalance": null,
+  "depletionThreshold": 0,
+  "cycleStartTimestamp": "2026-05-14T02:20:20.137Z",
+  "cycleEndTimestamp": null,
+  "hoursSurvived": 0.28,
+  "daysSurvived": 0.01,
+  "approvedTrades": 0,
+  "rejectedTrades": 16,
+  "rejectionReasons": [
+    {
+      "reason": "Signal did not qualify as a candidate.",
+      "count": 8
+    },
+    {
+      "reason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+      "count": 8
+    },
+    {
+      "reason": "Confidence threshold is below minimum threshold.",
+      "count": 5
+    },
+    {
+      "reason": "Confidence 0 is below minimum threshold.",
+      "count": 3
+    },
+    {
+      "reason": "Missing invalidation.",
+      "count": 3
+    }
+  ],
+  "strategyVersionUsed": "strategy-v0.1-watchlist-threshold-paper",
+  "riskModelVersionUsed": "risk-desk-v0.1-long-up-confidence-gate",
+  "lessonsLearnedSoFar": [
+    "A cycle should continue while capital remains above the depletion threshold.",
+    "No daily reset is allowed for a surviving cycle."
+  ],
+  "proposedImprovements": [
+    "Track rejected watchlist moves after refresh to learn whether the confidence threshold is too strict or correctly cautious.",
+    "Keep long/up-only and no-leverage gates until a human approves any broader risk model."
+  ],
+  "approvedImprovementsForNextCycle": [],
+  "humanReviewNeededItems": [
+    "Review whether 0-approved-trade cycles should tune signal threshold or remain observation-only."
+  ],
+  "resetTriggerReason": null,
+  "nextCycleScheduledStart": null,
+  "appliedRunIds": [
+    "paper-20260514-022020137Z",
+    "paper-20260514-023653328Z"
+  ],
+  "lastRunAppliedAt": "2026-05-14T02:36:53.328Z",
+  "externalEffects": false,
+  "publishAllowed": false,
+  "remainingBalance": 1000,
+  "drawdownFromStart": 0,
+  "drawdownPct": 0,
+  "depletionRisk": "normal"
+}

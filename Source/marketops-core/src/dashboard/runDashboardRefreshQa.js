@@ -25,6 +25,10 @@ function restrictedTerms() {
     ["COINBASE", "_API_KEY"].join(""),
     ["BEGIN", " PRIVATE KEY"].join(""),
     ["C:", "\\Users"].join(""),
+    "bidPrice",
+    "askPrice",
+    "firstClose",
+    "latestClose",
     ["liveTrading", ": true"].join(""),
     ["orderPlacement", "Enabled\": true"].join("")
   ];
@@ -65,7 +69,7 @@ ${failed.length ? failed.map((item) => `- ${item.name}: ${item.detail}`).join("\
 function runDashboardRefreshQa() {
   const checks = [];
   const packageJson = loadJson(path.join(paths.coreRoot, "package.json"));
-  ["dashboard:refresh", "dashboard:refresh:qa", "dashboard:preview"].forEach((scriptName) => {
+  ["dashboard:refresh", "dashboard:refresh:qa", "dashboard:preview", "cycle:build", "cycle:qa", "cycle:status"].forEach((scriptName) => {
     check(checks, `script exists: ${scriptName}`, Boolean(packageJson.scripts && packageJson.scripts[scriptName]), packageJson.scripts && packageJson.scripts[scriptName]);
   });
 
@@ -92,6 +96,7 @@ function runDashboardRefreshQa() {
     check(checks, "socialPostingEnabled false", summary.socialPostingEnabled === false, String(summary.socialPostingEnabled));
     check(checks, "emailSmsSendingEnabled false", summary.emailSmsSendingEnabled === false, String(summary.emailSmsSendingEnabled));
     check(checks, "rawMarketDataPublished false", summary.rawMarketDataPublished === false, String(summary.rawMarketDataPublished));
+    check(checks, "cycle summary present", Boolean(summary.cycle && summary.cycle.cycleId && summary.cycle.status), JSON.stringify(summary.cycle || {}));
     check(checks, "market data source/feed present", Boolean(summary.marketData && summary.marketData.source && summary.marketData.feed), JSON.stringify(summary.marketData || {}));
     check(checks, "market data bars and quotes loaded", Number(summary.marketData && summary.marketData.barsLoaded || 0) > 0 && Number(summary.marketData && summary.marketData.quotesLoaded || 0) > 0, `${summary.marketData && summary.marketData.barsLoaded}/${summary.marketData && summary.marketData.quotesLoaded}`);
     check(checks, "steps captured", Array.isArray(summary.steps) && summary.steps.length >= 7 && summary.steps.every((step) => step.status === "PASS"), `${summary.steps && summary.steps.length} step(s)`);
@@ -108,7 +113,7 @@ function runDashboardRefreshQa() {
   }
 
   if (localBundle) {
-    ["paperEquityCurve", "paperPnlSeries", "drawdownSeries", "vehicleActivity", "signalRiskCounts", "cumulativePaperPnl", "targetProgress", "tradeOutcomeMix", "riskDecisionMix", "vehicleContribution", "returnVsDrawdownSnapshot", "paperAccountMilestoneStrip", "signalFunnel", "marketDataFreshnessPanel", "recentMarketMovementPanel", "botActivityTimeline", "staleDataWarningPanel"].forEach((key) => {
+    ["paperEquityCurve", "paperPnlSeries", "drawdownSeries", "watchlistMovementSummary", "vehicleDirectionCounts", "movementBuckets", "signalCandidatesGenerated", "signalConfidenceDistribution", "riskRejectionReasons", "almostApprovedCandidates", "vehicleActivity", "signalRiskCounts", "cumulativePaperPnl", "targetProgress", "tradeOutcomeMix", "riskDecisionMix", "vehicleContribution", "returnVsDrawdownSnapshot", "paperAccountMilestoneStrip", "signalFunnel", "marketDataFreshnessPanel", "recentMarketMovementPanel", "botActivityTimeline", "staleDataWarningPanel", "marketRegimeSummary", "paperCycleStatus"].forEach((key) => {
       const value = localBundle.charts && localBundle.charts[key];
       const count = Array.isArray(value) ? value.length : value && Array.isArray(value.currentRun) ? value.currentRun.length : 0;
       check(checks, `chart non-empty: ${key}`, count > 0, String(count));
@@ -132,9 +137,16 @@ function runDashboardRefreshQa() {
     check(checks, "public liveTradingEnabled false", publicBundle.liveTradingEnabled === false, String(publicBundle.liveTradingEnabled));
     check(checks, "public bot activity visible", Array.isArray(publicBundle.botActivityTimeline) && publicBundle.botActivityTimeline.length > 0, `${(publicBundle.botActivityTimeline || []).length}`);
     check(checks, "public freshness visible", Boolean(publicBundle.marketDataFreshnessPanel && publicBundle.marketDataFreshnessPanel.refreshFreshnessLabel), "marketDataFreshnessPanel");
+    check(checks, "public movement summaries visible", Boolean(publicBundle.watchlistMovementSummary && publicBundle.watchlistMovementSummary.summaryRows && publicBundle.watchlistMovementSummary.summaryRows.length), "watchlistMovementSummary");
+    check(checks, "public rejection explanations summarized", Array.isArray(publicBundle.riskRejectionReasons) && publicBundle.riskRejectionReasons.length > 0, "riskRejectionReasons");
+    check(checks, "public cycle status visible", publicBundle.paperCycleStatus && publicBundle.paperCycleStatus.doesNotResetDaily === true, "paperCycleStatus");
   }
 
-  const hits = scanFiles([paths.siteDashboardPublicV04Json, localDashboardPath, refreshJsonPath, previewHtmlPath]);
+  check(checks, "trade rejection explainability report exists", fileExists(paths.tradeRejectionExplainabilityReport), paths.tradeRejectionExplainabilityReport);
+  check(checks, "cycle latest exists", fileExists(paths.cycleLatestJson), paths.cycleLatestJson);
+  check(checks, "cycle QA report exists", fileExists(paths.cycleQaReport), paths.cycleQaReport);
+
+  const hits = scanFiles([paths.siteDashboardPublicV04Json, localDashboardPath, refreshJsonPath, previewHtmlPath, paths.tradeRejectionExplainabilityReport, paths.cycleLatestJson]);
   check(checks, "public/preview/dashboard outputs contain no restricted markers", hits.length === 0, hits.join("; "));
 
   writeText(qaReportPath, buildReport(checks));

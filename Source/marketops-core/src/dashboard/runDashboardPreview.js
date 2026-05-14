@@ -31,6 +31,18 @@ function timelineRows(items) {
   )).join("");
 }
 
+function reasonRows(items) {
+  return items.slice(0, 8).map((item) => (
+    `<li><strong>${h(item.reason)}</strong><span>${h(item.count)} rejection(s)</span></li>`
+  )).join("");
+}
+
+function candidateRows(items) {
+  return items.slice(0, 8).map((item) => (
+    `<li><strong>${h(item.symbol)}: ${h(item.status)}</strong><span>Confidence ${h(item.confidence)} / ${h(item.primaryBlockReason)} / ${h(item.wouldNeed)}</span></li>`
+  )).join("");
+}
+
 function buildHtml(localBundle, publicBundle) {
   const perf = localBundle.dashboardCards.currentPaperPerformance;
   const freshness = localBundle.dashboardCards.marketDataFreshnessPanel;
@@ -38,6 +50,11 @@ function buildHtml(localBundle, publicBundle) {
   const equity = localBundle.charts.paperPnlSeries || [];
   const risks = localBundle.charts.signalRiskCounts || [];
   const warnings = localBundle.charts.staleDataWarningPanel || [];
+  const directionCounts = localBundle.charts.vehicleDirectionCounts || [];
+  const movementBuckets = localBundle.charts.movementBuckets || [];
+  const rejectionReasons = localBundle.charts.riskRejectionReasons || publicBundle.riskRejectionReasons || [];
+  const almostApproved = localBundle.charts.almostApprovedCandidates || publicBundle.almostApprovedCandidates || [];
+  const cycle = localBundle.dashboardCards.paperCycleStatus || publicBundle.paperCycleStatus || {};
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -87,6 +104,8 @@ function buildHtml(localBundle, publicBundle) {
       <div class="metric"><strong>${h(perf.maxDrawdownPct)}%</strong><span>Max drawdown</span></div>
       <div class="metric"><strong>${h(freshness.barsLoaded)}</strong><span>Market bars loaded</span></div>
       <div class="metric"><strong>${h(freshness.quotesLoaded)}</strong><span>Quotes loaded</span></div>
+      <div class="metric"><strong>${h(cycle.currentBalance)}</strong><span>Cycle balance</span></div>
+      <div class="metric"><strong>${h(cycle.daysSurvived)}</strong><span>Cycle days survived</span></div>
     </section>
 
     <section class="panel">
@@ -97,10 +116,27 @@ function buildHtml(localBundle, publicBundle) {
       <span class="pill ok">rawMarketDataPublished false</span>
     </section>
 
+    <section class="panel">
+      <h2>$1,000 Paper Cycle</h2>
+      <p>Cycle ${h(cycle.cycleId)} is ${h(cycle.status)}. It does not reset daily; it continues while balance remains above ${h(cycle.depletionThreshold || 0)}.</p>
+      <span class="pill">Start ${h(cycle.cycleStartTimestamp)}</span>
+      <span class="pill">Approved ${h(cycle.approvedTrades)}</span>
+      <span class="pill">Rejected ${h(cycle.rejectedTrades)}</span>
+      <span class="pill">Risk ${h(cycle.depletionRisk)}</span>
+    </section>
+
     <section class="grid">
       <article class="panel">
         <h2>Recent Market Movement</h2>
         ${barRows(movers.slice(0, 8), "symbol", "changePct")}
+      </article>
+      <article class="panel">
+        <h2>Up / Down / Flat</h2>
+        ${barRows(directionCounts, "label", "value")}
+      </article>
+      <article class="panel">
+        <h2>Movement Buckets</h2>
+        ${barRows(movementBuckets, "label", "value")}
       </article>
       <article class="panel">
         <h2>Paper P&L Timeline</h2>
@@ -113,6 +149,17 @@ function buildHtml(localBundle, publicBundle) {
       <article class="panel">
         <h2>Bot Activity Timeline</h2>
         <ul>${timelineRows(localBundle.charts.botActivityTimeline || publicBundle.botActivityTimeline || [])}</ul>
+      </article>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <h2>Risk Rejections</h2>
+        <ul>${reasonRows(rejectionReasons)}</ul>
+      </article>
+      <article class="panel">
+        <h2>Almost Approved</h2>
+        <ul>${candidateRows(almostApproved)}</ul>
       </article>
     </section>
 

@@ -3,6 +3,8 @@ const path = require("path");
 const { refreshAlpacaMarketData } = require("../marketdata/alpacaMarketDataAdapter");
 const { runMarketDataQa } = require("../marketdata/runMarketDataQa");
 const { runPaperFull } = require("../paper/full");
+const { runCycleBuild, runCycleQa } = require("../cycles/paperCycle");
+const { runTradeRejectionExplainability } = require("../risk/runTradeRejectionExplainability");
 const { refreshSiteDashboard } = require("../site/refreshSiteDashboard");
 const { fileExists, loadJson, writeJson, writeText } = require("../utils/fileStore");
 const { paths } = require("../utils/paths");
@@ -39,6 +41,13 @@ function buildChartStatuses(bundle) {
     ["Paper equity curve", "paperEquityCurve", "paper_outputs", false],
     ["Paper P&L", "paperPnlSeries", "paper_run_history", false],
     ["Drawdown", "drawdownSeries", "paper_outputs", false],
+    ["Watchlist movement summary", "watchlistMovementSummary", "alpaca_iex_derived_summary", false],
+    ["Up/down/flat vehicle counts", "vehicleDirectionCounts", "alpaca_iex_derived_summary", false],
+    ["Top movement buckets", "movementBuckets", "alpaca_iex_derived_summary", false],
+    ["Signal candidates generated", "signalCandidatesGenerated", "paper_signal_outputs", false],
+    ["Signal confidence distribution", "signalConfidenceDistribution", "paper_signal_outputs", false],
+    ["Risk rejection counts by reason", "riskRejectionReasons", "risk_outputs", false],
+    ["Almost-approved candidates", "almostApprovedCandidates", "risk_outputs", false],
     ["Vehicle activity", "vehicleActivity", "paper_signals_plus_market_movement", false],
     ["Signal/risk counts", "signalRiskCounts", "paper_run_history", false],
     ["Cumulative paper P&L", "cumulativePaperPnl", "paper_trade_outputs", false],
@@ -53,6 +62,7 @@ function buildChartStatuses(bundle) {
     ["Recent market movement panel", "recentMarketMovementPanel", "alpaca_iex_derived_bars", false],
     ["Bot activity / latest run timeline", "botActivityTimeline", "paper_run_history", false],
     ["Stale-data warning panel", "staleDataWarningPanel", "freshness_labels", false],
+    ["Market regime summary", "marketRegimeSummary", "watchlist_and_regime_context", false],
     ["Regime score bars", "regimeScoreBars", "synthetic_backtest_context", true],
     ["Synthetic benchmark comparison", "syntheticBenchmarkComparison", "synthetic_backtest_context", true]
   ];
@@ -77,6 +87,7 @@ function buildRefreshSummary({ generatedAt, steps, status, errorMessage = null }
   const dashboardBundle = loadOptionalJson(path.join(paths.projectRoot, "Data", "dashboard", "dashboard-public-safe-v0.1.json"), {});
   const publicBundle = loadOptionalJson(paths.siteDashboardPublicV04Json, {});
   const latestRun = loadOptionalJson(paths.latestRunSummaryJson, {});
+  const latestCycle = loadOptionalJson(paths.cycleLatestJson, {});
   const chartStatuses = buildChartStatuses(dashboardBundle);
   const staleOrFallbackCharts = chartStatuses.filter((item) => item.fallback || item.status !== "updated");
   const marketRefreshAgeMinutes = minutesOld(marketData.generatedAt, now);
@@ -119,6 +130,17 @@ function buildRefreshSummary({ generatedAt, steps, status, errorMessage = null }
       maxDrawdownPct: latestRun.maxDrawdownPct ?? null,
       fakePaperTrades: latestRun.fakePaperTrades ?? null,
       qaStatus: latestRun.qaStatus || null
+    },
+    cycle: {
+      cycleId: latestCycle.cycleId || null,
+      status: latestCycle.status || null,
+      startingBalance: latestCycle.startingBalance ?? null,
+      currentBalance: latestCycle.currentBalance ?? null,
+      daysSurvived: latestCycle.daysSurvived ?? null,
+      approvedTrades: latestCycle.approvedTrades ?? null,
+      rejectedTrades: latestCycle.rejectedTrades ?? null,
+      depletionRisk: latestCycle.depletionRisk || null,
+      nextCycleScheduledStart: latestCycle.nextCycleScheduledStart || null
     },
     dashboard: {
       latestBundlePath: "Data/dashboard/dashboard-public-safe-v0.1.json",
@@ -186,6 +208,18 @@ ${summary.errorMessage ? `Error: ${summary.errorMessage}\n` : ""}## Safety
 - fakePaperTrades: ${summary.paper.fakePaperTrades}
 - qaStatus: ${summary.paper.qaStatus}
 
+## Balance-Based Paper Cycle
+
+- cycleId: ${summary.cycle.cycleId}
+- status: ${summary.cycle.status}
+- startingBalance: ${summary.cycle.startingBalance}
+- currentBalance: ${summary.cycle.currentBalance}
+- daysSurvived: ${summary.cycle.daysSurvived}
+- approvedTrades: ${summary.cycle.approvedTrades}
+- rejectedTrades: ${summary.cycle.rejectedTrades}
+- depletionRisk: ${summary.cycle.depletionRisk}
+- nextCycleScheduledStart: ${summary.cycle.nextCycleScheduledStart}
+
 ## Charts Updated
 
 ${chartLines.join("\n")}
@@ -239,6 +273,10 @@ async function runDashboardRefresh() {
     const marketQa = await runStep(steps, "npm run marketdata:qa", () => runMarketDataQa());
     if (!marketQa.passed) throw new Error("marketdata:qa reported failed checks.");
     await runStep(steps, "npm run paper:full", () => runPaperFull());
+    await runStep(steps, "npm run risk:explain", () => runTradeRejectionExplainability());
+    await runStep(steps, "npm run cycle:build", () => runCycleBuild());
+    const cycleQa = await runStep(steps, "npm run cycle:qa", () => runCycleQa());
+    if (!cycleQa.passed) throw new Error("cycle:qa reported failed checks.");
     await runStep(steps, "npm run dashboard:build", () => runDashboardBuild());
     await runStep(steps, "npm run paper:refresh-site", () => refreshSiteDashboard());
     const dashboardQa = await runStep(steps, "npm run dashboard:qa", () => runDashboardQa());

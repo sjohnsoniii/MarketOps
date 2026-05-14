@@ -47,20 +47,39 @@
       <div class="metric"><strong>0%</strong><span>Max drawdown</span></div>
       <div class="metric"><strong>100</strong><span>Market bars loaded</span></div>
       <div class="metric"><strong>5</strong><span>Quotes loaded</span></div>
+      <div class="metric"><strong>1000</strong><span>Cycle balance</span></div>
+      <div class="metric"><strong>0.01</strong><span>Cycle days survived</span></div>
     </section>
 
     <section class="panel">
       <h2>Market Data Freshness</h2>
-      <p>Feed iex / refreshed 2026-05-14T01:43:27.072Z / latest bar 2026-05-13T13:45:00Z.</p>
+      <p>Feed iex / refreshed 2026-05-14T02:36:53.260Z / latest bar 2026-05-13T13:45:00Z.</p>
       <span class="pill">fresh</span>
       <span class="pill">stale_or_market_closed</span>
       <span class="pill ok">rawMarketDataPublished false</span>
+    </section>
+
+    <section class="panel">
+      <h2>$1,000 Paper Cycle</h2>
+      <p>Cycle cycle-20260514-0220 is active. It does not reset daily; it continues while balance remains above 0.</p>
+      <span class="pill">Start 2026-05-14T02:20:20.137Z</span>
+      <span class="pill">Approved 0</span>
+      <span class="pill">Rejected 16</span>
+      <span class="pill">Risk normal</span>
     </section>
 
     <section class="grid">
       <article class="panel">
         <h2>Recent Market Movement</h2>
         <div class="bar-row"><span>MSFT</span><div class="track"><div class="bar neg" style="width:97%"></div></div><strong>-0.97</strong></div><div class="bar-row"><span>QQQ</span><div class="track"><div class="bar neg" style="width:55%"></div></div><strong>-0.55</strong></div><div class="bar-row"><span>NVDA</span><div class="track"><div class="bar neg" style="width:27%"></div></div><strong>-0.27</strong></div><div class="bar-row"><span>SPY</span><div class="track"><div class="bar neg" style="width:14%"></div></div><strong>-0.14</strong></div><div class="bar-row"><span>AAPL</span><div class="track"><div class="bar neg" style="width:4%"></div></div><strong>-0.03</strong></div>
+      </article>
+      <article class="panel">
+        <h2>Up / Down / Flat</h2>
+        <div class="bar-row"><span>up</span><div class="track"><div class="bar " style="width:4%"></div></div><strong>0</strong></div><div class="bar-row"><span>down</span><div class="track"><div class="bar " style="width:100%"></div></div><strong>3</strong></div><div class="bar-row"><span>flat</span><div class="track"><div class="bar " style="width:67%"></div></div><strong>2</strong></div>
+      </article>
+      <article class="panel">
+        <h2>Movement Buckets</h2>
+        <div class="bar-row"><span>flat_under_0_25pct</span><div class="track"><div class="bar " style="width:100%"></div></div><strong>2</strong></div><div class="bar-row"><span>micro_0_25_to_0_5pct</span><div class="track"><div class="bar " style="width:50%"></div></div><strong>1</strong></div><div class="bar-row"><span>small_0_5_to_1pct</span><div class="track"><div class="bar " style="width:100%"></div></div><strong>2</strong></div><div class="bar-row"><span>moderate_1_to_2pct</span><div class="track"><div class="bar " style="width:4%"></div></div><strong>0</strong></div><div class="bar-row"><span>large_2pct_plus</span><div class="track"><div class="bar " style="width:4%"></div></div><strong>0</strong></div>
       </article>
       <article class="panel">
         <h2>Paper P&L Timeline</h2>
@@ -72,13 +91,24 @@
       </article>
       <article class="panel">
         <h2>Bot Activity Timeline</h2>
-        <ul><li><strong>2026-05-14T01:43:27.156Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-14T01:38:40.615Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-14T01:37:40.861Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-14T01:37:05.413Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / manual_or_scheduler_gap</span></li><li><strong>2026-05-13T21:23:11.994Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / manual_or_scheduler_gap</span></li><li><strong>2026-05-13T19:41:21.772Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-13T19:40:21.818Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / manual_or_scheduler_gap</span></li><li><strong>2026-05-09T03:00:02.801Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-09T02:30:03.267Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-09T02:00:02.733Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li></ul>
+        <ul><li><strong>2026-05-14T02:36:53.328Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-14T02:20:20.137Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-14T01:43:27.156Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-14T01:38:40.615Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-14T01:37:40.861Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-14T01:37:05.413Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / manual_or_scheduler_gap</span></li><li><strong>2026-05-13T21:23:11.994Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / manual_or_scheduler_gap</span></li><li><strong>2026-05-13T19:41:21.772Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-13T19:40:21.818Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / manual_or_scheduler_gap</span></li><li><strong>2026-05-09T03:00:02.801Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li></ul>
+      </article>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <h2>Risk Rejections</h2>
+        <ul><li><strong>Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.</strong><span>8 rejection(s)</span></li><li><strong>Signal did not qualify as a candidate.</strong><span>8 rejection(s)</span></li><li><strong>Confidence threshold is below minimum threshold.</strong><span>5 rejection(s)</span></li><li><strong>Confidence 0 is below minimum threshold.</strong><span>3 rejection(s)</span></li><li><strong>Missing invalidation.</strong><span>3 rejection(s)</span></li></ul>
+      </article>
+      <article class="panel">
+        <h2>Almost Approved</h2>
+        <ul><li><strong>MSFT: closest_rejected</strong><span>Confidence 0.1 / Signal did not qualify as a candidate. / Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement.</span></li><li><strong>QQQ: closest_rejected</strong><span>Confidence 0.1 / Signal did not qualify as a candidate. / Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement.</span></li><li><strong>NVDA: closest_rejected</strong><span>Confidence 0.1 / Signal did not qualify as a candidate. / Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement.</span></li><li><strong>SPY: closest_rejected</strong><span>Confidence 0.1 / Signal did not qualify as a candidate. / Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement.</span></li><li><strong>AAPL: closest_rejected</strong><span>Confidence 0.1 / Signal did not qualify as a candidate. / Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement.</span></li><li><strong>BTC: closest_rejected</strong><span>Confidence 0 / Signal did not qualify as a candidate. / Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, a defined invalidation level, no downside/short/margin/leverage/options/futures requirement.</span></li><li><strong>ETH: closest_rejected</strong><span>Confidence 0 / Signal did not qualify as a candidate. / Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, a defined invalidation level, no downside/short/margin/leverage/options/futures requirement.</span></li><li><strong>SOL: closest_rejected</strong><span>Confidence 0 / Signal did not qualify as a candidate. / Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, a defined invalidation level, no downside/short/margin/leverage/options/futures requirement.</span></li></ul>
       </article>
     </section>
 
     <section class="panel">
       <h2>Stale/Fallback Warnings</h2>
-      <ul><li><strong>analytics_summary: stale_context_only</strong><span>Analytics summary 2026-05-08T03:46:14.425Z is older than latest paper run 2026-05-14T01:43:27.156Z. Dashboard headline cards use current paper outputs instead.</span></li><li><strong>latest_market_bar: market_closed_or_delayed</strong><span>Latest bar is 718.45 minutes old. Label as delayed/closed-market data, not live tick data.</span></li></ul>
+      <ul><li><strong>analytics_summary: stale_context_only</strong><span>Analytics summary 2026-05-08T03:46:14.425Z is older than latest paper run 2026-05-14T02:36:53.328Z. Dashboard headline cards use current paper outputs instead.</span></li><li><strong>latest_market_bar: market_closed_or_delayed</strong><span>Latest bar is 771.89 minutes old. Label as delayed/closed-market data, not live tick data.</span></li></ul>
     </section>
 
     <section class="panel">

@@ -1,13 +1,13 @@
 # MarketOps Public Dashboard Refresh Cadence v0.1
 
-Generated: 2026-05-14T01:43:27.171Z
+Generated: 2026-05-14T02:36:53.352Z
 
 ## Recommendation
 
-- Local paper runner: every 30 minutes.
-- Local public-ready dashboard bundle refresh: every 30 minutes when cheap and stable.
+- Local dashboard refresh target: every 2 hours during market hours after human scheduling approval.
+- Local public-ready dashboard bundle refresh: every 2 hours during market hours while stable.
 - Public website commit/push/deploy: manual approval only for now.
-- Future public dashboard publishing: 2-4 times per day at first, then every 30-60 minutes only after explicit auto-publish approval and repeated safety passes.
+- Future 15-minute refresh cadence: only after refreshes are stable, dashboard data updates correctly, failure detection works, and public publishing is controlled.
 - Social posting: manually approved IG/X drafts first, likely 1-2 per day while quality improves.
 
 ## Phase Rollout

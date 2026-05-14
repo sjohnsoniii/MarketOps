@@ -5,6 +5,7 @@ const projectRoot = path.join(coreRoot, "..", "..");
 const dataRoot = path.join(projectRoot, "Data");
 const paperRoot = path.join(dataRoot, "paper");
 const historyRoot = path.join(paperRoot, "history");
+const cyclesRoot = path.join(paperRoot, "cycles");
 const logsRoot = path.join(dataRoot, "logs");
 const marketDataRoot = path.join(dataRoot, "market-data");
 const alpacaMarketDataRoot = path.join(marketDataRoot, "alpaca");
@@ -42,6 +43,16 @@ const paths = {
   tradesJson: path.join(paperRoot, "trades", "paper-trades-v0.1.json"),
   equityJson: path.join(paperRoot, "equity", "equity-curve-v0.1.json"),
   dashboardJson: path.join(paperRoot, "dashboard", "dashboard-bundle-v0.1.json"),
+  cyclesRoot,
+  cycleStateJson: path.join(cyclesRoot, "paper-cycle-state-v0.1.json"),
+  cycleLatestJson: path.join(cyclesRoot, "paper-cycle-latest-v0.1.json"),
+  cycleArchiveRoot: path.join(cyclesRoot, "archive"),
+  cycleStatusReport: path.join(projectRoot, "Reports", "Cycles", "marketops-paper-cycle-status-v0.1.md"),
+  cycleQaReport: path.join(projectRoot, "Reports", "Cycles", "marketops-paper-cycle-qa-v0.1.md"),
+  tradeRejectionExplainabilityReport: path.join(projectRoot, "Reports", "Risk", "marketops-trade-rejection-explainability-v0.1.md"),
+  agentImprovementLoopReport: path.join(projectRoot, "Reports", "Optimization", "marketops-agent-improvement-loop-v0.1.md"),
+  dashboardRefreshSchedulePlan: path.join(projectRoot, "Reports", "Automation", "marketops-dashboard-refresh-schedule-plan-v0.1.md"),
+  publicDataHandoffPlan: path.join(projectRoot, "Reports", "Dashboard", "marketops-public-data-handoff-plan-v0.1.md"),
   historyRoot,
   logsRoot,
   runHistoryJson: path.join(historyRoot, "run-history.json"),

@@ -4,7 +4,7 @@
   "paperOnly": true,
   "dataSource": "alpaca_iex",
   "marketDataSourceLabel": "Alpaca IEX market data",
-  "latestMarketDataRefreshAt": "2026-05-14T01:43:27.072Z",
+  "latestMarketDataRefreshAt": "2026-05-14T02:36:53.260Z",
   "latestBarTimestamp": "2026-05-13T13:45:00Z",
   "liveTradingEnabled": false,
   "orderPlacementEnabled": false,
