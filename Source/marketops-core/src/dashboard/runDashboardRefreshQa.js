@@ -4,6 +4,7 @@ const path = require("path");
 const { fileExists, loadJson, writeText } = require("../utils/fileStore");
 const { paths } = require("../utils/paths");
 const { refreshJsonPath, refreshReportPath } = require("./runDashboardRefresh");
+const { healthJsonPath } = require("./refreshHealthTracker");
 
 const qaReportPath = path.join(paths.projectRoot, "Reports", "Dashboard", "marketops-dashboard-refresh-qa-v0.1.md");
 const localDashboardPath = path.join(paths.projectRoot, "Data", "dashboard", "dashboard-public-safe-v0.1.json");
@@ -104,6 +105,27 @@ function runDashboardRefreshQa() {
     check(checks, "required charts updated or fallback-labeled", (summary.dashboard.chartStatuses || []).every((item) => item.status === "updated" || item.fallback === true), "chart status set");
   }
 
+  check(checks, "refresh health JSON exists", fileExists(healthJsonPath), healthJsonPath);
+
+  let health = null;
+  try {
+    health = loadJson(healthJsonPath);
+    check(checks, "refresh health JSON valid", true, healthJsonPath);
+  } catch (error) {
+    check(checks, "refresh health JSON valid", false, error.message);
+  }
+
+  if (health) {
+    check(checks, "health lastStatus present", Boolean(health.lastStatus), health.lastStatus || "missing");
+    check(checks, "health lastAttemptAt present", Boolean(health.lastAttemptAt), health.lastAttemptAt || "missing");
+    check(checks, "health consecutiveFailures is number", typeof health.consecutiveFailures === "number", String(health.consecutiveFailures));
+    check(checks, "health refreshIntervalTargetHours is 2", health.refreshIntervalTargetHours === 2, String(health.refreshIntervalTargetHours));
+    check(checks, "health schedulerInstalled is false", health.schedulerInstalled === false, String(health.schedulerInstalled));
+    if (health.staleWarning) {
+      check(checks, "health staleWarning present when stale", true, health.staleWarning);
+    }
+  }
+
   let localBundle = null;
   try {
     localBundle = loadJson(localDashboardPath);
@@ -146,7 +168,7 @@ function runDashboardRefreshQa() {
   check(checks, "cycle latest exists", fileExists(paths.cycleLatestJson), paths.cycleLatestJson);
   check(checks, "cycle QA report exists", fileExists(paths.cycleQaReport), paths.cycleQaReport);
 
-  const hits = scanFiles([paths.siteDashboardPublicV04Json, localDashboardPath, refreshJsonPath, previewHtmlPath, paths.tradeRejectionExplainabilityReport, paths.cycleLatestJson]);
+  const hits = scanFiles([paths.siteDashboardPublicV04Json, localDashboardPath, refreshJsonPath, previewHtmlPath, healthJsonPath, paths.tradeRejectionExplainabilityReport, paths.cycleLatestJson]);
   check(checks, "public/preview/dashboard outputs contain no restricted markers", hits.length === 0, hits.join("; "));
 
   writeText(qaReportPath, buildReport(checks));

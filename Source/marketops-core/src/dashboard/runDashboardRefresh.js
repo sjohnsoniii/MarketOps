@@ -11,6 +11,7 @@ const { paths } = require("../utils/paths");
 const { runDashboardBuild } = require("./runDashboardBuild");
 const { runDashboardQa } = require("./runDashboardQa");
 const { runPublicDashboardRefreshQa } = require("./runPublicDashboardRefreshQa");
+const { trackRefreshHealth } = require("./refreshHealthTracker");
 
 const refreshJsonPath = path.join(paths.dataRoot, "dashboard", "dashboard-refresh-latest-v0.1.json");
 const refreshReportPath = path.join(paths.projectRoot, "Reports", "Dashboard", "marketops-dashboard-refresh-latest-v0.1.md");
@@ -286,6 +287,7 @@ async function runDashboardRefresh() {
 
     const summary = buildRefreshSummary({ generatedAt: new Date().toISOString(), steps, status: "PASS" });
     writeRefreshReport(summary);
+    trackRefreshHealth(summary);
     console.log("MarketOps dashboard refresh PASS");
     console.log(`refresh report: ${refreshReportPath}`);
     return summary;
@@ -297,6 +299,7 @@ async function runDashboardRefresh() {
       errorMessage: redactErrorMessage(error.message)
     });
     writeRefreshReport(summary);
+    trackRefreshHealth(summary);
     console.error("MarketOps dashboard refresh FAIL");
     console.error(summary.errorMessage);
     console.error(`refresh report: ${refreshReportPath}`);
