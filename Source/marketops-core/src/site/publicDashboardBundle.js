@@ -1,3 +1,4 @@
+const path = require("path");
 const { loadConfig } = require("../config/configLoader");
 const { fileExists, loadJson, writeJson } = require("../utils/fileStore");
 const { round } = require("../utils/number");
@@ -300,6 +301,8 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
   const alpacaMarketData = fileExists(paths.alpacaMarketDataLatestJson) ? loadJson(paths.alpacaMarketDataLatestJson) : null;
   const runHistory = fileExists(paths.runHistoryJson) ? loadJson(paths.runHistoryJson) : { runs: [] };
   const cycle = fileExists(paths.cycleLatestJson) ? loadJson(paths.cycleLatestJson) : {};
+  const refreshHealthPath = path.join(paths.dataRoot, "dashboard", "dashboard-refresh-health-v0.1.json");
+  const refreshHealth = fileExists(refreshHealthPath) ? loadJson(refreshHealthPath) : {};
   const dataSource = dashboardBundle.dataSource || signals.dataSource || paperResults.dataSource || "deterministic_sample";
   const latestMarketDataRefreshAt = dashboardBundle.latestMarketDataRefreshAt || signals.latestMarketDataRefreshAt || null;
   const latestBarTimestamp = dashboardBundle.latestBarTimestamp || signals.latestBarTimestamp || null;
@@ -430,8 +433,8 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
     paperCycleStatus: {
       cycleId: cycle.cycleId || "cycle_not_built",
       status: cycle.status || "missing",
-      startingBalance: cycle.startingBalance || 1000,
-      currentBalance: cycle.currentBalance || 1000,
+      startingBalance: cycle.startingBalance || config.paperAccount && config.paperAccount.paperStartingBalance || 1000,
+      currentBalance: cycle.currentBalance || config.paperAccount && config.paperAccount.paperStartingBalance || 1000,
       cycleStartTimestamp: cycle.cycleStartTimestamp || null,
       cycleEndTimestamp: cycle.cycleEndTimestamp || null,
       hoursSurvived: round(cycle.hoursSurvived || 0),
@@ -445,6 +448,18 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
       paperOnly: true,
       externalEffects: false,
       publishAllowed: false
+    },
+    dashboardRefreshHealth: {
+      lastStatus: refreshHealth.lastStatus || "UNKNOWN",
+      lastAttemptAt: refreshHealth.lastAttemptAt || null,
+      lastSuccessfulRefreshAt: refreshHealth.lastSuccessfulRefreshAt || null,
+      lastFailureAt: refreshHealth.lastFailureAt || null,
+      consecutiveFailures: typeof refreshHealth.consecutiveFailures === "number" ? refreshHealth.consecutiveFailures : 0,
+      staleWarning: refreshHealth.staleWarning || null,
+      refreshIntervalTargetHours: refreshHealth.refreshIntervalTargetHours || 2,
+      schedulerInstalled: refreshHealth.schedulerInstalled === true,
+      paperOnly: true,
+      mode: "paper_simulation"
     },
     marketActivityHeartbeat: {
       status: dataSource === "alpaca_iex" ? "market_data_received" : "sample_data_loaded",

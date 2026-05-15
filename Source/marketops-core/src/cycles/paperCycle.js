@@ -3,11 +3,25 @@ const path = require("path");
 const { fileExists, loadJson, writeJson, writeText } = require("../utils/fileStore");
 const { round } = require("../utils/number");
 const { paths } = require("../utils/paths");
+const { loadConfig } = require("../config/configLoader");
 
 const CYCLE_STARTING_BALANCE = 1000;
 const DEPLETION_THRESHOLD = 0;
 const STRATEGY_VERSION = "strategy-v0.1-watchlist-threshold-paper";
 const RISK_MODEL_VERSION = "risk-desk-v0.1-long-up-confidence-gate";
+
+function getStartingBalance() {
+  try {
+    const config = loadConfig();
+    const preset = config.paperAccount && config.paperAccount.paperAccountPreset || "standard";
+    const presets = config.paperAccountPresets || {};
+    const presetBalance = presets[preset] && presets[preset].paperStartingBalance;
+    const explicitBalance = config.paperAccount && config.paperAccount.paperStartingBalance;
+    return presetBalance || explicitBalance || CYCLE_STARTING_BALANCE;
+  } catch {
+    return CYCLE_STARTING_BALANCE;
+  }
+}
 
 function cycleIdFromTimestamp(timestamp) {
   const date = new Date(timestamp || new Date().toISOString());
@@ -47,7 +61,7 @@ function loadCycleState() {
       schemaVersion: "marketops-paper-cycle-state-v0.1",
       mode: "paper_simulation",
       paperOnly: true,
-      cycleStartingBalance: CYCLE_STARTING_BALANCE,
+      cycleStartingBalance: getStartingBalance(),
       depletionThreshold: DEPLETION_THRESHOLD,
       currentCycle: null,
       cycleHistory: [],
@@ -65,8 +79,8 @@ function newCycle(timestamp) {
     cycleId: cycleIdFromTimestamp(timestamp),
     cycleNumber: 1,
     status: "active",
-    startingBalance: CYCLE_STARTING_BALANCE,
-    currentBalance: CYCLE_STARTING_BALANCE,
+    startingBalance: getStartingBalance(),
+    currentBalance: getStartingBalance(),
     endingBalance: null,
     depletionThreshold: DEPLETION_THRESHOLD,
     cycleStartTimestamp: timestamp,
@@ -266,7 +280,7 @@ function runCycleQa() {
 
   if (cycle) {
     check("cycle id format valid", /^cycle-\d{8}-\d{4}$/.test(cycle.cycleId || ""), cycle.cycleId);
-    check("cycle starting balance is 1000", cycle.startingBalance === CYCLE_STARTING_BALANCE, String(cycle.startingBalance));
+    check("cycle starting balance matches config", cycle.startingBalance === getStartingBalance(), String(cycle.startingBalance));
     check("cycle status valid", ["active", "depleted", "reset_pending", "closed"].includes(cycle.status), cycle.status);
     check("cycle does not reset daily by default", cycle.status === "active" || Boolean(cycle.resetTriggerReason), cycle.status);
     check("cycle continues above depletion threshold", scenarioContinueAboveThreshold(), "simulated active balance above threshold");

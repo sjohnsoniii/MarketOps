@@ -19,6 +19,7 @@ const reviewPaths = {
   contentQueue: path.join(dataRoot, "content", "queue", "content-queue-v0.1.json"),
   complianceReport: path.join(dataRoot, "content", "compliance", "content-compliance-report-v0.1.md"),
   latestPaperRun: path.join(dataRoot, "paper", "history", "latest-run-summary.json"),
+  dashboardRefreshHealth: path.join(dataRoot, "dashboard", "dashboard-refresh-health-v0.1.json"),
   latestAgentSummary: path.join(reviewRoot, "latest-agent-review-summary.json"),
   improvementBacklog: path.join(reviewRoot, "improvement-backlog-v0.1.md"),
   monthlyBrief: path.join(reviewRoot, "monthly-human-review-brief-v0.1.md"),
@@ -85,6 +86,7 @@ function loadReviewInputs() {
   const queue = readJson(reviewPaths.contentQueue, { items: [] });
   const paperRun = readJson(reviewPaths.latestPaperRun, {});
   const complianceText = readText(reviewPaths.complianceReport, "");
+  const refreshHealth = readJson(reviewPaths.dashboardRefreshHealth, {});
   const generatedAt = new Date().toISOString();
 
   return {
@@ -100,7 +102,18 @@ function loadReviewInputs() {
     sampleData: dashboard.sampleData !== false,
     queueItems: Array.isArray(queue.items) ? queue.items.length : 0,
     complianceStatus: officeSummary.complianceStatus || (complianceText.includes("Status: passed") ? "passed" : "unknown"),
-    nextSuggestedReviewWindow: addDaysIso(14)
+    nextSuggestedReviewWindow: addDaysIso(14),
+    refreshHealth: {
+      lastStatus: refreshHealth.lastStatus || "UNKNOWN",
+      lastAttemptAt: refreshHealth.lastAttemptAt || null,
+      lastSuccessfulRefreshAt: refreshHealth.lastSuccessfulRefreshAt || null,
+      lastFailureAt: refreshHealth.lastFailureAt || null,
+      consecutiveFailures: typeof refreshHealth.consecutiveFailures === "number" ? refreshHealth.consecutiveFailures : 0,
+      staleWarning: refreshHealth.staleWarning || null,
+      refreshIntervalTargetHours: refreshHealth.refreshIntervalTargetHours || 2,
+      schedulerInstalled: refreshHealth.schedulerInstalled === true,
+      paperOnly: true
+    }
   };
 }
 

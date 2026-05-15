@@ -1,6 +1,6 @@
 # MarketOps Paper Cycle Status v0.1
 
-Generated: 2026-05-14T02:36:53.340Z
+Generated: 2026-05-15T02:22:59.163Z
 
 ## Cycle
 
@@ -12,18 +12,18 @@ Generated: 2026-05-14T02:36:53.340Z
 - depletionThreshold: 0
 - cycleStartTimestamp: 2026-05-14T02:20:20.137Z
 - cycleEndTimestamp: null
-- hoursSurvived: 0.28
-- daysSurvived: 0.01
+- hoursSurvived: 24.04
+- daysSurvived: 1
 - approvedTrades: 0
-- rejectedTrades: 16
+- rejectedTrades: 64
 - depletionRisk: normal
 - resetTriggerReason: null
 - nextCycleScheduledStart: null
 
 ## Latest Paper Run Applied
 
-- runId: paper-20260514-023653328Z
-- generatedAt: 2026-05-14T02:36:53.328Z
+- runId: paper-20260515-022259154Z
+- generatedAt: 2026-05-15T02:22:59.154Z
 - paperPnl: 0
 - riskApproved: 0
 - riskBlocked: 8

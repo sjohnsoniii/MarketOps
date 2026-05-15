@@ -1,0 +1,102 @@
+ Data/dashboard/dashboard-public-safe-v0.1.json     | 1064 [32m++++++++[m[31m---------[m
+ Data/dashboard/dashboard-refresh-latest-v0.1.json  |   60 [32m+[m[31m-[m
+ Data/dashboard/latest-dashboard-summary.json       |    6 [32m+[m[31m-[m
+ .../alpaca/alpaca-market-bars-latest-v0.1.json     | 1190 [32m+++++++++[m[31m----------[m
+ .../alpaca/alpaca-market-data-latest-v0.1.json     | 1254 [32m++++++++++[m[31m----------[m
+ Data/paper/cycles/archive/cycle-20260514-0220.json |   15 [32m+[m[31m-[m
+ Data/paper/cycles/paper-cycle-latest-v0.1.json     |   15 [32m+[m[31m-[m
+ Data/paper/cycles/paper-cycle-state-v0.1.json      |   17 [32m+[m[31m-[m
+ Data/paper/dashboard/dashboard-bundle-v0.1.json    |   34 [32m+[m[31m-[m
+ Data/paper/history/latest-run-summary.json         |    4 [32m+[m[31m-[m
+ Data/paper/history/run-history.json                |  117 [32m+[m[31m-[m
+ Data/paper/reports/signal-scan-v0.1.md             |   10 [32m+[m[31m-[m
+ Data/paper/risk/risk-decisions-v0.1.json           |   10 [32m+[m[31m-[m
+ Data/paper/signals/signal-scan-v0.1.json           |   24 [32m+[m[31m-[m
+ Reports/Cycles/marketops-paper-cycle-qa-v0.1.md    |    2 [32m+[m[31m-[m
+ .../Cycles/marketops-paper-cycle-status-v0.1.md    |   12 [32m+[m[31m-[m
+ .../marketops-dashboard-public-safe-v0.1.md        |   10 [32m+[m[31m-[m
+ .../marketops-dashboard-refresh-latest-v0.1.md     |   16 [32m+[m[31m-[m
+ .../marketops-dashboard-refresh-qa-v0.1.md         |    4 [32m+[m[31m-[m
+ ...ketops-public-dashboard-refresh-cadence-v0.1.md |    2 [32m+[m[31m-[m
+ .../marketops-alpaca-market-data-v0.1.md           |    2 [32m+[m[31m-[m
+ ...arketops-trade-rejection-explainability-v0.1.md |   12 [32m+[m[31m-[m
+ .../src/dashboard/runDashboardRefresh.js           |    3 [32m+[m
+ .../src/dashboard/runDashboardRefreshQa.js         |   24 [32m+[m[31m-[m
+ 24 files changed, 2031 insertions(+), 1876 deletions(-)
+[1mdiff --git a/Source/marketops-core/src/dashboard/runDashboardRefresh.js b/Source/marketops-core/src/dashboard/runDashboardRefresh.js[m
+[1mindex 044344a..5479f71 100644[m
+[1m--- a/Source/marketops-core/src/dashboard/runDashboardRefresh.js[m
+[1m+++ b/Source/marketops-core/src/dashboard/runDashboardRefresh.js[m
+[36m@@ -11,6 +11,7 @@[m [mconst { paths } = require("../utils/paths");[m
+ const { runDashboardBuild } = require("./runDashboardBuild");[m
+ const { runDashboardQa } = require("./runDashboardQa");[m
+ const { runPublicDashboardRefreshQa } = require("./runPublicDashboardRefreshQa");[m
+[32m+[m[32mconst { trackRefreshHealth } = require("./refreshHealthTracker");[m
+ [m
+ const refreshJsonPath = path.join(paths.dataRoot, "dashboard", "dashboard-refresh-latest-v0.1.json");[m
+ const refreshReportPath = path.join(paths.projectRoot, "Reports", "Dashboard", "marketops-dashboard-refresh-latest-v0.1.md");[m
+[36m@@ -286,6 +287,7 @@[m [masync function runDashboardRefresh() {[m
+ [m
+     const summary = buildRefreshSummary({ generatedAt: new Date().toISOString(), steps, status: "PASS" });[m
+     writeRefreshReport(summary);[m
+[32m+[m[32m    trackRefreshHealth(summary);[m
+     console.log("MarketOps dashboard refresh PASS");[m
+     console.log(`refresh report: ${refreshReportPath}`);[m
+     return summary;[m
+[36m@@ -297,6 +299,7 @@[m [masync function runDashboardRefresh() {[m
+       errorMessage: redactErrorMessage(error.message)[m
+     });[m
+     writeRefreshReport(summary);[m
+[32m+[m[32m    trackRefreshHealth(summary);[m
+     console.error("MarketOps dashboard refresh FAIL");[m
+     console.error(summary.errorMessage);[m
+     console.error(`refresh report: ${refreshReportPath}`);[m
+[1mdiff --git a/Source/marketops-core/src/dashboard/runDashboardRefreshQa.js b/Source/marketops-core/src/dashboard/runDashboardRefreshQa.js[m
+[1mindex dd3c2a2..5b16351 100644[m
+[1m--- a/Source/marketops-core/src/dashboard/runDashboardRefreshQa.js[m
+[1m+++ b/Source/marketops-core/src/dashboard/runDashboardRefreshQa.js[m
+[36m@@ -4,6 +4,7 @@[m [mconst path = require("path");[m
+ const { fileExists, loadJson, writeText } = require("../utils/fileStore");[m
+ const { paths } = require("../utils/paths");[m
+ const { refreshJsonPath, refreshReportPath } = require("./runDashboardRefresh");[m
+[32m+[m[32mconst { healthJsonPath } = require("./refreshHealthTracker");[m
+ [m
+ const qaReportPath = path.join(paths.projectRoot, "Reports", "Dashboard", "marketops-dashboard-refresh-qa-v0.1.md");[m
+ const localDashboardPath = path.join(paths.projectRoot, "Data", "dashboard", "dashboard-public-safe-v0.1.json");[m
+[36m@@ -104,6 +105,27 @@[m [mfunction runDashboardRefreshQa() {[m
+     check(checks, "required charts updated or fallback-labeled", (summary.dashboard.chartStatuses || []).every((item) => item.status === "updated" || item.fallback === true), "chart status set");[m
+   }[m
+ [m
+[32m+[m[32m  check(checks, "refresh health JSON exists", fileExists(healthJsonPath), healthJsonPath);[m
+[32m+[m
+[32m+[m[32m  let health = null;[m
+[32m+[m[32m  try {[m
+[32m+[m[32m    health = loadJson(healthJsonPath);[m
+[32m+[m[32m    check(checks, "refresh health JSON valid", true, healthJsonPath);[m
+[32m+[m[32m  } catch (error) {[m
+[32m+[m[32m    check(checks, "refresh health JSON valid", false, error.message);[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  if (health) {[m
+[32m+[m[32m    check(checks, "health lastStatus present", Boolean(health.lastStatus), health.lastStatus || "missing");[m
+[32m+[m[32m    check(checks, "health lastAttemptAt present", Boolean(health.lastAttemptAt), health.lastAttemptAt || "missing");[m
+[32m+[m[32m    check(checks, "health consecutiveFailures is number", typeof health.consecutiveFailures === "number", String(health.consecutiveFailures));[m
+[32m+[m[32m    check(checks, "health refreshIntervalTargetHours is 2", health.refreshIntervalTargetHours === 2, String(health.refreshIntervalTargetHours));[m
+[32m+[m[32m    check(checks, "health schedulerInstalled is false", health.schedulerInstalled === false, String(health.schedulerInstalled));[m
+[32m+[m[32m    if (health.staleWarning) {[m
+[32m+[m[32m      check(checks, "health staleWarning present when stale", true, health.staleWarning);[m
+[32m+[m[32m    }[m
+[32m+[m[32m  }[m
+[32m+[m
+   let localBundle = null;[m
+   try {[m
+     localBundle = loadJson(localDashboardPath);[m
+[36m@@ -146,7 +168,7 @@[m [mfunction runDashboardRefreshQa() {[m
+   check(checks, "cycle latest exists", fileExists(paths.cycleLatestJson), paths.cycleLatestJson);[m
+   check(checks, "cycle QA report exists", fileExists(paths.cycleQaReport), paths.cycleQaReport);[m
+ [m
+[31m-  const hits = scanFiles([paths.siteDashboardPublicV04Json, localDashboardPath, refreshJsonPath, previewHtmlPath, paths.tradeRejectionExplainabilityReport, paths.cycleLatestJson]);[m
+[32m+[m[32m  const hits = scanFiles([paths.siteDashboardPublicV04Json, localDashboardPath, refreshJsonPath, previewHtmlPath, healthJsonPath, paths.tradeRejectionExplainabilityReport, paths.cycleLatestJson]);[m
+   check(checks, "public/preview/dashboard outputs contain no restricted markers", hits.length === 0, hits.join("; "));[m
+ [m
+   writeText(qaReportPath, buildReport(checks));[m

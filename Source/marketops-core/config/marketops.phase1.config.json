@@ -5,7 +5,14 @@
   "paperAccount": {
     "startingBalance": 10000,
     "targetBalance": 13000,
-    "currency": "USD"
+    "currency": "USD",
+    "paperAccountPreset": "standard",
+    "paperStartingBalance": 1000
+  },
+  "paperAccountPresets": {
+    "micro": { "paperStartingBalance": 100, "label": "Micro paper account (100 paper USD)" },
+    "small": { "paperStartingBalance": 250, "label": "Small paper account (250 paper USD)" },
+    "standard": { "paperStartingBalance": 1000, "label": "Standard paper account (1000 paper USD)" }
   },
   "safety": {
     "allowBrokerConnection": false,

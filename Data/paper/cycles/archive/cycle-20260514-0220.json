@@ -8,10 +8,10 @@
   "depletionThreshold": 0,
   "cycleStartTimestamp": "2026-05-14T02:20:20.137Z",
   "cycleEndTimestamp": null,
-  "hoursSurvived": 0.28,
-  "daysSurvived": 0.01,
+  "hoursSurvived": 24.04,
+  "daysSurvived": 1,
   "approvedTrades": 0,
-  "rejectedTrades": 16,
+  "rejectedTrades": 64,
   "rejectionReasons": [
     {
       "reason": "Signal did not qualify as a candidate.",
@@ -52,9 +52,15 @@
   "nextCycleScheduledStart": null,
   "appliedRunIds": [
     "paper-20260514-022020137Z",
-    "paper-20260514-023653328Z"
+    "paper-20260514-023653328Z",
+    "paper-20260515-020235513Z",
+    "paper-20260515-020548215Z",
+    "paper-20260515-021120713Z",
+    "paper-20260515-021149350Z",
+    "paper-20260515-021258389Z",
+    "paper-20260515-022259154Z"
   ],
-  "lastRunAppliedAt": "2026-05-14T02:36:53.328Z",
+  "lastRunAppliedAt": "2026-05-15T02:22:59.154Z",
   "externalEffects": false,
   "publishAllowed": false,
   "remainingBalance": 1000,

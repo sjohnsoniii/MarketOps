@@ -17,7 +17,8 @@ const inputPaths = {
   contentQueue: path.join(dataRoot, "content", "queue", "content-queue-v0.1.json"),
   agentSummary: path.join(dataRoot, "agent-reviews", "latest-agent-review-summary.json"),
   marketData: path.join(dataRoot, "market-data", "alpaca", "alpaca-market-data-latest-v0.1.json"),
-  cycle: path.join(dataRoot, "paper", "cycles", "paper-cycle-latest-v0.1.json")
+  cycle: path.join(dataRoot, "paper", "cycles", "paper-cycle-latest-v0.1.json"),
+  refreshHealth: path.join(dataRoot, "dashboard", "dashboard-refresh-health-v0.1.json")
 };
 
 function readJson(filePath, fallback) {
@@ -716,6 +717,7 @@ function buildDashboardBundle() {
   const agentSummary = readJson(inputPaths.agentSummary, {});
   const marketData = readJson(inputPaths.marketData, { bars: [], quotes: [] });
   const cycle = readJson(inputPaths.cycle, {});
+  const refreshHealth = readJson(inputPaths.refreshHealth, {});
 
   const rollingHistory = sanitizeRollingHistory(runHistory);
   const equitySeries = buildEquitySeries(equity);
@@ -798,6 +800,18 @@ function buildDashboardBundle() {
         liveTradingEnabled: false,
         orderPlacementEnabled: false,
         rawMarketDataPublished: false
+      },
+      dashboardRefreshHealth: {
+        lastStatus: refreshHealth.lastStatus || "UNKNOWN",
+        lastAttemptAt: refreshHealth.lastAttemptAt || null,
+        lastSuccessfulRefreshAt: refreshHealth.lastSuccessfulRefreshAt || null,
+        lastFailureAt: refreshHealth.lastFailureAt || null,
+        consecutiveFailures: typeof refreshHealth.consecutiveFailures === "number" ? refreshHealth.consecutiveFailures : 0,
+        staleWarning: refreshHealth.staleWarning || null,
+        refreshIntervalTargetHours: refreshHealth.refreshIntervalTargetHours || 2,
+        schedulerInstalled: refreshHealth.schedulerInstalled === true,
+        paperOnly: true,
+        mode: "paper_simulation"
       }
     },
     charts: {
@@ -839,6 +853,15 @@ function buildDashboardBundle() {
       staleDataWarningPanel: staleDataWarningPanel.warnings,
       marketRegimeSummary: [marketRegimeSummary],
       paperCycleStatus: [paperCycleStatus],
+      dashboardRefreshHealth: [{
+        lastStatus: refreshHealth.lastStatus || "UNKNOWN",
+        lastAttemptAt: refreshHealth.lastAttemptAt || null,
+        lastSuccessfulRefreshAt: refreshHealth.lastSuccessfulRefreshAt || null,
+        staleWarning: refreshHealth.staleWarning || null,
+        refreshIntervalTargetHours: refreshHealth.refreshIntervalTargetHours || 2,
+        schedulerInstalled: refreshHealth.schedulerInstalled === true,
+        paperOnly: true
+      }],
       quoteSnapshot: (marketData.quotes || []).map((quote) => ({
         symbol: quote.symbol,
         timestamp: quote.timestamp,

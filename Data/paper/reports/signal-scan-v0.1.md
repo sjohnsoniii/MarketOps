@@ -10,11 +10,11 @@ Candidate signals: 0
 
 | Vehicle | Type | Bias | Change | Status | Confidence | Risk |
 |---|---|---|---:|---|---:|---|
-| SPY | ETF | flat | -0.14% | ignore | 0.1 | low |
-| QQQ | ETF | flat | -0.55% | ignore | 0.1 | low |
-| AAPL | EQUITY | flat | -0.03% | ignore | 0.1 | low |
-| MSFT | EQUITY | flat | -0.97% | ignore | 0.1 | low |
-| NVDA | EQUITY | flat | -0.27% | ignore | 0.1 | low |
+| SPY | ETF | flat | 0.1% | ignore | 0.1 | low |
+| QQQ | ETF | flat | 0.25% | ignore | 0.1 | low |
+| AAPL | EQUITY | flat | -0.79% | ignore | 0.1 | low |
+| MSFT | EQUITY | flat | -0.75% | ignore | 0.1 | low |
+| NVDA | EQUITY | flat | -0.08% | ignore | 0.1 | low |
 | BTC | CRYPTO | none | 0% | no_data | 0 | blocked |
 | ETH | CRYPTO | none | 0% | no_data | 0 | blocked |
 | SOL | CRYPTO | none | 0% | no_data | 0 | blocked |

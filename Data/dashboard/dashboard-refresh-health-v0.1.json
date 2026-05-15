@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "marketops-dashboard-refresh-health-v0.1",
+  "lastStatus": "PASS",
+  "lastAttemptAt": "2026-05-15T02:22:59.175Z",
+  "lastSuccessfulRefreshAt": "2026-05-15T02:22:59.175Z",
+  "lastFailureAt": null,
+  "consecutiveFailures": 0,
+  "staleWarning": null,
+  "refreshIntervalTargetHours": 2,
+  "schedulerInstalled": false
+}

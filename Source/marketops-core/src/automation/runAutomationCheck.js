@@ -1,6 +1,9 @@
 const fs = require("fs");
 const path = require("path");
+const os = require("os");
 const { execFileSync } = require("child_process");
+
+const isWindows = os.platform() === "win32";
 
 const coreRoot = path.join(__dirname, "..", "..");
 const projectRoot = path.join(coreRoot, "..", "..");
@@ -79,16 +82,23 @@ function scanDir(dirPath) {
 }
 
 function ps(command) {
-  return execFileSync("powershell.exe", ["-NoProfile", "-Command", command], { encoding: "utf8" }).trim();
+  if (!isWindows) return "{}";
+  try {
+    return execFileSync("powershell.exe", ["-NoProfile", "-Command", command], { encoding: "utf8" }).trim();
+  } catch {
+    return "{}";
+  }
 }
 
 function inspectTask(taskName) {
+  if (!isWindows) return {};
   const safeName = taskName.replace(/'/g, "''");
   const raw = ps(`$task = Get-ScheduledTask -TaskName '${safeName}' -ErrorAction SilentlyContinue; if ($null -eq $task) { '{}' } else { $info = Get-ScheduledTaskInfo -TaskName '${safeName}'; [pscustomobject]@{ TaskName=$task.TaskName; State=[string]$task.State; Action=($task.Actions | ForEach-Object { "$($_.Execute) $($_.Arguments)" }) -join ' | '; StartBoundary=($task.Triggers | Select-Object -First 1 -ExpandProperty StartBoundary); RepetitionInterval=($task.Triggers | Select-Object -First 1).Repetition.Interval; DaysInterval=($task.Triggers | Select-Object -First 1).DaysInterval; LogonType=[string]$task.Principal.LogonType; RunLevel=[string]$task.Principal.RunLevel; UserId=$task.Principal.UserId; NextRunTime=$info.NextRunTime } | ConvertTo-Json -Compress }`);
   return JSON.parse(raw || "{}");
 }
 
 function getMarketOpsTasks() {
+  if (!isWindows) return [];
   const raw = ps("Get-ScheduledTask | Where-Object { $_.TaskName -like 'MarketOps*' } | Select-Object TaskName, TaskPath, State | ConvertTo-Json -Compress");
   if (!raw) return [];
   const parsed = JSON.parse(raw);
@@ -186,12 +196,14 @@ function runAutomationCheck() {
   add(checks, "public content avoids risky claims", riskyHits.length === 0, riskyHits.length ? riskyHits.join(", ") : "no risky hits");
 
   const failed = checks.filter((check) => !check.passed);
-  const verdict = failed.length ? "NOT_READY" : "READY_TO_INSTALL_TASKS";
+  const verdict = failed.length ? "NOT_READY" : (isWindows ? "READY_TO_INSTALL_TASKS" : "CROSS_PLATFORM_READY");
+  const platformLabel = isWindows ? "Windows" : "Linux";
   const generatedAt = new Date().toISOString();
-  const installStatus = { paper: paperInstallState, office: officeInstallState, marketOpsTaskCount: marketOpsTasks.length };
+  const installStatus = { paper: paperInstallState, office: officeInstallState, marketOpsTaskCount: marketOpsTasks.length, platform: platformLabel, schedulerAvailable: isWindows };
   const commandsRun = ["npm run paper:full", "npm run office:run", "npm run office:qa", "npm run agents:review", "npm run agents:qa", "npm run automation:check", ".\\run-marketops-paper-full-v0.1.ps1", ".\\run-marketops-office-full-v0.1.ps1"];
 
-  const report = `# MarketOps Automation Readiness Check v0.1\n\nGenerated at: ${generatedAt}\n\n## Readiness Verdict\n\n${verdict}\n\n## Scheduled Task Install State\n\n- Paper task: ${paperInstallState}\n- Office task: ${officeInstallState}\n- MarketOps scheduled task count: ${marketOpsTasks.length}\n\n## Commands Run For This Gate\n\n${commandsRun.map((cmd) => `- ${cmd}`).join("\n")}\n\n## Checks Passed\n\n${checks.filter((check) => check.passed).map((check) => `- PASS: ${check.name} - ${check.details}`).join("\n")}\n\n## Checks Failed\n\n${failed.length ? failed.map((check) => `- FAIL: ${check.name} - ${check.details}`).join("\n") : "None."}\n\n## Output Locations\n\n- Paper history: Data/paper/history/latest-run-summary.json\n- Public dashboard bundle: sj3labs/data/marketops/dashboard-bundle-public-v0.4.json\n- Content queue: Data/content/queue/content-queue-v0.1.json\n- Compliance report: Data/content/compliance/content-compliance-report-v0.1.md\n- Agent review summary: Data/agent-reviews/latest-agent-review-summary.json\n- Biweekly digest: Data/agent-reviews/biweekly-review-digest-v0.1.md\n- Monthly human review brief: Data/agent-reviews/monthly-human-review-brief-v0.1.md\n\n## Install Commands For Later\n\n\`\`\`powershell\npowershell -ExecutionPolicy Bypass -File "C:\\Users\\sjohn\\Desktop\\Projects\\MarketOps\\Scripts\\install-marketops-paper-task-v0.1.ps1"\npowershell -ExecutionPolicy Bypass -File "C:\\Users\\sjohn\\Desktop\\Projects\\MarketOps\\Scripts\\install-marketops-office-task-v0.1.ps1"\n\`\`\`\n\n## Removal Commands\n\n\`\`\`powershell\npowershell -ExecutionPolicy Bypass -File "C:\\Users\\sjohn\\Desktop\\Projects\\MarketOps\\Scripts\\remove-marketops-paper-task-v0.1.ps1"\npowershell -ExecutionPolicy Bypass -File "C:\\Users\\sjohn\\Desktop\\Projects\\MarketOps\\Scripts\\remove-marketops-office-task-v0.1.ps1"\n\`\`\`\n\n## Risks / Warnings / Cleanup Needed\n\n${failed.length ? "- Resolve failed checks before relying on scheduled automation." : "- No blocking readiness issues found. Installed tasks match approved MarketOps automation scope when present."}\n- Automation remains local, paper-only, fake/sample-money, and review-gated.\n\n## Confirmations\n\n- This checker did not install scheduled tasks.\n- No live, broker, API-key, SMS, email, payment, social posting, or deploy behavior happened.\n- Agent proposals remain human-review required and do not auto-apply.\n`;
+  const crossPlatformNote = isWindows ? "" : "\n- Windows scheduler (Task Scheduler) is not available on this platform.\n- PowerShell-based scheduled task operations are not available.\n- All automation checks that require PowerShell return 'not_installed' on Linux.\n- schedulerInstalled remains false.\n- Future automation on Linux should use systemd timers or cron instead.\n\n### Cross-Platform Status\n- sc.`SCHEDULER_AVAILABLE`: false (Linux – no Task Scheduler)\n- sc.`PLATFORM`: Linux\n- sc.`SCHEDULER_INSTALLED`: false\n- sc.`SCHEDULER_UNSUPPORTED`: true";
+  const report = `# MarketOps Automation Readiness Check v0.1\n\nGenerated at: ${generatedAt}\n\n## Readiness Verdict\n\n${verdict}${crossPlatformNote}\n\n## Scheduled Task Install State\n\n- Paper task: ${paperInstallState}\n- Office task: ${officeInstallState}\n- MarketOps scheduled task count: ${marketOpsTasks.length}\n- Platform: ${platformLabel}\n- Windows scheduler available: ${isWindows}\n\n## Commands Run For This Gate\n\n${commandsRun.map((cmd) => `- ${cmd}`).join("\n")}\n\n## Checks Passed\n\n${checks.filter((check) => check.passed).map((check) => `- PASS: ${check.name} - ${check.details}`).join("\n")}\n\n## Checks Failed\n\n${failed.length ? failed.map((check) => `- FAIL: ${check.name} - ${check.details}`).join("\n") : "None."}\n\n## Output Locations\n\n- Paper history: Data/paper/history/latest-run-summary.json\n- Public dashboard bundle: sj3labs/data/marketops/dashboard-bundle-public-v0.4.json\n- Content queue: Data/content/queue/content-queue-v0.1.json\n- Compliance report: Data/content/compliance/content-compliance-report-v0.1.md\n- Agent review summary: Data/agent-reviews/latest-agent-review-summary.json\n- Biweekly digest: Data/agent-reviews/biweekly-review-digest-v0.1.md\n- Monthly human review brief: Data/agent-reviews/monthly-human-review-brief-v0.1.md\n\n## Install Commands For Later\n\n\`\`\`powershell\npowershell -ExecutionPolicy Bypass -File "C:\\Users\\sjohn\\Desktop\\Projects\\MarketOps\\Scripts\\install-marketops-paper-task-v0.1.ps1"\npowershell -ExecutionPolicy Bypass -File "C:\\Users\\sjohn\\Desktop\\Projects\\MarketOps\\Scripts\\install-marketops-office-task-v0.1.ps1"\n\`\`\`\n\n## Removal Commands\n\n\`\`\`powershell\npowershell -ExecutionPolicy Bypass -File "C:\\Users\\sjohn\\Desktop\\Projects\\MarketOps\\Scripts\\remove-marketops-paper-task-v0.1.ps1"\npowershell -ExecutionPolicy Bypass -File "C:\\Users\\sjohn\\Desktop\\Projects\\MarketOps\\Scripts\\remove-marketops-office-task-v0.1.ps1"\n\`\`\`\n\n## Risks / Warnings / Cleanup Needed\n\n${failed.length ? "- Resolve failed checks before relying on scheduled automation." : "- No blocking readiness issues found. Installed tasks match approved MarketOps automation scope when present."}\n- Automation remains local, paper-only, fake/sample-money, and review-gated.\n\n## Confirmations\n\n- This checker did not install scheduled tasks.\n- No live, broker, API-key, SMS, email, payment, social posting, or deploy behavior happened.\n- Agent proposals remain human-review required and do not auto-apply.\n`;
 
   fs.writeFileSync(paths.readinessReport, report, "utf8");
   console.log(verdict);

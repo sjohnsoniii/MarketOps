@@ -1,6 +1,6 @@
 {
   "schemaVersion": "marketops-dashboard-refresh-v0.1",
-  "generatedAt": "2026-05-14T02:36:53.352Z",
+  "generatedAt": "2026-05-15T02:22:59.173Z",
   "status": "PASS",
   "errorMessage": null,
   "mode": "paper_simulation",
@@ -17,18 +17,18 @@
   "marketData": {
     "source": "alpaca_iex",
     "feed": "iex",
-    "generatedAt": "2026-05-14T02:36:53.260Z",
-    "latestBarTimestamp": "2026-05-13T13:45:00Z",
+    "generatedAt": "2026-05-15T02:22:59.084Z",
+    "latestBarTimestamp": "2026-05-14T13:46:00Z",
     "barsLoaded": 100,
     "quotesLoaded": 5,
     "refreshAgeMinutes": 0,
-    "latestBarAgeMinutes": 771.89,
+    "latestBarAgeMinutes": 756.99,
     "paperOnly": true,
     "liveTradingEnabled": false
   },
   "paper": {
-    "latestRunId": "paper-20260514-023653328Z",
-    "latestRunGeneratedAt": "2026-05-14T02:36:53.328Z",
+    "latestRunId": "paper-20260515-022259154Z",
+    "latestRunGeneratedAt": "2026-05-15T02:22:59.154Z",
     "endingEquity": 10000,
     "paperPnl": 0,
     "paperReturnPct": 0,
@@ -41,17 +41,17 @@
     "status": "active",
     "startingBalance": 1000,
     "currentBalance": 1000,
-    "daysSurvived": 0.01,
+    "daysSurvived": 1,
     "approvedTrades": 0,
-    "rejectedTrades": 16,
+    "rejectedTrades": 64,
     "depletionRisk": "normal",
     "nextCycleScheduledStart": null
   },
   "dashboard": {
     "latestBundlePath": "Data/dashboard/dashboard-public-safe-v0.1.json",
     "publicBundlePath": "../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json",
-    "generatedAt": "2026-05-14T02:36:53.341Z",
-    "publicGeneratedAt": "2026-05-14T02:36:53.347Z",
+    "generatedAt": "2026-05-15T02:22:59.164Z",
+    "publicGeneratedAt": "2026-05-15T02:22:59.168Z",
     "chartStatuses": [
       {
         "label": "Paper equity curve",
@@ -293,71 +293,71 @@
     {
       "command": "npm run marketdata:refresh",
       "status": "PASS",
-      "startedAt": "2026-05-14T02:36:53.077Z",
-      "completedAt": "2026-05-14T02:36:53.252Z",
+      "startedAt": "2026-05-15T02:22:58.853Z",
+      "completedAt": "2026-05-15T02:22:59.077Z",
       "detail": "complete"
     },
     {
       "command": "npm run marketdata:qa",
       "status": "PASS",
-      "startedAt": "2026-05-14T02:36:53.252Z",
-      "completedAt": "2026-05-14T02:36:53.260Z",
+      "startedAt": "2026-05-15T02:22:59.077Z",
+      "completedAt": "2026-05-15T02:22:59.084Z",
       "detail": "complete"
     },
     {
       "command": "npm run paper:full",
       "status": "PASS",
-      "startedAt": "2026-05-14T02:36:53.260Z",
-      "completedAt": "2026-05-14T02:36:53.338Z",
+      "startedAt": "2026-05-15T02:22:59.084Z",
+      "completedAt": "2026-05-15T02:22:59.162Z",
       "detail": "complete"
     },
     {
       "command": "npm run risk:explain",
       "status": "PASS",
-      "startedAt": "2026-05-14T02:36:53.338Z",
-      "completedAt": "2026-05-14T02:36:53.339Z",
+      "startedAt": "2026-05-15T02:22:59.162Z",
+      "completedAt": "2026-05-15T02:22:59.162Z",
       "detail": "complete"
     },
     {
       "command": "npm run cycle:build",
       "status": "PASS",
-      "startedAt": "2026-05-14T02:36:53.339Z",
-      "completedAt": "2026-05-14T02:36:53.340Z",
+      "startedAt": "2026-05-15T02:22:59.162Z",
+      "completedAt": "2026-05-15T02:22:59.163Z",
       "detail": "complete"
     },
     {
       "command": "npm run cycle:qa",
       "status": "PASS",
-      "startedAt": "2026-05-14T02:36:53.340Z",
-      "completedAt": "2026-05-14T02:36:53.340Z",
+      "startedAt": "2026-05-15T02:22:59.163Z",
+      "completedAt": "2026-05-15T02:22:59.164Z",
       "detail": "complete"
     },
     {
       "command": "npm run dashboard:build",
       "status": "PASS",
-      "startedAt": "2026-05-14T02:36:53.340Z",
-      "completedAt": "2026-05-14T02:36:53.347Z",
+      "startedAt": "2026-05-15T02:22:59.164Z",
+      "completedAt": "2026-05-15T02:22:59.168Z",
       "detail": "complete"
     },
     {
       "command": "npm run paper:refresh-site",
       "status": "PASS",
-      "startedAt": "2026-05-14T02:36:53.347Z",
-      "completedAt": "2026-05-14T02:36:53.348Z",
+      "startedAt": "2026-05-15T02:22:59.168Z",
+      "completedAt": "2026-05-15T02:22:59.169Z",
       "detail": "complete"
     },
     {
       "command": "npm run dashboard:qa",
       "status": "PASS",
-      "startedAt": "2026-05-14T02:36:53.348Z",
-      "completedAt": "2026-05-14T02:36:53.352Z",
+      "startedAt": "2026-05-15T02:22:59.169Z",
+      "completedAt": "2026-05-15T02:22:59.173Z",
       "detail": "complete"
     },
     {
       "command": "npm run dashboard:public-refresh:qa",
       "status": "PASS",
-      "startedAt": "2026-05-14T02:36:53.352Z",
-      "completedAt": "2026-05-14T02:36:53.352Z",
+      "startedAt": "2026-05-15T02:22:59.173Z",
+      "completedAt": "2026-05-15T02:22:59.173Z",
       "detail": "complete"
     }
   ]

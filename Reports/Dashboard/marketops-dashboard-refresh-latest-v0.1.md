@@ -1,6 +1,6 @@
 # MarketOps Dashboard Refresh Latest v0.1
 
-Generated: 2026-05-14T02:36:53.352Z
+Generated: 2026-05-15T02:22:59.173Z
 
 ## Status
 
@@ -23,19 +23,19 @@ PASS
 ## Market Data
 
 - source/feed: alpaca_iex / iex
-- generatedAt: 2026-05-14T02:36:53.260Z
-- latestBarTimestamp: 2026-05-13T13:45:00Z
+- generatedAt: 2026-05-15T02:22:59.084Z
+- latestBarTimestamp: 2026-05-14T13:46:00Z
 - barsLoaded: 100
 - quotesLoaded: 5
 - refreshAgeMinutes: 0
-- latestBarAgeMinutes: 771.89
+- latestBarAgeMinutes: 756.99
 - paperOnly: true
 - liveTradingEnabled: false
 
 ## Paper Account
 
-- latestRunId: paper-20260514-023653328Z
-- latestRunGeneratedAt: 2026-05-14T02:36:53.328Z
+- latestRunId: paper-20260515-022259154Z
+- latestRunGeneratedAt: 2026-05-15T02:22:59.154Z
 - endingEquity: 10000
 - paperPnl: 0
 - paperReturnPct: 0
@@ -49,9 +49,9 @@ PASS
 - status: active
 - startingBalance: 1000
 - currentBalance: 1000
-- daysSurvived: 0.01
+- daysSurvived: 1
 - approvedTrades: 0
-- rejectedTrades: 16
+- rejectedTrades: 64
 - depletionRisk: normal
 - nextCycleScheduledStart: null
 
