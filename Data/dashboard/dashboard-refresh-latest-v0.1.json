@@ -1,8 +1,9 @@
 {
   "schemaVersion": "marketops-dashboard-refresh-v0.1",
-  "generatedAt": "2026-05-15T02:22:59.173Z",
+  "generatedAt": "2026-05-15T12:21:36.998Z",
   "status": "PASS",
   "errorMessage": null,
+  "failureReason": null,
   "mode": "paper_simulation",
   "paperOnly": true,
   "externalEffects": false,
@@ -17,18 +18,18 @@
   "marketData": {
     "source": "alpaca_iex",
     "feed": "iex",
-    "generatedAt": "2026-05-15T02:22:59.084Z",
-    "latestBarTimestamp": "2026-05-14T13:46:00Z",
-    "barsLoaded": 100,
+    "generatedAt": "2026-05-15T12:21:36.796Z",
+    "latestBarTimestamp": "2026-05-15T12:20:00Z",
+    "barsLoaded": 14,
     "quotesLoaded": 5,
     "refreshAgeMinutes": 0,
-    "latestBarAgeMinutes": 756.99,
+    "latestBarAgeMinutes": 1.62,
     "paperOnly": true,
     "liveTradingEnabled": false
   },
   "paper": {
-    "latestRunId": "paper-20260515-022259154Z",
-    "latestRunGeneratedAt": "2026-05-15T02:22:59.154Z",
+    "latestRunId": "paper-20260515-122136974Z",
+    "latestRunGeneratedAt": "2026-05-15T12:21:36.974Z",
     "endingEquity": 10000,
     "paperPnl": 0,
     "paperReturnPct": 0,
@@ -41,17 +42,17 @@
     "status": "active",
     "startingBalance": 1000,
     "currentBalance": 1000,
-    "daysSurvived": 1,
+    "daysSurvived": 1.42,
     "approvedTrades": 0,
-    "rejectedTrades": 64,
+    "rejectedTrades": 72,
     "depletionRisk": "normal",
     "nextCycleScheduledStart": null
   },
   "dashboard": {
     "latestBundlePath": "Data/dashboard/dashboard-public-safe-v0.1.json",
     "publicBundlePath": "../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json",
-    "generatedAt": "2026-05-15T02:22:59.164Z",
-    "publicGeneratedAt": "2026-05-15T02:22:59.168Z",
+    "generatedAt": "2026-05-15T12:21:36.987Z",
+    "publicGeneratedAt": "2026-05-15T12:21:36.993Z",
     "chartStatuses": [
       {
         "label": "Paper equity curve",
@@ -83,7 +84,7 @@
         "source": "alpaca_iex_derived_summary",
         "fallback": false,
         "status": "updated",
-        "points": 5
+        "points": 4
       },
       {
         "label": "Up/down/flat vehicle counts",
@@ -227,7 +228,7 @@
         "source": "alpaca_iex_derived_bars",
         "fallback": false,
         "status": "updated",
-        "points": 5
+        "points": 4
       },
       {
         "label": "Bot activity / latest run timeline",
@@ -243,7 +244,7 @@
         "source": "freshness_labels",
         "fallback": false,
         "status": "updated",
-        "points": 2
+        "points": 1
       },
       {
         "label": "Market regime summary",
@@ -293,71 +294,71 @@
     {
       "command": "npm run marketdata:refresh",
       "status": "PASS",
-      "startedAt": "2026-05-15T02:22:58.853Z",
-      "completedAt": "2026-05-15T02:22:59.077Z",
+      "startedAt": "2026-05-15T12:21:36.422Z",
+      "completedAt": "2026-05-15T12:21:36.789Z",
       "detail": "complete"
     },
     {
       "command": "npm run marketdata:qa",
       "status": "PASS",
-      "startedAt": "2026-05-15T02:22:59.077Z",
-      "completedAt": "2026-05-15T02:22:59.084Z",
+      "startedAt": "2026-05-15T12:21:36.789Z",
+      "completedAt": "2026-05-15T12:21:36.796Z",
       "detail": "complete"
     },
     {
       "command": "npm run paper:full",
       "status": "PASS",
-      "startedAt": "2026-05-15T02:22:59.084Z",
-      "completedAt": "2026-05-15T02:22:59.162Z",
+      "startedAt": "2026-05-15T12:21:36.796Z",
+      "completedAt": "2026-05-15T12:21:36.984Z",
       "detail": "complete"
     },
     {
       "command": "npm run risk:explain",
       "status": "PASS",
-      "startedAt": "2026-05-15T02:22:59.162Z",
-      "completedAt": "2026-05-15T02:22:59.162Z",
+      "startedAt": "2026-05-15T12:21:36.984Z",
+      "completedAt": "2026-05-15T12:21:36.985Z",
       "detail": "complete"
     },
     {
       "command": "npm run cycle:build",
       "status": "PASS",
-      "startedAt": "2026-05-15T02:22:59.162Z",
-      "completedAt": "2026-05-15T02:22:59.163Z",
+      "startedAt": "2026-05-15T12:21:36.985Z",
+      "completedAt": "2026-05-15T12:21:36.986Z",
       "detail": "complete"
     },
     {
       "command": "npm run cycle:qa",
       "status": "PASS",
-      "startedAt": "2026-05-15T02:22:59.163Z",
-      "completedAt": "2026-05-15T02:22:59.164Z",
+      "startedAt": "2026-05-15T12:21:36.986Z",
+      "completedAt": "2026-05-15T12:21:36.987Z",
       "detail": "complete"
     },
     {
       "command": "npm run dashboard:build",
       "status": "PASS",
-      "startedAt": "2026-05-15T02:22:59.164Z",
-      "completedAt": "2026-05-15T02:22:59.168Z",
+      "startedAt": "2026-05-15T12:21:36.987Z",
+      "completedAt": "2026-05-15T12:21:36.993Z",
       "detail": "complete"
     },
     {
       "command": "npm run paper:refresh-site",
       "status": "PASS",
-      "startedAt": "2026-05-15T02:22:59.168Z",
-      "completedAt": "2026-05-15T02:22:59.169Z",
+      "startedAt": "2026-05-15T12:21:36.993Z",
+      "completedAt": "2026-05-15T12:21:36.994Z",
       "detail": "complete"
     },
     {
       "command": "npm run dashboard:qa",
       "status": "PASS",
-      "startedAt": "2026-05-15T02:22:59.169Z",
-      "completedAt": "2026-05-15T02:22:59.173Z",
+      "startedAt": "2026-05-15T12:21:36.994Z",
+      "completedAt": "2026-05-15T12:21:36.998Z",
       "detail": "complete"
     },
     {
       "command": "npm run dashboard:public-refresh:qa",
       "status": "PASS",
-      "startedAt": "2026-05-15T02:22:59.173Z",
-      "completedAt": "2026-05-15T02:22:59.173Z",
+      "startedAt": "2026-05-15T12:21:36.998Z",
+      "completedAt": "2026-05-15T12:21:36.998Z",
       "detail": "complete"
     }
   ]

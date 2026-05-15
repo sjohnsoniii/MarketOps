@@ -1,6 +1,6 @@
 # MarketOps Public-Safe Dashboard Infrastructure v0.1
 
-Generated at: 2026-05-15T02:22:59.164Z
+Generated at: 2026-05-15T12:22:03.534Z
 
 ## Scope
 
@@ -79,27 +79,26 @@ This dashboard bundle is local and preview-safe. It contains paper simulation me
 - Return vs drawdown rows: 11
 - Paper account milestone strip points: 4
 - Market data freshness rows: 1
-- Recent market movement rows: 5
+- Recent market movement rows: 4
 - Bot activity timeline rows: 20
-- Stale data warning rows: 2
+- Stale data warning rows: 1
 - Regime score bars: 6
 - Synthetic benchmark comparison rows: 6
 
 ## Market Data Freshness
 
 - Source/feed: alpaca_iex / iex
-- Market refresh timestamp: 2026-05-15T02:22:59.084Z
-- Latest bar timestamp: 2026-05-14T13:46:00Z
-- Bars loaded: 100
+- Market refresh timestamp: 2026-05-15T12:21:36.796Z
+- Latest bar timestamp: 2026-05-15T12:20:00Z
+- Bars loaded: 14
 - Quotes loaded: 5
 - Refresh freshness: fresh
-- Latest bar freshness: stale_or_market_closed
+- Latest bar freshness: fresh
 - Raw market data published: false
 
 ## Stale/Fallback Notes
 
-- analytics_summary: stale_context_only - Analytics summary 2026-05-08T03:46:14.425Z is older than latest paper run 2026-05-15T02:22:59.154Z. Dashboard headline cards use current paper outputs instead.
-- latest_market_bar: market_closed_or_delayed - Latest bar is 756.99 minutes old. Label as delayed/closed-market data, not live tick data.
+- analytics_summary: stale_context_only - Analytics summary 2026-05-08T03:46:14.425Z is older than latest paper run 2026-05-15T12:21:36.974Z. Dashboard headline cards use current paper outputs instead.
 
 ## Notes
 

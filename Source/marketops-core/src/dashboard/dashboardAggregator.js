@@ -18,8 +18,20 @@ const inputPaths = {
   agentSummary: path.join(dataRoot, "agent-reviews", "latest-agent-review-summary.json"),
   marketData: path.join(dataRoot, "market-data", "alpaca", "alpaca-market-data-latest-v0.1.json"),
   cycle: path.join(dataRoot, "paper", "cycles", "paper-cycle-latest-v0.1.json"),
-  refreshHealth: path.join(dataRoot, "dashboard", "dashboard-refresh-health-v0.1.json")
+  refreshHealth: path.join(dataRoot, "dashboard", "dashboard-refresh-health-v0.1.json"),
+  config: path.join(coreRoot, "config", "marketops.phase1.config.json")
 };
+
+function tryReadFallback(filePath, fallback) {
+  try {
+    if (!fs.existsSync(filePath)) return fallback;
+    return JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch {
+    return fallback;
+  }
+}
+
+const cachedConfig = tryReadFallback(inputPaths.config, {});
 
 function readJson(filePath, fallback) {
   if (!fs.existsSync(filePath)) return fallback;
@@ -700,7 +712,8 @@ function buildPaperCycleStatus(cycle) {
     doesNotResetDaily: true,
     paperOnly: true,
     externalEffects: false,
-    publishAllowed: false
+    publishAllowed: false,
+    activePreset: (cachedConfig.paperAccount && cachedConfig.paperAccount.paperAccountPreset) || "standard"
   };
 }
 
@@ -762,6 +775,25 @@ function buildDashboardBundle() {
     publishAllowed: false,
     rawMarketDataPublished: false,
     publicSafe: true,
+    dataProvenance: {
+      note: "This dashboard combines data from multiple sources with different provenance. Fields below document the source of each major section.",
+      paperCycleBalance: cycle.startingBalance ? "real_paper_cycle_output" : "unavailable",
+      latestPaperRun: runHistory && Array.isArray(runHistory.runs) && runHistory.runs.length > 0 ? "real_paper_run_history" : "unavailable",
+      marketBars: Array.isArray(marketData.bars) && marketData.bars.length > 0
+        ? (marketData.dataSource === "alpaca_iex" ? "real_alpaca_iex_bars" : "sample_data")
+        : "unavailable",
+      marketQuotes: Array.isArray(marketData.quotes) && marketData.quotes.length > 0
+        ? (marketData.dataSource === "alpaca_iex" ? "real_alpaca_iex_quotes" : "sample_data")
+        : "unavailable",
+      equityCurve: Array.isArray(equity.points) && equity.points.length > 0 ? "real_paper_equity_curve" : "unavailable",
+      tradeRecords: Array.isArray(trades.trades) && trades.trades.length > 0 ? "real_paper_trade_records" : "no_trades_executed",
+      riskDecisions: Array.isArray(risk.decisions) && risk.decisions.length > 0 ? "real_paper_risk_decisions" : "unavailable",
+      signalScans: Array.isArray(signals.signals) && signals.signals.length > 0 ? "real_paper_signal_scans" : "unavailable",
+      agentReviews: agentSummary && agentSummary.reviewsGenerated > 0 ? "real_agent_review_outputs" : "unavailable",
+      refreshHealth: refreshHealth.lastStatus ? "real_refresh_health_tracker" : "unavailable",
+      cycleStatus: cycle.status ? "real_cycle_status" : "unavailable",
+      disclaimer: "All performance numbers are paper simulation only. No real money, broker execution, or live trading is involved."
+    },
     dashboardCards: {
       currentPaperPerformance,
       signalFunnel: buildSignalFunnel(signals, risk, trades),
@@ -869,6 +901,44 @@ function buildDashboardBundle() {
         quoteAvailable: true,
         rawBidAskPublished: false
       }))
+    },
+    chartDataSources: {
+      note: "Each chart key is labeled by its primary data source. real_paper = from paper simulation outputs, real_market = from Alpaca IEX feed, synthetic_analytics = from analytics pipeline, sample_fallback = deterministic sample when real data is unavailable.",
+      equityCurve: equitySeries.length > 0 ? "real_paper_equity_curve" : "empty",
+      paperEquityCurve: equitySeries.length > 0 ? "real_paper_equity_curve" : "empty",
+      paperPnlSeries: rollingHistory.length > 0 ? "real_paper_run_history" : "empty",
+      rollingEquity: rollingHistory.length > 0 ? "real_paper_run_history" : "empty",
+      drawdownVisualData: equitySeries.length > 0 || rollingHistory.length > 0 ? "real_paper_equity_curve_and_history" : "empty",
+      drawdownSeries: equitySeries.length > 0 ? "real_paper_equity_curve" : "empty",
+      vehicleActivity: signals.signals.length > 0 ? "real_paper_signal_scans_plus_market_data" : "empty",
+      watchlistMovementSummary: marketMovement.length > 0 ? "real_alpaca_iex_market_movement" : (signals.signals.length > 0 ? "sample_fallback_from_signal_sampleChangePct" : "empty"),
+      vehicleDirectionCounts: marketMovement.length > 0 ? "real_alpaca_iex_market_movement" : (signals.signals.length > 0 ? "sample_fallback_from_signal_sampleChangePct" : "empty"),
+      movementBuckets: marketMovement.length > 0 ? "real_alpaca_iex_market_movement" : (signals.signals.length > 0 ? "sample_fallback_from_signal_sampleChangePct" : "empty"),
+      signalCandidatesGenerated: signals.signals.length > 0 ? "real_paper_signal_scans" : "empty",
+      signalConfidenceDistribution: signals.signals.length > 0 ? "real_paper_signal_scans" : "empty",
+      riskRejectionReasons: risk.decisions.length > 0 ? "real_paper_risk_decisions" : "empty",
+      almostApprovedCandidates: signals.signals.length > 0 ? "real_paper_signal_scans_plus_risk_decisions" : "empty",
+      signalRiskCounts: rollingHistory.length > 0 ? "real_paper_run_history" : "empty",
+      cumulativePaperPnl: trades.trades.length > 0 ? "real_paper_trade_records" : "no_trades_executed",
+      targetProgress: equity.startingBalance ? "real_paper_equity_curve_plus_config_target" : "empty",
+      signalFunnel: signals.signals.length > 0 ? "real_paper_signal_scans_plus_risk_decisions" : "empty",
+      tradeOutcomeBars: trades.trades.length > 0 || analytics.tradeAnalytics ? "real_paper_trade_records_or_analytics" : "no_trades_executed",
+      tradeOutcomeMix: trades.trades.length > 0 || analytics.tradeAnalytics ? "real_paper_trade_records_or_analytics" : "no_trades_executed",
+      riskDecisionMix: risk.decisions.length > 0 ? "real_paper_risk_decisions" : "empty",
+      vehicleContribution: signals.signals.length > 0 || marketMovement.length > 0 ? "real_paper_signals_plus_market_movement" : "empty",
+      returnVsDrawdownSnapshot: equitySeries.length > 0 || rollingHistory.length > 0 ? "real_paper_equity_curve_plus_history" : "empty",
+      paperAccountMilestoneStrip: equity.startingBalance ? "real_paper_equity_curve_plus_config_target" : "empty",
+      regimeScoreBars: analytics.regimeAnalytics && analytics.regimeAnalytics.regimeRows && analytics.regimeAnalytics.regimeRows.length > 0 ? "synthetic_analytics_from_regime_rows" : "sample_fallback_empty_regime_data",
+      syntheticBenchmarkComparison: analytics.regimeAnalytics && analytics.regimeAnalytics.regimeRows && analytics.regimeAnalytics.regimeRows.length > 0 ? "synthetic_analytics_from_regime_rows" : "sample_fallback_empty_regime_data",
+      marketDataFreshnessPanel: marketData.generatedAt ? "real_market_data_or_sample_freshness" : "empty",
+      recentMarketMovementPanel: marketMovement.length > 0 ? "real_alpaca_iex_market_movement" : "empty",
+      marketMovementSeries: marketMovementSeries.length > 0 ? "real_alpaca_iex_market_movement" : "empty",
+      botActivityTimeline: rollingHistory.length > 0 ? "real_paper_run_history" : "empty",
+      staleDataWarningPanel: true,
+      marketRegimeSummary: analytics.regimeAnalytics ? "synthetic_analytics_plus_watchlist_movement" : "watchlist_movement_only",
+      paperCycleStatus: cycle.status ? "real_paper_cycle_output" : "empty",
+      dashboardRefreshHealth: refreshHealth.lastStatus ? "real_refresh_health_tracker" : "empty",
+      quoteSnapshot: marketData.quotes && marketData.quotes.length > 0 ? "real_alpaca_iex_quotes" : "empty"
     },
     rollingAnalytics: {
       runsReviewed: rollingHistory.length,

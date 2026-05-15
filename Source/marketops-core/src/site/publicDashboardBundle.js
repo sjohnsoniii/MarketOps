@@ -391,6 +391,40 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
     publishAllowed: false,
     rawMarketDataPublished: false,
     paperOnlyStatus: "paper_simulation_only",
+    dataProvenance: {
+      note: "This public bundle combines data from multiple sources. Fields below document the provenance of each section.",
+      latestPaperRun: runHistorySummary ? "real_paper_run_history" : "unavailable",
+      marketBars: alpacaMarketData && Array.isArray(alpacaMarketData.bars) && alpacaMarketData.bars.length > 0
+        ? (alpacaMarketData.dataSource === "alpaca_iex" ? "real_alpaca_iex_bars" : "sample_data")
+        : "unavailable",
+      marketQuotes: alpacaMarketData && Array.isArray(alpacaMarketData.quotes) && alpacaMarketData.quotes.length > 0
+        ? (alpacaMarketData.dataSource === "alpaca_iex" ? "real_alpaca_iex_quotes" : "sample_data")
+        : "unavailable",
+      equityCurvePoints: equityCurve && Array.isArray(equityCurve.points) && equityCurve.points.length > 0 ? "real_paper_equity_points" : "unavailable",
+      paperTrades: paperResults && Array.isArray(paperResults.trades) && paperResults.trades.length > 0 ? "real_paper_trade_records" : "no_trades_executed",
+      riskDecisions: riskReview && Array.isArray(riskReview.decisions) && riskReview.decisions.length > 0 ? "real_paper_risk_decisions" : "unavailable",
+      signalScans: signals && Array.isArray(signals.signals) && signals.signals.length > 0 ? "real_paper_signal_scans" : "unavailable",
+      paperCycle: cycle && cycle.status ? "real_cycle_status" : "unavailable",
+      refreshHealth: refreshHealth.lastStatus ? "real_refresh_health_tracker" : "unavailable",
+      dashboardBundle: dashboardBundle && dashboardBundle.generatedAt ? "real_dashboard_bundle" : "unavailable",
+      disclaimer: "All numbers are paper simulation only. No real money, broker execution, or live trading is involved.",
+      chartDataSources: {
+        note: "Each top-level data field is labeled by its primary source. real_paper = from paper simulation, real_market = from Alpaca IEX, sample = deterministic fallback.",
+        equityPoints: equityCurve && Array.isArray(equityCurve.points) && equityCurve.points.length > 0 ? "real_paper_equity_points" : "empty",
+        pnlPoints: paperResults && Array.isArray(paperResults.trades) && paperResults.trades.length > 0 ? "real_paper_trade_records" : "no_trades",
+        cumulativePnlPoints: paperResults && Array.isArray(paperResults.trades) && paperResults.trades.length > 0 ? "real_paper_trade_records" : "no_trades",
+        drawdownPoints: equityCurve && Array.isArray(equityCurve.points) && equityCurve.points.length > 0 ? "real_paper_equity_points" : "empty",
+        watchlistMovementSummary: movementPreview.length > 0 ? "real_alpaca_iex_market_movement" : (signals && signals.signals && signals.signals.length > 0 ? "sample_fallback_signal_data" : "empty"),
+        vehicleDirectionCounts: movementPreview.length > 0 ? "real_alpaca_iex_market_movement" : (signals && signals.signals && signals.signals.length > 0 ? "sample_fallback_signal_data" : "empty"),
+        movementBuckets: movementPreview.length > 0 ? "real_alpaca_iex_market_movement" : (signals && signals.signals && signals.signals.length > 0 ? "sample_fallback_signal_data" : "empty"),
+        botActivityTimeline: rollingHistory.length > 0 ? "real_paper_run_history" : "empty",
+        rollingDashboardHistory: rollingHistory.length > 0 ? "real_paper_run_history" : "empty",
+        staleDataWarningPanel: true,
+        paperCycleStatus: cycle && cycle.status ? "real_cycle_output" : "empty",
+        riskDecisionMix: riskReview && (riskReview.approvedCount > 0 || riskReview.blockedCount > 0) ? "real_risk_decisions" : "empty",
+        tradeOutcomeMix: wins > 0 || losses > 0 ? "real_trade_outcomes" : "no_trades"
+      }
+    },
     sampleData: true,
     fakeMoney: true,
     inDevelopment: true,
@@ -447,7 +481,8 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
       doesNotResetDaily: true,
       paperOnly: true,
       externalEffects: false,
-      publishAllowed: false
+      publishAllowed: false,
+      activePreset: (config.paperAccount && config.paperAccount.paperAccountPreset) || "standard"
     },
     dashboardRefreshHealth: {
       lastStatus: refreshHealth.lastStatus || "UNKNOWN",

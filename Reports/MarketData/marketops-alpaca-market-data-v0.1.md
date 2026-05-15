@@ -1,6 +1,6 @@
 # MarketOps Alpaca Market Data Adapter v0.1
 
-Generated: 2026-05-15T02:22:59.084Z
+Generated: 2026-05-15T12:21:36.796Z
 
 ## Status
 
@@ -10,7 +10,7 @@ Generated: 2026-05-15T02:22:59.084Z
 - orderPlacementEnabled: false
 - feed: iex
 - symbols requested: SPY, QQQ, AAPL, MSFT, NVDA
-- bars loaded: 100
+- bars loaded: 14
 - quotes loaded: 5
 
 ## Unsupported Assets

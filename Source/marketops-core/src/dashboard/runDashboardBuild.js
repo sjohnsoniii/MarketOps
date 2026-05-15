@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const { buildDashboardBundle } = require("./dashboardAggregator");
+const { writeShareableSnapshot } = require("./shareableSnapshot");
 
 const coreRoot = path.join(__dirname, "..", "..");
 const projectRoot = path.join(coreRoot, "..", "..");
@@ -184,12 +185,14 @@ function runDashboardBuild() {
   console.log(`chart sections generated: ${summary.chartSectionsGenerated}`);
   console.log(`rolling runs reviewed: ${summary.rollingRunsReviewed}`);
   console.log(`strongest paper regime: ${summary.strongestPaperRegime}`);
-  console.log(`weakest paper regime: ${summary.weakestPaperRegime}`);
   console.log(`bundle: ${latestBundlePath}`);
   console.log(`timestamped bundle: ${timestampedPath}`);
   console.log(`report: ${reportPath}`);
 
-  return { bundle, summary, latestBundlePath, timestampedPath, reportPath };
+  const snapshot = writeShareableSnapshot();
+  console.log(`shareable snapshot: ${snapshot.snapshotJsonPath}`);
+
+  return { bundle, summary, latestBundlePath, timestampedPath, reportPath, snapshot };
 }
 
 if (require.main === module) {

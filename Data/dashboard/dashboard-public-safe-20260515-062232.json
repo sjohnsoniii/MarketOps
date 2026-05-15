@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-15T12:22:03.534Z",
+  "generatedAt": "2026-05-15T10:22:32.540Z",
   "dashboardVersion": "marketops-public-safe-dashboard-v0.1",
   "mode": "paper_simulation",
   "paperOnly": true,
@@ -7,8 +7,8 @@
   "realMarketDataInputs": true,
   "dataSource": "alpaca_iex",
   "marketDataMode": "real_market_data_for_paper_simulation",
-  "latestMarketDataRefreshAt": "2026-05-15T12:21:36.796Z",
-  "latestAlpacaBarTimestamp": "2026-05-15T12:20:00Z",
+  "latestMarketDataRefreshAt": "2026-05-15T02:22:59.084Z",
+  "latestAlpacaBarTimestamp": "2026-05-14T13:46:00Z",
   "liveTradingEnabled": false,
   "orderPlacementEnabled": false,
   "notFinancialAdvice": true,
@@ -46,7 +46,7 @@
     },
     "signalFunnel": {
       "vehiclesScanned": 8,
-      "marketBarsScanned": 14,
+      "marketBarsScanned": 100,
       "signalsReviewed": 8,
       "candidates": 0,
       "riskApproved": 0,
@@ -114,8 +114,8 @@
         "blocked": 8
       },
       "originalRiskLevelCounts": {
-        "low": 4,
-        "blocked": 4
+        "low": 5,
+        "blocked": 3
       },
       "topBlockReasons": [
         {
@@ -128,15 +128,15 @@
         },
         {
           "reason": "Confidence sample-threshold is below minimum sample-threshold.",
-          "count": 4
+          "count": 5
         },
         {
           "reason": "Confidence 0 is below minimum sample-threshold.",
-          "count": 4
+          "count": 3
         },
         {
           "reason": "Missing invalidation.",
-          "count": 4
+          "count": 3
         }
       ]
     },
@@ -280,9 +280,9 @@
     },
     "marketDataHeartbeat": {
       "dataSource": "alpaca_iex",
-      "generatedAt": "2026-05-15T12:21:36.796Z",
-      "latestBarTimestamp": "2026-05-15T12:20:00Z",
-      "barsLoaded": 14,
+      "generatedAt": "2026-05-15T02:22:59.084Z",
+      "latestBarTimestamp": "2026-05-14T13:46:00Z",
+      "barsLoaded": 100,
       "quotesLoaded": 5,
       "paperOnly": true,
       "liveTradingEnabled": false
@@ -290,14 +290,14 @@
     "marketDataFreshnessPanel": {
       "dataSource": "alpaca_iex",
       "feed": "iex",
-      "generatedAt": "2026-05-15T12:21:36.796Z",
-      "latestBarTimestamp": "2026-05-15T12:20:00Z",
-      "barsLoaded": 14,
+      "generatedAt": "2026-05-15T02:22:59.084Z",
+      "latestBarTimestamp": "2026-05-14T13:46:00Z",
+      "barsLoaded": 100,
       "quotesLoaded": 5,
-      "refreshAgeMinutes": 0.45,
-      "latestBarAgeMinutes": 2.06,
-      "refreshFreshnessLabel": "fresh",
-      "latestBarFreshnessLabel": "fresh",
+      "refreshAgeMinutes": 479.56,
+      "latestBarAgeMinutes": 1236.54,
+      "refreshFreshnessLabel": "stale_or_market_closed",
+      "latestBarFreshnessLabel": "stale_or_market_closed",
       "rawMarketDataPublished": false,
       "publicSafeDerivedOnly": true,
       "paperOnly": true,
@@ -307,18 +307,36 @@
       "publishAllowed": false
     },
     "watchlistMovementSummary": {
-      "vehiclesReviewed": 4,
+      "vehiclesReviewed": 5,
       "dataSource": "alpaca_iex",
       "strongestMover": {
-        "symbol": "NVDA",
-        "changePct": -0.08,
-        "direction": "flat",
-        "movementBucket": "flat_under_0_25pct"
+        "symbol": "AAPL",
+        "changePct": -0.79,
+        "direction": "down",
+        "movementBucket": "small_0_5_to_1pct"
       },
       "summaryRows": [
         {
-          "symbol": "NVDA",
-          "changePct": -0.08,
+          "symbol": "AAPL",
+          "changePct": -0.79,
+          "direction": "down",
+          "movementBucket": "small_0_5_to_1pct",
+          "dataSource": "alpaca_iex",
+          "paperOnly": true,
+          "rawPricesPublished": false
+        },
+        {
+          "symbol": "MSFT",
+          "changePct": -0.75,
+          "direction": "down",
+          "movementBucket": "small_0_5_to_1pct",
+          "dataSource": "alpaca_iex",
+          "paperOnly": true,
+          "rawPricesPublished": false
+        },
+        {
+          "symbol": "QQQ",
+          "changePct": 0.25,
           "direction": "flat",
           "movementBucket": "flat_under_0_25pct",
           "dataSource": "alpaca_iex",
@@ -327,25 +345,16 @@
         },
         {
           "symbol": "SPY",
+          "changePct": 0.1,
+          "direction": "flat",
+          "movementBucket": "flat_under_0_25pct",
+          "dataSource": "alpaca_iex",
+          "paperOnly": true,
+          "rawPricesPublished": false
+        },
+        {
+          "symbol": "NVDA",
           "changePct": -0.08,
-          "direction": "flat",
-          "movementBucket": "flat_under_0_25pct",
-          "dataSource": "alpaca_iex",
-          "paperOnly": true,
-          "rawPricesPublished": false
-        },
-        {
-          "symbol": "MSFT",
-          "changePct": -0.07,
-          "direction": "flat",
-          "movementBucket": "flat_under_0_25pct",
-          "dataSource": "alpaca_iex",
-          "paperOnly": true,
-          "rawPricesPublished": false
-        },
-        {
-          "symbol": "AAPL",
-          "changePct": -0.05,
           "direction": "flat",
           "movementBucket": "flat_under_0_25pct",
           "dataSource": "alpaca_iex",
@@ -361,17 +370,17 @@
       },
       {
         "label": "down",
-        "value": 0
+        "value": 2
       },
       {
         "label": "flat",
-        "value": 4
+        "value": 3
       }
     ],
     "movementBuckets": [
       {
         "label": "flat_under_0_25pct",
-        "value": 4
+        "value": 3
       },
       {
         "label": "micro_0_25_to_0_5pct",
@@ -379,7 +388,7 @@
       },
       {
         "label": "small_0_5_to_1pct",
-        "value": 0
+        "value": 2
       },
       {
         "label": "moderate_1_to_2pct",
@@ -432,24 +441,54 @@
         "count": 8
       },
       {
-        "reason": "Confidence 0 is below minimum threshold.",
-        "count": 4
+        "reason": "Confidence threshold is below minimum threshold.",
+        "count": 5
       },
       {
-        "reason": "Confidence threshold is below minimum threshold.",
-        "count": 4
+        "reason": "Confidence 0 is below minimum threshold.",
+        "count": 3
       },
       {
         "reason": "Missing invalidation.",
-        "count": 4
+        "count": 3
       }
     ],
     "almostApprovedCandidates": [
       {
+        "symbol": "AAPL",
+        "status": "closest_rejected",
+        "confidence": 0.1,
+        "changePct": -0.79,
+        "directionBias": "flat",
+        "missingGateCount": 3,
+        "primaryBlockReason": "Signal did not qualify as a candidate.",
+        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement."
+      },
+      {
+        "symbol": "MSFT",
+        "status": "closest_rejected",
+        "confidence": 0.1,
+        "changePct": -0.75,
+        "directionBias": "flat",
+        "missingGateCount": 3,
+        "primaryBlockReason": "Signal did not qualify as a candidate.",
+        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement."
+      },
+      {
+        "symbol": "QQQ",
+        "status": "closest_rejected",
+        "confidence": 0.1,
+        "changePct": 0.25,
+        "directionBias": "flat",
+        "missingGateCount": 3,
+        "primaryBlockReason": "Signal did not qualify as a candidate.",
+        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement."
+      },
+      {
         "symbol": "SPY",
         "status": "closest_rejected",
         "confidence": 0.1,
-        "changePct": -0.08,
+        "changePct": 0.1,
         "directionBias": "flat",
         "missingGateCount": 3,
         "primaryBlockReason": "Signal did not qualify as a candidate.",
@@ -464,36 +503,6 @@
         "missingGateCount": 3,
         "primaryBlockReason": "Signal did not qualify as a candidate.",
         "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement."
-      },
-      {
-        "symbol": "MSFT",
-        "status": "closest_rejected",
-        "confidence": 0.1,
-        "changePct": -0.07,
-        "directionBias": "flat",
-        "missingGateCount": 3,
-        "primaryBlockReason": "Signal did not qualify as a candidate.",
-        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement."
-      },
-      {
-        "symbol": "AAPL",
-        "status": "closest_rejected",
-        "confidence": 0.1,
-        "changePct": -0.05,
-        "directionBias": "flat",
-        "missingGateCount": 3,
-        "primaryBlockReason": "Signal did not qualify as a candidate.",
-        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement."
-      },
-      {
-        "symbol": "QQQ",
-        "status": "closest_rejected",
-        "confidence": 0,
-        "changePct": 0,
-        "directionBias": "none",
-        "missingGateCount": 4,
-        "primaryBlockReason": "Signal did not qualify as a candidate.",
-        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, a defined invalidation level, no downside/short/margin/leverage/options/futures requirement."
       },
       {
         "symbol": "BTC",
@@ -528,26 +537,13 @@
     ],
     "recentMarketMovementPanel": [
       {
-        "symbol": "NVDA",
-        "firstTimestamp": "2026-05-15T12:04:00Z",
-        "latestTimestamp": "2026-05-15T12:16:00Z",
-        "changePct": -0.08,
-        "direction": "flat",
-        "movementBucket": "flat_under_0_25pct",
-        "barsReviewed": 3,
-        "dataSource": "alpaca_iex",
-        "paperOnly": true,
-        "liveTradingEnabled": false,
-        "rawPricesPublished": false
-      },
-      {
-        "symbol": "SPY",
-        "firstTimestamp": "2026-05-15T12:06:00Z",
-        "latestTimestamp": "2026-05-15T12:17:00Z",
-        "changePct": -0.08,
-        "direction": "flat",
-        "movementBucket": "flat_under_0_25pct",
-        "barsReviewed": 3,
+        "symbol": "AAPL",
+        "firstTimestamp": "2026-05-14T12:18:00Z",
+        "latestTimestamp": "2026-05-14T13:34:00Z",
+        "changePct": -0.79,
+        "direction": "down",
+        "movementBucket": "small_0_5_to_1pct",
+        "barsReviewed": 20,
         "dataSource": "alpaca_iex",
         "paperOnly": true,
         "liveTradingEnabled": false,
@@ -555,25 +551,51 @@
       },
       {
         "symbol": "MSFT",
-        "firstTimestamp": "2026-05-15T12:01:00Z",
-        "latestTimestamp": "2026-05-15T12:20:00Z",
-        "changePct": -0.07,
-        "direction": "flat",
-        "movementBucket": "flat_under_0_25pct",
-        "barsReviewed": 4,
+        "firstTimestamp": "2026-05-14T12:37:00Z",
+        "latestTimestamp": "2026-05-14T13:46:00Z",
+        "changePct": -0.75,
+        "direction": "down",
+        "movementBucket": "small_0_5_to_1pct",
+        "barsReviewed": 20,
         "dataSource": "alpaca_iex",
         "paperOnly": true,
         "liveTradingEnabled": false,
         "rawPricesPublished": false
       },
       {
-        "symbol": "AAPL",
-        "firstTimestamp": "2026-05-15T12:03:00Z",
-        "latestTimestamp": "2026-05-15T12:13:00Z",
-        "changePct": -0.05,
+        "symbol": "QQQ",
+        "firstTimestamp": "2026-05-14T12:19:00Z",
+        "latestTimestamp": "2026-05-14T13:44:00Z",
+        "changePct": 0.25,
         "direction": "flat",
         "movementBucket": "flat_under_0_25pct",
-        "barsReviewed": 4,
+        "barsReviewed": 20,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "liveTradingEnabled": false,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "SPY",
+        "firstTimestamp": "2026-05-14T12:01:00Z",
+        "latestTimestamp": "2026-05-14T13:41:00Z",
+        "changePct": 0.1,
+        "direction": "flat",
+        "movementBucket": "flat_under_0_25pct",
+        "barsReviewed": 20,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "liveTradingEnabled": false,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "NVDA",
+        "firstTimestamp": "2026-05-14T12:23:00Z",
+        "latestTimestamp": "2026-05-14T13:36:00Z",
+        "changePct": -0.08,
+        "direction": "flat",
+        "movementBucket": "flat_under_0_25pct",
+        "barsReviewed": 20,
         "dataSource": "alpaca_iex",
         "paperOnly": true,
         "liveTradingEnabled": false,
@@ -583,6 +605,19 @@
     "botActivityTimeline": [
       {
         "sequence": 23,
+        "generatedAt": "2026-05-14T02:20:20.137Z",
+        "endingEquity": 10000,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 0,
+        "riskBlocked": 8,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 36.88,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 24,
         "generatedAt": "2026-05-14T02:36:53.328Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -595,7 +630,7 @@
         "cadenceLabel": "roughly_30_minute_cadence"
       },
       {
-        "sequence": 24,
+        "sequence": 25,
         "generatedAt": "2026-05-15T02:02:35.513Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -608,7 +643,7 @@
         "cadenceLabel": "manual_or_scheduler_gap"
       },
       {
-        "sequence": 25,
+        "sequence": 26,
         "generatedAt": "2026-05-15T02:05:48.215Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -621,7 +656,7 @@
         "cadenceLabel": "roughly_30_minute_cadence"
       },
       {
-        "sequence": 26,
+        "sequence": 27,
         "generatedAt": "2026-05-15T02:11:20.713Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -634,7 +669,7 @@
         "cadenceLabel": "roughly_30_minute_cadence"
       },
       {
-        "sequence": 27,
+        "sequence": 28,
         "generatedAt": "2026-05-15T02:11:49.350Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -647,7 +682,7 @@
         "cadenceLabel": "roughly_30_minute_cadence"
       },
       {
-        "sequence": 28,
+        "sequence": 29,
         "generatedAt": "2026-05-15T02:12:58.389Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -660,7 +695,7 @@
         "cadenceLabel": "roughly_30_minute_cadence"
       },
       {
-        "sequence": 29,
+        "sequence": 30,
         "generatedAt": "2026-05-15T02:22:59.154Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -671,35 +706,37 @@
         "qaStatus": "PASS",
         "gapMinutes": 10.01,
         "cadenceLabel": "roughly_30_minute_cadence"
-      },
-      {
-        "sequence": 30,
-        "generatedAt": "2026-05-15T12:21:36.974Z",
-        "endingEquity": 10000,
-        "paperPnl": 0,
-        "signalsReviewed": 8,
-        "riskApproved": 0,
-        "riskBlocked": 8,
-        "fakePaperTrades": 0,
-        "qaStatus": "PASS",
-        "gapMinutes": 598.63,
-        "cadenceLabel": "manual_or_scheduler_gap"
       }
     ],
     "staleDataWarningPanel": {
       "status": "review",
-      "generatedAt": "2026-05-15T12:22:03.534Z",
+      "generatedAt": "2026-05-15T10:22:32.540Z",
       "warnings": [
         {
           "item": "analytics_summary",
           "status": "stale_context_only",
-          "detail": "Analytics summary 2026-05-08T03:46:14.425Z is older than latest paper run 2026-05-15T12:21:36.974Z. Dashboard headline cards use current paper outputs instead."
+          "detail": "Analytics summary 2026-05-08T03:46:14.425Z is older than latest paper run 2026-05-15T02:22:59.154Z. Dashboard headline cards use current paper outputs instead."
+        },
+        {
+          "item": "market_data_refresh",
+          "status": "aging",
+          "detail": "Market-data bundle was refreshed 479.56 minutes ago."
+        },
+        {
+          "item": "latest_market_bar",
+          "status": "market_closed_or_delayed",
+          "detail": "Latest bar is 1236.54 minutes old. Label as delayed/closed-market data, not live tick data."
+        },
+        {
+          "item": "paper_run",
+          "status": "stale",
+          "detail": "Latest paper run is 479.56 minutes old."
         }
       ]
     },
     "marketRegimeSummary": {
       "source": "synthetic_regime_context_plus_watchlist_movement",
-      "broadDirection": "watchlist_mixed_or_flat",
+      "broadDirection": "watchlist_tilt_down",
       "regimesCompared": 6,
       "strongestPaperRegime": "melt_up",
       "weakestPaperRegime": "panic_drawdown",
@@ -714,10 +751,10 @@
       "endingBalance": null,
       "cycleStartTimestamp": "2026-05-14T02:20:20.137Z",
       "cycleEndTimestamp": null,
-      "hoursSurvived": 34.02,
-      "daysSurvived": 1.42,
+      "hoursSurvived": 24.04,
+      "daysSurvived": 1,
       "approvedTrades": 0,
-      "rejectedTrades": 72,
+      "rejectedTrades": 64,
       "depletionRisk": "normal",
       "resetTriggerReason": null,
       "nextCycleScheduledStart": null,
@@ -762,12 +799,12 @@
       "rawMarketDataPublished": false
     },
     "dashboardRefreshHealth": {
-      "lastStatus": "PASS",
-      "lastAttemptAt": "2026-05-15T12:21:37.000Z",
-      "lastSuccessfulRefreshAt": "2026-05-15T12:21:37.000Z",
-      "lastFailureAt": "2026-05-15T12:15:42.807Z",
-      "consecutiveFailures": 0,
-      "staleWarning": null,
+      "lastStatus": "FAIL",
+      "lastAttemptAt": "2026-05-15T10:17:45.755Z",
+      "lastSuccessfulRefreshAt": "2026-05-15T02:22:59.175Z",
+      "lastFailureAt": "2026-05-15T10:17:45.755Z",
+      "consecutiveFailures": 1,
+      "staleWarning": "Last successful refresh was 7.9 hours ago (target: 2 hours)",
       "refreshIntervalTargetHours": 2,
       "schedulerInstalled": false,
       "paperOnly": true,
@@ -802,210 +839,210 @@
     "paperPnlSeries": [
       {
         "sequence": 1,
-        "generatedAt": "2026-05-09T00:30:03.786Z",
+        "generatedAt": "2026-05-09T00:29:55.415Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 2,
-        "generatedAt": "2026-05-09T00:35:03.652Z",
+        "generatedAt": "2026-05-09T00:30:03.786Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 3,
-        "generatedAt": "2026-05-09T00:35:17.535Z",
+        "generatedAt": "2026-05-09T00:35:03.652Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 4,
-        "generatedAt": "2026-05-09T00:35:41.110Z",
+        "generatedAt": "2026-05-09T00:35:17.535Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 5,
-        "generatedAt": "2026-05-09T01:00:02.664Z",
+        "generatedAt": "2026-05-09T00:35:41.110Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 6,
-        "generatedAt": "2026-05-09T01:30:03.059Z",
+        "generatedAt": "2026-05-09T01:00:02.664Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 7,
-        "generatedAt": "2026-05-09T01:33:02.547Z",
+        "generatedAt": "2026-05-09T01:30:03.059Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 8,
-        "generatedAt": "2026-05-09T01:33:18.529Z",
+        "generatedAt": "2026-05-09T01:33:02.547Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 9,
-        "generatedAt": "2026-05-09T01:45:59.119Z",
+        "generatedAt": "2026-05-09T01:33:18.529Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 10,
-        "generatedAt": "2026-05-09T01:47:07.452Z",
+        "generatedAt": "2026-05-09T01:45:59.119Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 11,
-        "generatedAt": "2026-05-09T01:47:25.589Z",
+        "generatedAt": "2026-05-09T01:47:07.452Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 12,
-        "generatedAt": "2026-05-09T02:00:02.733Z",
+        "generatedAt": "2026-05-09T01:47:25.589Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 13,
-        "generatedAt": "2026-05-09T02:30:03.267Z",
+        "generatedAt": "2026-05-09T02:00:02.733Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 14,
-        "generatedAt": "2026-05-09T03:00:02.801Z",
+        "generatedAt": "2026-05-09T02:30:03.267Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 15,
-        "generatedAt": "2026-05-13T19:40:21.818Z",
+        "generatedAt": "2026-05-09T03:00:02.801Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 16,
-        "generatedAt": "2026-05-13T19:41:21.772Z",
+        "generatedAt": "2026-05-13T19:40:21.818Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 17,
-        "generatedAt": "2026-05-13T21:23:11.994Z",
+        "generatedAt": "2026-05-13T19:41:21.772Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 18,
-        "generatedAt": "2026-05-14T01:37:05.413Z",
+        "generatedAt": "2026-05-13T21:23:11.994Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 19,
-        "generatedAt": "2026-05-14T01:37:40.861Z",
+        "generatedAt": "2026-05-14T01:37:05.413Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 20,
-        "generatedAt": "2026-05-14T01:38:40.615Z",
+        "generatedAt": "2026-05-14T01:37:40.861Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 21,
-        "generatedAt": "2026-05-14T01:43:27.156Z",
+        "generatedAt": "2026-05-14T01:38:40.615Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 22,
-        "generatedAt": "2026-05-14T02:20:20.137Z",
+        "generatedAt": "2026-05-14T01:43:27.156Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 23,
-        "generatedAt": "2026-05-14T02:36:53.328Z",
+        "generatedAt": "2026-05-14T02:20:20.137Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 24,
-        "generatedAt": "2026-05-15T02:02:35.513Z",
+        "generatedAt": "2026-05-14T02:36:53.328Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 25,
-        "generatedAt": "2026-05-15T02:05:48.215Z",
+        "generatedAt": "2026-05-15T02:02:35.513Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 26,
-        "generatedAt": "2026-05-15T02:11:20.713Z",
+        "generatedAt": "2026-05-15T02:05:48.215Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 27,
-        "generatedAt": "2026-05-15T02:11:49.350Z",
+        "generatedAt": "2026-05-15T02:11:20.713Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 28,
-        "generatedAt": "2026-05-15T02:12:58.389Z",
+        "generatedAt": "2026-05-15T02:11:49.350Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 29,
-        "generatedAt": "2026-05-15T02:22:59.154Z",
+        "generatedAt": "2026-05-15T02:12:58.389Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
       },
       {
         "sequence": 30,
-        "generatedAt": "2026-05-15T12:21:36.974Z",
+        "generatedAt": "2026-05-15T02:22:59.154Z",
         "paperPnl": 0,
         "paperReturnPct": 0,
         "endingEquity": 10000
@@ -1014,181 +1051,181 @@
     "rollingEquity": [
       {
         "sequence": 1,
-        "generatedAt": "2026-05-09T00:30:03.786Z",
+        "generatedAt": "2026-05-09T00:29:55.415Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 2,
-        "generatedAt": "2026-05-09T00:35:03.652Z",
+        "generatedAt": "2026-05-09T00:30:03.786Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 3,
-        "generatedAt": "2026-05-09T00:35:17.535Z",
+        "generatedAt": "2026-05-09T00:35:03.652Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 4,
-        "generatedAt": "2026-05-09T00:35:41.110Z",
+        "generatedAt": "2026-05-09T00:35:17.535Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 5,
-        "generatedAt": "2026-05-09T01:00:02.664Z",
+        "generatedAt": "2026-05-09T00:35:41.110Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 6,
-        "generatedAt": "2026-05-09T01:30:03.059Z",
+        "generatedAt": "2026-05-09T01:00:02.664Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 7,
-        "generatedAt": "2026-05-09T01:33:02.547Z",
+        "generatedAt": "2026-05-09T01:30:03.059Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 8,
-        "generatedAt": "2026-05-09T01:33:18.529Z",
+        "generatedAt": "2026-05-09T01:33:02.547Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 9,
-        "generatedAt": "2026-05-09T01:45:59.119Z",
+        "generatedAt": "2026-05-09T01:33:18.529Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 10,
-        "generatedAt": "2026-05-09T01:47:07.452Z",
+        "generatedAt": "2026-05-09T01:45:59.119Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 11,
-        "generatedAt": "2026-05-09T01:47:25.589Z",
+        "generatedAt": "2026-05-09T01:47:07.452Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 12,
-        "generatedAt": "2026-05-09T02:00:02.733Z",
+        "generatedAt": "2026-05-09T01:47:25.589Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 13,
-        "generatedAt": "2026-05-09T02:30:03.267Z",
+        "generatedAt": "2026-05-09T02:00:02.733Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 14,
-        "generatedAt": "2026-05-09T03:00:02.801Z",
+        "generatedAt": "2026-05-09T02:30:03.267Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 15,
-        "generatedAt": "2026-05-13T19:40:21.818Z",
+        "generatedAt": "2026-05-09T03:00:02.801Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 16,
-        "generatedAt": "2026-05-13T19:41:21.772Z",
+        "generatedAt": "2026-05-13T19:40:21.818Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 17,
-        "generatedAt": "2026-05-13T21:23:11.994Z",
+        "generatedAt": "2026-05-13T19:41:21.772Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 18,
-        "generatedAt": "2026-05-14T01:37:05.413Z",
+        "generatedAt": "2026-05-13T21:23:11.994Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 19,
-        "generatedAt": "2026-05-14T01:37:40.861Z",
+        "generatedAt": "2026-05-14T01:37:05.413Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 20,
-        "generatedAt": "2026-05-14T01:38:40.615Z",
+        "generatedAt": "2026-05-14T01:37:40.861Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 21,
-        "generatedAt": "2026-05-14T01:43:27.156Z",
+        "generatedAt": "2026-05-14T01:38:40.615Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 22,
-        "generatedAt": "2026-05-14T02:20:20.137Z",
+        "generatedAt": "2026-05-14T01:43:27.156Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 23,
-        "generatedAt": "2026-05-14T02:36:53.328Z",
+        "generatedAt": "2026-05-14T02:20:20.137Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 24,
-        "generatedAt": "2026-05-15T02:02:35.513Z",
+        "generatedAt": "2026-05-14T02:36:53.328Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 25,
-        "generatedAt": "2026-05-15T02:05:48.215Z",
+        "generatedAt": "2026-05-15T02:02:35.513Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 26,
-        "generatedAt": "2026-05-15T02:11:20.713Z",
+        "generatedAt": "2026-05-15T02:05:48.215Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 27,
-        "generatedAt": "2026-05-15T02:11:49.350Z",
+        "generatedAt": "2026-05-15T02:11:20.713Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 28,
-        "generatedAt": "2026-05-15T02:12:58.389Z",
+        "generatedAt": "2026-05-15T02:11:49.350Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 29,
-        "generatedAt": "2026-05-15T02:22:59.154Z",
+        "generatedAt": "2026-05-15T02:12:58.389Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       },
       {
         "sequence": 30,
-        "generatedAt": "2026-05-15T12:21:36.974Z",
+        "generatedAt": "2026-05-15T02:22:59.154Z",
         "endingEquity": 10000,
         "paperReturnPct": 0
       }
@@ -1204,152 +1241,152 @@
       "rollingRuns": [
         {
           "sequence": 1,
-          "generatedAt": "2026-05-09T00:30:03.786Z",
+          "generatedAt": "2026-05-09T00:29:55.415Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 2,
-          "generatedAt": "2026-05-09T00:35:03.652Z",
+          "generatedAt": "2026-05-09T00:30:03.786Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 3,
-          "generatedAt": "2026-05-09T00:35:17.535Z",
+          "generatedAt": "2026-05-09T00:35:03.652Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 4,
-          "generatedAt": "2026-05-09T00:35:41.110Z",
+          "generatedAt": "2026-05-09T00:35:17.535Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 5,
-          "generatedAt": "2026-05-09T01:00:02.664Z",
+          "generatedAt": "2026-05-09T00:35:41.110Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 6,
-          "generatedAt": "2026-05-09T01:30:03.059Z",
+          "generatedAt": "2026-05-09T01:00:02.664Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 7,
-          "generatedAt": "2026-05-09T01:33:02.547Z",
+          "generatedAt": "2026-05-09T01:30:03.059Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 8,
-          "generatedAt": "2026-05-09T01:33:18.529Z",
+          "generatedAt": "2026-05-09T01:33:02.547Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 9,
-          "generatedAt": "2026-05-09T01:45:59.119Z",
+          "generatedAt": "2026-05-09T01:33:18.529Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 10,
-          "generatedAt": "2026-05-09T01:47:07.452Z",
+          "generatedAt": "2026-05-09T01:45:59.119Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 11,
-          "generatedAt": "2026-05-09T01:47:25.589Z",
+          "generatedAt": "2026-05-09T01:47:07.452Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 12,
-          "generatedAt": "2026-05-09T02:00:02.733Z",
+          "generatedAt": "2026-05-09T01:47:25.589Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 13,
-          "generatedAt": "2026-05-09T02:30:03.267Z",
+          "generatedAt": "2026-05-09T02:00:02.733Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 14,
-          "generatedAt": "2026-05-09T03:00:02.801Z",
+          "generatedAt": "2026-05-09T02:30:03.267Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 15,
-          "generatedAt": "2026-05-13T19:40:21.818Z",
+          "generatedAt": "2026-05-09T03:00:02.801Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 16,
-          "generatedAt": "2026-05-13T19:41:21.772Z",
+          "generatedAt": "2026-05-13T19:40:21.818Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 17,
-          "generatedAt": "2026-05-13T21:23:11.994Z",
+          "generatedAt": "2026-05-13T19:41:21.772Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 18,
-          "generatedAt": "2026-05-14T01:37:05.413Z",
+          "generatedAt": "2026-05-13T21:23:11.994Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 19,
-          "generatedAt": "2026-05-14T01:37:40.861Z",
+          "generatedAt": "2026-05-14T01:37:05.413Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 20,
-          "generatedAt": "2026-05-14T01:38:40.615Z",
+          "generatedAt": "2026-05-14T01:37:40.861Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 21,
-          "generatedAt": "2026-05-14T01:43:27.156Z",
+          "generatedAt": "2026-05-14T01:38:40.615Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 22,
-          "generatedAt": "2026-05-14T02:20:20.137Z",
+          "generatedAt": "2026-05-14T01:43:27.156Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 23,
-          "generatedAt": "2026-05-14T02:36:53.328Z",
+          "generatedAt": "2026-05-14T02:20:20.137Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 24,
-          "generatedAt": "2026-05-15T02:02:35.513Z",
+          "generatedAt": "2026-05-14T02:36:53.328Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 25,
-          "generatedAt": "2026-05-15T02:05:48.215Z",
+          "generatedAt": "2026-05-15T02:02:35.513Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 26,
-          "generatedAt": "2026-05-15T02:11:20.713Z",
+          "generatedAt": "2026-05-15T02:05:48.215Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 27,
-          "generatedAt": "2026-05-15T02:11:49.350Z",
+          "generatedAt": "2026-05-15T02:11:20.713Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 28,
-          "generatedAt": "2026-05-15T02:12:58.389Z",
+          "generatedAt": "2026-05-15T02:11:49.350Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 29,
-          "generatedAt": "2026-05-15T02:22:59.154Z",
+          "generatedAt": "2026-05-15T02:12:58.389Z",
           "maxDrawdownPct": 0
         },
         {
           "sequence": 30,
-          "generatedAt": "2026-05-15T12:21:36.974Z",
+          "generatedAt": "2026-05-15T02:22:59.154Z",
           "maxDrawdownPct": 0
         }
       ]
@@ -1367,7 +1404,7 @@
         "assetType": "ETF",
         "status": "ignore",
         "directionBias": "flat",
-        "marketChangePct": -0.08,
+        "marketChangePct": 0.1,
         "movementBucket": "flat_under_0_25pct",
         "riskApproved": false,
         "riskLevel": "blocked",
@@ -1379,9 +1416,9 @@
       {
         "symbol": "QQQ",
         "assetType": "ETF",
-        "status": "no_data",
-        "directionBias": "none",
-        "marketChangePct": 0,
+        "status": "ignore",
+        "directionBias": "flat",
+        "marketChangePct": 0.25,
         "movementBucket": "flat_under_0_25pct",
         "riskApproved": false,
         "riskLevel": "blocked",
@@ -1395,8 +1432,8 @@
         "assetType": "EQUITY",
         "status": "ignore",
         "directionBias": "flat",
-        "marketChangePct": -0.05,
-        "movementBucket": "flat_under_0_25pct",
+        "marketChangePct": -0.79,
+        "movementBucket": "small_0_5_to_1pct",
         "riskApproved": false,
         "riskLevel": "blocked",
         "fakePaperPnl": 0,
@@ -1409,8 +1446,8 @@
         "assetType": "EQUITY",
         "status": "ignore",
         "directionBias": "flat",
-        "marketChangePct": -0.07,
-        "movementBucket": "flat_under_0_25pct",
+        "marketChangePct": -0.75,
+        "movementBucket": "small_0_5_to_1pct",
         "riskApproved": false,
         "riskLevel": "blocked",
         "fakePaperPnl": 0,
@@ -1477,8 +1514,26 @@
     ],
     "watchlistMovementSummary": [
       {
-        "symbol": "NVDA",
-        "changePct": -0.08,
+        "symbol": "AAPL",
+        "changePct": -0.79,
+        "direction": "down",
+        "movementBucket": "small_0_5_to_1pct",
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "MSFT",
+        "changePct": -0.75,
+        "direction": "down",
+        "movementBucket": "small_0_5_to_1pct",
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "QQQ",
+        "changePct": 0.25,
         "direction": "flat",
         "movementBucket": "flat_under_0_25pct",
         "dataSource": "alpaca_iex",
@@ -1487,25 +1542,16 @@
       },
       {
         "symbol": "SPY",
+        "changePct": 0.1,
+        "direction": "flat",
+        "movementBucket": "flat_under_0_25pct",
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "NVDA",
         "changePct": -0.08,
-        "direction": "flat",
-        "movementBucket": "flat_under_0_25pct",
-        "dataSource": "alpaca_iex",
-        "paperOnly": true,
-        "rawPricesPublished": false
-      },
-      {
-        "symbol": "MSFT",
-        "changePct": -0.07,
-        "direction": "flat",
-        "movementBucket": "flat_under_0_25pct",
-        "dataSource": "alpaca_iex",
-        "paperOnly": true,
-        "rawPricesPublished": false
-      },
-      {
-        "symbol": "AAPL",
-        "changePct": -0.05,
         "direction": "flat",
         "movementBucket": "flat_under_0_25pct",
         "dataSource": "alpaca_iex",
@@ -1520,17 +1566,17 @@
       },
       {
         "label": "down",
-        "value": 0
+        "value": 2
       },
       {
         "label": "flat",
-        "value": 4
+        "value": 3
       }
     ],
     "movementBuckets": [
       {
         "label": "flat_under_0_25pct",
-        "value": 4
+        "value": 3
       },
       {
         "label": "micro_0_25_to_0_5pct",
@@ -1538,7 +1584,7 @@
       },
       {
         "label": "small_0_5_to_1pct",
-        "value": 0
+        "value": 2
       },
       {
         "label": "moderate_1_to_2pct",
@@ -1591,24 +1637,54 @@
         "count": 8
       },
       {
-        "reason": "Confidence 0 is below minimum threshold.",
-        "count": 4
+        "reason": "Confidence threshold is below minimum threshold.",
+        "count": 5
       },
       {
-        "reason": "Confidence threshold is below minimum threshold.",
-        "count": 4
+        "reason": "Confidence 0 is below minimum threshold.",
+        "count": 3
       },
       {
         "reason": "Missing invalidation.",
-        "count": 4
+        "count": 3
       }
     ],
     "almostApprovedCandidates": [
       {
+        "symbol": "AAPL",
+        "status": "closest_rejected",
+        "confidence": 0.1,
+        "changePct": -0.79,
+        "directionBias": "flat",
+        "missingGateCount": 3,
+        "primaryBlockReason": "Signal did not qualify as a candidate.",
+        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement."
+      },
+      {
+        "symbol": "MSFT",
+        "status": "closest_rejected",
+        "confidence": 0.1,
+        "changePct": -0.75,
+        "directionBias": "flat",
+        "missingGateCount": 3,
+        "primaryBlockReason": "Signal did not qualify as a candidate.",
+        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement."
+      },
+      {
+        "symbol": "QQQ",
+        "status": "closest_rejected",
+        "confidence": 0.1,
+        "changePct": 0.25,
+        "directionBias": "flat",
+        "missingGateCount": 3,
+        "primaryBlockReason": "Signal did not qualify as a candidate.",
+        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement."
+      },
+      {
         "symbol": "SPY",
         "status": "closest_rejected",
         "confidence": 0.1,
-        "changePct": -0.08,
+        "changePct": 0.1,
         "directionBias": "flat",
         "missingGateCount": 3,
         "primaryBlockReason": "Signal did not qualify as a candidate.",
@@ -1623,36 +1699,6 @@
         "missingGateCount": 3,
         "primaryBlockReason": "Signal did not qualify as a candidate.",
         "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement."
-      },
-      {
-        "symbol": "MSFT",
-        "status": "closest_rejected",
-        "confidence": 0.1,
-        "changePct": -0.07,
-        "directionBias": "flat",
-        "missingGateCount": 3,
-        "primaryBlockReason": "Signal did not qualify as a candidate.",
-        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement."
-      },
-      {
-        "symbol": "AAPL",
-        "status": "closest_rejected",
-        "confidence": 0.1,
-        "changePct": -0.05,
-        "directionBias": "flat",
-        "missingGateCount": 3,
-        "primaryBlockReason": "Signal did not qualify as a candidate.",
-        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement."
-      },
-      {
-        "symbol": "QQQ",
-        "status": "closest_rejected",
-        "confidence": 0,
-        "changePct": 0,
-        "directionBias": "none",
-        "missingGateCount": 4,
-        "primaryBlockReason": "Signal did not qualify as a candidate.",
-        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, a defined invalidation level, no downside/short/margin/leverage/options/futures requirement."
       },
       {
         "symbol": "BTC",
@@ -1688,7 +1734,7 @@
     "signalRiskCounts": [
       {
         "sequence": 1,
-        "generatedAt": "2026-05-09T00:30:03.786Z",
+        "generatedAt": "2026-05-09T00:29:55.415Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1696,7 +1742,7 @@
       },
       {
         "sequence": 2,
-        "generatedAt": "2026-05-09T00:35:03.652Z",
+        "generatedAt": "2026-05-09T00:30:03.786Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1704,7 +1750,7 @@
       },
       {
         "sequence": 3,
-        "generatedAt": "2026-05-09T00:35:17.535Z",
+        "generatedAt": "2026-05-09T00:35:03.652Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1712,7 +1758,7 @@
       },
       {
         "sequence": 4,
-        "generatedAt": "2026-05-09T00:35:41.110Z",
+        "generatedAt": "2026-05-09T00:35:17.535Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1720,7 +1766,7 @@
       },
       {
         "sequence": 5,
-        "generatedAt": "2026-05-09T01:00:02.664Z",
+        "generatedAt": "2026-05-09T00:35:41.110Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1728,7 +1774,7 @@
       },
       {
         "sequence": 6,
-        "generatedAt": "2026-05-09T01:30:03.059Z",
+        "generatedAt": "2026-05-09T01:00:02.664Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1736,7 +1782,7 @@
       },
       {
         "sequence": 7,
-        "generatedAt": "2026-05-09T01:33:02.547Z",
+        "generatedAt": "2026-05-09T01:30:03.059Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1744,7 +1790,7 @@
       },
       {
         "sequence": 8,
-        "generatedAt": "2026-05-09T01:33:18.529Z",
+        "generatedAt": "2026-05-09T01:33:02.547Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1752,7 +1798,7 @@
       },
       {
         "sequence": 9,
-        "generatedAt": "2026-05-09T01:45:59.119Z",
+        "generatedAt": "2026-05-09T01:33:18.529Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1760,7 +1806,7 @@
       },
       {
         "sequence": 10,
-        "generatedAt": "2026-05-09T01:47:07.452Z",
+        "generatedAt": "2026-05-09T01:45:59.119Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1768,7 +1814,7 @@
       },
       {
         "sequence": 11,
-        "generatedAt": "2026-05-09T01:47:25.589Z",
+        "generatedAt": "2026-05-09T01:47:07.452Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1776,7 +1822,7 @@
       },
       {
         "sequence": 12,
-        "generatedAt": "2026-05-09T02:00:02.733Z",
+        "generatedAt": "2026-05-09T01:47:25.589Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1784,7 +1830,7 @@
       },
       {
         "sequence": 13,
-        "generatedAt": "2026-05-09T02:30:03.267Z",
+        "generatedAt": "2026-05-09T02:00:02.733Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1792,7 +1838,7 @@
       },
       {
         "sequence": 14,
-        "generatedAt": "2026-05-09T03:00:02.801Z",
+        "generatedAt": "2026-05-09T02:30:03.267Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1800,7 +1846,7 @@
       },
       {
         "sequence": 15,
-        "generatedAt": "2026-05-13T19:40:21.818Z",
+        "generatedAt": "2026-05-09T03:00:02.801Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1808,7 +1854,7 @@
       },
       {
         "sequence": 16,
-        "generatedAt": "2026-05-13T19:41:21.772Z",
+        "generatedAt": "2026-05-13T19:40:21.818Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1816,7 +1862,7 @@
       },
       {
         "sequence": 17,
-        "generatedAt": "2026-05-13T21:23:11.994Z",
+        "generatedAt": "2026-05-13T19:41:21.772Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1824,7 +1870,7 @@
       },
       {
         "sequence": 18,
-        "generatedAt": "2026-05-14T01:37:05.413Z",
+        "generatedAt": "2026-05-13T21:23:11.994Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1832,7 +1878,7 @@
       },
       {
         "sequence": 19,
-        "generatedAt": "2026-05-14T01:37:40.861Z",
+        "generatedAt": "2026-05-14T01:37:05.413Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1840,7 +1886,7 @@
       },
       {
         "sequence": 20,
-        "generatedAt": "2026-05-14T01:38:40.615Z",
+        "generatedAt": "2026-05-14T01:37:40.861Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1848,7 +1894,7 @@
       },
       {
         "sequence": 21,
-        "generatedAt": "2026-05-14T01:43:27.156Z",
+        "generatedAt": "2026-05-14T01:38:40.615Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1856,7 +1902,7 @@
       },
       {
         "sequence": 22,
-        "generatedAt": "2026-05-14T02:20:20.137Z",
+        "generatedAt": "2026-05-14T01:43:27.156Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1864,7 +1910,7 @@
       },
       {
         "sequence": 23,
-        "generatedAt": "2026-05-14T02:36:53.328Z",
+        "generatedAt": "2026-05-14T02:20:20.137Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1872,7 +1918,7 @@
       },
       {
         "sequence": 24,
-        "generatedAt": "2026-05-15T02:02:35.513Z",
+        "generatedAt": "2026-05-14T02:36:53.328Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1880,7 +1926,7 @@
       },
       {
         "sequence": 25,
-        "generatedAt": "2026-05-15T02:05:48.215Z",
+        "generatedAt": "2026-05-15T02:02:35.513Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1888,7 +1934,7 @@
       },
       {
         "sequence": 26,
-        "generatedAt": "2026-05-15T02:11:20.713Z",
+        "generatedAt": "2026-05-15T02:05:48.215Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1896,7 +1942,7 @@
       },
       {
         "sequence": 27,
-        "generatedAt": "2026-05-15T02:11:49.350Z",
+        "generatedAt": "2026-05-15T02:11:20.713Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1904,7 +1950,7 @@
       },
       {
         "sequence": 28,
-        "generatedAt": "2026-05-15T02:12:58.389Z",
+        "generatedAt": "2026-05-15T02:11:49.350Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1912,7 +1958,7 @@
       },
       {
         "sequence": 29,
-        "generatedAt": "2026-05-15T02:22:59.154Z",
+        "generatedAt": "2026-05-15T02:12:58.389Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -1920,7 +1966,7 @@
       },
       {
         "sequence": 30,
-        "generatedAt": "2026-05-15T12:21:36.974Z",
+        "generatedAt": "2026-05-15T02:22:59.154Z",
         "signalsReviewed": 8,
         "riskApproved": 0,
         "riskBlocked": 8,
@@ -2011,7 +2057,7 @@
       {
         "symbol": "AAPL",
         "fakePaperPnl": 0,
-        "marketChangePct": -0.05,
+        "marketChangePct": -0.79,
         "dataSource": "alpaca_iex",
         "paperOnly": true
       },
@@ -2032,7 +2078,7 @@
       {
         "symbol": "MSFT",
         "fakePaperPnl": 0,
-        "marketChangePct": -0.07,
+        "marketChangePct": -0.75,
         "dataSource": "alpaca_iex",
         "paperOnly": true
       },
@@ -2046,7 +2092,7 @@
       {
         "symbol": "QQQ",
         "fakePaperPnl": 0,
-        "marketChangePct": 0,
+        "marketChangePct": 0.25,
         "dataSource": "alpaca_iex",
         "paperOnly": true
       },
@@ -2060,7 +2106,7 @@
       {
         "symbol": "SPY",
         "fakePaperPnl": 0,
-        "marketChangePct": -0.08,
+        "marketChangePct": 0.1,
         "dataSource": "alpaca_iex",
         "paperOnly": true
       }
@@ -2068,6 +2114,11 @@
     "returnVsDrawdownSnapshot": [
       {
         "label": "Current paper run",
+        "paperReturnPct": 0,
+        "maxDrawdownPct": 0
+      },
+      {
+        "label": "2026-05-14T01:38:40.615Z",
         "paperReturnPct": 0,
         "maxDrawdownPct": 0
       },
@@ -2113,11 +2164,6 @@
       },
       {
         "label": "2026-05-15T02:22:59.154Z",
-        "paperReturnPct": 0,
-        "maxDrawdownPct": 0
-      },
-      {
-        "label": "2026-05-15T12:21:36.974Z",
         "paperReturnPct": 0,
         "maxDrawdownPct": 0
       }
@@ -2226,14 +2272,14 @@
       {
         "dataSource": "alpaca_iex",
         "feed": "iex",
-        "generatedAt": "2026-05-15T12:21:36.796Z",
-        "latestBarTimestamp": "2026-05-15T12:20:00Z",
-        "barsLoaded": 14,
+        "generatedAt": "2026-05-15T02:22:59.084Z",
+        "latestBarTimestamp": "2026-05-14T13:46:00Z",
+        "barsLoaded": 100,
         "quotesLoaded": 5,
-        "refreshAgeMinutes": 0.45,
-        "latestBarAgeMinutes": 2.06,
-        "refreshFreshnessLabel": "fresh",
-        "latestBarFreshnessLabel": "fresh",
+        "refreshAgeMinutes": 479.56,
+        "latestBarAgeMinutes": 1236.54,
+        "refreshFreshnessLabel": "stale_or_market_closed",
+        "latestBarFreshnessLabel": "stale_or_market_closed",
         "rawMarketDataPublished": false,
         "publicSafeDerivedOnly": true,
         "paperOnly": true,
@@ -2245,26 +2291,13 @@
     ],
     "recentMarketMovementPanel": [
       {
-        "symbol": "NVDA",
-        "firstTimestamp": "2026-05-15T12:04:00Z",
-        "latestTimestamp": "2026-05-15T12:16:00Z",
-        "changePct": -0.08,
-        "direction": "flat",
-        "movementBucket": "flat_under_0_25pct",
-        "barsReviewed": 3,
-        "dataSource": "alpaca_iex",
-        "paperOnly": true,
-        "liveTradingEnabled": false,
-        "rawPricesPublished": false
-      },
-      {
-        "symbol": "SPY",
-        "firstTimestamp": "2026-05-15T12:06:00Z",
-        "latestTimestamp": "2026-05-15T12:17:00Z",
-        "changePct": -0.08,
-        "direction": "flat",
-        "movementBucket": "flat_under_0_25pct",
-        "barsReviewed": 3,
+        "symbol": "AAPL",
+        "firstTimestamp": "2026-05-14T12:18:00Z",
+        "latestTimestamp": "2026-05-14T13:34:00Z",
+        "changePct": -0.79,
+        "direction": "down",
+        "movementBucket": "small_0_5_to_1pct",
+        "barsReviewed": 20,
         "dataSource": "alpaca_iex",
         "paperOnly": true,
         "liveTradingEnabled": false,
@@ -2272,25 +2305,51 @@
       },
       {
         "symbol": "MSFT",
-        "firstTimestamp": "2026-05-15T12:01:00Z",
-        "latestTimestamp": "2026-05-15T12:20:00Z",
-        "changePct": -0.07,
-        "direction": "flat",
-        "movementBucket": "flat_under_0_25pct",
-        "barsReviewed": 4,
+        "firstTimestamp": "2026-05-14T12:37:00Z",
+        "latestTimestamp": "2026-05-14T13:46:00Z",
+        "changePct": -0.75,
+        "direction": "down",
+        "movementBucket": "small_0_5_to_1pct",
+        "barsReviewed": 20,
         "dataSource": "alpaca_iex",
         "paperOnly": true,
         "liveTradingEnabled": false,
         "rawPricesPublished": false
       },
       {
-        "symbol": "AAPL",
-        "firstTimestamp": "2026-05-15T12:03:00Z",
-        "latestTimestamp": "2026-05-15T12:13:00Z",
-        "changePct": -0.05,
+        "symbol": "QQQ",
+        "firstTimestamp": "2026-05-14T12:19:00Z",
+        "latestTimestamp": "2026-05-14T13:44:00Z",
+        "changePct": 0.25,
         "direction": "flat",
         "movementBucket": "flat_under_0_25pct",
-        "barsReviewed": 4,
+        "barsReviewed": 20,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "liveTradingEnabled": false,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "SPY",
+        "firstTimestamp": "2026-05-14T12:01:00Z",
+        "latestTimestamp": "2026-05-14T13:41:00Z",
+        "changePct": 0.1,
+        "direction": "flat",
+        "movementBucket": "flat_under_0_25pct",
+        "barsReviewed": 20,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "liveTradingEnabled": false,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "NVDA",
+        "firstTimestamp": "2026-05-14T12:23:00Z",
+        "latestTimestamp": "2026-05-14T13:36:00Z",
+        "changePct": -0.08,
+        "direction": "flat",
+        "movementBucket": "flat_under_0_25pct",
+        "barsReviewed": 20,
         "dataSource": "alpaca_iex",
         "paperOnly": true,
         "liveTradingEnabled": false,
@@ -2304,26 +2363,122 @@
         "points": [
           {
             "sequence": 1,
-            "timestamp": "2026-05-15T12:03:00Z",
+            "timestamp": "2026-05-14T12:18:00Z",
             "changePct": 0,
             "rawPricePublished": false
           },
           {
             "sequence": 2,
-            "timestamp": "2026-05-15T12:08:00Z",
-            "changePct": 0,
-            "rawPricePublished": false
-          },
-          {
-            "sequence": 3,
-            "timestamp": "2026-05-15T12:10:00Z",
+            "timestamp": "2026-05-14T12:20:00Z",
             "changePct": -0.01,
             "rawPricePublished": false
           },
           {
+            "sequence": 3,
+            "timestamp": "2026-05-14T12:27:00Z",
+            "changePct": -0.1,
+            "rawPricePublished": false
+          },
+          {
             "sequence": 4,
-            "timestamp": "2026-05-15T12:13:00Z",
-            "changePct": -0.05,
+            "timestamp": "2026-05-14T12:29:00Z",
+            "changePct": -0.09,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 5,
+            "timestamp": "2026-05-14T12:30:00Z",
+            "changePct": -0.12,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 6,
+            "timestamp": "2026-05-14T12:45:00Z",
+            "changePct": -0.18,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 7,
+            "timestamp": "2026-05-14T12:48:00Z",
+            "changePct": -0.24,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 8,
+            "timestamp": "2026-05-14T12:50:00Z",
+            "changePct": -0.22,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 9,
+            "timestamp": "2026-05-14T12:52:00Z",
+            "changePct": -0.27,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 10,
+            "timestamp": "2026-05-14T12:58:00Z",
+            "changePct": -0.29,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 11,
+            "timestamp": "2026-05-14T12:59:00Z",
+            "changePct": -0.29,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 12,
+            "timestamp": "2026-05-14T13:00:00Z",
+            "changePct": -0.32,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 13,
+            "timestamp": "2026-05-14T13:01:00Z",
+            "changePct": -0.36,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 14,
+            "timestamp": "2026-05-14T13:02:00Z",
+            "changePct": -0.31,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 15,
+            "timestamp": "2026-05-14T13:17:00Z",
+            "changePct": -0.39,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 16,
+            "timestamp": "2026-05-14T13:30:00Z",
+            "changePct": -0.12,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 17,
+            "timestamp": "2026-05-14T13:31:00Z",
+            "changePct": -0.37,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 18,
+            "timestamp": "2026-05-14T13:32:00Z",
+            "changePct": -0.57,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 19,
+            "timestamp": "2026-05-14T13:33:00Z",
+            "changePct": -0.85,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 20,
+            "timestamp": "2026-05-14T13:34:00Z",
+            "changePct": -0.79,
             "rawPricePublished": false
           }
         ]
@@ -2334,26 +2489,122 @@
         "points": [
           {
             "sequence": 1,
-            "timestamp": "2026-05-15T12:01:00Z",
+            "timestamp": "2026-05-14T12:37:00Z",
             "changePct": 0,
             "rawPricePublished": false
           },
           {
             "sequence": 2,
-            "timestamp": "2026-05-15T12:02:00Z",
-            "changePct": -0.08,
+            "timestamp": "2026-05-14T12:38:00Z",
+            "changePct": 0.02,
             "rawPricePublished": false
           },
           {
             "sequence": 3,
-            "timestamp": "2026-05-15T12:16:00Z",
-            "changePct": -0.21,
+            "timestamp": "2026-05-14T12:44:00Z",
+            "changePct": -0.02,
             "rawPricePublished": false
           },
           {
             "sequence": 4,
-            "timestamp": "2026-05-15T12:20:00Z",
-            "changePct": -0.07,
+            "timestamp": "2026-05-14T13:30:00Z",
+            "changePct": -0.19,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 5,
+            "timestamp": "2026-05-14T13:31:00Z",
+            "changePct": -0.55,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 6,
+            "timestamp": "2026-05-14T13:32:00Z",
+            "changePct": -0.35,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 7,
+            "timestamp": "2026-05-14T13:33:00Z",
+            "changePct": -0.59,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 8,
+            "timestamp": "2026-05-14T13:34:00Z",
+            "changePct": -0.51,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 9,
+            "timestamp": "2026-05-14T13:35:00Z",
+            "changePct": -0.61,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 10,
+            "timestamp": "2026-05-14T13:36:00Z",
+            "changePct": -0.81,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 11,
+            "timestamp": "2026-05-14T13:37:00Z",
+            "changePct": -0.96,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 12,
+            "timestamp": "2026-05-14T13:38:00Z",
+            "changePct": -0.91,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 13,
+            "timestamp": "2026-05-14T13:39:00Z",
+            "changePct": -1,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 14,
+            "timestamp": "2026-05-14T13:40:00Z",
+            "changePct": -1.05,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 15,
+            "timestamp": "2026-05-14T13:41:00Z",
+            "changePct": -1.17,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 16,
+            "timestamp": "2026-05-14T13:42:00Z",
+            "changePct": -1.21,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 17,
+            "timestamp": "2026-05-14T13:43:00Z",
+            "changePct": -1.11,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 18,
+            "timestamp": "2026-05-14T13:44:00Z",
+            "changePct": -0.85,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 19,
+            "timestamp": "2026-05-14T13:45:00Z",
+            "changePct": -0.83,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 20,
+            "timestamp": "2026-05-14T13:46:00Z",
+            "changePct": -0.75,
             "rawPricePublished": false
           }
         ]
@@ -2364,20 +2615,248 @@
         "points": [
           {
             "sequence": 1,
-            "timestamp": "2026-05-15T12:04:00Z",
+            "timestamp": "2026-05-14T12:23:00Z",
             "changePct": 0,
             "rawPricePublished": false
           },
           {
             "sequence": 2,
-            "timestamp": "2026-05-15T12:13:00Z",
-            "changePct": -0.23,
+            "timestamp": "2026-05-14T12:26:00Z",
+            "changePct": 0.09,
             "rawPricePublished": false
           },
           {
             "sequence": 3,
-            "timestamp": "2026-05-15T12:16:00Z",
+            "timestamp": "2026-05-14T12:43:00Z",
+            "changePct": -0.15,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 4,
+            "timestamp": "2026-05-14T12:47:00Z",
+            "changePct": -0.27,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 5,
+            "timestamp": "2026-05-14T12:55:00Z",
+            "changePct": -0.43,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 6,
+            "timestamp": "2026-05-14T12:58:00Z",
+            "changePct": -0.39,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 7,
+            "timestamp": "2026-05-14T13:00:00Z",
+            "changePct": -0.53,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 8,
+            "timestamp": "2026-05-14T13:02:00Z",
+            "changePct": -0.41,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 9,
+            "timestamp": "2026-05-14T13:05:00Z",
+            "changePct": -0.38,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 10,
+            "timestamp": "2026-05-14T13:06:00Z",
+            "changePct": -0.31,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 11,
+            "timestamp": "2026-05-14T13:08:00Z",
+            "changePct": -0.31,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 12,
+            "timestamp": "2026-05-14T13:12:00Z",
+            "changePct": -0.49,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 13,
+            "timestamp": "2026-05-14T13:19:00Z",
+            "changePct": -0.35,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 14,
+            "timestamp": "2026-05-14T13:30:00Z",
+            "changePct": -0.19,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 15,
+            "timestamp": "2026-05-14T13:31:00Z",
+            "changePct": 0.11,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 16,
+            "timestamp": "2026-05-14T13:32:00Z",
+            "changePct": 0.26,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 17,
+            "timestamp": "2026-05-14T13:33:00Z",
+            "changePct": 0.5,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 18,
+            "timestamp": "2026-05-14T13:34:00Z",
+            "changePct": 0,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 19,
+            "timestamp": "2026-05-14T13:35:00Z",
+            "changePct": 0.32,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 20,
+            "timestamp": "2026-05-14T13:36:00Z",
             "changePct": -0.08,
+            "rawPricePublished": false
+          }
+        ]
+      },
+      {
+        "symbol": "QQQ",
+        "dataSource": "alpaca_iex",
+        "points": [
+          {
+            "sequence": 1,
+            "timestamp": "2026-05-14T12:19:00Z",
+            "changePct": 0,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 2,
+            "timestamp": "2026-05-14T12:36:00Z",
+            "changePct": -0.06,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 3,
+            "timestamp": "2026-05-14T12:41:00Z",
+            "changePct": -0.05,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 4,
+            "timestamp": "2026-05-14T12:45:00Z",
+            "changePct": -0.13,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 5,
+            "timestamp": "2026-05-14T12:55:00Z",
+            "changePct": -0.24,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 6,
+            "timestamp": "2026-05-14T13:30:00Z",
+            "changePct": -0.25,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 7,
+            "timestamp": "2026-05-14T13:31:00Z",
+            "changePct": -0.19,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 8,
+            "timestamp": "2026-05-14T13:32:00Z",
+            "changePct": -0.12,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 9,
+            "timestamp": "2026-05-14T13:33:00Z",
+            "changePct": -0.03,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 10,
+            "timestamp": "2026-05-14T13:34:00Z",
+            "changePct": -0.01,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 11,
+            "timestamp": "2026-05-14T13:35:00Z",
+            "changePct": 0.05,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 12,
+            "timestamp": "2026-05-14T13:36:00Z",
+            "changePct": 0.04,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 13,
+            "timestamp": "2026-05-14T13:37:00Z",
+            "changePct": 0.11,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 14,
+            "timestamp": "2026-05-14T13:38:00Z",
+            "changePct": 0.13,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 15,
+            "timestamp": "2026-05-14T13:39:00Z",
+            "changePct": 0.13,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 16,
+            "timestamp": "2026-05-14T13:40:00Z",
+            "changePct": 0.13,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 17,
+            "timestamp": "2026-05-14T13:41:00Z",
+            "changePct": 0.19,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 18,
+            "timestamp": "2026-05-14T13:42:00Z",
+            "changePct": 0.2,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 19,
+            "timestamp": "2026-05-14T13:43:00Z",
+            "changePct": 0.21,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 20,
+            "timestamp": "2026-05-14T13:44:00Z",
+            "changePct": 0.25,
             "rawPricePublished": false
           }
         ]
@@ -2388,20 +2867,122 @@
         "points": [
           {
             "sequence": 1,
-            "timestamp": "2026-05-15T12:06:00Z",
+            "timestamp": "2026-05-14T12:01:00Z",
             "changePct": 0,
             "rawPricePublished": false
           },
           {
             "sequence": 2,
-            "timestamp": "2026-05-15T12:16:00Z",
-            "changePct": -0.08,
+            "timestamp": "2026-05-14T12:03:00Z",
+            "changePct": 0.02,
             "rawPricePublished": false
           },
           {
             "sequence": 3,
-            "timestamp": "2026-05-15T12:17:00Z",
-            "changePct": -0.08,
+            "timestamp": "2026-05-14T12:17:00Z",
+            "changePct": 0.03,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 4,
+            "timestamp": "2026-05-14T12:26:00Z",
+            "changePct": 0.06,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 5,
+            "timestamp": "2026-05-14T12:45:00Z",
+            "changePct": -0.02,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 6,
+            "timestamp": "2026-05-14T12:50:00Z",
+            "changePct": -0.03,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 7,
+            "timestamp": "2026-05-14T12:51:00Z",
+            "changePct": -0.05,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 8,
+            "timestamp": "2026-05-14T12:52:00Z",
+            "changePct": -0.05,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 9,
+            "timestamp": "2026-05-14T13:30:00Z",
+            "changePct": -0.09,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 10,
+            "timestamp": "2026-05-14T13:31:00Z",
+            "changePct": -0.05,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 11,
+            "timestamp": "2026-05-14T13:32:00Z",
+            "changePct": -0.03,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 12,
+            "timestamp": "2026-05-14T13:33:00Z",
+            "changePct": -0.02,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 13,
+            "timestamp": "2026-05-14T13:34:00Z",
+            "changePct": -0.01,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 14,
+            "timestamp": "2026-05-14T13:35:00Z",
+            "changePct": -0.06,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 15,
+            "timestamp": "2026-05-14T13:36:00Z",
+            "changePct": -0.05,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 16,
+            "timestamp": "2026-05-14T13:37:00Z",
+            "changePct": 0.02,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 17,
+            "timestamp": "2026-05-14T13:38:00Z",
+            "changePct": 0.06,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 18,
+            "timestamp": "2026-05-14T13:39:00Z",
+            "changePct": 0.06,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 19,
+            "timestamp": "2026-05-14T13:40:00Z",
+            "changePct": 0.08,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 20,
+            "timestamp": "2026-05-14T13:41:00Z",
+            "changePct": 0.1,
             "rawPricePublished": false
           }
         ]
@@ -2410,7 +2991,7 @@
     "botActivityTimeline": [
       {
         "sequence": 11,
-        "generatedAt": "2026-05-09T01:47:25.589Z",
+        "generatedAt": "2026-05-09T01:47:07.452Z",
         "endingEquity": 10000,
         "paperPnl": 0,
         "signalsReviewed": 8,
@@ -2423,6 +3004,19 @@
       },
       {
         "sequence": 12,
+        "generatedAt": "2026-05-09T01:47:25.589Z",
+        "endingEquity": 10000,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 0,
+        "riskBlocked": 8,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.3,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 13,
         "generatedAt": "2026-05-09T02:00:02.733Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -2435,7 +3029,7 @@
         "cadenceLabel": "roughly_30_minute_cadence"
       },
       {
-        "sequence": 13,
+        "sequence": 14,
         "generatedAt": "2026-05-09T02:30:03.267Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -2448,7 +3042,7 @@
         "cadenceLabel": "roughly_30_minute_cadence"
       },
       {
-        "sequence": 14,
+        "sequence": 15,
         "generatedAt": "2026-05-09T03:00:02.801Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -2461,7 +3055,7 @@
         "cadenceLabel": "roughly_30_minute_cadence"
       },
       {
-        "sequence": 15,
+        "sequence": 16,
         "generatedAt": "2026-05-13T19:40:21.818Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -2474,7 +3068,7 @@
         "cadenceLabel": "manual_or_scheduler_gap"
       },
       {
-        "sequence": 16,
+        "sequence": 17,
         "generatedAt": "2026-05-13T19:41:21.772Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -2487,7 +3081,7 @@
         "cadenceLabel": "roughly_30_minute_cadence"
       },
       {
-        "sequence": 17,
+        "sequence": 18,
         "generatedAt": "2026-05-13T21:23:11.994Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -2500,7 +3094,7 @@
         "cadenceLabel": "manual_or_scheduler_gap"
       },
       {
-        "sequence": 18,
+        "sequence": 19,
         "generatedAt": "2026-05-14T01:37:05.413Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -2513,7 +3107,7 @@
         "cadenceLabel": "manual_or_scheduler_gap"
       },
       {
-        "sequence": 19,
+        "sequence": 20,
         "generatedAt": "2026-05-14T01:37:40.861Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -2526,7 +3120,7 @@
         "cadenceLabel": "roughly_30_minute_cadence"
       },
       {
-        "sequence": 20,
+        "sequence": 21,
         "generatedAt": "2026-05-14T01:38:40.615Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -2539,7 +3133,7 @@
         "cadenceLabel": "roughly_30_minute_cadence"
       },
       {
-        "sequence": 21,
+        "sequence": 22,
         "generatedAt": "2026-05-14T01:43:27.156Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -2552,7 +3146,7 @@
         "cadenceLabel": "roughly_30_minute_cadence"
       },
       {
-        "sequence": 22,
+        "sequence": 23,
         "generatedAt": "2026-05-14T02:20:20.137Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -2565,7 +3159,7 @@
         "cadenceLabel": "roughly_30_minute_cadence"
       },
       {
-        "sequence": 23,
+        "sequence": 24,
         "generatedAt": "2026-05-14T02:36:53.328Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -2578,7 +3172,7 @@
         "cadenceLabel": "roughly_30_minute_cadence"
       },
       {
-        "sequence": 24,
+        "sequence": 25,
         "generatedAt": "2026-05-15T02:02:35.513Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -2591,7 +3185,7 @@
         "cadenceLabel": "manual_or_scheduler_gap"
       },
       {
-        "sequence": 25,
+        "sequence": 26,
         "generatedAt": "2026-05-15T02:05:48.215Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -2604,7 +3198,7 @@
         "cadenceLabel": "roughly_30_minute_cadence"
       },
       {
-        "sequence": 26,
+        "sequence": 27,
         "generatedAt": "2026-05-15T02:11:20.713Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -2617,7 +3211,7 @@
         "cadenceLabel": "roughly_30_minute_cadence"
       },
       {
-        "sequence": 27,
+        "sequence": 28,
         "generatedAt": "2026-05-15T02:11:49.350Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -2630,7 +3224,7 @@
         "cadenceLabel": "roughly_30_minute_cadence"
       },
       {
-        "sequence": 28,
+        "sequence": 29,
         "generatedAt": "2026-05-15T02:12:58.389Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -2643,7 +3237,7 @@
         "cadenceLabel": "roughly_30_minute_cadence"
       },
       {
-        "sequence": 29,
+        "sequence": 30,
         "generatedAt": "2026-05-15T02:22:59.154Z",
         "endingEquity": 10000,
         "paperPnl": 0,
@@ -2654,32 +3248,34 @@
         "qaStatus": "PASS",
         "gapMinutes": 10.01,
         "cadenceLabel": "roughly_30_minute_cadence"
-      },
-      {
-        "sequence": 30,
-        "generatedAt": "2026-05-15T12:21:36.974Z",
-        "endingEquity": 10000,
-        "paperPnl": 0,
-        "signalsReviewed": 8,
-        "riskApproved": 0,
-        "riskBlocked": 8,
-        "fakePaperTrades": 0,
-        "qaStatus": "PASS",
-        "gapMinutes": 598.63,
-        "cadenceLabel": "manual_or_scheduler_gap"
       }
     ],
     "staleDataWarningPanel": [
       {
         "item": "analytics_summary",
         "status": "stale_context_only",
-        "detail": "Analytics summary 2026-05-08T03:46:14.425Z is older than latest paper run 2026-05-15T12:21:36.974Z. Dashboard headline cards use current paper outputs instead."
+        "detail": "Analytics summary 2026-05-08T03:46:14.425Z is older than latest paper run 2026-05-15T02:22:59.154Z. Dashboard headline cards use current paper outputs instead."
+      },
+      {
+        "item": "market_data_refresh",
+        "status": "aging",
+        "detail": "Market-data bundle was refreshed 479.56 minutes ago."
+      },
+      {
+        "item": "latest_market_bar",
+        "status": "market_closed_or_delayed",
+        "detail": "Latest bar is 1236.54 minutes old. Label as delayed/closed-market data, not live tick data."
+      },
+      {
+        "item": "paper_run",
+        "status": "stale",
+        "detail": "Latest paper run is 479.56 minutes old."
       }
     ],
     "marketRegimeSummary": [
       {
         "source": "synthetic_regime_context_plus_watchlist_movement",
-        "broadDirection": "watchlist_mixed_or_flat",
+        "broadDirection": "watchlist_tilt_down",
         "regimesCompared": 6,
         "strongestPaperRegime": "melt_up",
         "weakestPaperRegime": "panic_drawdown",
@@ -2696,10 +3292,10 @@
         "endingBalance": null,
         "cycleStartTimestamp": "2026-05-14T02:20:20.137Z",
         "cycleEndTimestamp": null,
-        "hoursSurvived": 34.02,
-        "daysSurvived": 1.42,
+        "hoursSurvived": 24.04,
+        "daysSurvived": 1,
         "approvedTrades": 0,
-        "rejectedTrades": 72,
+        "rejectedTrades": 64,
         "depletionRisk": "normal",
         "resetTriggerReason": null,
         "nextCycleScheduledStart": null,
@@ -2712,16 +3308,23 @@
     ],
     "dashboardRefreshHealth": [
       {
-        "lastStatus": "PASS",
-        "lastAttemptAt": "2026-05-15T12:21:37.000Z",
-        "lastSuccessfulRefreshAt": "2026-05-15T12:21:37.000Z",
-        "staleWarning": null,
+        "lastStatus": "FAIL",
+        "lastAttemptAt": "2026-05-15T10:17:45.755Z",
+        "lastSuccessfulRefreshAt": "2026-05-15T02:22:59.175Z",
+        "staleWarning": "Last successful refresh was 7.9 hours ago (target: 2 hours)",
         "refreshIntervalTargetHours": 2,
         "schedulerInstalled": false,
         "paperOnly": true
       }
     ],
     "quoteSnapshot": [
+      {
+        "symbol": "NVDA",
+        "timestamp": "2026-05-14T20:00:02.202998777Z",
+        "spreadPct": 0,
+        "quoteAvailable": true,
+        "rawBidAskPublished": false
+      },
       {
         "symbol": "MSFT",
         "timestamp": "2026-05-14T20:00:00.004563926Z",
@@ -2745,15 +3348,8 @@
       },
       {
         "symbol": "SPY",
-        "timestamp": "2026-05-15T12:21:37.396777694Z",
-        "spreadPct": 0.01,
-        "quoteAvailable": true,
-        "rawBidAskPublished": false
-      },
-      {
-        "symbol": "NVDA",
-        "timestamp": "2026-05-14T20:00:02.202998777Z",
-        "spreadPct": 0,
+        "timestamp": "2026-05-14T20:01:05.382495566Z",
+        "spreadPct": 0.02,
         "quoteAvailable": true,
         "rawBidAskPublished": false
       }
@@ -2801,7 +3397,7 @@
     "runsReviewed": 30,
     "latestRun": {
       "sequence": 30,
-      "generatedAt": "2026-05-15T12:21:36.974Z",
+      "generatedAt": "2026-05-15T02:22:59.154Z",
       "endingEquity": 10000,
       "paperPnl": 0,
       "paperReturnPct": 0,

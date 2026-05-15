@@ -9,6 +9,9 @@ const { healthJsonPath } = require("./refreshHealthTracker");
 const qaReportPath = path.join(paths.projectRoot, "Reports", "Dashboard", "marketops-dashboard-refresh-qa-v0.1.md");
 const localDashboardPath = path.join(paths.projectRoot, "Data", "dashboard", "dashboard-public-safe-v0.1.json");
 const previewHtmlPath = path.join(paths.projectRoot, "Admin", "dashboard-preview", "marketops-dashboard-preview-v0.1.html");
+const shareableSnapshotPath = path.join(paths.dataRoot, "dashboard", "marketops-shareable-snapshot-v0.1.json");
+const sharePacketPath = path.join(paths.projectRoot, "Reports", "Dashboard", "marketops-public-share-packet-v0.1.md");
+const shareableReportPath = path.join(paths.projectRoot, "Reports", "Dashboard", "marketops-shareable-snapshot-v0.1.md");
 
 function check(checks, name, passed, detail = "") {
   checks.push({ name, passed: Boolean(passed), detail });
@@ -103,6 +106,10 @@ function runDashboardRefreshQa() {
     check(checks, "steps captured", Array.isArray(summary.steps) && summary.steps.length >= 7 && summary.steps.every((step) => step.status === "PASS"), `${summary.steps && summary.steps.length} step(s)`);
     check(checks, "chart statuses present", Array.isArray(summary.dashboard && summary.dashboard.chartStatuses) && summary.dashboard.chartStatuses.length >= 17, `${summary.dashboard && summary.dashboard.chartStatuses && summary.dashboard.chartStatuses.length}`);
     check(checks, "required charts updated or fallback-labeled", (summary.dashboard.chartStatuses || []).every((item) => item.status === "updated" || item.fallback === true), "chart status set");
+    if (summary.status !== "PASS") {
+      check(checks, "FAIL summary has failureReason", Boolean(summary.failureReason), summary.failureReason || "missing");
+      check(checks, "FAIL summary has lastKnownGoodPreserved flag", "lastKnownGoodPreserved" in summary, String(summary.lastKnownGoodPreserved));
+    }
   }
 
   check(checks, "refresh health JSON exists", fileExists(healthJsonPath), healthJsonPath);
@@ -123,6 +130,9 @@ function runDashboardRefreshQa() {
     check(checks, "health schedulerInstalled is false", health.schedulerInstalled === false, String(health.schedulerInstalled));
     if (health.staleWarning) {
       check(checks, "health staleWarning present when stale", true, health.staleWarning);
+    }
+    if (health.lastStatus !== "PASS") {
+      check(checks, "health failureReason present when not PASS", Boolean(health.failureReason), health.failureReason || "missing");
     }
   }
 
@@ -168,7 +178,50 @@ function runDashboardRefreshQa() {
   check(checks, "cycle latest exists", fileExists(paths.cycleLatestJson), paths.cycleLatestJson);
   check(checks, "cycle QA report exists", fileExists(paths.cycleQaReport), paths.cycleQaReport);
 
-  const hits = scanFiles([paths.siteDashboardPublicV04Json, localDashboardPath, refreshJsonPath, previewHtmlPath, healthJsonPath, paths.tradeRejectionExplainabilityReport, paths.cycleLatestJson]);
+  check(checks, "shareable snapshot JSON exists", fileExists(shareableSnapshotPath), shareableSnapshotPath);
+  check(checks, "shareable snapshot report exists", fileExists(shareableReportPath), shareableReportPath);
+  check(checks, "share packet exists", fileExists(sharePacketPath), sharePacketPath);
+  check(checks, "data provenance report exists", fileExists(path.join(paths.projectRoot, "Reports", "Dashboard", "marketops-data-provenance-v0.1.md")), "marketops-data-provenance-v0.1.md");
+
+  if (publicBundle) {
+    check(checks, "public bundle has dataProvenance field", Boolean(publicBundle.dataProvenance), "dataProvenance");
+    check(checks, "public bundle dataProvenance has disclaimer", Boolean(publicBundle.dataProvenance && publicBundle.dataProvenance.disclaimer), "dataProvenance.disclaimer");
+    check(checks, "public bundle dataProvenance has chartDataSources", Boolean(publicBundle.dataProvenance && publicBundle.dataProvenance.chartDataSources), "dataProvenance.chartDataSources");
+  }
+
+  if (localBundle) {
+    check(checks, "local bundle has dataProvenance field", Boolean(localBundle.dataProvenance), "dataProvenance");
+    check(checks, "local bundle has chartDataSources field", Boolean(localBundle.chartDataSources), "chartDataSources");
+    check(checks, "local bundle chartDataSources has equityCurve label", Boolean(localBundle.chartDataSources && localBundle.chartDataSources.equityCurve), "chartDataSources.equityCurve");
+  }
+
+  let snapshot = null;
+  try {
+    snapshot = loadJson(shareableSnapshotPath);
+    check(checks, "shareable snapshot JSON valid", true, shareableSnapshotPath);
+  } catch (error) {
+    check(checks, "shareable snapshot JSON valid", false, error.message);
+  }
+
+  if (snapshot) {
+    check(checks, "snapshot mode is paper_simulation", snapshot.mode === "paper_simulation", snapshot.mode);
+    check(checks, "snapshot paperOnly true", snapshot.paperOnly === true, String(snapshot.paperOnly));
+    check(checks, "snapshot notFinancialAdvice true", snapshot.notFinancialAdvice === true, String(snapshot.notFinancialAdvice));
+    check(checks, "snapshot has paperCycle status", Boolean(snapshot.snapshot && snapshot.snapshot.paperCycle && snapshot.snapshot.paperCycle.status), snapshot.snapshot.paperCycle.status);
+    check(checks, "snapshot has refresh status", Boolean(snapshot.snapshot && snapshot.snapshot.refreshStatus && snapshot.snapshot.refreshStatus.lastStatus), snapshot.snapshot.refreshStatus.lastStatus);
+    check(checks, "snapshot has active preset", Boolean(snapshot.snapshot && snapshot.snapshot.preset && snapshot.snapshot.preset.activePreset), snapshot.snapshot.preset.activePreset);
+    check(checks, "snapshot has disclaimers", Array.isArray(snapshot.snapshot.disclaimers) && snapshot.snapshot.disclaimers.length > 0, String(snapshot.snapshot.disclaimers.length));
+    check(checks, "snapshot schedulerInstalled false", snapshot.snapshot.refreshStatus.schedulerInstalled === false, String(snapshot.snapshot.refreshStatus.schedulerInstalled));
+    if (snapshot.snapshot && snapshot.snapshot.refreshStatus) {
+      check(checks, "snapshot refreshStatus has failureReason field", "failureReason" in snapshot.snapshot.refreshStatus, snapshot.snapshot.refreshStatus.failureReason || "null");
+      check(checks, "snapshot refreshStatus has isDegraded field", "isDegraded" in snapshot.snapshot.refreshStatus, String(snapshot.snapshot.refreshStatus.isDegraded));
+    }
+  }
+
+  check(checks, "data provenance report exists", fileExists(path.join(paths.projectRoot, "Reports", "Dashboard", "marketops-data-provenance-v0.1.md")), "data provenance report");
+  check(checks, "share packet exists", fileExists(sharePacketPath), sharePacketPath);
+
+  const hits = scanFiles([paths.siteDashboardPublicV04Json, localDashboardPath, refreshJsonPath, previewHtmlPath, healthJsonPath, paths.tradeRejectionExplainabilityReport, paths.cycleLatestJson, shareableSnapshotPath, sharePacketPath]);
   check(checks, "public/preview/dashboard outputs contain no restricted markers", hits.length === 0, hits.join("; "));
 
   writeText(qaReportPath, buildReport(checks));

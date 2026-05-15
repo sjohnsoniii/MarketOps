@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "marketops-shareable-snapshot-v0.1",
+  "generatedAt": "2026-05-15T12:22:03.552Z",
+  "mode": "paper_simulation",
+  "paperOnly": true,
+  "sampleData": true,
+  "fakeMoney": true,
+  "inDevelopment": true,
+  "notFinancialAdvice": true,
+  "notLiveTrading": true,
+  "notRealPerformance": true,
+  "notCopyTrading": true,
+  "liveTradingEnabled": false,
+  "orderPlacementEnabled": false,
+  "externalEffects": false,
+  "publishAllowed": false,
+  "publicDisclaimer": "Paper simulation, fake-money, in-development sample-data preview only. Not real performance. Not financial advice. No guarantees. No copy-trading.",
+  "snapshot": {
+    "preset": {
+      "activePreset": "standard",
+      "activePresetLabel": "Standard paper account (1000 paper USD)",
+      "note": "Use config paperAccountPreset to switch: micro (100), small (250), standard (1000)."
+    },
+    "paperCycle": {
+      "cycleId": "cycle-20260514-0220",
+      "status": "active",
+      "startingBalance": 1000,
+      "currentBalance": 1000,
+      "paperPnl": 0,
+      "paperReturnPct": 0,
+      "maxDrawdownPct": 0,
+      "daysSurvived": 1.42,
+      "depletionRisk": "normal",
+      "approvedTrades": 0,
+      "rejectedTrades": 72
+    },
+    "signalsAndRisk": {
+      "signalsReviewed": 8,
+      "riskApproved": 0,
+      "riskBlocked": 8,
+      "fakePaperTrades": 0,
+      "noTradeReason": "Risk Desk did not approve any candidate for fake paper execution."
+    },
+    "refreshStatus": {
+      "lastRefreshAt": "2026-05-15T12:21:37.000Z",
+      "lastSuccessfulRefreshAt": "2026-05-15T12:21:37.000Z",
+      "lastStatus": "PASS",
+      "staleWarning": null,
+      "failureReason": null,
+      "refreshIntervalTargetHours": 2,
+      "schedulerInstalled": false,
+      "isDegraded": false
+    },
+    "disclaimers": [
+      "Paper simulation only.",
+      "Fake-money, sample-data preview.",
+      "Not live market data.",
+      "Not financial advice.",
+      "Not real trading performance.",
+      "No broker, API, payment, or social auto-posting behavior is enabled.",
+      "All signals blocked by Risk Desk — no fake trades were executed in the latest run."
+    ]
+  }
+}

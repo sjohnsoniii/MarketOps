@@ -10,7 +10,7 @@ Blocked: 8
 | Vehicle | Bias | Confidence | Approved | Final Risk | Block Reasons |
 |---|---|---:|---|---|---|
 | SPY | flat | 0.1 | false | blocked | Signal did not qualify as a candidate. Confidence 0.1 is below minimum 0.55. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. |
-| QQQ | flat | 0.1 | false | blocked | Signal did not qualify as a candidate. Confidence 0.1 is below minimum 0.55. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. |
+| QQQ | none | 0 | false | blocked | Signal did not qualify as a candidate. Confidence 0 is below minimum 0.55. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. Missing invalidation. |
 | AAPL | flat | 0.1 | false | blocked | Signal did not qualify as a candidate. Confidence 0.1 is below minimum 0.55. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. |
 | MSFT | flat | 0.1 | false | blocked | Signal did not qualify as a candidate. Confidence 0.1 is below minimum 0.55. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. |
 | NVDA | flat | 0.1 | false | blocked | Signal did not qualify as a candidate. Confidence 0.1 is below minimum 0.55. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. |

@@ -84,6 +84,12 @@ function loadOptionalJson(filePath, fallback = null) {
 
 function buildRefreshSummary({ generatedAt, steps, status, errorMessage = null }) {
   const now = new Date(generatedAt);
+  const localDashboardPath = path.join(paths.projectRoot, "Data", "dashboard", "dashboard-public-safe-v0.1.json");
+  const publicBundlePath = paths.siteDashboardPublicV04Json;
+  const lastGoodBundle = loadOptionalJson(localDashboardPath, null);
+  const lastGoodPublic = loadOptionalJson(publicBundlePath, null);
+  const hasLastGoodData = Boolean(lastGoodBundle && lastGoodBundle.generatedAt);
+  const lastKnownGoodPreserved = status === "FAIL" && hasLastGoodData;
   const marketData = loadOptionalJson(paths.alpacaMarketDataLatestJson, {});
   const dashboardBundle = loadOptionalJson(path.join(paths.projectRoot, "Data", "dashboard", "dashboard-public-safe-v0.1.json"), {});
   const publicBundle = loadOptionalJson(paths.siteDashboardPublicV04Json, {});
@@ -99,6 +105,9 @@ function buildRefreshSummary({ generatedAt, steps, status, errorMessage = null }
     generatedAt,
     status,
     errorMessage,
+    failureReason: errorMessage || null,
+    lastKnownGoodPreserved: status === "FAIL" ? hasLastGoodData : undefined,
+    lastKnownGoodGeneratedAt: status === "FAIL" && hasLastGoodData ? lastGoodBundle.generatedAt : undefined,
     mode: "paper_simulation",
     paperOnly: true,
     externalEffects: false,
@@ -164,6 +173,7 @@ function writeRefreshReport(summary) {
     : "- None.";
   const stepLines = summary.steps.map((step) => `- ${step.status}: ${step.command} - ${step.detail || "complete"}`);
 
+  const failureBlock = summary.status === "FAIL" ? `\n## Failure Details\n\n- failureReason: ${summary.failureReason || "unknown"}\n- lastKnownGoodPreserved: ${summary.lastKnownGoodPreserved}\n- lastKnownGoodGeneratedAt: ${summary.lastKnownGoodGeneratedAt || "none"}\n- Dashboard and public bundles were NOT overwritten. Last-known-good data is preserved.\n\n` : "";
   const report = `# MarketOps Dashboard Refresh Latest v0.1
 
 Generated: ${summary.generatedAt}
@@ -172,7 +182,7 @@ Generated: ${summary.generatedAt}
 
 ${summary.status}
 
-${summary.errorMessage ? `Error: ${summary.errorMessage}\n` : ""}## Safety
+${summary.errorMessage ? `Error: ${summary.errorMessage}\n` : ""}${failureBlock}## Safety
 
 - mode: ${summary.mode}
 - paperOnly: ${summary.paperOnly}

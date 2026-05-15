@@ -122,6 +122,14 @@ function runPublicDashboardRefreshQa() {
     check(checks, "latest public refresh timestamp exists", Boolean(bundle.latestPublicRefreshAt), bundle.latestPublicRefreshAt || "missing");
     check(checks, "build in public fields exist", Boolean(bundle.buildInPublic && bundle.buildInPublic.latestLesson && bundle.buildInPublic.latestDisappointment && bundle.buildInPublic.nextExperiment), "buildInPublic");
     check(checks, "public disclaimer is explicit", String(bundle.publicDisclaimer || "").toLowerCase().includes("fake-money") && String(bundle.publicDisclaimer || "").toLowerCase().includes("not financial advice"), bundle.publicDisclaimer || "");
+    check(checks, "public bundle has dataProvenance", Boolean(bundle.dataProvenance), "dataProvenance");
+    check(checks, "public bundle dataProvenance has disclaimer", Boolean(bundle.dataProvenance && bundle.dataProvenance.disclaimer), "dataProvenance.disclaimer");
+    check(checks, "public bundle dataProvenance has chartDataSources", Boolean(bundle.dataProvenance && bundle.dataProvenance.chartDataSources), "dataProvenance.chartDataSources");
+    check(checks, "public bundle has paperCycleStatus.activePreset", Boolean(bundle.paperCycleStatus && bundle.paperCycleStatus.activePreset), bundle.paperCycleStatus.activePreset || "missing");
+    if (bundle.dashboardRefreshHealth) {
+      check(checks, "public bundle refreshHealth has staleWarning field", "staleWarning" in bundle.dashboardRefreshHealth, bundle.dashboardRefreshHealth.staleWarning || "null");
+      check(checks, "public bundle refreshHealth schedulerInstalled is false", bundle.dashboardRefreshHealth.schedulerInstalled === false, String(bundle.dashboardRefreshHealth.schedulerInstalled));
+    }
   }
 
   const text = [readText(paths.siteDashboardPublicV04Json), readText(cadenceReportPath)].join("\n").toLowerCase();

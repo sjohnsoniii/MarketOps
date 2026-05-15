@@ -14,10 +14,10 @@
     "depletionThreshold": 0,
     "cycleStartTimestamp": "2026-05-14T02:20:20.137Z",
     "cycleEndTimestamp": null,
-    "hoursSurvived": 24.04,
-    "daysSurvived": 1,
+    "hoursSurvived": 34.02,
+    "daysSurvived": 1.42,
     "approvedTrades": 0,
-    "rejectedTrades": 64,
+    "rejectedTrades": 72,
     "rejectionReasons": [
       {
         "reason": "Signal did not qualify as a candidate.",
@@ -29,15 +29,15 @@
       },
       {
         "reason": "Confidence threshold is below minimum threshold.",
-        "count": 5
+        "count": 4
       },
       {
         "reason": "Confidence 0 is below minimum threshold.",
-        "count": 3
+        "count": 4
       },
       {
         "reason": "Missing invalidation.",
-        "count": 3
+        "count": 4
       }
     ],
     "strategyVersionUsed": "strategy-v0.1-watchlist-threshold-paper",
@@ -64,9 +64,10 @@
       "paper-20260515-021120713Z",
       "paper-20260515-021149350Z",
       "paper-20260515-021258389Z",
-      "paper-20260515-022259154Z"
+      "paper-20260515-022259154Z",
+      "paper-20260515-122136974Z"
     ],
-    "lastRunAppliedAt": "2026-05-15T02:22:59.154Z",
+    "lastRunAppliedAt": "2026-05-15T12:21:36.974Z",
     "externalEffects": false,
     "publishAllowed": false,
     "remainingBalance": 1000,
@@ -79,5 +80,5 @@
   "publishAllowed": false,
   "liveTradingEnabled": false,
   "brokerExecutionEnabled": false,
-  "updatedAt": "2026-05-15T02:22:59.163Z"
+  "updatedAt": "2026-05-15T12:21:36.986Z"
 }

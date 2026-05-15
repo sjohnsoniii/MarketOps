@@ -30,6 +30,7 @@ function buildHealthSummary(currentSummary, previousHealth) {
   const consecutiveFailures = isPass ? 0 : prevConsecutiveFailures + 1;
   const lastSuccessfulRefreshAt = isPass ? now : (prev.lastSuccessfulRefreshAt || null);
   const lastFailureAt = isPass ? (prev.lastFailureAt || null) : now;
+  const failureReason = isPass ? null : (currentSummary.errorMessage || prev.failureReason || null);
 
   const lastSuccessfulAgeHours = lastSuccessfulRefreshAt ? hoursOld(lastSuccessfulRefreshAt) : null;
   let staleWarning = null;
@@ -45,6 +46,7 @@ function buildHealthSummary(currentSummary, previousHealth) {
     lastFailureAt,
     consecutiveFailures,
     staleWarning,
+    failureReason,
     refreshIntervalTargetHours: 2,
     schedulerInstalled: false
   };

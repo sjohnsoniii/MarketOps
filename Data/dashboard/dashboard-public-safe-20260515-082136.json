@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-15T12:22:03.534Z",
+  "generatedAt": "2026-05-15T12:21:36.987Z",
   "dashboardVersion": "marketops-public-safe-dashboard-v0.1",
   "mode": "paper_simulation",
   "paperOnly": true,
@@ -294,8 +294,8 @@
       "latestBarTimestamp": "2026-05-15T12:20:00Z",
       "barsLoaded": 14,
       "quotesLoaded": 5,
-      "refreshAgeMinutes": 0.45,
-      "latestBarAgeMinutes": 2.06,
+      "refreshAgeMinutes": 0,
+      "latestBarAgeMinutes": 1.62,
       "refreshFreshnessLabel": "fresh",
       "latestBarFreshnessLabel": "fresh",
       "rawMarketDataPublished": false,
@@ -688,7 +688,7 @@
     ],
     "staleDataWarningPanel": {
       "status": "review",
-      "generatedAt": "2026-05-15T12:22:03.534Z",
+      "generatedAt": "2026-05-15T12:21:36.987Z",
       "warnings": [
         {
           "item": "analytics_summary",
@@ -762,12 +762,12 @@
       "rawMarketDataPublished": false
     },
     "dashboardRefreshHealth": {
-      "lastStatus": "PASS",
-      "lastAttemptAt": "2026-05-15T12:21:37.000Z",
-      "lastSuccessfulRefreshAt": "2026-05-15T12:21:37.000Z",
+      "lastStatus": "FAIL",
+      "lastAttemptAt": "2026-05-15T12:15:42.807Z",
+      "lastSuccessfulRefreshAt": "2026-05-15T02:22:59.175Z",
       "lastFailureAt": "2026-05-15T12:15:42.807Z",
-      "consecutiveFailures": 0,
-      "staleWarning": null,
+      "consecutiveFailures": 2,
+      "staleWarning": "Last successful refresh was 9.9 hours ago (target: 2 hours)",
       "refreshIntervalTargetHours": 2,
       "schedulerInstalled": false,
       "paperOnly": true,
@@ -2230,8 +2230,8 @@
         "latestBarTimestamp": "2026-05-15T12:20:00Z",
         "barsLoaded": 14,
         "quotesLoaded": 5,
-        "refreshAgeMinutes": 0.45,
-        "latestBarAgeMinutes": 2.06,
+        "refreshAgeMinutes": 0,
+        "latestBarAgeMinutes": 1.62,
         "refreshFreshnessLabel": "fresh",
         "latestBarFreshnessLabel": "fresh",
         "rawMarketDataPublished": false,
@@ -2712,10 +2712,10 @@
     ],
     "dashboardRefreshHealth": [
       {
-        "lastStatus": "PASS",
-        "lastAttemptAt": "2026-05-15T12:21:37.000Z",
-        "lastSuccessfulRefreshAt": "2026-05-15T12:21:37.000Z",
-        "staleWarning": null,
+        "lastStatus": "FAIL",
+        "lastAttemptAt": "2026-05-15T12:15:42.807Z",
+        "lastSuccessfulRefreshAt": "2026-05-15T02:22:59.175Z",
+        "staleWarning": "Last successful refresh was 9.9 hours ago (target: 2 hours)",
         "refreshIntervalTargetHours": 2,
         "schedulerInstalled": false,
         "paperOnly": true
