@@ -1,6 +1,6 @@
 {
   "schemaVersion": "marketops-shareable-snapshot-v0.1",
-  "generatedAt": "2026-05-15T12:22:03.552Z",
+  "generatedAt": "2026-05-15T15:56:30.450Z",
   "mode": "paper_simulation",
   "paperOnly": true,
   "sampleData": true,
@@ -29,10 +29,10 @@
       "paperPnl": 0,
       "paperReturnPct": 0,
       "maxDrawdownPct": 0,
-      "daysSurvived": 1.42,
+      "daysSurvived": 1.57,
       "depletionRisk": "normal",
       "approvedTrades": 0,
-      "rejectedTrades": 72
+      "rejectedTrades": 80
     },
     "signalsAndRisk": {
       "signalsReviewed": 8,

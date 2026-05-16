@@ -1,6 +1,6 @@
 # MarketOps Dashboard Refresh Latest v0.1
 
-Generated: 2026-05-15T12:21:36.998Z
+Generated: 2026-05-15T15:56:30.456Z
 
 ## Status
 
@@ -23,19 +23,19 @@ PASS
 ## Market Data
 
 - source/feed: alpaca_iex / iex
-- generatedAt: 2026-05-15T12:21:36.796Z
-- latestBarTimestamp: 2026-05-15T12:20:00Z
-- barsLoaded: 14
+- generatedAt: 2026-05-15T15:56:30.365Z
+- latestBarTimestamp: 2026-05-15T13:48:00Z
+- barsLoaded: 100
 - quotesLoaded: 5
 - refreshAgeMinutes: 0
-- latestBarAgeMinutes: 1.62
+- latestBarAgeMinutes: 128.51
 - paperOnly: true
 - liveTradingEnabled: false
 
 ## Paper Account
 
-- latestRunId: paper-20260515-122136974Z
-- latestRunGeneratedAt: 2026-05-15T12:21:36.974Z
+- latestRunId: paper-20260515-155630434Z
+- latestRunGeneratedAt: 2026-05-15T15:56:30.434Z
 - endingEquity: 10000
 - paperPnl: 0
 - paperReturnPct: 0
@@ -49,9 +49,9 @@ PASS
 - status: active
 - startingBalance: 1000
 - currentBalance: 1000
-- daysSurvived: 1.42
+- daysSurvived: 1.57
 - approvedTrades: 0
-- rejectedTrades: 72
+- rejectedTrades: 80
 - depletionRisk: normal
 - nextCycleScheduledStart: null
 
@@ -60,7 +60,7 @@ PASS
 - Paper equity curve: updated, points=1, source=paper_outputs
 - Paper P&L: updated, points=30, source=paper_run_history
 - Drawdown: updated, points=1, source=paper_outputs
-- Watchlist movement summary: updated, points=4, source=alpaca_iex_derived_summary
+- Watchlist movement summary: updated, points=5, source=alpaca_iex_derived_summary
 - Up/down/flat vehicle counts: updated, points=3, source=alpaca_iex_derived_summary
 - Top movement buckets: updated, points=5, source=alpaca_iex_derived_summary
 - Signal candidates generated: updated, points=3, source=paper_signal_outputs
@@ -78,7 +78,7 @@ PASS
 - Paper account milestone strip: updated, points=4, source=paper_account_targets
 - Signal funnel: updated, points=5, source=paper_signal_outputs
 - Market data freshness panel: updated, points=1, source=alpaca_iex_metadata
-- Recent market movement panel: updated, points=4, source=alpaca_iex_derived_bars
+- Recent market movement panel: updated, points=5, source=alpaca_iex_derived_bars
 - Bot activity / latest run timeline: updated, points=20, source=paper_run_history
 - Stale-data warning panel: updated, points=1, source=freshness_labels
 - Market regime summary: updated, points=1, source=watchlist_and_regime_context

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "marketops-dashboard-refresh-v0.1",
-  "generatedAt": "2026-05-15T12:21:36.998Z",
+  "generatedAt": "2026-05-15T15:56:30.456Z",
   "status": "PASS",
   "errorMessage": null,
   "failureReason": null,
@@ -18,18 +18,18 @@
   "marketData": {
     "source": "alpaca_iex",
     "feed": "iex",
-    "generatedAt": "2026-05-15T12:21:36.796Z",
-    "latestBarTimestamp": "2026-05-15T12:20:00Z",
-    "barsLoaded": 14,
+    "generatedAt": "2026-05-15T15:56:30.365Z",
+    "latestBarTimestamp": "2026-05-15T13:48:00Z",
+    "barsLoaded": 100,
     "quotesLoaded": 5,
     "refreshAgeMinutes": 0,
-    "latestBarAgeMinutes": 1.62,
+    "latestBarAgeMinutes": 128.51,
     "paperOnly": true,
     "liveTradingEnabled": false
   },
   "paper": {
-    "latestRunId": "paper-20260515-122136974Z",
-    "latestRunGeneratedAt": "2026-05-15T12:21:36.974Z",
+    "latestRunId": "paper-20260515-155630434Z",
+    "latestRunGeneratedAt": "2026-05-15T15:56:30.434Z",
     "endingEquity": 10000,
     "paperPnl": 0,
     "paperReturnPct": 0,
@@ -42,17 +42,17 @@
     "status": "active",
     "startingBalance": 1000,
     "currentBalance": 1000,
-    "daysSurvived": 1.42,
+    "daysSurvived": 1.57,
     "approvedTrades": 0,
-    "rejectedTrades": 72,
+    "rejectedTrades": 80,
     "depletionRisk": "normal",
     "nextCycleScheduledStart": null
   },
   "dashboard": {
     "latestBundlePath": "Data/dashboard/dashboard-public-safe-v0.1.json",
     "publicBundlePath": "../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json",
-    "generatedAt": "2026-05-15T12:21:36.987Z",
-    "publicGeneratedAt": "2026-05-15T12:21:36.993Z",
+    "generatedAt": "2026-05-15T15:56:30.445Z",
+    "publicGeneratedAt": "2026-05-15T15:56:30.450Z",
     "chartStatuses": [
       {
         "label": "Paper equity curve",
@@ -84,7 +84,7 @@
         "source": "alpaca_iex_derived_summary",
         "fallback": false,
         "status": "updated",
-        "points": 4
+        "points": 5
       },
       {
         "label": "Up/down/flat vehicle counts",
@@ -228,7 +228,7 @@
         "source": "alpaca_iex_derived_bars",
         "fallback": false,
         "status": "updated",
-        "points": 4
+        "points": 5
       },
       {
         "label": "Bot activity / latest run timeline",
@@ -294,71 +294,71 @@
     {
       "command": "npm run marketdata:refresh",
       "status": "PASS",
-      "startedAt": "2026-05-15T12:21:36.422Z",
-      "completedAt": "2026-05-15T12:21:36.789Z",
+      "startedAt": "2026-05-15T15:56:30.089Z",
+      "completedAt": "2026-05-15T15:56:30.358Z",
       "detail": "complete"
     },
     {
       "command": "npm run marketdata:qa",
       "status": "PASS",
-      "startedAt": "2026-05-15T12:21:36.789Z",
-      "completedAt": "2026-05-15T12:21:36.796Z",
+      "startedAt": "2026-05-15T15:56:30.358Z",
+      "completedAt": "2026-05-15T15:56:30.364Z",
       "detail": "complete"
     },
     {
       "command": "npm run paper:full",
       "status": "PASS",
-      "startedAt": "2026-05-15T12:21:36.796Z",
-      "completedAt": "2026-05-15T12:21:36.984Z",
+      "startedAt": "2026-05-15T15:56:30.364Z",
+      "completedAt": "2026-05-15T15:56:30.443Z",
       "detail": "complete"
     },
     {
       "command": "npm run risk:explain",
       "status": "PASS",
-      "startedAt": "2026-05-15T12:21:36.984Z",
-      "completedAt": "2026-05-15T12:21:36.985Z",
+      "startedAt": "2026-05-15T15:56:30.443Z",
+      "completedAt": "2026-05-15T15:56:30.444Z",
       "detail": "complete"
     },
     {
       "command": "npm run cycle:build",
       "status": "PASS",
-      "startedAt": "2026-05-15T12:21:36.985Z",
-      "completedAt": "2026-05-15T12:21:36.986Z",
+      "startedAt": "2026-05-15T15:56:30.444Z",
+      "completedAt": "2026-05-15T15:56:30.444Z",
       "detail": "complete"
     },
     {
       "command": "npm run cycle:qa",
       "status": "PASS",
-      "startedAt": "2026-05-15T12:21:36.986Z",
-      "completedAt": "2026-05-15T12:21:36.987Z",
+      "startedAt": "2026-05-15T15:56:30.444Z",
+      "completedAt": "2026-05-15T15:56:30.445Z",
       "detail": "complete"
     },
     {
       "command": "npm run dashboard:build",
       "status": "PASS",
-      "startedAt": "2026-05-15T12:21:36.987Z",
-      "completedAt": "2026-05-15T12:21:36.993Z",
+      "startedAt": "2026-05-15T15:56:30.445Z",
+      "completedAt": "2026-05-15T15:56:30.450Z",
       "detail": "complete"
     },
     {
       "command": "npm run paper:refresh-site",
       "status": "PASS",
-      "startedAt": "2026-05-15T12:21:36.993Z",
-      "completedAt": "2026-05-15T12:21:36.994Z",
+      "startedAt": "2026-05-15T15:56:30.450Z",
+      "completedAt": "2026-05-15T15:56:30.451Z",
       "detail": "complete"
     },
     {
       "command": "npm run dashboard:qa",
       "status": "PASS",
-      "startedAt": "2026-05-15T12:21:36.994Z",
-      "completedAt": "2026-05-15T12:21:36.998Z",
+      "startedAt": "2026-05-15T15:56:30.451Z",
+      "completedAt": "2026-05-15T15:56:30.455Z",
       "detail": "complete"
     },
     {
       "command": "npm run dashboard:public-refresh:qa",
       "status": "PASS",
-      "startedAt": "2026-05-15T12:21:36.998Z",
-      "completedAt": "2026-05-15T12:21:36.998Z",
+      "startedAt": "2026-05-15T15:56:30.455Z",
+      "completedAt": "2026-05-15T15:56:30.456Z",
       "detail": "complete"
     }
   ]

@@ -1,12 +1,12 @@
 # MarketOps Dashboard Refresh Health v0.1
 
-Generated: 2026-05-15T12:21:37.000Z
+Generated: 2026-05-15T15:56:30.457Z
 
 ## Status
 
 - lastStatus: PASS
-- lastAttemptAt: 2026-05-15T12:21:37.000Z
-- lastSuccessfulRefreshAt: 2026-05-15T12:21:37.000Z
+- lastAttemptAt: 2026-05-15T15:56:30.457Z
+- lastSuccessfulRefreshAt: 2026-05-15T15:56:30.457Z
 - lastFailureAt: 2026-05-15T12:15:42.807Z
 - consecutiveFailures: 0
 

@@ -3,119 +3,175 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MarketOps Dashboard Movement Preview</title>
+  <title>MarketOps Paper Dashboard</title>
   <style>
-    :root { color-scheme: dark; --bg:#080b0f; --panel:#121920; --panel2:#17222c; --line:rgba(170,185,200,.24); --text:#eef3f7; --muted:#aab6c2; --accent:#e85f3f; --ok:#64d28f; --warn:#f7be61; --bad:#f47b7b; }
-    * { box-sizing:border-box; }
-    body { margin:0; background:#080b0f; color:var(--text); font-family:Inter, ui-sans-serif, system-ui, Segoe UI, sans-serif; }
-    main { width:min(1260px, calc(100% - 28px)); margin:0 auto; padding:24px 0 42px; }
-    header,.panel { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:16px; margin-bottom:14px; }
-    h1,h2,h3,p { margin-top:0; }
-    p,li,span { color:var(--muted); line-height:1.45; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; }
-    .metric { background:var(--panel2); border:1px solid var(--line); border-radius:8px; padding:14px; }
-    .metric strong { display:block; font-size:1.4rem; color:var(--text); }
-    .pill { display:inline-flex; border:1px solid var(--line); border-radius:999px; padding:4px 8px; margin:0 5px 6px 0; color:var(--muted); font-size:.78rem; }
-    .ok { color:var(--ok); border-color:rgba(100,210,143,.5); }
-    .warn { color:var(--warn); border-color:rgba(247,190,97,.5); }
-    .bar-row { display:grid; grid-template-columns:80px 1fr 70px; gap:10px; align-items:center; margin:8px 0; }
-    .track { height:12px; background:#080d12; border:1px solid var(--line); border-radius:999px; overflow:hidden; }
-    .bar { height:100%; background:var(--ok); }
-    .bar.neg { background:var(--bad); }
-    ul { padding-left:18px; }
-    li { margin:8px 0; }
-    li strong { display:block; color:var(--text); font-size:.88rem; }
-    .path { font-family:ui-monospace, SFMono-Regular, Consolas, monospace; overflow-wrap:anywhere; }
+    :root{color-scheme:dark;--bg:#070a0e;--panel:#11171f;--panel2:#18212b;--line:rgba(160,180,200,.18);--text:#e8edf2;--muted:#8fa0b0;--accent:#d4533a;--ok:#5bbf8a;--warn:#e8b85e;--bad:#d96b6b;--info:#6a9ec4;--card-bg:#0f151d}
+    *{box-sizing:border-box;margin:0}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,sans-serif;font-size:15px;line-height:1.5}
+    main{width:min(1320px,calc(100% - 32px));margin:0 auto;padding:28px 0 48px}
+    header{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px 24px;margin-bottom:16px}
+    header h1{font-size:1.5rem;font-weight:600;margin-bottom:4px}
+    header p{color:var(--muted);font-size:.92rem;margin-bottom:12px}
+    .badge-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+    .badge{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:.75rem;font-weight:500;color:var(--muted)}
+    .badge.ok{color:var(--ok);border-color:rgba(91,191,138,.5)}
+    .badge.warn{color:var(--warn);border-color:rgba(232,184,94,.5)}
+    .badge.bad{color:var(--bad);border-color:rgba(217,107,107,.5)}
+    .badge.info{color:var(--info);border-color:rgba(106,158,196,.5)}
+    .badge strong{font-weight:600}
+    .status-line{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;padding-top:12px;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+    .status-line .label{color:var(--muted)}
+    .status-line .value{color:var(--text);font-weight:500}
+    .status-line .value.ok{color:var(--ok)}
+    .status-line .value.warn{color:var(--warn)}
+    .status-line .value.bad{color:var(--bad)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-bottom:16px}
+    .card{background:var(--card-bg);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+    .card .val{font-size:1.35rem;font-weight:600;display:block}
+    .card .lbl{font-size:.78rem;color:var(--muted);display:block;margin-top:2px}
+    .card .probe{font-size:.7rem;color:var(--muted);display:block;margin-top:4px;opacity:.7}
+    .panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin-bottom:14px}
+    .panel h2{font-size:1.05rem;font-weight:600;margin-bottom:10px}
+    .panel h2 .probe{font-weight:400;font-size:.75rem;opacity:.7;margin-left:8px}
+    .panel p{color:var(--muted);font-size:.88rem;margin-bottom:8px}
+    .panel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+    .bar-row{display:grid;grid-template-columns:auto 1fr 60px;gap:8px;align-items:center;margin:6px 0}
+    .bar-label{font-size:.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+    .bar-val{font-size:.82rem;text-align:right;font-weight:500}
+    .track{height:10px;background:#0a1018;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+    .bar{height:100%;background:var(--ok);border-radius:999px;transition:width .2s}
+    .bar.neg{background:var(--bad)}
+    .bar.flat{background:var(--muted);opacity:.4}
+    ul{padding-left:16px;list-style:none}
+    li{margin:5px 0;font-size:.85rem;color:var(--muted);line-height:1.4}
+    li strong{display:block;color:var(--text);font-size:.82rem}
+    .pill{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:2px 8px;margin:0 4px 4px 0;color:var(--muted);font-size:.72rem}
+    .pill.ok{color:var(--ok);border-color:rgba(91,191,138,.5)}
+    .pill.warn{color:var(--warn);border-color:rgba(232,184,94,.5)}
+    .pill.bad{color:var(--bad);border-color:rgba(217,107,107,.5)}
+    .pill.info{color:var(--info);border-color:rgba(106,158,196,.5)}
+    .warn-box{background:rgba(232,184,94,.08);border:1px solid rgba(232,184,94,.25);border-radius:8px;padding:12px 14px;margin-bottom:12px;font-size:.85rem;color:var(--warn)}
+    .warn-box strong{display:block;color:var(--warn);font-weight:600;margin-bottom:2px}
+    .disclaimer-box{background:rgba(106,158,196,.06);border:1px solid rgba(106,158,196,.15);border-radius:8px;padding:14px 16px;margin-top:14px;font-size:.8rem;color:var(--muted);line-height:1.5}
+    .disclaimer-box strong{color:var(--info);display:block;margin-bottom:4px;font-size:.82rem}
+    .empty-state{padding:20px;text-align:center;color:var(--muted);font-size:.88rem;font-style:italic}
+    hr{border:none;border-top:1px solid var(--line);margin:14px 0}
+    @media(max-width:600px){.grid{grid-template-columns:1fr 1fr}.panel-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
   <main>
     <header>
-      <h1>MarketOps Dashboard Movement Preview</h1>
-      <p>Local paper-simulation preview using public-safe derived outputs. No broker execution, live trading, posting, email, SMS, deploy, or raw market-data publishing.</p>
-      <span class="pill ok">paperOnly true</span>
-      <span class="pill ok">externalEffects false</span>
-      <span class="pill ok">publishAllowed false</span>
-      <span class="pill">alpaca_iex</span>
-      <span class="pill">real_market_data_for_paper_simulation</span>
+      <h1>MarketOps Paper Dashboard</h1>
+      <p>Local, paper-only simulation preview. Not real trading. Not financial advice. No broker execution. No live market data publishing.</p>
+      <div class="badge-row">
+        <span class="badge ok">Paper simulation only</span>
+        <span class="badge ok">externalEffects false</span>
+        <span class="badge ok">publishAllowed false</span>
+        <span class="badge">alpaca_iex</span>
+        <span class="badge ok">Healthy</span>
+        <span class="badge">Preset: Standard paper account (1000 paper USD)</span>
+      </div>
+      <div class="status-line">
+        <span><span class="label">Last refresh:</span> <span class="value ok">PASS</span></span>
+        <span><span class="label">Last attempt:</span> <span class="value">2026-05-15T12:21:37.000Z</span></span>
+        <span><span class="label">Last success:</span> <span class="value">2026-05-15T12:21:37.000Z</span></span>
+        <span><span class="label">Scheduler:</span> <span class="value">not installed</span></span>
+      </div>
     </header>
 
-    <section class="grid">
-      <div class="metric"><strong>10000</strong><span>Ending paper equity</span></div>
-      <div class="metric"><strong>0</strong><span>Paper P&L</span></div>
-      <div class="metric"><strong>0%</strong><span>Paper return</span></div>
-      <div class="metric"><strong>0%</strong><span>Max drawdown</span></div>
-      <div class="metric"><strong>100</strong><span>Market bars loaded</span></div>
-      <div class="metric"><strong>5</strong><span>Quotes loaded</span></div>
-      <div class="metric"><strong>1000</strong><span>Cycle balance</span></div>
-      <div class="metric"><strong>1</strong><span>Cycle days survived</span></div>
-    </section>
-
-    <section class="panel">
-      <h2>Market Data Freshness</h2>
-      <p>Feed iex / refreshed 2026-05-15T02:22:59.084Z / latest bar 2026-05-14T13:46:00Z.</p>
-      <span class="pill">stale_or_market_closed</span>
-      <span class="pill">stale_or_market_closed</span>
-      <span class="pill ok">rawMarketDataPublished false</span>
-    </section>
-
-    <section class="panel">
-      <h2>$1,000 Paper Cycle</h2>
-      <p>Cycle cycle-20260514-0220 is active. It does not reset daily; it continues while balance remains above 0.</p>
-      <span class="pill">Start 2026-05-14T02:20:20.137Z</span>
-      <span class="pill">Approved 0</span>
-      <span class="pill">Rejected 64</span>
-      <span class="pill">Risk normal</span>
-    </section>
+    
 
     <section class="grid">
-      <article class="panel">
-        <h2>Recent Market Movement</h2>
-        <div class="bar-row"><span>AAPL</span><div class="track"><div class="bar neg" style="width:79%"></div></div><strong>-0.79</strong></div><div class="bar-row"><span>MSFT</span><div class="track"><div class="bar neg" style="width:75%"></div></div><strong>-0.75</strong></div><div class="bar-row"><span>QQQ</span><div class="track"><div class="bar " style="width:25%"></div></div><strong>0.25</strong></div><div class="bar-row"><span>SPY</span><div class="track"><div class="bar " style="width:10%"></div></div><strong>0.1</strong></div><div class="bar-row"><span>NVDA</span><div class="track"><div class="bar neg" style="width:8%"></div></div><strong>-0.08</strong></div>
-      </article>
-      <article class="panel">
-        <h2>Up / Down / Flat</h2>
-        <div class="bar-row"><span>up</span><div class="track"><div class="bar " style="width:4%"></div></div><strong>0</strong></div><div class="bar-row"><span>down</span><div class="track"><div class="bar " style="width:67%"></div></div><strong>2</strong></div><div class="bar-row"><span>flat</span><div class="track"><div class="bar " style="width:100%"></div></div><strong>3</strong></div>
-      </article>
-      <article class="panel">
-        <h2>Movement Buckets</h2>
-        <div class="bar-row"><span>flat_under_0_25pct</span><div class="track"><div class="bar " style="width:100%"></div></div><strong>3</strong></div><div class="bar-row"><span>micro_0_25_to_0_5pct</span><div class="track"><div class="bar " style="width:4%"></div></div><strong>0</strong></div><div class="bar-row"><span>small_0_5_to_1pct</span><div class="track"><div class="bar " style="width:67%"></div></div><strong>2</strong></div><div class="bar-row"><span>moderate_1_to_2pct</span><div class="track"><div class="bar " style="width:4%"></div></div><strong>0</strong></div><div class="bar-row"><span>large_2pct_plus</span><div class="track"><div class="bar " style="width:4%"></div></div><strong>0</strong></div>
-      </article>
-      <article class="panel">
-        <h2>Paper P&L Timeline</h2>
-        <div class="bar-row"><span>19</span><div class="track"><div class="bar " style="width:4%"></div></div><strong>0</strong></div><div class="bar-row"><span>20</span><div class="track"><div class="bar " style="width:4%"></div></div><strong>0</strong></div><div class="bar-row"><span>21</span><div class="track"><div class="bar " style="width:4%"></div></div><strong>0</strong></div><div class="bar-row"><span>22</span><div class="track"><div class="bar " style="width:4%"></div></div><strong>0</strong></div><div class="bar-row"><span>23</span><div class="track"><div class="bar " style="width:4%"></div></div><strong>0</strong></div><div class="bar-row"><span>24</span><div class="track"><div class="bar " style="width:4%"></div></div><strong>0</strong></div><div class="bar-row"><span>25</span><div class="track"><div class="bar " style="width:4%"></div></div><strong>0</strong></div><div class="bar-row"><span>26</span><div class="track"><div class="bar " style="width:4%"></div></div><strong>0</strong></div><div class="bar-row"><span>27</span><div class="track"><div class="bar " style="width:4%"></div></div><strong>0</strong></div><div class="bar-row"><span>28</span><div class="track"><div class="bar " style="width:4%"></div></div><strong>0</strong></div><div class="bar-row"><span>29</span><div class="track"><div class="bar " style="width:4%"></div></div><strong>0</strong></div><div class="bar-row"><span>30</span><div class="track"><div class="bar " style="width:4%"></div></div><strong>0</strong></div>
-      </article>
-      <article class="panel">
-        <h2>Signal/Risk Counts</h2>
-        <div class="bar-row"><span>19</span><div class="track"><div class="bar " style="width:100%"></div></div><strong>8</strong></div><div class="bar-row"><span>20</span><div class="track"><div class="bar " style="width:100%"></div></div><strong>8</strong></div><div class="bar-row"><span>21</span><div class="track"><div class="bar " style="width:100%"></div></div><strong>8</strong></div><div class="bar-row"><span>22</span><div class="track"><div class="bar " style="width:100%"></div></div><strong>8</strong></div><div class="bar-row"><span>23</span><div class="track"><div class="bar " style="width:100%"></div></div><strong>8</strong></div><div class="bar-row"><span>24</span><div class="track"><div class="bar " style="width:100%"></div></div><strong>8</strong></div><div class="bar-row"><span>25</span><div class="track"><div class="bar " style="width:100%"></div></div><strong>8</strong></div><div class="bar-row"><span>26</span><div class="track"><div class="bar " style="width:100%"></div></div><strong>8</strong></div><div class="bar-row"><span>27</span><div class="track"><div class="bar " style="width:100%"></div></div><strong>8</strong></div><div class="bar-row"><span>28</span><div class="track"><div class="bar " style="width:100%"></div></div><strong>8</strong></div><div class="bar-row"><span>29</span><div class="track"><div class="bar " style="width:100%"></div></div><strong>8</strong></div><div class="bar-row"><span>30</span><div class="track"><div class="bar " style="width:100%"></div></div><strong>8</strong></div>
-      </article>
-      <article class="panel">
-        <h2>Bot Activity Timeline</h2>
-        <ul><li><strong>2026-05-15T02:22:59.154Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-15T02:12:58.389Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-15T02:11:49.350Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-15T02:11:20.713Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-15T02:05:48.215Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-15T02:02:35.513Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / manual_or_scheduler_gap</span></li><li><strong>2026-05-14T02:36:53.328Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-14T02:20:20.137Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-14T01:43:27.156Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li><li><strong>2026-05-14T01:38:40.615Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked / roughly_30_minute_cadence</span></li></ul>
-      </article>
+      <div class="card"><span class="val">1000</span><span class="lbl">Starting paper balance</span><span class="probe">from paper cycle</span></div>
+      <div class="card"><span class="val">1000</span><span class="lbl">Current paper balance</span><span class="probe">from paper cycle</span></div>
+      <div class="card"><span class="val">0</span><span class="lbl">Paper P&L</span><span class="probe">cumulative</span></div>
+      <div class="card"><span class="val">0%</span><span class="lbl">Paper return</span><span class="probe">since start</span></div>
+      <div class="card"><span class="val">0%</span><span class="lbl">Max drawdown</span><span class="probe">peak-to-trough</span></div>
+      <div class="card"><span class="val">1.57d</span><span class="lbl">Cycle days survived</span><span class="probe">active</span></div>
+      <div class="card"><span class="val">8</span><span class="lbl">Signals reviewed</span><span class="probe">8 blocked, 0 approved</span></div>
+      <div class="card"><span class="val">0</span><span class="lbl">Fake paper trades</span><span class="probe">all blocked by Risk Desk</span></div>
     </section>
 
-    <section class="grid">
-      <article class="panel">
-        <h2>Risk Rejections</h2>
+    <div class="panel">
+      <h2>Paper Cycle <span class="probe">standard preset</span></h2>
+      <p>Cycle cycle-20260514-0220 is <strong>active</strong>. Started 1000 paper USD, current 1000 paper USD. Does not reset daily — continues while balance is above depletion threshold.</p>
+      <span class="pill">0 approved</span>
+      <span class="pill">80 rejected</span>
+      <span class="pill ok">Risk: normal</span>
+      <span class="pill">1.57 days survived</span>
+    </div>
+
+    <div class="panel-grid">
+      <div class="panel">
+        <h2>Recent Market Movement <span class="pill ok">real_alpaca_iex_market_movement</span></h2>
+        <div class="bar-row"><span class="bar-label" style="min-width:60px">MSFT</span><div class="track"><div class="bar " style="width:100%"></div></div><strong class="bar-val">1.43</strong></div><div class="bar-row"><span class="bar-label" style="min-width:60px">NVDA</span><div class="track"><div class="bar neg" style="width:87%"></div></div><strong class="bar-val">-1.25</strong></div><div class="bar-row"><span class="bar-label" style="min-width:60px">AAPL</span><div class="track"><div class="bar " style="width:69%"></div></div><strong class="bar-val">0.98</strong></div><div class="bar-row"><span class="bar-label" style="min-width:60px">QQQ</span><div class="track"><div class="bar neg" style="width:19%"></div></div><strong class="bar-val">-0.27</strong></div><div class="bar-row"><span class="bar-label" style="min-width:60px">SPY</span><div class="track"><div class="bar neg" style="width:6%"></div></div><strong class="bar-val">-0.08</strong></div>
+        <p style="margin-top:8px">Real Alpaca IEX price movement for the latest trading session.</p>
+      </div>
+      <div class="panel">
+        <h2>Up / Down / Flat <span class="pill ok">real_alpaca_iex_market_movement</span></h2>
+        <div class="bar-row"><span class="bar-label" style="min-width:60px">up</span><div class="track"><div class="bar " style="width:100%"></div></div><strong class="bar-val">2</strong></div><div class="bar-row"><span class="bar-label" style="min-width:60px">down</span><div class="track"><div class="bar " style="width:100%"></div></div><strong class="bar-val">2</strong></div><div class="bar-row"><span class="bar-label" style="min-width:60px">flat</span><div class="track"><div class="bar " style="width:50%"></div></div><strong class="bar-val">1</strong></div>
+      </div>
+      <div class="panel">
+        <h2>Movement Buckets <span class="pill ok">real_alpaca_iex_market_movement</span></h2>
+        <div class="bar-row"><span class="bar-label" style="min-width:110px">flat_under_0_25pct</span><div class="track"><div class="bar " style="width:50%"></div></div><strong class="bar-val">1</strong></div><div class="bar-row"><span class="bar-label" style="min-width:110px">micro_0_25_to_0_5pct</span><div class="track"><div class="bar " style="width:50%"></div></div><strong class="bar-val">1</strong></div><div class="bar-row"><span class="bar-label" style="min-width:110px">small_0_5_to_1pct</span><div class="track"><div class="bar " style="width:50%"></div></div><strong class="bar-val">1</strong></div><div class="bar-row"><span class="bar-label" style="min-width:110px">moderate_1_to_2pct</span><div class="track"><div class="bar " style="width:100%"></div></div><strong class="bar-val">2</strong></div><div class="bar-row"><span class="bar-label" style="min-width:110px">large_2pct_plus</span><div class="track"><div class="bar " style="width:4%"></div></div><strong class="bar-val">0</strong></div>
+      </div>
+      <div class="panel">
+        <h2>Paper P&L Timeline <span class="pill ok">real_paper_run_history</span></h2>
+        <div class="bar-row"><span class="bar-label" style="min-width:50px">19</span><div class="track"><div class="bar " style="width:4%"></div></div><strong class="bar-val">0</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">20</span><div class="track"><div class="bar " style="width:4%"></div></div><strong class="bar-val">0</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">21</span><div class="track"><div class="bar " style="width:4%"></div></div><strong class="bar-val">0</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">22</span><div class="track"><div class="bar " style="width:4%"></div></div><strong class="bar-val">0</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">23</span><div class="track"><div class="bar " style="width:4%"></div></div><strong class="bar-val">0</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">24</span><div class="track"><div class="bar " style="width:4%"></div></div><strong class="bar-val">0</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">25</span><div class="track"><div class="bar " style="width:4%"></div></div><strong class="bar-val">0</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">26</span><div class="track"><div class="bar " style="width:4%"></div></div><strong class="bar-val">0</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">27</span><div class="track"><div class="bar " style="width:4%"></div></div><strong class="bar-val">0</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">28</span><div class="track"><div class="bar " style="width:4%"></div></div><strong class="bar-val">0</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">29</span><div class="track"><div class="bar " style="width:4%"></div></div><strong class="bar-val">0</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">30</span><div class="track"><div class="bar " style="width:4%"></div></div><strong class="bar-val">0</strong></div>
+      </div>
+      <div class="panel">
+        <h2>Signal/Risk Counts <span class="pill ok">real_paper_run_history</span></h2>
+        <div class="bar-row"><span class="bar-label" style="min-width:50px">19</span><div class="track"><div class="bar " style="width:100%"></div></div><strong class="bar-val">8</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">20</span><div class="track"><div class="bar " style="width:100%"></div></div><strong class="bar-val">8</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">21</span><div class="track"><div class="bar " style="width:100%"></div></div><strong class="bar-val">8</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">22</span><div class="track"><div class="bar " style="width:100%"></div></div><strong class="bar-val">8</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">23</span><div class="track"><div class="bar " style="width:100%"></div></div><strong class="bar-val">8</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">24</span><div class="track"><div class="bar " style="width:100%"></div></div><strong class="bar-val">8</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">25</span><div class="track"><div class="bar " style="width:100%"></div></div><strong class="bar-val">8</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">26</span><div class="track"><div class="bar " style="width:100%"></div></div><strong class="bar-val">8</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">27</span><div class="track"><div class="bar " style="width:100%"></div></div><strong class="bar-val">8</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">28</span><div class="track"><div class="bar " style="width:100%"></div></div><strong class="bar-val">8</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">29</span><div class="track"><div class="bar " style="width:100%"></div></div><strong class="bar-val">8</strong></div><div class="bar-row"><span class="bar-label" style="min-width:50px">30</span><div class="track"><div class="bar " style="width:100%"></div></div><strong class="bar-val">8</strong></div>
+      </div>
+      <div class="panel">
+        <h2>Bot Activity Timeline <span class="pill ok">real_paper_run_history</span></h2>
+        <ul><li><strong>2026-05-15T15:56:30.434Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked</span></li><li><strong>2026-05-15T12:21:36.974Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked</span></li><li><strong>2026-05-15T02:22:59.154Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked</span></li><li><strong>2026-05-15T02:12:58.389Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked</span></li><li><strong>2026-05-15T02:11:49.350Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked</span></li><li><strong>2026-05-15T02:11:20.713Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked</span></li><li><strong>2026-05-15T02:05:48.215Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked</span></li><li><strong>2026-05-15T02:02:35.513Z</strong><span>Equity 10000 / P&L 0 / Risk 0 approved, 8 blocked</span></li></ul>
+      </div>
+    </div>
+
+    <div class="panel-grid">
+      <div class="panel">
+        <h2>Risk Rejections <span class="pill ok">real_paper_risk_decisions</span></h2>
         <ul><li><strong>Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.</strong><span>8 rejection(s)</span></li><li><strong>Signal did not qualify as a candidate.</strong><span>8 rejection(s)</span></li><li><strong>Confidence threshold is below minimum threshold.</strong><span>5 rejection(s)</span></li><li><strong>Confidence 0 is below minimum threshold.</strong><span>3 rejection(s)</span></li><li><strong>Missing invalidation.</strong><span>3 rejection(s)</span></li></ul>
-      </article>
-      <article class="panel">
-        <h2>Almost Approved</h2>
-        <ul><li><strong>AAPL: closest_rejected</strong><span>Confidence 0.1 / Signal did not qualify as a candidate. / Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement.</span></li><li><strong>MSFT: closest_rejected</strong><span>Confidence 0.1 / Signal did not qualify as a candidate. / Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement.</span></li><li><strong>QQQ: closest_rejected</strong><span>Confidence 0.1 / Signal did not qualify as a candidate. / Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement.</span></li><li><strong>SPY: closest_rejected</strong><span>Confidence 0.1 / Signal did not qualify as a candidate. / Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement.</span></li><li><strong>NVDA: closest_rejected</strong><span>Confidence 0.1 / Signal did not qualify as a candidate. / Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement.</span></li><li><strong>BTC: closest_rejected</strong><span>Confidence 0 / Signal did not qualify as a candidate. / Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, a defined invalidation level, no downside/short/margin/leverage/options/futures requirement.</span></li><li><strong>ETH: closest_rejected</strong><span>Confidence 0 / Signal did not qualify as a candidate. / Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, a defined invalidation level, no downside/short/margin/leverage/options/futures requirement.</span></li><li><strong>SOL: closest_rejected</strong><span>Confidence 0 / Signal did not qualify as a candidate. / Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, a defined invalidation level, no downside/short/margin/leverage/options/futures requirement.</span></li></ul>
-      </article>
-    </section>
+        <p style="margin-top:8px">Top reasons the Risk Desk blocked signals. All paper/simulation only.</p>
+      </div>
+      <div class="panel">
+        <h2>Candidate Review <span class="pill ok">real_paper_signal_scans_plus_risk_decisions</span></h2>
+        <ul><li><strong>MSFT: closest_rejected</strong><span>Confidence 0.14 / Signal did not qualify as a candidate.</span></li><li><strong>NVDA: closest_rejected</strong><span>Confidence 0.13 / Signal did not qualify as a candidate.</span></li><li><strong>AAPL: closest_rejected</strong><span>Confidence 0.1 / Signal did not qualify as a candidate.</span></li><li><strong>QQQ: closest_rejected</strong><span>Confidence 0.1 / Signal did not qualify as a candidate.</span></li><li><strong>SPY: closest_rejected</strong><span>Confidence 0.1 / Signal did not qualify as a candidate.</span></li><li><strong>BTC: closest_rejected</strong><span>Confidence 0 / Signal did not qualify as a candidate.</span></li></ul>
+      </div>
+    </div>
 
-    <section class="panel">
-      <h2>Stale/Fallback Warnings</h2>
-      <ul><li><strong>analytics_summary: stale_context_only</strong><span>Analytics summary 2026-05-08T03:46:14.425Z is older than latest paper run 2026-05-15T02:22:59.154Z. Dashboard headline cards use current paper outputs instead.</span></li><li><strong>market_data_refresh: aging</strong><span>Market-data bundle was refreshed 479.56 minutes ago.</span></li><li><strong>latest_market_bar: market_closed_or_delayed</strong><span>Latest bar is 1236.54 minutes old. Label as delayed/closed-market data, not live tick data.</span></li><li><strong>paper_run: stale</strong><span>Latest paper run is 479.56 minutes old.</span></li></ul>
-    </section>
+    <div class="panel">
+      <h2>Market Data Freshness</h2>
+      <p>Feed iex / bars loaded 100 / quotes 5</p>
+      <span class="pill ok">Refresh: fresh</span>
+      <span class="pill warn">Latest bar: aging</span>
+      <span class="pill ok">rawMarketDataPublished false</span>
+      <span class="pill ok">publicSafeDerivedOnly true</span>
+    </div>
 
-    <section class="panel">
-      <h2>Files</h2>
-      <p class="path">Local dashboard bundle: Data/dashboard/dashboard-public-safe-v0.1.json</p>
-      <p class="path">Public-safe local site bundle: ../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json</p>
-    </section>
+    <div class="panel"><h2>Stale & Fallback Warnings</h2><div class="warn-box" style="margin-bottom:6px"><strong>analytics_summary: stale_context_only</strong>Analytics summary 2026-05-08T03:46:14.425Z is older than latest paper run 2026-05-15T15:56:30.434Z. Dashboard headline cards use current paper outputs instead.</div></div>
+
+    <div class="panel">
+      <h2>Dashboard Refresh Health</h2>
+      <span class="pill ok">Healthy</span>
+      <span class="pill">0 consecutive failures</span>
+      <span class="pill">2h refresh target</span>
+      <span class="pill ok">schedulerInstalled: false</span>
+      
+    </div>
+
+    <div class="disclaimer-box">
+      <strong>&#9432; Important Disclaimers</strong>
+      <div>&bull; Paper simulation only.</div><div>&bull; Sample-data preview only.</div><div>&bull; Not live market data.</div><div>&bull; Not financial advice.</div><div>&bull; Not real trading performance.</div><div>&bull; No broker, API, payment, or social auto-posting behavior is enabled.</div>
+      <hr>
+      <div>&bull; This is a local preview file. It has not been published or deployed.</div>
+      <div>&bull; All data is paper simulation only. No real money has been traded.</div>
+      <div>&bull; All 64 signal rejections show the Risk Desk is operating in a deliberately cautious Phase 1 configuration.</div>
+      <div>&bull; No broker, API, payment, or social auto-posting behavior is enabled.</div>
+      <div>&bull; Refresh timestamp: 2026-05-15T15:56:30.445Z</div>
+    </div>
   </main>
 </body>
 </html>

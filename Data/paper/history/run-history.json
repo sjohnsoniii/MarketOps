@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-15T12:21:36.974Z",
+  "updatedAt": "2026-05-15T15:56:30.434Z",
   "runs": [
     {
       "runId": "paper-20260507-203011025Z",
@@ -2097,6 +2097,29 @@
     {
       "runId": "paper-20260515-122136974Z",
       "generatedAt": "2026-05-15T12:21:36.974Z",
+      "mode": "paper_simulation",
+      "paperOnly": true,
+      "sampleData": true,
+      "startingBalance": 10000,
+      "endingEquity": 10000,
+      "paperPnl": 0,
+      "paperReturnPct": 0,
+      "maxDrawdownPct": 0,
+      "vehiclesScanned": 8,
+      "signalsReviewed": 8,
+      "riskApproved": 0,
+      "riskBlocked": 8,
+      "fakePaperTrades": 0,
+      "qaStatus": "PASS",
+      "notes": [
+        "Paper simulation summary only.",
+        "Sample data preview, not real performance.",
+        "No broker connection, live trading, subscriber alerts, or real-money execution."
+      ]
+    },
+    {
+      "runId": "paper-20260515-155630434Z",
+      "generatedAt": "2026-05-15T15:56:30.434Z",
       "mode": "paper_simulation",
       "paperOnly": true,
       "sampleData": true,

@@ -12,6 +12,8 @@ const previewHtmlPath = path.join(paths.projectRoot, "Admin", "dashboard-preview
 const shareableSnapshotPath = path.join(paths.dataRoot, "dashboard", "marketops-shareable-snapshot-v0.1.json");
 const sharePacketPath = path.join(paths.projectRoot, "Reports", "Dashboard", "marketops-public-share-packet-v0.1.md");
 const shareableReportPath = path.join(paths.projectRoot, "Reports", "Dashboard", "marketops-shareable-snapshot-v0.1.md");
+const contentPackPath = path.join(paths.projectRoot, "Reports", "Dashboard", "marketops-content-pack-draft-v0.1.md");
+const siteIntegrationPath = path.join(paths.projectRoot, "Reports", "Dashboard", "marketops-site-integration-handoff-v0.1.md");
 
 function check(checks, name, passed, detail = "") {
   checks.push({ name, passed: Boolean(passed), detail });
@@ -220,8 +222,26 @@ function runDashboardRefreshQa() {
 
   check(checks, "data provenance report exists", fileExists(path.join(paths.projectRoot, "Reports", "Dashboard", "marketops-data-provenance-v0.1.md")), "data provenance report");
   check(checks, "share packet exists", fileExists(sharePacketPath), sharePacketPath);
+  check(checks, "content pack exists", fileExists(contentPackPath), contentPackPath);
+  check(checks, "site integration handoff exists", fileExists(siteIntegrationPath), siteIntegrationPath);
 
-  const hits = scanFiles([paths.siteDashboardPublicV04Json, localDashboardPath, refreshJsonPath, previewHtmlPath, healthJsonPath, paths.tradeRejectionExplainabilityReport, paths.cycleLatestJson, shareableSnapshotPath, sharePacketPath]);
+  const previewText = readText(previewHtmlPath);
+  if (previewText) {
+    check(checks, "preview HTML contains paper simulation label", previewText.includes("Paper simulation only") || previewText.includes("paper simulation"), "preview HTML");
+    check(checks, "preview HTML contains not financial advice", previewText.includes("Not financial advice") || previewText.includes("not financial advice"), "preview HTML");
+    check(checks, "preview HTML contains no private home path", !previewText.includes("/home/") && !previewText.includes("/Users/"), "preview HTML");
+    check(checks, "preview HTML contains no live trading claims", !previewText.includes("live trading") || previewText.includes("Not live") || previewText.includes("not live"), "preview HTML");
+    check(checks, "preview HTML contains scheduler not installed state", previewText.includes("not installed") || previewText.includes("schedulerInstalled"), "preview HTML");
+  }
+
+  const contentPackText = readText(contentPackPath);
+  if (contentPackText) {
+    check(checks, "content pack is marked draft-only", contentPackText.includes("DRAFT ONLY") || contentPackText.includes("draft-only"), contentPackPath);
+    check(checks, "content pack has not financial advice", contentPackText.includes("not financial advice"), contentPackPath);
+    check(checks, "content pack has paper simulation labels", contentPackText.includes("paper") && contentPackText.includes("simulation"), contentPackPath);
+  }
+
+  const hits = scanFiles([paths.siteDashboardPublicV04Json, localDashboardPath, refreshJsonPath, previewHtmlPath, healthJsonPath, paths.tradeRejectionExplainabilityReport, paths.cycleLatestJson, shareableSnapshotPath, sharePacketPath, contentPackPath, siteIntegrationPath]);
   check(checks, "public/preview/dashboard outputs contain no restricted markers", hits.length === 0, hits.join("; "));
 
   writeText(qaReportPath, buildReport(checks));

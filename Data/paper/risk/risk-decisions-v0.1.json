@@ -31,19 +31,18 @@
       "signalId": "sample-signal-QQQ",
       "symbol": "QQQ",
       "assetType": "ETF",
-      "directionBias": "none",
-      "sampleChangePct": 0,
-      "confidence": 0,
-      "originalRiskLevel": "blocked",
+      "directionBias": "flat",
+      "sampleChangePct": -0.27,
+      "confidence": 0.1,
+      "originalRiskLevel": "low",
       "approved": false,
       "mode": "paper_simulation",
       "paperOnly": true,
       "finalRiskLevel": "blocked",
       "blockReasons": [
         "Signal did not qualify as a candidate.",
-        "Confidence 0 is below minimum 0.55.",
-        "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
-        "Missing invalidation."
+        "Confidence 0.1 is below minimum 0.55.",
+        "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled."
       ],
       "notes": "Risk Desk blocked this signal for Phase 1 paper simulation."
     },
@@ -53,7 +52,7 @@
       "symbol": "AAPL",
       "assetType": "EQUITY",
       "directionBias": "flat",
-      "sampleChangePct": -0.05,
+      "sampleChangePct": 0.98,
       "confidence": 0.1,
       "originalRiskLevel": "low",
       "approved": false,
@@ -73,8 +72,8 @@
       "symbol": "MSFT",
       "assetType": "EQUITY",
       "directionBias": "flat",
-      "sampleChangePct": -0.07,
-      "confidence": 0.1,
+      "sampleChangePct": 1.43,
+      "confidence": 0.14,
       "originalRiskLevel": "low",
       "approved": false,
       "mode": "paper_simulation",
@@ -82,7 +81,7 @@
       "finalRiskLevel": "blocked",
       "blockReasons": [
         "Signal did not qualify as a candidate.",
-        "Confidence 0.1 is below minimum 0.55.",
+        "Confidence 0.14 is below minimum 0.55.",
         "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled."
       ],
       "notes": "Risk Desk blocked this signal for Phase 1 paper simulation."
@@ -93,8 +92,8 @@
       "symbol": "NVDA",
       "assetType": "EQUITY",
       "directionBias": "flat",
-      "sampleChangePct": -0.08,
-      "confidence": 0.1,
+      "sampleChangePct": -1.25,
+      "confidence": 0.13,
       "originalRiskLevel": "low",
       "approved": false,
       "mode": "paper_simulation",
@@ -102,7 +101,7 @@
       "finalRiskLevel": "blocked",
       "blockReasons": [
         "Signal did not qualify as a candidate.",
-        "Confidence 0.1 is below minimum 0.55.",
+        "Confidence 0.13 is below minimum 0.55.",
         "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled."
       ],
       "notes": "Risk Desk blocked this signal for Phase 1 paper simulation."

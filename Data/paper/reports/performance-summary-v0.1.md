@@ -4,7 +4,7 @@ Mode: paper_simulation
 
 Generated: 2026-01-03T16:00:00.000Z
 Vehicles scanned: 8
-Market bars scanned: 14
+Market bars scanned: 100
 Signals generated: 0
 Risk approved: 0
 Risk blocked: 8

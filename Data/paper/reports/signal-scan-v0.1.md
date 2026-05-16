@@ -4,17 +4,17 @@ Mode: paper_simulation
 
 Generated: 2026-01-03T16:00:00.000Z
 Vehicles scanned: 8
-Market bars scanned: 14
+Market bars scanned: 100
 Movement threshold: 2%
 Candidate signals: 0
 
 | Vehicle | Type | Bias | Change | Status | Confidence | Risk |
 |---|---|---|---:|---|---:|---|
 | SPY | ETF | flat | -0.08% | ignore | 0.1 | low |
-| QQQ | ETF | none | 0% | no_data | 0 | blocked |
-| AAPL | EQUITY | flat | -0.05% | ignore | 0.1 | low |
-| MSFT | EQUITY | flat | -0.07% | ignore | 0.1 | low |
-| NVDA | EQUITY | flat | -0.08% | ignore | 0.1 | low |
+| QQQ | ETF | flat | -0.27% | ignore | 0.1 | low |
+| AAPL | EQUITY | flat | 0.98% | ignore | 0.1 | low |
+| MSFT | EQUITY | flat | 1.43% | ignore | 0.14 | low |
+| NVDA | EQUITY | flat | -1.25% | ignore | 0.13 | low |
 | BTC | CRYPTO | none | 0% | no_data | 0 | blocked |
 | ETH | CRYPTO | none | 0% | no_data | 0 | blocked |
 | SOL | CRYPTO | none | 0% | no_data | 0 | blocked |
