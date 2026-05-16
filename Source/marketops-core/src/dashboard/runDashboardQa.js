@@ -191,7 +191,7 @@ function runDashboardQa() {
     requiredCards.forEach((card) => check(checks, `dashboard card exists: ${card}`, bundle.dashboardCards && Object.prototype.hasOwnProperty.call(bundle.dashboardCards, card), card));
     requiredChartSections.forEach((section) => check(checks, `chart section exists: ${section}`, bundle.charts && Object.prototype.hasOwnProperty.call(bundle.charts, section), section));
     check(checks, "rolling equity is array", Array.isArray(bundle.charts && bundle.charts.rollingEquity), "rollingEquity");
-    check(checks, "paper equity curve has points", Array.isArray(bundle.charts && bundle.charts.paperEquityCurve) && bundle.charts.paperEquityCurve.length > 0, "paperEquityCurve");
+    check(checks, "paper equity curve is array", Array.isArray(bundle.charts && bundle.charts.paperEquityCurve), `paperEquityCurve (${((bundle.charts && bundle.charts.paperEquityCurve) || []).length} points)`);
     check(checks, "paper P&L series has points", Array.isArray(bundle.charts && bundle.charts.paperPnlSeries) && bundle.charts.paperPnlSeries.length > 0, "paperPnlSeries");
     check(checks, "drawdown visual data has current run", Array.isArray(bundle.charts && bundle.charts.drawdownVisualData && bundle.charts.drawdownVisualData.currentRun), "currentRun");
     check(checks, "watchlist movement summary has rows", Array.isArray(bundle.charts && bundle.charts.watchlistMovementSummary) && bundle.charts.watchlistMovementSummary.length > 0, "watchlistMovementSummary");

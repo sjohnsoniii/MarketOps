@@ -24,12 +24,15 @@ const contentArchiveRoot = path.join(contentRoot, "archive");
 const sj3labsRoot = path.join(projectRoot, "..", "sj3labs");
 const sj3labsMarketOpsDataRoot = path.join(sj3labsRoot, "data", "marketops");
 
+const rollingMarketDataRoot = path.join(marketDataRoot, "rolling");
+
 const paths = {
   coreRoot,
   projectRoot,
   dataRoot,
   marketDataRoot,
   alpacaMarketDataRoot,
+  rollingMarketDataRoot,
   config: path.join(coreRoot, "config", "marketops.phase1.config.json"),
   localEnv: path.join(projectRoot, ".env.local"),
   coreLocalEnv: path.join(coreRoot, ".env.local"),
@@ -38,9 +41,15 @@ const paths = {
   alpacaMarketDataLatestJson: path.join(alpacaMarketDataRoot, "alpaca-market-data-latest-v0.1.json"),
   alpacaMarketBarsLatestJson: path.join(alpacaMarketDataRoot, "alpaca-market-bars-latest-v0.1.json"),
   alpacaMarketDataReport: path.join(projectRoot, "Reports", "MarketData", "marketops-alpaca-market-data-v0.1.md"),
+  backfillDataJson: path.join(marketDataRoot, "backfill-market-data-v0.1.json"),
+  backfillReport: path.join(projectRoot, "Reports", "MarketData", "marketops-market-data-backfill-v0.1.md"),
+  rollingHistoryJson: path.join(rollingMarketDataRoot, "rolling-market-history-v0.1.json"),
+  rollingHistoryReport: path.join(projectRoot, "Reports", "MarketData", "marketops-rolling-market-history-v0.1.md"),
   signalsJson: path.join(paperRoot, "signals", "signal-scan-v0.1.json"),
   riskJson: path.join(paperRoot, "risk", "risk-decisions-v0.1.json"),
   tradesJson: path.join(paperRoot, "trades", "paper-trades-v0.1.json"),
+  paperPositionsJson: path.join(paperRoot, "positions", "paper-positions-v0.1.json"),
+  paperPerformanceJson: path.join(paperRoot, "performance", "paper-performance-v0.1.json"),
   equityJson: path.join(paperRoot, "equity", "equity-curve-v0.1.json"),
   dashboardJson: path.join(paperRoot, "dashboard", "dashboard-bundle-v0.1.json"),
   cyclesRoot,
@@ -49,6 +58,13 @@ const paths = {
   cycleArchiveRoot: path.join(cyclesRoot, "archive"),
   cycleStatusReport: path.join(projectRoot, "Reports", "Cycles", "marketops-paper-cycle-status-v0.1.md"),
   cycleQaReport: path.join(projectRoot, "Reports", "Cycles", "marketops-paper-cycle-qa-v0.1.md"),
+  weatherStationJson: path.join(marketDataRoot, "market-weather-station-v0.1.json"),
+  weatherStationReport: path.join(projectRoot, "Reports", "MarketData", "marketops-market-weather-station-v0.1.md"),
+  confidenceJson: path.join(paperRoot, "signals", "confidence-calibration-v0.1.json"),
+  confidenceReport: path.join(projectRoot, "Reports", "Signals", "marketops-confidence-calibration-v0.1.md"),
+  approvalWaterfallJson: path.join(projectRoot, "Data", "approvals", "approval-waterfall-v0.1.json"),
+  approvalWaterfallReport: path.join(projectRoot, "Reports", "Approvals", "marketops-approval-waterfall-v0.1.md"),
+  fullSimulationQaReport: path.join(projectRoot, "Reports", "QA", "marketops-full-simulation-qa-v0.1.md"),
   tradeRejectionExplainabilityReport: path.join(projectRoot, "Reports", "Risk", "marketops-trade-rejection-explainability-v0.1.md"),
   agentImprovementLoopReport: path.join(projectRoot, "Reports", "Optimization", "marketops-agent-improvement-loop-v0.1.md"),
   dashboardRefreshSchedulePlan: path.join(projectRoot, "Reports", "Automation", "marketops-dashboard-refresh-schedule-plan-v0.1.md"),

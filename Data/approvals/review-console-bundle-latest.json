@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-08T19:21:43.622Z",
+  "generatedAt": "2026-05-16T02:14:25.055Z",
   "mode": "supercruise_local_only",
   "localOnly": true,
   "noExternalSending": true,
@@ -16,8 +16,8 @@
   },
   "items": [
     {
-      "id": "approval-20260508-152143-001",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-001",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "blog_draft",
       "platform": null,
       "title": "Weekly MarketOps Field Report Draft v0.1",
@@ -46,8 +46,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-002",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-002",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "blog_draft",
       "platform": null,
       "title": "Monthly MarketOps Lab Report Draft v0.1",
@@ -76,8 +76,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-003",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-003",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "report_summary",
       "platform": null,
       "title": "Trade/Event Case Study Draft v0.1",
@@ -106,8 +106,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-004",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-004",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "x_post",
       "platform": "x",
       "title": "X Draft - x-marketops-paper-loop-001",
@@ -136,8 +136,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-005",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-005",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "x_post",
       "platform": "x",
       "title": "X Draft - x-marketops-risk-desk-002",
@@ -166,8 +166,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-006",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-006",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "instagram_post",
       "platform": "instagram",
       "title": "INSTAGRAM Draft - instagram-marketops-dashboard-001",
@@ -196,8 +196,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-007",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-007",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "instagram_post",
       "platform": "instagram",
       "title": "INSTAGRAM Draft - instagram-marketops-lessons-002",
@@ -226,8 +226,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-008",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-008",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "social_post",
       "platform": "facebook",
       "title": "FACEBOOK Draft - facebook-marketops-field-report-001",
@@ -256,8 +256,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-009",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-009",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "social_post",
       "platform": "facebook",
       "title": "FACEBOOK Draft - facebook-marketops-risk-controls-002",
@@ -286,8 +286,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-010",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-010",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "social_post",
       "platform": "linkedin",
       "title": "LINKEDIN Draft - linkedin-marketops-office-001",
@@ -316,8 +316,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-011",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-011",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "social_post",
       "platform": "linkedin",
       "title": "LINKEDIN Draft - linkedin-marketops-transparency-002",
@@ -346,8 +346,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-012",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-012",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": null,
       "title": "Faceless Video Script 1",
@@ -376,8 +376,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-013",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-013",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": null,
       "title": "Faceless Video Script 2",
@@ -406,8 +406,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-014",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-014",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": null,
       "title": "Faceless Video Script 3",
@@ -436,8 +436,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-015",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-015",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "avatar_script",
       "platform": null,
       "title": "Avatar Presenter Script 1",
@@ -466,8 +466,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-016",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-016",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "avatar_script",
       "platform": null,
       "title": "Avatar Presenter Script 2",
@@ -496,8 +496,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-017",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-017",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "avatar_script",
       "platform": null,
       "title": "Avatar Presenter Script 3",
@@ -526,8 +526,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-018",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-018",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": "IG Reels",
       "title": "Paper Lab Field Report - IG Reels",
@@ -556,8 +556,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-019",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-019",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": "TikTok",
       "title": "Paper Lab Field Report - TikTok",
@@ -586,8 +586,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-020",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-020",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": "YouTube Shorts",
       "title": "Paper Lab Field Report - YouTube Shorts",
@@ -616,8 +616,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-021",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-021",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": "X Video",
       "title": "Paper Lab Field Report - X Video",
@@ -646,8 +646,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-022",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-022",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": "IG Reels",
       "title": "Risk Desk Block Lesson - IG Reels",
@@ -676,8 +676,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-023",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-023",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": "TikTok",
       "title": "Risk Desk Block Lesson - TikTok",
@@ -706,8 +706,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-024",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-024",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": "YouTube Shorts",
       "title": "Risk Desk Block Lesson - YouTube Shorts",
@@ -736,8 +736,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-025",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-025",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": "X Video",
       "title": "Risk Desk Block Lesson - X Video",
@@ -766,8 +766,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-026",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-026",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": "IG Reels",
       "title": "Dashboard Progress Update - IG Reels",
@@ -796,8 +796,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-027",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-027",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": "TikTok",
       "title": "Dashboard Progress Update - TikTok",
@@ -826,8 +826,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-028",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-028",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": "YouTube Shorts",
       "title": "Dashboard Progress Update - YouTube Shorts",
@@ -856,8 +856,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-029",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-029",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": "X Video",
       "title": "Dashboard Progress Update - X Video",
@@ -886,8 +886,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-030",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-030",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": "IG Reels",
       "title": "Agent Review Digest - IG Reels",
@@ -916,8 +916,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-031",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-031",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": "TikTok",
       "title": "Agent Review Digest - TikTok",
@@ -946,8 +946,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-032",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-032",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": "YouTube Shorts",
       "title": "Agent Review Digest - YouTube Shorts",
@@ -976,8 +976,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-033",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-033",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": "X Video",
       "title": "Agent Review Digest - X Video",
@@ -1006,8 +1006,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-034",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-034",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "signal_preview",
       "platform": null,
       "title": "Market breadth observation",
@@ -1036,8 +1036,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-035",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-035",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "signal_preview",
       "platform": null,
       "title": "Synthetic regime shift note",
@@ -1066,8 +1066,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-036",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-036",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "signal_preview",
       "platform": null,
       "title": "Elevated risk watch",
@@ -1096,8 +1096,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-037",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-037",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "signal_preview",
       "platform": null,
       "title": "Momentum watch preview",
@@ -1126,8 +1126,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-038",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-038",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "signal_preview",
       "platform": null,
       "title": "Volatility warning preview",
@@ -1156,8 +1156,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-039",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-039",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "signal_preview",
       "platform": null,
       "title": "Trend confirmation research note",
@@ -1186,8 +1186,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-040",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-040",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "signal_preview",
       "platform": null,
       "title": "Synthetic signal preview",
@@ -1216,8 +1216,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-041",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-041",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "signal_preview",
       "platform": null,
       "title": "Risk Desk note",
@@ -1246,8 +1246,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-042",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-042",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "x_post",
       "platform": "x",
       "title": "Paper simulation milestone",
@@ -1276,8 +1276,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-043",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-043",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "x_post",
       "platform": "x",
       "title": "Risk-first research",
@@ -1306,8 +1306,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-044",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-044",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "instagram_post",
       "platform": "instagram",
       "title": "Public dashboard update",
@@ -1336,8 +1336,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-045",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-045",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "instagram_post",
       "platform": "instagram",
       "title": "Fake-money lab transparency",
@@ -1366,8 +1366,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-046",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-046",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "short_video_script",
       "platform": "tiktok",
       "title": "Why Risk Desk blocks matter",
@@ -1396,8 +1396,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-047",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-047",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "social_post",
       "platform": "youtube",
       "title": "Signal Desk is not a signal service",
@@ -1426,8 +1426,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-048",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-048",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "agent_improvement_proposal",
       "platform": null,
       "title": "Review agent improvement proposal digest",
@@ -1456,8 +1456,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-049",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-049",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "report_summary",
       "platform": null,
       "title": "Dashboard infrastructure report",
@@ -1486,8 +1486,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-050",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-050",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "report_summary",
       "platform": null,
       "title": "Analytics report",
@@ -1516,8 +1516,8 @@
       "blockedReason": null
     },
     {
-      "id": "approval-20260508-152143-051",
-      "createdAt": "2026-05-08T19:21:43.622Z",
+      "id": "approval-20260515-221425-051",
+      "createdAt": "2026-05-16T02:14:25.055Z",
       "type": "report_summary",
       "platform": null,
       "title": "Signal Desk architecture report",

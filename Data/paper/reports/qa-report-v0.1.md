@@ -2,7 +2,7 @@
 
 Mode: paper_simulation
 
-Generated: 2026-01-03T16:00:00.000Z
+Generated: 2026-05-16T02:50:18.298Z
 Result: QA PASS
 
 | Check | Status | Detail |
@@ -19,7 +19,7 @@ Result: QA PASS
 | unsafe flag false: allowLiveTrading | PASS | allowLiveTrading=false |
 | unsafe flag false: allowSmsAlerts | PASS | allowSmsAlerts=false |
 | unsafe flag false: allowSubscriberSignals | PASS | allowSubscriberSignals=false |
-| simulation outputs generated | PASS | simulate pipeline completed inside QA |
+| simulation outputs already present (from pipeline) | PASS | pipeline pre-generated outputs, QA skipped re-run |
 | output exists: Data/paper/signals/signal-scan-v0.1.json | PASS | /home/sjohnsoniii/Projects/MarketOps/Data/paper/signals/signal-scan-v0.1.json |
 | output exists: Data/paper/risk/risk-decisions-v0.1.json | PASS | /home/sjohnsoniii/Projects/MarketOps/Data/paper/risk/risk-decisions-v0.1.json |
 | output exists: Data/paper/trades/paper-trades-v0.1.json | PASS | /home/sjohnsoniii/Projects/MarketOps/Data/paper/trades/paper-trades-v0.1.json |
@@ -32,6 +32,13 @@ Result: QA PASS
 | output exists: Data/paper/reports/performance-summary-v0.1.md | PASS | /home/sjohnsoniii/Projects/MarketOps/Data/paper/reports/performance-summary-v0.1.md |
 | output exists: Data/paper/reports/staff-writer-brief-v0.1.md | PASS | /home/sjohnsoniii/Projects/MarketOps/Data/paper/reports/staff-writer-brief-v0.1.md |
 | paper trades are paper-only | PASS | 0 trades checked |
+| trades timestamp is not stale sample default | PASS | generatedAt=2026-05-16T02:50:17.787Z |
+| max drawdown is finite | PASS | maxDrawdown=58.02 |
+| open position count present | PASS | count=3 |
+| cash balance present | PASS | cash=4218.75 |
+| total equity present | PASS | equity=4218.75 |
+| open position count matches trades | PASS | trades_with_open_status=0 positions=3 |
+| no sample-only language in real-data simulation | PASS | sampleDataOnly=undefined |
 | automation output exists: Data/paper/history/run-history.json | PASS | /home/sjohnsoniii/Projects/MarketOps/Data/paper/history/run-history.json |
 | automation output exists: Data/paper/history/latest-run-summary.json | PASS | /home/sjohnsoniii/Projects/MarketOps/Data/paper/history/latest-run-summary.json |
 | automation output exists: ../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json | PASS | /home/sjohnsoniii/Projects/sj3labs/data/marketops/dashboard-bundle-public-v0.4.json |
@@ -49,7 +56,7 @@ Result: QA PASS
 - Paper simulation only.
 - Sample data only.
 - No broker connection.
-- No live market data.
+- Not live trading.
 - No real-money trading.
 - No SMS or subscriber alerts.
 - No margin, leverage, options, futures, shorting, or exchange execution.

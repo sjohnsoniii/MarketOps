@@ -23,7 +23,7 @@ function buildEquityCurve({ paperResults, targetBalance, generatedAt }) {
   });
 
   const endingEquity = points.length ? points[points.length - 1].equity : startingBalance;
-  const maxDrawdownPct = Math.min(...points.map((point) => point.drawdownPct));
+  const maxDrawdownPct = points.length ? Math.min(...points.map((point) => point.drawdownPct)) : null;
 
   return {
     generatedAt,
@@ -34,7 +34,7 @@ function buildEquityCurve({ paperResults, targetBalance, generatedAt }) {
     endingEquity: round(endingEquity),
     totalPnl: round(endingEquity - startingBalance),
     totalReturnPct: round(((endingEquity - startingBalance) / startingBalance) * 100),
-    maxDrawdownPct: round(maxDrawdownPct),
+    maxDrawdownPct: maxDrawdownPct !== null ? round(maxDrawdownPct) : null,
     targetMet: endingEquity >= targetBalance,
     points
   };

@@ -11,12 +11,15 @@ function buildRunSummary({ generatedAt = new Date().toISOString(), qaStatus = "U
   const equityCurve = loadJson(paths.equityJson);
   const safeStamp = generatedAt.replace(/[-:.]/g, "").replace("T", "-").replace("Z", "Z");
 
+  const dataSource = paperResults.dataSource || "";
+  const isRealData = dataSource && (dataSource.includes("alpaca") || dataSource.includes("iex") || dataSource.includes("backfill"));
+
   return {
     runId: `paper-${safeStamp}`,
     generatedAt,
     mode: "paper_simulation",
     paperOnly: true,
-    sampleData: true,
+    sampleData: !isRealData,
     startingBalance: equityCurve.startingBalance || paperResults.startingBalance,
     endingEquity: equityCurve.endingEquity || paperResults.endingBalance,
     paperPnl: equityCurve.totalPnl || paperResults.totalPnl,
@@ -27,11 +30,16 @@ function buildRunSummary({ generatedAt = new Date().toISOString(), qaStatus = "U
     riskApproved: riskReview.approvedCount,
     riskBlocked: riskReview.blockedCount,
     fakePaperTrades: paperResults.executedTrades,
+    openPositionCount: paperResults.openPositionCount || 0,
+    realizedPnl: paperResults.realizedPnl || 0,
+    unrealizedPnl: paperResults.totalUnrealizedPnl || 0,
+    cashBalance: paperResults.cashBalance || 0,
+    totalEquity: paperResults.totalEquity || 0,
     qaStatus,
     notes: [
       "Paper simulation summary only.",
-      "Sample data preview, not real performance.",
-      "No broker connection, live trading, subscriber alerts, or real-money execution."
+      isRealData ? "Real market-data-derived paper simulation (Alpaca IEX)." : "Sample data preview, not real performance.",
+      "No broker connection, live trading, or real-money execution."
     ]
   };
 }

@@ -2,19 +2,19 @@
 
 Mode: paper_simulation
 
-Generated: 2026-01-03T16:00:00.000Z
+Generated: 2026-05-16T02:50:17.787Z
 Vehicles scanned: 8
-Market bars scanned: 100
+Market bars scanned: 10138
 Movement threshold: 2%
-Candidate signals: 0
+Candidate signals: 3
 
 | Vehicle | Type | Bias | Change | Status | Confidence | Risk |
 |---|---|---|---:|---|---:|---|
-| SPY | ETF | flat | -0.08% | ignore | 0.1 | low |
-| QQQ | ETF | flat | -0.27% | ignore | 0.1 | low |
-| AAPL | EQUITY | flat | 0.98% | ignore | 0.1 | low |
-| MSFT | EQUITY | flat | 1.43% | ignore | 0.14 | low |
-| NVDA | EQUITY | flat | -1.25% | ignore | 0.13 | low |
+| SPY | ETF | flat | 0.17% | ignore | 0.1 | low |
+| QQQ | ETF | flat | -0.44% | ignore | 0.1 | low |
+| AAPL | EQUITY | up | 2.37% | candidate | 0.62 | medium |
+| MSFT | EQUITY | up | 3.16% | candidate | 0.66 | medium |
+| NVDA | EQUITY | up | 5.23% | candidate | 0.76 | high |
 | BTC | CRYPTO | none | 0% | no_data | 0 | blocked |
 | ETH | CRYPTO | none | 0% | no_data | 0 | blocked |
 | SOL | CRYPTO | none | 0% | no_data | 0 | blocked |
@@ -22,9 +22,9 @@ Candidate signals: 0
 ## Safety Notes
 
 - Paper simulation only.
-- Sample data only.
+- Real market-data-derived paper simulation (Alpaca IEX).
 - No broker connection.
-- No live market data.
+- Not live trading.
 - No real-money trading.
 - No SMS or subscriber alerts.
 - No margin, leverage, options, futures, shorting, or exchange execution.

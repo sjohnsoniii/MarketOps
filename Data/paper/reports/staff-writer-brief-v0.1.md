@@ -15,7 +15,7 @@ Candidate signals: 0
 Risk approved: 0
 Risk blocked: 8
 Fake paper trades: 0
-Ending paper balance: $10000.00
+Ending paper balance: $4218.75
 Paper P/L: $0.00
 Win rate: 0.00%
 
@@ -36,7 +36,7 @@ The machine has a repeatable Phase 1 test path now. It is still simple, still fa
 - Paper simulation only.
 - Sample data only.
 - No broker connection.
-- No live market data.
+- Not live trading.
 - No real-money trading.
 - No SMS or subscriber alerts.
 - No margin, leverage, options, futures, shorting, or exchange execution.

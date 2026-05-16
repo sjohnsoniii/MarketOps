@@ -1,26 +1,13 @@
 {
-  "generatedAt": "2026-01-03T16:00:00.000Z",
+  "generatedAt": "2026-05-16T02:50:17.787Z",
   "mode": "paper_simulation",
   "paperOnly": true,
-  "startingBalance": 10000,
+  "startingBalance": 4218.75,
   "targetBalance": 13000,
-  "endingEquity": 10000,
+  "endingEquity": 4218.75,
   "totalPnl": 0,
   "totalReturnPct": 0,
-  "maxDrawdownPct": 0,
+  "maxDrawdownPct": null,
   "targetMet": false,
-  "points": [
-    {
-      "step": 0,
-      "timestamp": "START",
-      "event": "starting_balance",
-      "symbol": "CASH",
-      "pnl": 0,
-      "equity": 10000,
-      "drawdownPct": 0,
-      "targetProgressPct": 76.92,
-      "mode": "paper_simulation",
-      "paperOnly": true
-    }
-  ]
+  "points": []
 }

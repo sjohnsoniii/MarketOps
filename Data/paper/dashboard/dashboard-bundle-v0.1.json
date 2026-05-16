@@ -4,7 +4,7 @@
   "paperOnly": true,
   "dataSource": "alpaca_iex",
   "marketDataSourceLabel": "Alpaca IEX market data",
-  "latestMarketDataRefreshAt": "2026-05-15T15:56:30.365Z",
+  "latestMarketDataRefreshAt": "2026-05-16T02:37:29.702Z",
   "latestBarTimestamp": "2026-05-15T13:48:00Z",
   "liveTradingEnabled": false,
   "orderPlacementEnabled": false,
@@ -15,8 +15,8 @@
     "subscriberSignals": false
   },
   "account": {
-    "startingBalance": 10000,
-    "endingBalance": 10000,
+    "startingBalance": 4218.75,
+    "endingBalance": 4218.75,
     "paperPnl": 0,
     "currency": "USD"
   },
@@ -27,7 +27,7 @@
     "riskApproved": 0,
     "riskBlocked": 8,
     "fakePaperTrades": 0,
-    "equityPoints": 1
+    "equityPoints": 0
   },
   "latestSignals": [
     {
@@ -333,44 +333,40 @@
     }
   ],
   "trades": [],
-  "equityCurve": [
-    {
-      "step": 0,
-      "timestamp": "START",
-      "event": "starting_balance",
-      "symbol": "CASH",
-      "pnl": 0,
-      "equity": 10000,
-      "drawdownPct": 0,
-      "targetProgressPct": 76.92,
-      "mode": "paper_simulation",
-      "paperOnly": true
-    }
-  ],
+  "equityCurve": [],
   "performanceSummary": {
     "generatedAt": "2026-01-03T16:00:00.000Z",
     "mode": "paper_simulation",
     "paperOnly": true,
-    "sampleDataOnly": true,
+    "sampleDataOnly": false,
+    "dataSource": "alpaca_iex",
     "vehiclesScanned": 8,
     "marketBarsScanned": 100,
     "signalsGenerated": 0,
     "riskApproved": 0,
     "riskBlocked": 8,
     "fakePaperTrades": 0,
+    "newTrades": 0,
+    "openPositionCount": 3,
+    "closedTrades": 0,
     "winningTrades": 0,
     "losingTrades": 0,
     "winRatePct": 0,
-    "startingBalance": 10000,
-    "endingBalance": 10000,
+    "startingBalance": 4218.75,
+    "endingBalance": 4218.75,
+    "cashBalance": 4218.75,
+    "totalEquity": 4198.19,
+    "realizedPnl": 0,
+    "unrealizedPnl": -20.56,
     "paperPnl": 0,
     "paperReturnPct": 0,
-    "maxDrawdownPct": 0,
-    "targetProgressPct": 76.92,
+    "maxDrawdownPct": null,
+    "drawdownStatus": "not enough history yet",
+    "targetProgressPct": 0,
     "notes": [
-      "Performance is based on deterministic sample data only.",
-      "No broker, live data, margin, leverage, shorting, options, futures, SMS, or subscriber alerts are enabled.",
-      "This does not prove trading edge. It proves the Phase 1 paper simulation loop runs end-to-end."
+      "Performance is based on real market-data-derived paper simulation.",
+      "No broker, live trading, order placement, margin, leverage, shorting, options, futures, SMS, or subscriber alerts are enabled.",
+      "Not investment performance."
     ]
   },
   "safetyBanner": "MarketOps Phase 1 is paper_simulation only. Market data may refresh from an approved data-only adapter, but trades remain fake paper records with no broker execution, real money, SMS, or subscriber alerts."

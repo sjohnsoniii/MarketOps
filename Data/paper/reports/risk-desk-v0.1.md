@@ -2,18 +2,18 @@
 
 Mode: paper_simulation
 
-Generated: 2026-01-03T16:00:00.000Z
+Generated: 2026-05-16T02:50:17.787Z
 Total signals reviewed: 8
-Approved: 0
-Blocked: 8
+Approved: 3
+Blocked: 5
 
 | Vehicle | Bias | Confidence | Approved | Final Risk | Block Reasons |
 |---|---|---:|---|---|---|
 | SPY | flat | 0.1 | false | blocked | Signal did not qualify as a candidate. Confidence 0.1 is below minimum 0.55. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. |
 | QQQ | flat | 0.1 | false | blocked | Signal did not qualify as a candidate. Confidence 0.1 is below minimum 0.55. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. |
-| AAPL | flat | 0.1 | false | blocked | Signal did not qualify as a candidate. Confidence 0.1 is below minimum 0.55. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. |
-| MSFT | flat | 0.14 | false | blocked | Signal did not qualify as a candidate. Confidence 0.14 is below minimum 0.55. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. |
-| NVDA | flat | 0.13 | false | blocked | Signal did not qualify as a candidate. Confidence 0.13 is below minimum 0.55. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. |
+| AAPL | up | 0.62 | true | medium | None |
+| MSFT | up | 0.66 | true | medium | None |
+| NVDA | up | 0.76 | true | high | None |
 | BTC | none | 0 | false | blocked | Signal did not qualify as a candidate. Confidence 0 is below minimum 0.55. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. Missing invalidation. |
 | ETH | none | 0 | false | blocked | Signal did not qualify as a candidate. Confidence 0 is below minimum 0.55. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. Missing invalidation. |
 | SOL | none | 0 | false | blocked | Signal did not qualify as a candidate. Confidence 0 is below minimum 0.55. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. Missing invalidation. |
@@ -23,7 +23,7 @@ Blocked: 8
 - Paper simulation only.
 - Sample data only.
 - No broker connection.
-- No live market data.
+- Not live trading.
 - No real-money trading.
 - No SMS or subscriber alerts.
 - No margin, leverage, options, futures, shorting, or exchange execution.

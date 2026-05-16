@@ -131,6 +131,13 @@ function updateCycleFromLatestRun({ state = loadCycleState(), generatedAt = new 
   const paperPnlDelta = alreadyApplied ? 0 : Number(latestRun.paperPnl || 0);
 
   if (!alreadyApplied) {
+    if ((cycle.appliedRunIds || []).length === 0) {
+      const paperBalance = fileExists(paths.paperPerformanceJson)
+        ? (loadJson(paths.paperPerformanceJson).cashBalance || getStartingBalance())
+        : (Number(latestRun.startingBalance) || getStartingBalance());
+      cycle.currentBalance = round(paperBalance);
+      cycle.startingBalance = round(paperBalance);
+    }
     cycle.currentBalance = round(Number(cycle.currentBalance || CYCLE_STARTING_BALANCE) + paperPnlDelta);
     cycle.approvedTrades += Number(latestRun.riskApproved || 0);
     cycle.rejectedTrades += Number(latestRun.riskBlocked || 0);

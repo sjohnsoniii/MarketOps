@@ -3,16 +3,16 @@ const { buildEquityCurve } = require("./equityBuilder");
 const { equityReport } = require("../reports/markdownReports");
 const { loadJson, writeJson, writeText } = require("../utils/fileStore");
 const { paths } = require("../utils/paths");
-const { DEFAULT_GENERATED_AT } = require("../signals/simpleSignalScanner");
 
 function runEquity() {
   const config = loadConfig();
   const paperResults = loadJson(paths.tradesJson);
   const targetBalance = config.paperAccount.targetBalance || config.paperAccount.coreTargetBalance || 13000;
+  const generatedAt = paperResults.generatedAt || new Date().toISOString();
   const equityCurve = buildEquityCurve({
     paperResults,
     targetBalance,
-    generatedAt: DEFAULT_GENERATED_AT
+    generatedAt
   });
 
   writeJson(paths.equityJson, equityCurve);

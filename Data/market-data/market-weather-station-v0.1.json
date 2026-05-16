@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "0.1",
+  "generatedAt": "2026-05-16T02:50:18.215Z",
+  "latestRefreshAt": "2026-05-16T02:50:17.720Z",
+  "lastSuccessfulMarketDataRefresh": "2026-05-16T02:50:17.720Z",
+  "symbolsCovered": [
+    "AAPL",
+    "MSFT",
+    "NVDA",
+    "QQQ",
+    "SPY"
+  ],
+  "totalBars": 10138,
+  "perSymbol": {
+    "AAPL": {
+      "symbol": "AAPL",
+      "barCount": 2028,
+      "firstTimestamp": "2026-05-11T12:09:00Z",
+      "lastTimestamp": "2026-05-15T20:18:00Z",
+      "freshnessMinutes": 392.3,
+      "fresh": false,
+      "latestMovePct": 0.98,
+      "usableForSignal": false,
+      "missingReason": "stale"
+    },
+    "MSFT": {
+      "symbol": "MSFT",
+      "barCount": 1977,
+      "firstTimestamp": "2026-05-11T13:28:00Z",
+      "lastTimestamp": "2026-05-15T20:16:00Z",
+      "freshnessMinutes": 394.3,
+      "fresh": false,
+      "latestMovePct": 1.43,
+      "usableForSignal": false,
+      "missingReason": "stale"
+    },
+    "NVDA": {
+      "symbol": "NVDA",
+      "barCount": 2050,
+      "firstTimestamp": "2026-05-11T12:42:00Z",
+      "lastTimestamp": "2026-05-15T20:43:00Z",
+      "freshnessMinutes": 367.3,
+      "fresh": true,
+      "latestMovePct": -1.25,
+      "usableForSignal": true,
+      "missingReason": null
+    },
+    "QQQ": {
+      "symbol": "QQQ",
+      "barCount": 2054,
+      "firstTimestamp": "2026-05-11T12:05:00Z",
+      "lastTimestamp": "2026-05-15T20:54:00Z",
+      "freshnessMinutes": 356.3,
+      "fresh": true,
+      "latestMovePct": -0.27,
+      "usableForSignal": true,
+      "missingReason": null
+    },
+    "SPY": {
+      "symbol": "SPY",
+      "barCount": 2029,
+      "firstTimestamp": "2026-05-11T12:10:00Z",
+      "lastTimestamp": "2026-05-15T20:40:00Z",
+      "freshnessMinutes": 370.3,
+      "fresh": true,
+      "latestMovePct": -0.08,
+      "usableForSignal": true,
+      "missingReason": null
+    }
+  },
+  "dataCoverageStatus": "has_data",
+  "usableForSignalSummary": "3/5 symbols usable",
+  "staleSymbols": [
+    "AAPL",
+    "MSFT"
+  ],
+  "missingSymbols": [],
+  "confidenceReadiness": "ready",
+  "confidenceReadinessReason": "3 symbols have enough bars and fresh data",
+  "rollingHistoryAvailable": true,
+  "alpacaBundleAvailable": true,
+  "backfillAvailable": true,
+  "dataSources": {
+    "alpaca_latest": true,
+    "rolling_history": true,
+    "backfill": true
+  }
+}

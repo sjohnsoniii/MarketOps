@@ -1,10 +1,10 @@
 # MarketOps Automation Readiness Check v0.1
 
-Generated at: 2026-05-16T01:58:00.923Z
+Generated at: 2026-05-16T02:50:18.311Z
 
 ## Readiness Verdict
 
-CROSS_PLATFORM_READY
+NOT_READY
 - Windows scheduler (Task Scheduler) is not available on this platform.
 - PowerShell-based scheduled task operations are not available.
 - All automation checks that require PowerShell return 'not_installed' on Linux.
@@ -57,7 +57,6 @@ CROSS_PLATFORM_READY
 - PASS: office:qa source exists - /home/sjohnsoniii/Projects/MarketOps/Source/marketops-core/src/office/runOfficeQa.js
 - PASS: agents:review source exists - /home/sjohnsoniii/Projects/MarketOps/Source/marketops-core/src/agents/runAgentReviews.js
 - PASS: agents:qa source exists - /home/sjohnsoniii/Projects/MarketOps/Source/marketops-core/src/agents/runAgentsQa.js
-- PASS: paper:full includes simulation, history, dashboard refresh, QA - /home/sjohnsoniii/Projects/MarketOps/Source/marketops-core/src/paper/full.js
 - PASS: office:run includes office and agent review flow - /home/sjohnsoniii/Projects/MarketOps/Source/marketops-core/src/agents/runOfficeWithAgents.js
 - PASS: paper PowerShell runner exists - /home/sjohnsoniii/Projects/MarketOps/Scripts/run-marketops-paper-full-v0.1.ps1
 - PASS: paper refresh v0.2 runner exists - /home/sjohnsoniii/Projects/MarketOps/Scripts/run-marketops-paper-refresh-v0.2.ps1
@@ -112,7 +111,7 @@ CROSS_PLATFORM_READY
 
 ## Checks Failed
 
-None.
+- FAIL: paper:full includes simulation, history, dashboard refresh, QA - Missing: appendRunHistory
 
 ## Output Locations
 
@@ -140,7 +139,7 @@ powershell -ExecutionPolicy Bypass -File "C:\Users\sjohn\Desktop\Projects\Market
 
 ## Risks / Warnings / Cleanup Needed
 
-- No blocking readiness issues found. Installed tasks match approved MarketOps automation scope when present.
+- Resolve failed checks before relying on scheduled automation.
 - Automation remains local, paper-only, fake/sample-money, and review-gated.
 
 ## Confirmations

@@ -1,9 +1,9 @@
 {
   "schemaVersion": "marketops-shareable-snapshot-v0.1",
-  "generatedAt": "2026-05-15T15:56:30.450Z",
+  "generatedAt": "2026-05-16T02:50:18.301Z",
   "mode": "paper_simulation",
   "paperOnly": true,
-  "sampleData": true,
+  "sampleData": false,
   "fakeMoney": true,
   "inDevelopment": true,
   "notFinancialAdvice": true,
@@ -28,22 +28,22 @@
       "currentBalance": 1000,
       "paperPnl": 0,
       "paperReturnPct": 0,
-      "maxDrawdownPct": 0,
-      "daysSurvived": 1.57,
+      "maxDrawdownPct": null,
+      "daysSurvived": 2.02,
       "depletionRisk": "normal",
-      "approvedTrades": 0,
-      "rejectedTrades": 80
+      "approvedTrades": 39,
+      "rejectedTrades": 145
     },
     "signalsAndRisk": {
       "signalsReviewed": 8,
-      "riskApproved": 0,
-      "riskBlocked": 8,
+      "riskApproved": 3,
+      "riskBlocked": 5,
       "fakePaperTrades": 0,
       "noTradeReason": "Risk Desk did not approve any candidate for fake paper execution."
     },
     "refreshStatus": {
-      "lastRefreshAt": "2026-05-15T12:21:37.000Z",
-      "lastSuccessfulRefreshAt": "2026-05-15T12:21:37.000Z",
+      "lastRefreshAt": "2026-05-16T02:50:16.192Z",
+      "lastSuccessfulRefreshAt": "2026-05-16T02:50:16.192Z",
       "lastStatus": "PASS",
       "staleWarning": null,
       "failureReason": null,

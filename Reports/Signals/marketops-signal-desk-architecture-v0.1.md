@@ -1,6 +1,6 @@
 # MarketOps Signal Desk Architecture v0.1
 
-Generated: 2026-05-08T12:00:07.985Z
+Generated: 2026-05-16T02:01:26.044Z
 
 ## Purpose
 

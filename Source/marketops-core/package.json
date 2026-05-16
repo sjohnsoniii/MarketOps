@@ -60,7 +60,16 @@
     "social:preview": "node src/social/runSocialPreview.js",
     "social:queue": "node src/social/runSocialQueue.js",
     "social:check": "node src/social/runSocialReadinessCheck.js",
-    "social:qa": "node src/social/runSocialQa.js"
+    "social:qa": "node src/social/runSocialQa.js",
+    "marketdata:backfill": "node src/marketdata/backfillMarketData.js",
+    "marketdata:rolling": "node src/marketdata/rollingHistoryStore.js",
+    "marketdata:weather": "node src/marketdata/marketWeatherStation.js",
+    "confidence:calibrate": "node src/signals/confidenceCalibration.js",
+    "intraday:simulate": "node src/simulation/runIntradaySimulation.js",
+    "marketops:refresh": "node src/simulation/runMarketOpsRefresh.js",
+    "scheduler:check": "node src/automation/runSchedulerCheck.js",
+    "approvals:waterfall": "node src/approvals/approvalWaterfall.js",
+    "qa:full": "node src/qa/runFullSimulationQa.js"
   },
   "private": true,
   "license": "UNLICENSED"

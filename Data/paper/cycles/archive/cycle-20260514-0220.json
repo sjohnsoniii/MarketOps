@@ -8,21 +8,17 @@
   "depletionThreshold": 0,
   "cycleStartTimestamp": "2026-05-14T02:20:20.137Z",
   "cycleEndTimestamp": null,
-  "hoursSurvived": 37.6,
-  "daysSurvived": 1.57,
-  "approvedTrades": 0,
-  "rejectedTrades": 80,
+  "hoursSurvived": 48.5,
+  "daysSurvived": 2.02,
+  "approvedTrades": 39,
+  "rejectedTrades": 145,
   "rejectionReasons": [
     {
       "reason": "Signal did not qualify as a candidate.",
-      "count": 8
+      "count": 5
     },
     {
       "reason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
-      "count": 8
-    },
-    {
-      "reason": "Confidence threshold is below minimum threshold.",
       "count": 5
     },
     {
@@ -32,6 +28,10 @@
     {
       "reason": "Missing invalidation.",
       "count": 3
+    },
+    {
+      "reason": "Confidence threshold is below minimum threshold.",
+      "count": 2
     }
   ],
   "strategyVersionUsed": "strategy-v0.1-watchlist-threshold-paper",
@@ -60,9 +60,22 @@
     "paper-20260515-021258389Z",
     "paper-20260515-022259154Z",
     "paper-20260515-122136974Z",
-    "paper-20260515-155630434Z"
+    "paper-20260515-155630434Z",
+    "paper-20260516-023024423Z",
+    "paper-20260516-023428178Z",
+    "paper-20260516-023536007Z",
+    "paper-20260516-024633428Z",
+    "paper-20260516-024634029Z",
+    "paper-20260516-024635539Z",
+    "paper-20260516-024753297Z",
+    "paper-20260516-024754719Z",
+    "paper-20260516-024825426Z",
+    "paper-20260516-024826865Z",
+    "paper-20260516-025015508Z",
+    "paper-20260516-025017122Z",
+    "paper-20260516-025017787Z"
   ],
-  "lastRunAppliedAt": "2026-05-15T15:56:30.434Z",
+  "lastRunAppliedAt": "2026-05-16T02:50:17.787Z",
   "externalEffects": false,
   "publishAllowed": false,
   "remainingBalance": 1000,

@@ -1,8 +1,11 @@
+const { runIntradaySimulation } = require("../simulation/runIntradaySimulation");
 const { runQa } = require("../qa/runQa");
 const { runEquity } = require("../performance/equityCurve");
-const { printSimulationSummary, runSimulation } = require("../simulation/runSimulation");
+const { buildPerformanceSummary } = require("../performance/performanceSummary");
+const { performanceReport, tradesReport, equityReport, signalReport, riskReport } = require("../reports/markdownReports");
 const { refreshAlpacaMarketData } = require("../marketdata/alpacaMarketDataAdapter");
 const { parseLocalEnv } = require("../marketdata/localEnv");
+const { writeText } = require("../utils/fileStore");
 const { paths } = require("../utils/paths");
 
 const LEGACY_KEY_NAME = ["ALPACA", "API", "KEY"].join("_");
@@ -26,11 +29,16 @@ async function refreshMarketDataWhenConfigured() {
 }
 
 async function runPaperPipeline() {
-  await refreshMarketDataWhenConfigured();
-  const simulation = runSimulation({ writeOutputs: true });
-  printSimulationSummary(simulation);
+  const simulation = await runIntradaySimulation();
   const equityCurve = runEquity();
-  const qa = runQa({ requireAutomationOutputs: false });
+  const { scan, riskReview, paperResults, generatedAt } = simulation;
+  const performanceSummary = buildPerformanceSummary({ scan, riskReview, paperResults, equityCurve, generatedAt });
+  writeText(paths.performanceReport, performanceReport(performanceSummary));
+  writeText(paths.tradesReport, tradesReport(paperResults));
+  writeText(paths.signalReport, signalReport(scan));
+  writeText(paths.riskReport, riskReport(riskReview));
+  writeText(paths.equityReport, equityReport(equityCurve));
+  const qa = runQa({ requireAutomationOutputs: true });
 
   if (!qa.passed) {
     throw new Error("MarketOps paper pipeline QA failed.");

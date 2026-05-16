@@ -1,6 +1,6 @@
 # MarketOps Public-Safe Dashboard Infrastructure v0.1
 
-Generated at: 2026-05-15T15:56:30.445Z
+Generated at: 2026-05-16T02:50:18.300Z
 
 ## Scope
 
@@ -21,26 +21,26 @@ This dashboard bundle is local and preview-safe. It contains paper simulation me
 
 ## Paper Performance Cards
 
-- Starting paper equity: 10000
-- Ending paper equity: 10000
+- Starting paper equity: 4218.75
+- Ending paper equity: 4218.75
 - Paper P/L: 0
 - Paper return: 0%
-- Max drawdown: 0%
+- Max drawdown: -0.65%
 - Risk-adjusted score: 42.4
 
 ## Signal Funnel
 
 - Vehicles scanned: 8
 - Signals reviewed: 8
-- Candidates: 0
-- Risk approved: 0
-- Risk blocked: 8
+- Candidates: 3
+- Risk approved: 3
+- Risk blocked: 5
 - Fake paper trades: 0
 
 ## Risk Events
 
-- Approval rate: 0%
-- Blocked rate: 100%
+- Approval rate: 37.5%
+- Blocked rate: 62.5%
 - Risk posture: Risk Desk is blocking more than it approves.
 
 ## Regime Summary
@@ -64,7 +64,7 @@ This dashboard bundle is local and preview-safe. It contains paper simulation me
 
 ## Chart-Ready Sections
 
-- Equity curve points: 1
+- Equity curve points: 0
 - Paper P&L timeline points: 30
 - Rolling equity points: 30
 - Drawdown visual sections: current run and rolling runs
@@ -74,31 +74,32 @@ This dashboard bundle is local and preview-safe. It contains paper simulation me
 - Target progress milestones: 4
 - Signal funnel steps: 5
 - Trade outcome bars: 3
-- Risk decision bars: 1
+- Risk decision bars: 3
 - Vehicle contribution rows: 8
 - Return vs drawdown rows: 11
 - Paper account milestone strip points: 4
 - Market data freshness rows: 1
 - Recent market movement rows: 5
 - Bot activity timeline rows: 20
-- Stale data warning rows: 1
+- Stale data warning rows: 2
 - Regime score bars: 6
 - Synthetic benchmark comparison rows: 6
 
 ## Market Data Freshness
 
 - Source/feed: alpaca_iex / iex
-- Market refresh timestamp: 2026-05-15T15:56:30.365Z
+- Market refresh timestamp: 2026-05-16T02:50:17.720Z
 - Latest bar timestamp: 2026-05-15T13:48:00Z
 - Bars loaded: 100
 - Quotes loaded: 5
 - Refresh freshness: fresh
-- Latest bar freshness: aging
+- Latest bar freshness: stale_or_market_closed
 - Raw market data published: false
 
 ## Stale/Fallback Notes
 
-- analytics_summary: stale_context_only - Analytics summary 2026-05-08T03:46:14.425Z is older than latest paper run 2026-05-15T15:56:30.434Z. Dashboard headline cards use current paper outputs instead.
+- analytics_summary: stale_context_only - Analytics summary 2026-05-08T03:46:14.425Z is older than latest paper run 2026-05-16T02:50:17.787Z. Dashboard headline cards use current paper outputs instead.
+- latest_market_bar: market_closed_or_delayed - Latest bar is 782.31 minutes old. Label as delayed/closed-market data, not live tick data.
 
 ## Notes
 

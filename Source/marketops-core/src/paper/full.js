@@ -1,11 +1,11 @@
 const { runQa } = require("../qa/runQa");
 const { runPaperPipeline } = require("./runPaper");
-const { appendRunHistory } = require("./writeHistory");
+const { loadJson } = require("../utils/fileStore");
+const { paths } = require("../utils/paths");
 const { refreshSiteDashboard } = require("../site/refreshSiteDashboard");
 
 async function runPaperFull() {
   await runPaperPipeline();
-  const summary = appendRunHistory({ qaStatus: "PASS" });
   refreshSiteDashboard();
   const qa = runQa({ requireAutomationOutputs: true });
 
@@ -13,6 +13,7 @@ async function runPaperFull() {
     throw new Error("MarketOps paper:full final QA failed.");
   }
 
+  const summary = loadJson(paths.latestRunSummaryJson);
   console.log("MarketOps paper:full complete.");
   console.log(`runId: ${summary.runId}`);
   console.log(`ending paper equity: $${summary.endingEquity.toFixed(2)}`);

@@ -1,6 +1,6 @@
 # MarketOps Paper Cycle Status v0.1
 
-Generated: 2026-05-15T15:56:30.444Z
+Generated: 2026-05-16T02:50:18.299Z
 
 ## Cycle
 
@@ -12,29 +12,29 @@ Generated: 2026-05-15T15:56:30.444Z
 - depletionThreshold: 0
 - cycleStartTimestamp: 2026-05-14T02:20:20.137Z
 - cycleEndTimestamp: null
-- hoursSurvived: 37.6
-- daysSurvived: 1.57
-- approvedTrades: 0
-- rejectedTrades: 80
+- hoursSurvived: 48.5
+- daysSurvived: 2.02
+- approvedTrades: 39
+- rejectedTrades: 145
 - depletionRisk: normal
 - resetTriggerReason: null
 - nextCycleScheduledStart: null
 
 ## Latest Paper Run Applied
 
-- runId: paper-20260515-155630434Z
-- generatedAt: 2026-05-15T15:56:30.434Z
+- runId: paper-20260516-025017787Z
+- generatedAt: 2026-05-16T02:50:17.787Z
 - paperPnl: 0
-- riskApproved: 0
-- riskBlocked: 8
+- riskApproved: 3
+- riskBlocked: 5
 
 ## Rejection Reasons
 
-- Signal did not qualify as a candidate.: 8
-- Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.: 8
-- Confidence threshold is below minimum threshold.: 5
+- Signal did not qualify as a candidate.: 5
+- Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.: 5
 - Confidence 0 is below minimum threshold.: 3
 - Missing invalidation.: 3
+- Confidence threshold is below minimum threshold.: 2
 
 ## Lessons So Far
 

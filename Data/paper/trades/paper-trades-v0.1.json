@@ -1,28 +1,37 @@
 {
-  "generatedAt": "2026-01-03T16:00:00.000Z",
+  "generatedAt": "2026-05-16T02:50:17.787Z",
   "mode": "paper_simulation",
   "paperOnly": true,
   "dataSource": "alpaca_iex",
   "liveTradingEnabled": false,
   "orderPlacementEnabled": false,
-  "sampleDataOnly": true,
-  "startingBalance": 10000,
-  "endingBalance": 10000,
+  "startingCash": 4218.75,
+  "cashBalance": 4218.75,
+  "totalUnrealizedPnl": 0,
+  "totalEquity": 4218.75,
+  "realizedPnl": 0,
+  "maxDrawdown": 58.02,
+  "dailyTradeCount": 0,
+  "maxDailyTrades": 10,
+  "openPositionCount": 3,
+  "maxOpenPositions": 5,
+  "executedTrades": 0,
+  "skippedReasons": [
+    "AAPL: position already open",
+    "MSFT: position already open",
+    "NVDA: position already open"
+  ],
+  "noTradeReason": "No approved candidates passed all day-trading gates",
+  "ledger": [],
+  "trades": [],
+  "notes": [
+    "Intraday day-trading paper simulation.",
+    "Positions remain open until closed or stopped out.",
+    "No real money, broker execution, or live trading."
+  ],
+  "startingBalance": 4218.75,
+  "endingBalance": 4218.75,
   "totalPnl": 0,
   "totalReturnPct": 0,
-  "approvedSignals": 0,
-  "executedTrades": 0,
-  "ledger": [
-    {
-      "ledgerId": "ledger-starting-balance",
-      "timestamp": "START",
-      "eventType": "starting_balance",
-      "symbol": "CASH",
-      "amount": 0,
-      "balance": 10000,
-      "mode": "paper_simulation",
-      "paperOnly": true
-    }
-  ],
-  "trades": []
+  "approvedSignals": 0
 }

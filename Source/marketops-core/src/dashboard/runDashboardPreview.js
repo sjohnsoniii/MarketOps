@@ -237,7 +237,7 @@ function buildHtml(localBundle, snapshot) {
       </div>
       <div class="panel">
         <h2>Candidate Review ${provenanceLabel(chartDS.almostApprovedCandidates)}</h2>
-        ${almostApproved.length ? '<ul>' + almostApproved.slice(0, 6).map((c) => `<li><strong>${h(c.symbol)}: ${h(c.status)}</strong><span>Confidence ${h(c.confidence)} / ${h(c.primaryBlockReason)}</span></li>`).join("") + '</ul>' : '<div class="empty-state">No candidates to review.</div>'}
+        ${almostApproved.length ? '<ul>' + almostApproved.slice(0, 6).map((c) => `<li><strong>${h(c.symbol)}: ${h(c.status)}</strong><span>Scanner Confidence ${h(c.confidence)} / ${h(c.primaryBlockReason)}</span> <span class="pill" style="font-size:.7rem">signal-level score, independent of calibrated confidence</span></li>`).join("") + '</ul>' : '<div class="empty-state">No candidates to review.</div>'}
       </div>
     </div>
 

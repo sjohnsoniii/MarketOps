@@ -14,6 +14,25 @@
     "small": { "paperStartingBalance": 250, "label": "Small paper account (250 paper USD)" },
     "standard": { "paperStartingBalance": 1000, "label": "Standard paper account (1000 paper USD)" }
   },
+  "dayTrading": {
+    "enabled": true,
+    "maxTradesPerDay": 10,
+    "maxOpenPositions": 5,
+    "maxPositionSizePct": 0.25,
+    "maxDailyLossPct": 0.05,
+    "maxDailyDrawdownPct": 0.10,
+    "cooldownMinutesAfterRejected": 15,
+    "cooldownMinutesAfterClosed": 5,
+    "longOnly": true,
+    "marginEnabled": false,
+    "leverageEnabled": false,
+    "optionsEnabled": false,
+    "futuresEnabled": false,
+    "shortingEnabled": false,
+    "cashAccountOnly": true,
+    "scanCadenceMinutes": 15,
+    "dashboardRefreshCadenceHours": 2
+  },
   "safety": {
     "allowBrokerConnection": false,
     "allowLiveTrading": false,
