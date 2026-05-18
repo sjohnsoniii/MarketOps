@@ -2,7 +2,7 @@
 
 Mode: paper_simulation
 
-Generated: 2026-05-16T02:50:17.787Z
+Generated: 2026-05-18T02:25:33.405Z
 Starting balance: $4218.75
 Target balance: $13000.00
 Ending equity: $4218.75

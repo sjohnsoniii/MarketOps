@@ -1,7 +1,7 @@
 # MarketOps Market Data Backfill v0.1
 
-Generated: 2026-05-16T02:50:17.787Z
-Backfill range: 2026-05-09T02:50:17.787Z to 2026-05-16T02:50:17.787Z (7 days)
+Generated: 2026-05-18T02:25:33.405Z
+Backfill range: 2026-05-11T02:25:33.409Z to 2026-05-18T02:25:33.409Z (7 days)
 Data source: alpaca_iex_backfill
 Feed: iex
 

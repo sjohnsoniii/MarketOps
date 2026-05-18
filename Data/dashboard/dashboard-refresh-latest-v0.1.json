@@ -1,9 +1,11 @@
 {
   "schemaVersion": "marketops-dashboard-refresh-v0.1",
-  "generatedAt": "2026-05-16T02:50:18.307Z",
-  "status": "PASS",
-  "errorMessage": null,
-  "failureReason": null,
+  "generatedAt": "2026-05-18T02:25:34.520Z",
+  "status": "FAIL",
+  "errorMessage": "npm run marketdata:refresh failed: Alpaca market data returned too few bars for simulation: 0.",
+  "failureReason": "npm run marketdata:refresh failed: Alpaca market data returned too few bars for simulation: 0.",
+  "lastKnownGoodPreserved": true,
+  "lastKnownGoodGeneratedAt": "2026-05-16T02:50:18.300Z",
   "mode": "paper_simulation",
   "paperOnly": true,
   "externalEffects": false,
@@ -22,14 +24,14 @@
     "latestBarTimestamp": "2026-05-15T13:48:00Z",
     "barsLoaded": 100,
     "quotesLoaded": 5,
-    "refreshAgeMinutes": 0.01,
-    "latestBarAgeMinutes": 782.31,
+    "refreshAgeMinutes": 2855.28,
+    "latestBarAgeMinutes": 3637.58,
     "paperOnly": true,
     "liveTradingEnabled": false
   },
   "paper": {
-    "latestRunId": "paper-20260516-025017787Z",
-    "latestRunGeneratedAt": "2026-05-16T02:50:17.787Z",
+    "latestRunId": "paper-20260518-022533405Z",
+    "latestRunGeneratedAt": "2026-05-18T02:25:33.405Z",
     "endingEquity": 4218.75,
     "paperPnl": 0,
     "paperReturnPct": 0,
@@ -52,7 +54,7 @@
     "latestBundlePath": "Data/dashboard/dashboard-public-safe-v0.1.json",
     "publicBundlePath": "../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json",
     "generatedAt": "2026-05-16T02:50:18.300Z",
-    "publicGeneratedAt": "2026-05-16T02:50:18.302Z",
+    "publicGeneratedAt": "2026-05-18T02:25:34.240Z",
     "chartStatuses": [
       {
         "label": "Paper equity curve",
@@ -309,73 +311,10 @@
   "steps": [
     {
       "command": "npm run marketdata:refresh",
-      "status": "PASS",
-      "startedAt": "2026-05-16T02:50:17.720Z",
-      "completedAt": "2026-05-16T02:50:17.782Z",
-      "detail": "complete"
-    },
-    {
-      "command": "npm run marketdata:qa",
-      "status": "PASS",
-      "startedAt": "2026-05-16T02:50:17.782Z",
-      "completedAt": "2026-05-16T02:50:17.787Z",
-      "detail": "complete"
-    },
-    {
-      "command": "npm run paper:full",
-      "status": "PASS",
-      "startedAt": "2026-05-16T02:50:17.787Z",
-      "completedAt": "2026-05-16T02:50:18.298Z",
-      "detail": "complete"
-    },
-    {
-      "command": "npm run risk:explain",
-      "status": "PASS",
-      "startedAt": "2026-05-16T02:50:18.298Z",
-      "completedAt": "2026-05-16T02:50:18.299Z",
-      "detail": "complete"
-    },
-    {
-      "command": "npm run cycle:build",
-      "status": "PASS",
-      "startedAt": "2026-05-16T02:50:18.299Z",
-      "completedAt": "2026-05-16T02:50:18.299Z",
-      "detail": "complete"
-    },
-    {
-      "command": "npm run cycle:qa",
-      "status": "PASS",
-      "startedAt": "2026-05-16T02:50:18.299Z",
-      "completedAt": "2026-05-16T02:50:18.299Z",
-      "detail": "complete"
-    },
-    {
-      "command": "npm run dashboard:build",
-      "status": "PASS",
-      "startedAt": "2026-05-16T02:50:18.299Z",
-      "completedAt": "2026-05-16T02:50:18.302Z",
-      "detail": "complete"
-    },
-    {
-      "command": "npm run paper:refresh-site",
-      "status": "PASS",
-      "startedAt": "2026-05-16T02:50:18.302Z",
-      "completedAt": "2026-05-16T02:50:18.303Z",
-      "detail": "complete"
-    },
-    {
-      "command": "npm run dashboard:qa",
-      "status": "PASS",
-      "startedAt": "2026-05-16T02:50:18.303Z",
-      "completedAt": "2026-05-16T02:50:18.306Z",
-      "detail": "complete"
-    },
-    {
-      "command": "npm run dashboard:public-refresh:qa",
-      "status": "PASS",
-      "startedAt": "2026-05-16T02:50:18.306Z",
-      "completedAt": "2026-05-16T02:50:18.307Z",
-      "detail": "complete"
+      "status": "FAIL",
+      "startedAt": "2026-05-18T02:25:34.381Z",
+      "completedAt": "2026-05-18T02:25:34.520Z",
+      "detail": "Alpaca market data returned too few bars for simulation: 0."
     }
   ]
 }

@@ -2,7 +2,7 @@
 
 Mode: paper_simulation
 
-Generated: 2026-05-16T02:50:17.787Z
+Generated: 2026-05-18T02:25:33.405Z
 Vehicles scanned: 8
 Market bars scanned: 10138
 Movement threshold: 2%

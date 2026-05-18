@@ -2,7 +2,7 @@
 
 Mode: paper_simulation
 
-Generated: 2026-05-16T02:50:18.298Z
+Generated: 2026-05-18T02:25:34.248Z
 Result: QA PASS
 
 | Check | Status | Detail |
@@ -32,7 +32,7 @@ Result: QA PASS
 | output exists: Data/paper/reports/performance-summary-v0.1.md | PASS | /home/sjohnsoniii/Projects/MarketOps/Data/paper/reports/performance-summary-v0.1.md |
 | output exists: Data/paper/reports/staff-writer-brief-v0.1.md | PASS | /home/sjohnsoniii/Projects/MarketOps/Data/paper/reports/staff-writer-brief-v0.1.md |
 | paper trades are paper-only | PASS | 0 trades checked |
-| trades timestamp is not stale sample default | PASS | generatedAt=2026-05-16T02:50:17.787Z |
+| trades timestamp is not stale sample default | PASS | generatedAt=2026-05-18T02:25:33.405Z |
 | max drawdown is finite | PASS | maxDrawdown=58.02 |
 | open position count present | PASS | count=3 |
 | cash balance present | PASS | cash=4218.75 |

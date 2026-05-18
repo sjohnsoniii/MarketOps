@@ -1,10 +1,19 @@
 # MarketOps Dashboard Refresh Latest v0.1
 
-Generated: 2026-05-16T02:50:18.307Z
+Generated: 2026-05-18T02:25:34.520Z
 
 ## Status
 
-PASS
+FAIL
+
+Error: npm run marketdata:refresh failed: Alpaca market data returned too few bars for simulation: 0.
+
+## Failure Details
+
+- failureReason: npm run marketdata:refresh failed: Alpaca market data returned too few bars for simulation: 0.
+- lastKnownGoodPreserved: true
+- lastKnownGoodGeneratedAt: 2026-05-16T02:50:18.300Z
+- Dashboard and public bundles were NOT overwritten. Last-known-good data is preserved.
 
 ## Safety
 
@@ -27,15 +36,15 @@ PASS
 - latestBarTimestamp: 2026-05-15T13:48:00Z
 - barsLoaded: 100
 - quotesLoaded: 5
-- refreshAgeMinutes: 0.01
-- latestBarAgeMinutes: 782.31
+- refreshAgeMinutes: 2855.28
+- latestBarAgeMinutes: 3637.58
 - paperOnly: true
 - liveTradingEnabled: false
 
 ## Paper Account
 
-- latestRunId: paper-20260516-025017787Z
-- latestRunGeneratedAt: 2026-05-16T02:50:17.787Z
+- latestRunId: paper-20260518-022533405Z
+- latestRunGeneratedAt: 2026-05-18T02:25:33.405Z
 - endingEquity: 4218.75
 - paperPnl: 0
 - paperReturnPct: 0
@@ -94,16 +103,7 @@ PASS
 
 ## Commands Run
 
-- PASS: npm run marketdata:refresh - complete
-- PASS: npm run marketdata:qa - complete
-- PASS: npm run paper:full - complete
-- PASS: npm run risk:explain - complete
-- PASS: npm run cycle:build - complete
-- PASS: npm run cycle:qa - complete
-- PASS: npm run dashboard:build - complete
-- PASS: npm run paper:refresh-site - complete
-- PASS: npm run dashboard:qa - complete
-- PASS: npm run dashboard:public-refresh:qa - complete
+- FAIL: npm run marketdata:refresh - Alpaca market data returned too few bars for simulation: 0.
 
 ## Local Preview
 

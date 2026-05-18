@@ -1,6 +1,6 @@
 # MarketOps Confidence Calibration v0.1
 
-Generated: 2026-05-16T02:50:18.286Z
+Generated: 2026-05-18T02:25:34.220Z
 Confidence threshold: 0.55
 Direction gate: up (>= 0.25%)
 
@@ -17,9 +17,9 @@ Direction gate: up (>= 0.25%)
 |--------|------|-----------|------------|-----------|-------|----------|-------------|--------------------|------------|------------|
 | AAPL | 2028 | stale | 0 | none | 0 | 0 | 0 | false | false | fresh data |
 | MSFT | 1977 | stale | 0 | none | 0 | 0 | 0 | false | false | fresh data |
-| NVDA | 2050 | fresh | 0.1552 | flat | 0.0533 | -0.0333 | 0.0502 | false | false | upward trend, confidence >= 0.55, clear invalidation/stop |
-| QQQ | 2054 | fresh | 0.1755 | flat | 0.0071 | 0.0221 | 0.0263 | false | false | upward trend, confidence >= 0.55, clear invalidation/stop |
-| SPY | 2029 | fresh | 0.1963 | flat | -0.1732 | -0.0831 | 0.021 | false | false | upward trend, confidence >= 0.55, clear invalidation/stop |
+| NVDA | 2050 | stale | 0 | none | 0 | 0 | 0 | false | false | fresh data |
+| QQQ | 2054 | stale | 0 | none | 0 | 0 | 0 | false | false | fresh data |
+| SPY | 2029 | stale | 0 | none | 0 | 0 | 0 | false | false | fresh data |
 
 ## Notes
 

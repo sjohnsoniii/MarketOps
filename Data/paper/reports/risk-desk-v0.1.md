@@ -2,7 +2,7 @@
 
 Mode: paper_simulation
 
-Generated: 2026-05-16T02:50:17.787Z
+Generated: 2026-05-18T02:25:33.405Z
 Total signals reviewed: 8
 Approved: 3
 Blocked: 5
