@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-18T02:25:33.405Z",
+  "generatedAt": "2026-05-19T02:16:58.589Z",
   "mode": "paper_simulation",
   "paperOnly": true,
   "dataSource": "alpaca_iex",
@@ -7,17 +7,16 @@
   "orderPlacementEnabled": false,
   "startingCash": 4218.75,
   "cashBalance": 4218.75,
-  "totalUnrealizedPnl": 0,
-  "totalEquity": 4218.75,
+  "totalUnrealizedPnl": -26.49,
+  "totalEquity": 4192.26,
   "realizedPnl": 0,
-  "maxDrawdown": 58.02,
+  "maxDrawdown": 58.42,
   "dailyTradeCount": 0,
   "maxDailyTrades": 10,
   "openPositionCount": 3,
   "maxOpenPositions": 5,
   "executedTrades": 0,
   "skippedReasons": [
-    "AAPL: position already open",
     "MSFT: position already open",
     "NVDA: position already open"
   ],

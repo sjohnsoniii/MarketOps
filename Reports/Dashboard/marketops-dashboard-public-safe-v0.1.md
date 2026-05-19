@@ -1,6 +1,6 @@
 # MarketOps Public-Safe Dashboard Infrastructure v0.1
 
-Generated at: 2026-05-16T02:50:18.300Z
+Generated at: 2026-05-19T02:17:00.826Z
 
 ## Scope
 
@@ -32,15 +32,15 @@ This dashboard bundle is local and preview-safe. It contains paper simulation me
 
 - Vehicles scanned: 8
 - Signals reviewed: 8
-- Candidates: 3
-- Risk approved: 3
-- Risk blocked: 5
+- Candidates: 2
+- Risk approved: 2
+- Risk blocked: 6
 - Fake paper trades: 0
 
 ## Risk Events
 
-- Approval rate: 37.5%
-- Blocked rate: 62.5%
+- Approval rate: 25%
+- Blocked rate: 75%
 - Risk posture: Risk Desk is blocking more than it approves.
 
 ## Regime Summary
@@ -74,7 +74,7 @@ This dashboard bundle is local and preview-safe. It contains paper simulation me
 - Target progress milestones: 4
 - Signal funnel steps: 5
 - Trade outcome bars: 3
-- Risk decision bars: 3
+- Risk decision bars: 2
 - Vehicle contribution rows: 8
 - Return vs drawdown rows: 11
 - Paper account milestone strip points: 4
@@ -88,8 +88,8 @@ This dashboard bundle is local and preview-safe. It contains paper simulation me
 ## Market Data Freshness
 
 - Source/feed: alpaca_iex / iex
-- Market refresh timestamp: 2026-05-16T02:50:17.720Z
-- Latest bar timestamp: 2026-05-15T13:48:00Z
+- Market refresh timestamp: 2026-05-19T02:16:58.357Z
+- Latest bar timestamp: 2026-05-18T13:44:00Z
 - Bars loaded: 100
 - Quotes loaded: 5
 - Refresh freshness: fresh
@@ -98,8 +98,8 @@ This dashboard bundle is local and preview-safe. It contains paper simulation me
 
 ## Stale/Fallback Notes
 
-- analytics_summary: stale_context_only - Analytics summary 2026-05-08T03:46:14.425Z is older than latest paper run 2026-05-16T02:50:17.787Z. Dashboard headline cards use current paper outputs instead.
-- latest_market_bar: market_closed_or_delayed - Latest bar is 782.31 minutes old. Label as delayed/closed-market data, not live tick data.
+- analytics_summary: stale_context_only - Analytics summary 2026-05-08T03:46:14.425Z is older than latest paper run 2026-05-19T02:16:58.589Z. Dashboard headline cards use current paper outputs instead.
+- latest_market_bar: market_closed_or_delayed - Latest bar is 753.01 minutes old. Label as delayed/closed-market data, not live tick data.
 
 ## Notes
 

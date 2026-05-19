@@ -1,0 +1,28 @@
+{
+  "runId": "paper-20260519-005419917Z",
+  "generatedAt": "2026-05-19T00:54:19.917Z",
+  "mode": "paper_simulation",
+  "paperOnly": true,
+  "sampleData": false,
+  "startingBalance": 4218.75,
+  "endingEquity": 4218.75,
+  "paperPnl": 0,
+  "paperReturnPct": 0,
+  "maxDrawdownPct": null,
+  "vehiclesScanned": 8,
+  "signalsReviewed": 8,
+  "riskApproved": 2,
+  "riskBlocked": 6,
+  "fakePaperTrades": 0,
+  "openPositionCount": 3,
+  "realizedPnl": 0,
+  "unrealizedPnl": -26.49,
+  "cashBalance": 4218.75,
+  "totalEquity": 4192.26,
+  "qaStatus": "PASS",
+  "notes": [
+    "Paper simulation summary only.",
+    "Real market-data-derived paper simulation (Alpaca IEX).",
+    "No broker connection, live trading, or real-money execution."
+  ]
+}

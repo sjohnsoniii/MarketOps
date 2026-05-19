@@ -1,6 +1,6 @@
 # MarketOps Trade Rejection Explainability v0.1
 
-Generated: 2026-05-16T02:50:18.299Z
+Generated: 2026-05-19T02:17:00.825Z
 
 ## Summary
 
@@ -8,8 +8,8 @@ Generated: 2026-05-16T02:50:18.299Z
 - Live trading enabled: false
 - Broker execution enabled: false
 - Signals reviewed: 8
-- Approved for fake paper trade: 3
-- Rejected or observation-only: 5
+- Approved for fake paper trade: 2
+- Rejected or observation-only: 6
 
 ## Plain-English Result
 
@@ -19,11 +19,11 @@ Risk Desk rejected every current fake-trade path because the watchlist moves did
 
 | Symbol | Proposed | Decision | Confidence | Move % | Why rejected | What would make it approvable |
 |---|---|---|---:|---:|---|---|
-| SPY | SPY was reviewed as a watchlist movement, but it was not proposed as a fake trade. | rejected | 0.1 | 0.17 | Signal did not qualify as a candidate. Confidence threshold is below minimum threshold. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. | It would need movement strong enough to become a candidate, confidence at or above 0.55, an up/long-only direction, no shorting, margin, leverage, options, or futures dependency. |
-| QQQ | QQQ was reviewed as a watchlist movement, but it was not proposed as a fake trade. | rejected | 0.1 | -0.44 | Signal did not qualify as a candidate. Confidence threshold is below minimum threshold. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. | It would need movement strong enough to become a candidate, confidence at or above 0.55, an up/long-only direction, no shorting, margin, leverage, options, or futures dependency. |
-| AAPL | AAPL was a possible long-only fake paper candidate. | approved_for_fake_paper_trade | 0.62 | 2.37 | Risk Desk found no blocking issue under current paper-only rules. | It already meets the current paper-only gate. |
-| MSFT | MSFT was a possible long-only fake paper candidate. | approved_for_fake_paper_trade | 0.66 | 3.16 | Risk Desk found no blocking issue under current paper-only rules. | It already meets the current paper-only gate. |
-| NVDA | NVDA was a possible long-only fake paper candidate. | approved_for_fake_paper_trade | 0.76 | 5.23 | Risk Desk found no blocking issue under current paper-only rules. | It already meets the current paper-only gate. |
+| SPY | SPY was reviewed as a watchlist movement, but it was not proposed as a fake trade. | rejected | 0.1 | 0.25 | Signal did not qualify as a candidate. Confidence threshold is below minimum threshold. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. | It would need movement strong enough to become a candidate, confidence at or above 0.55, an up/long-only direction, no shorting, margin, leverage, options, or futures dependency. |
+| QQQ | QQQ was reviewed as a watchlist movement, but it was not proposed as a fake trade. | rejected | 0.1 | -0.72 | Signal did not qualify as a candidate. Confidence threshold is below minimum threshold. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. | It would need movement strong enough to become a candidate, confidence at or above 0.55, an up/long-only direction, no shorting, margin, leverage, options, or futures dependency. |
+| AAPL | AAPL was reviewed as a watchlist movement, but it was not proposed as a fake trade. | rejected | 0.15 | 1.49 | Signal did not qualify as a candidate. Confidence threshold is below minimum threshold. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. | It would need movement strong enough to become a candidate, confidence at or above 0.55, an up/long-only direction, no shorting, margin, leverage, options, or futures dependency. |
+| MSFT | MSFT was a possible long-only fake paper candidate. | approved_for_fake_paper_trade | 0.69 | 3.82 | Risk Desk found no blocking issue under current paper-only rules. | It already meets the current paper-only gate. |
+| NVDA | NVDA was a possible long-only fake paper candidate. | approved_for_fake_paper_trade | 0.7 | 3.95 | Risk Desk found no blocking issue under current paper-only rules. | It already meets the current paper-only gate. |
 | BTC | BTC was reviewed as a watchlist movement, but it was not proposed as a fake trade. | rejected | 0 | 0 | Signal did not qualify as a candidate. Confidence 0 is below minimum threshold. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. Missing invalidation. | It would need movement strong enough to become a candidate, confidence at or above 0.55, an up/long-only direction, a clear invalidation/stop condition, no shorting, margin, leverage, options, or futures dependency. |
 | ETH | ETH was reviewed as a watchlist movement, but it was not proposed as a fake trade. | rejected | 0 | 0 | Signal did not qualify as a candidate. Confidence 0 is below minimum threshold. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. Missing invalidation. | It would need movement strong enough to become a candidate, confidence at or above 0.55, an up/long-only direction, a clear invalidation/stop condition, no shorting, margin, leverage, options, or futures dependency. |
 | SOL | SOL was reviewed as a watchlist movement, but it was not proposed as a fake trade. | rejected | 0 | 0 | Signal did not qualify as a candidate. Confidence 0 is below minimum threshold. Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled. Missing invalidation. | It would need movement strong enough to become a candidate, confidence at or above 0.55, an up/long-only direction, a clear invalidation/stop condition, no shorting, margin, leverage, options, or futures dependency. |
@@ -32,7 +32,7 @@ Risk Desk rejected every current fake-trade path because the watchlist moves did
 
 - SPY: Improve candidate detection so minor watchlist moves are tracked without pretending they are trade-ready.
 - QQQ: Improve candidate detection so minor watchlist moves are tracked without pretending they are trade-ready.
-- AAPL: Keep this signal in the watchlist movement panel and compare it against later outcomes.
+- AAPL: Improve candidate detection so minor watchlist moves are tracked without pretending they are trade-ready.
 - MSFT: Keep this signal in the watchlist movement panel and compare it against later outcomes.
 - NVDA: Keep this signal in the watchlist movement panel and compare it against later outcomes.
 - BTC: Improve candidate detection so minor watchlist moves are tracked without pretending they are trade-ready.

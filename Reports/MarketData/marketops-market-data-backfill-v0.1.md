@@ -1,7 +1,7 @@
 # MarketOps Market Data Backfill v0.1
 
-Generated: 2026-05-18T02:25:33.405Z
-Backfill range: 2026-05-11T02:25:33.409Z to 2026-05-18T02:25:33.409Z (7 days)
+Generated: 2026-05-19T02:16:58.589Z
+Backfill range: 2026-05-12T02:16:58.590Z to 2026-05-19T02:16:58.590Z (7 days)
 Data source: alpaca_iex_backfill
 Feed: iex
 
@@ -9,17 +9,17 @@ Feed: iex
 
 - Symbols requested: SPY, QQQ, AAPL, MSFT, NVDA
 - Symbols covered: 5
-- Total bars: 10138
+- Total bars: 10152
 
 ## Per Symbol
 
 | Symbol | Bar Count | First Timestamp | Last Timestamp | Usable for Signal | Error |
 |--------|-----------|-----------------|----------------|-------------------|-------|
-| SPY | 2029 | 2026-05-11T12:10:00Z | 2026-05-15T20:40:00Z | true | none |
-| QQQ | 2054 | 2026-05-11T12:05:00Z | 2026-05-15T20:54:00Z | true | none |
-| AAPL | 2028 | 2026-05-11T12:09:00Z | 2026-05-15T20:18:00Z | true | none |
-| MSFT | 1977 | 2026-05-11T13:28:00Z | 2026-05-15T20:16:00Z | true | none |
-| NVDA | 2050 | 2026-05-11T12:42:00Z | 2026-05-15T20:43:00Z | true | none |
+| SPY | 2038 | 2026-05-12T12:00:00Z | 2026-05-18T20:01:00Z | true | none |
+| QQQ | 2044 | 2026-05-12T12:15:00Z | 2026-05-18T20:31:00Z | true | none |
+| AAPL | 2041 | 2026-05-12T13:01:00Z | 2026-05-18T20:33:00Z | true | none |
+| MSFT | 1988 | 2026-05-12T13:13:00Z | 2026-05-18T20:20:00Z | true | none |
+| NVDA | 2041 | 2026-05-12T12:06:00Z | 2026-05-18T20:31:00Z | true | none |
 
 ## Provenance
 

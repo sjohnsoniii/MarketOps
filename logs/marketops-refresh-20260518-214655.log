@@ -1,0 +1,456 @@
+================================================
+MarketOps Refresh: 20260518-214655
+Mode: paper_simulation
+Live trading: disabled
+Broker orders: disabled
+External posts: disabled
+Public site sync allowed: 1
+Data-only git publish allowed: 0
+================================================
+
+> marketops-core@0.1.0 marketops:refresh
+> node src/simulation/runMarketOpsRefresh.js
+
+============================================================
+MarketOps Super-Mega-Cruise: MarketOps Refresh v0.1
+Started: 2026-05-19T01:46:55.898Z
+============================================================
+
+[PASS] marketdata:refresh: Fetch latest Alpaca market data (0.2s)
+[PASS] marketdata:backfill: Backfill past 7 days (1.7s)
+[PASS] marketdata:rolling: Rolling history merge (0.1s)
+[PASS] marketdata:weather: Market weather station (0.1s)
+MarketOps Intraday Simulation starting at 2026-05-19T01:46:57.982Z
+Mode: paper_simulation
+
+Vehicles loaded: 8
+Backfill complete: 10152 bars across 5 symbols
+Rolling history: 12143 bars across 5 symbols
+Weather station: has_data, 5/5 symbols usable
+Signals: 8 vehicles, 2 candidates
+Risk review: 2 approved, 6 blocked
+Paper trades: 0 executed, 3 open positions
+Cash balance: $4218.75, Equity: $4192.26
+Equity curve built: 0 points, ending $4218.75
+MarketOps paper history updated.
+runId: paper-20260519-014657982Z
+history file: /home/sjohnsoniii/Projects/MarketOps/Data/paper/history/run-history.json
+
+Run history appended.
+Confidence: 0 approvable, 0 close
+[PASS] intraday:simulate: Intraday simulation (1.8s)
+[PASS] confidence:calibrate: Confidence calibration (0.1s)
+MarketOps trade rejection explainability report written
+report: /home/sjohnsoniii/Projects/MarketOps/Reports/Risk/marketops-trade-rejection-explainability-v0.1.md
+signals reviewed: 8
+rejected: 6
+[PASS] risk:explain: Risk explainability (0.0s)
+MarketOps paper cycle built
+cycleId: cycle-20260514-0220
+status: active
+currentBalance: 1000
+report: /home/sjohnsoniii/Projects/MarketOps/Reports/Cycles/marketops-paper-cycle-status-v0.1.md
+[PASS] cycle:build: Cycle build (0.0s)
+MARKET DATA QA PASS
+checks passed: 28
+checks failed: 0
+market data report path: /home/sjohnsoniii/Projects/MarketOps/Reports/MarketData/marketops-alpaca-market-data-v0.1.md
+dataSource: alpaca_iex
+bars loaded: 100
+quotes loaded: 5
+latest bar timestamp: 2026-05-18T13:44:00Z
+[PASS] marketdata:qa: Market data QA (0.0s)
+CYCLE QA PASS
+checks passed: 15
+checks failed: 0
+qa report: /home/sjohnsoniii/Projects/MarketOps/Reports/Cycles/marketops-paper-cycle-qa-v0.1.md
+[PASS] cycle:qa: Cycle QA (0.0s)
+MarketOps public-safe dashboard bundle complete
+cards generated: 24
+chart sections generated: 35
+rolling runs reviewed: 30
+strongest paper regime: melt_up
+bundle: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/dashboard-public-safe-v0.1.json
+timestamped bundle: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/dashboard-public-safe-20260518-214659.json
+report: /home/sjohnsoniii/Projects/MarketOps/Reports/Dashboard/marketops-dashboard-public-safe-v0.1.md
+MarketOps shareable snapshot written
+snapshot: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/marketops-shareable-snapshot-v0.1.json
+shareable snapshot: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/marketops-shareable-snapshot-v0.1.json
+[PASS] dashboard:build: Dashboard build (0.0s)
+MARKET DATA QA PASS
+checks passed: 28
+checks failed: 0
+market data report path: /home/sjohnsoniii/Projects/MarketOps/Reports/MarketData/marketops-alpaca-market-data-v0.1.md
+dataSource: alpaca_iex
+bars loaded: 100
+quotes loaded: 5
+latest bar timestamp: 2026-05-18T13:44:00Z
+MarketOps Intraday Simulation starting at 2026-05-19T01:47:00.043Z
+Mode: paper_simulation
+
+Vehicles loaded: 8
+Backfill complete: 10152 bars across 5 symbols
+Rolling history: 12143 bars across 5 symbols
+Weather station: has_data, 5/5 symbols usable
+Signals: 8 vehicles, 2 candidates
+Risk review: 2 approved, 6 blocked
+Paper trades: 0 executed, 3 open positions
+Cash balance: $4218.75, Equity: $4192.26
+Equity curve built: 0 points, ending $4218.75
+MarketOps paper history updated.
+runId: paper-20260519-014700043Z
+history file: /home/sjohnsoniii/Projects/MarketOps/Data/paper/history/run-history.json
+
+Run history appended.
+Confidence: 0 approvable, 0 close
+MarketOps paper:run complete.
+mode: paper_simulation
+ending paper equity: $4218.75
+QA checks passed: 44
+
+MarketOps public dashboard data refreshed.
+dashboard bundle: /home/sjohnsoniii/Projects/sj3labs/data/marketops/dashboard-bundle-public-v0.4.json
+activity preview: /home/sjohnsoniii/Projects/sj3labs/data/marketops/market-activity-30d-preview-v0.1.json
+
+MarketOps paper:full complete.
+runId: paper-20260519-014700043Z
+ending paper equity: $4218.75
+paper P/L: $0.00
+final QA: PASS
+
+MarketOps trade rejection explainability report written
+report: /home/sjohnsoniii/Projects/MarketOps/Reports/Risk/marketops-trade-rejection-explainability-v0.1.md
+signals reviewed: 8
+rejected: 6
+MarketOps paper cycle built
+cycleId: cycle-20260514-0220
+status: active
+currentBalance: 1000
+report: /home/sjohnsoniii/Projects/MarketOps/Reports/Cycles/marketops-paper-cycle-status-v0.1.md
+CYCLE QA PASS
+checks passed: 15
+checks failed: 0
+qa report: /home/sjohnsoniii/Projects/MarketOps/Reports/Cycles/marketops-paper-cycle-qa-v0.1.md
+MarketOps public-safe dashboard bundle complete
+cards generated: 24
+chart sections generated: 35
+rolling runs reviewed: 30
+strongest paper regime: melt_up
+bundle: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/dashboard-public-safe-v0.1.json
+timestamped bundle: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/dashboard-public-safe-20260518-214701.json
+report: /home/sjohnsoniii/Projects/MarketOps/Reports/Dashboard/marketops-dashboard-public-safe-v0.1.md
+MarketOps shareable snapshot written
+snapshot: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/marketops-shareable-snapshot-v0.1.json
+shareable snapshot: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/marketops-shareable-snapshot-v0.1.json
+MarketOps public dashboard data refreshed.
+dashboard bundle: /home/sjohnsoniii/Projects/sj3labs/data/marketops/dashboard-bundle-public-v0.4.json
+activity preview: /home/sjohnsoniii/Projects/sj3labs/data/marketops/market-activity-30d-preview-v0.1.json
+
+DASHBOARD QA PASS
+checks passed: 154
+checks failed: 0
+bundle: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/dashboard-public-safe-v0.1.json
+report: /home/sjohnsoniii/Projects/MarketOps/Reports/Dashboard/marketops-dashboard-public-safe-v0.1.md
+PUBLIC DASHBOARD REFRESH QA PASS
+checks passed: 24
+checks failed: 0
+cadence report: /home/sjohnsoniii/Projects/MarketOps/Reports/Dashboard/marketops-public-dashboard-refresh-cadence-v0.1.md
+MarketOps dashboard refresh PASS
+refresh report: /home/sjohnsoniii/Projects/MarketOps/Reports/Dashboard/marketops-dashboard-refresh-latest-v0.1.md
+[PASS] dashboard:refresh: Dashboard refresh (2.0s)
+NOT_READY
+checks passed: 70
+checks failed: 1
+install state: {"paper":"not_installed","office":"not_installed","marketOpsTaskCount":0,"platform":"Linux","schedulerAvailable":false}
+readiness report: /home/sjohnsoniii/Projects/MarketOps/Reports/Automation/marketops-automation-readiness-v0.1.md
+[PASS] automation:check: Automation check (0.0s)
+Scheduler check: ISSUES_FOUND
+Checks passed: 8, failed: 1
+Report: /home/sjohnsoniii/Projects/MarketOps/Reports/Automation/marketops-scheduler-check-v0.1.md
+[PASS] scheduler:check: Scheduler check (0.0s)
+
+============================================================
+MarketOps Refresh Summary
+============================================================
+Total steps: 14
+Passed: 14
+Skipped: 0
+Failed: 0
+
+  [OK] marketdata:refresh (0.2s)
+  [OK] marketdata:backfill (1.7s)
+  [OK] marketdata:rolling (0.1s)
+  [OK] marketdata:weather (0.1s)
+  [OK] intraday:simulate (1.8s)
+  [OK] confidence:calibrate (0.1s)
+  [OK] risk:explain (0.0s)
+  [OK] cycle:build (0.0s)
+  [OK] marketdata:qa (0.0s)
+  [OK] cycle:qa (0.0s)
+  [OK] dashboard:build (0.0s)
+  [OK] dashboard:refresh (2.0s)
+  [OK] automation:check (0.0s)
+  [OK] scheduler:check (0.0s)
+
+MarketOps refresh: ALL PASS
+
+
+Refresh exit code: 0
+Refresh status: PASS
+Market data status: FRESH_BARS
+Chart status: 2 empty/27 total
+
+Generating public trial status...
+
+> marketops-core@0.1.0 public:trial-status
+> node src/public/generatePublicTrialStatus.js
+
+Public trial status generated: /home/sjohnsoniii/Projects/MarketOps/Data/public/marketops-public-trial-status-v0.1.json
+Public trial status copied to sj3labs: /home/sjohnsoniii/Projects/sj3labs/data/marketops/marketops-public-trial-status-v0.1.json
+Status: OK
+Open positions: 3
+Fake trades: 0
+Approved signals: 151
+Rejected signals: 473
+Public trial status exit code: 0
+
+Syncing public-safe outputs to sj3labs...
+================================================
+MarketOps → sj3labs Public Sync: 20260518-214702
+Public site sync allowed: 1
+================================================
+
+[OK] sj3labs found at /home/sjohnsoniii/Projects/MarketOps/../sj3labs
+
+--- Copying public-safe JSON files ---
+[COPIED] marketops-public-trial-status-v0.1.json
+[COPIED] dashboard-public-safe-v0.1.json
+[COPIED] dashboard-refresh-latest-v0.1.json
+[COPIED] dashboard-refresh-health-v0.1.json
+[COPIED] marketops-shareable-snapshot-v0.1.json
+
+--- Dashboard page check ---
+[OK] Dashboard page exists in sj3labs
+
+--- Leak checks ---
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:5:  "realMarketDataInputs": true,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:6:  "marketDataSourceLabel": "Alpaca IEX market data",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:8:  "latestMarketDataRefreshAt": "2026-05-16T02:37:29.702Z",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:9:  "latestMarketDataRefresh": {
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:15:  "latestAlpacaBarTimestamp": "2026-05-15T13:48:00Z",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:20:  "orderPlacementEnabled": false,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:23:  "rawMarketDataPublished": false,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:44:      "watchlistMovementSummary": "real_alpaca_iex_market_movement",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:45:      "vehicleDirectionCounts": "real_alpaca_iex_market_movement",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:48:      "rollingDashboardHistory": "real_paper_run_history",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:49:      "staleDataWarningPanel": true,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:64:  "nextExpectedRefreshAt": "2026-05-19T03:47:01.823Z",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:65:  "refreshCadenceMinutes": 120,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:66:  "latestPublicRefreshAt": "2026-05-19T01:47:01.823Z",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:75:  "remainingToThirtyPctTarget": 8781.25,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:81:  "signalsGeneratedCount": 2,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:105:    "nextCycleScheduledStart": null,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:112:  "dashboardRefreshHealth": {
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:115:    "lastSuccessfulRefreshAt": "2026-05-19T01:46:54.531Z",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:119:    "refreshIntervalTargetHours": 2,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:124:  "marketActivityHeartbeat": {
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:133:  "marketDataFreshnessPanel": {
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:142:    "refreshFreshnessLabel": "stale_or_market_closed",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:143:    "latestBarFreshnessLabel": "stale_or_market_closed",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:144:    "rawMarketDataPublished": false,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:145:    "publicSafeDerivedOnly": true,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:148:  "watchlistQuoteSnapshot": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:200:  "watchlistMovementSummary": {
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:256:  "vehicleDirectionCounts": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:270:  "upDownFlatVehicleCounts": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:328:  "signalCandidatesGenerated": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:342:  "signalConfidenceDistribution": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:360:  "riskRejectionReasons": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:382:  "riskRejectionCountsByReason": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:404:  "almostApprovedCandidates": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:492:  "symbolMovementPreview": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:559:  "recentMarketMovementPanel": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:693:  "rollingMarketMovement": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:934:  "rollingQuoteSnapshots": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:986:  "rollingDashboardHistory": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:1490:  "staleDataWarningPanel": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:1532:  "publicSafeVehicleContribution": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:1648:  "returnVsDrawdownSnapshot": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:1749:  "paperAccountMilestoneStrip": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:1780:    "latestDisappointment": "6 sample signal(s) were blocked by Risk Desk; useful, but not glamorous.",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json:1783:    "whatChangedSinceLastUpdate": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.3.json:47:  "publicSafeVehicleContribution": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:12:  "orderPlacementEnabled": false,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:13:  "brokerExecutionEnabled": false,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:14:  "socialPostingEnabled": false,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:15:  "emailSmsSendingEnabled": false,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:16:  "rawMarketDataPublished": false,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:32:    "latestRunGeneratedAt": "2026-05-19T01:47:00.043Z",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:49:    "nextCycleScheduledStart": null
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:83:        "key": "watchlistMovementSummary",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:91:        "key": "vehicleDirectionCounts",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:107:        "key": "signalCandidatesGenerated",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:115:        "key": "signalConfidenceDistribution",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:123:        "key": "riskRejectionReasons",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:131:        "key": "almostApprovedCandidates",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:195:        "key": "returnVsDrawdownSnapshot",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:203:        "key": "paperAccountMilestoneStrip",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:219:        "key": "marketDataFreshnessPanel",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:227:        "key": "recentMarketMovementPanel",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:243:        "key": "staleDataWarningPanel",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:267:        "key": "syntheticBenchmarkComparison",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:274:    "staleOrFallbackCharts": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-latest-v0.1.json:301:        "key": "syntheticBenchmarkComparison",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-health-v0.1.json:6:  "lastSuccessfulRefreshAt": "2026-05-19T01:47:01.835Z",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-refresh-health-v0.1.json:11:  "refreshIntervalTargetHours": 2,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-v0.1.json:28:  "publicSafeRiskSummary": {
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-v0.1.json:37:  "publicSafeTradeSummary": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:7:  "realMarketDataInputs": true,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:10:  "latestMarketDataRefreshAt": "2026-05-19T01:46:59.882Z",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:11:  "latestAlpacaBarTimestamp": "2026-05-18T13:44:00Z",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:13:  "orderPlacementEnabled": false,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:20:  "rawMarketDataPublished": false,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:38:    "currentPaperPerformance": {
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:83:    "tradeOutcomeDistribution": {
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:89:      "averageTradeReturnPct": -3.15,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:113:      "finalRiskLevelCounts": {
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:117:      "originalRiskLevelCounts": {
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:147:      "strongestPaperRegime": "melt_up",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:149:      "worstSyntheticDrawdownRegime": "panic_drawdown",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:166:          "syntheticPeriodDrawdownPct": -0.12,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:173:          "syntheticPeriodDrawdownPct": -5.62,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:180:          "syntheticPeriodDrawdownPct": -0.67,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:187:          "syntheticPeriodDrawdownPct": -15.35,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:194:          "syntheticPeriodDrawdownPct": -0.02,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:201:          "syntheticPeriodDrawdownPct": -0.55,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:205:      "syntheticBenchmarkComparison": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:210:          "benchmarkComparisonPct": -2.86
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:216:          "benchmarkComparisonPct": 5.92
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:222:          "benchmarkComparisonPct": 0.1
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:228:          "benchmarkComparisonPct": 15.78
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:234:          "benchmarkComparisonPct": -0.79
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:240:          "benchmarkComparisonPct": -9.33
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:244:    "contentGenerationStats": {
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:249:      "draftReviewRequiredCount": 33,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:275:      "nextSuggestedReviewWindow": "2026-05-27",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:277:      "routineItemsDeferredCount": 18,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:292:    "marketDataFreshnessPanel": {
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:301:      "refreshFreshnessLabel": "fresh",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:302:      "latestBarFreshnessLabel": "stale_or_market_closed",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:303:      "rawMarketDataPublished": false,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:304:      "publicSafeDerivedOnly": true,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:307:      "orderPlacementEnabled": false,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:311:    "watchlistMovementSummary": {
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:368:    "vehicleDirectionCounts": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:404:    "signalCandidatesGenerated": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:418:    "signalConfidenceDistribution": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:436:    "riskRejectionReasons": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:458:    "almostApprovedCandidates": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:540:    "recentMarketMovementPanel": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:713:    "staleDataWarningPanel": {
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:733:      "strongestPaperRegime": "melt_up",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:752:      "nextCycleScheduledStart": null,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:763:      "progressTowardTargetPct": 0,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:790:      "orderPlacementEnabled": false,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:791:      "rawMarketDataPublished": false
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:793:    "dashboardRefreshHealth": {
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:796:      "lastSuccessfulRefreshAt": "2026-05-19T01:46:54.531Z",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:800:      "refreshIntervalTargetHours": 2,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:1473:    "watchlistMovementSummary": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:1520:    "vehicleDirectionCounts": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:1556:    "signalCandidatesGenerated": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:1570:    "signalConfidenceDistribution": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:1588:    "riskRejectionReasons": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:1610:    "almostApprovedCandidates": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2076:    "returnVsDrawdownSnapshot": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2133:    "paperAccountMilestoneStrip": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2156:        "syntheticPeriodDrawdownPct": -0.12,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2163:        "syntheticPeriodDrawdownPct": -5.62,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2170:        "syntheticPeriodDrawdownPct": -0.67,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2177:        "syntheticPeriodDrawdownPct": -15.35,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2184:        "syntheticPeriodDrawdownPct": -0.02,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2191:        "syntheticPeriodDrawdownPct": -0.55,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2195:    "syntheticBenchmarkComparison": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2200:        "benchmarkComparisonPct": -2.86
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2206:        "benchmarkComparisonPct": 5.92
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2212:        "benchmarkComparisonPct": 0.1
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2218:        "benchmarkComparisonPct": 15.78
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2224:        "benchmarkComparisonPct": -0.79
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2230:        "benchmarkComparisonPct": -9.33
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2233:    "marketDataFreshnessPanel": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2243:        "refreshFreshnessLabel": "fresh",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2244:        "latestBarFreshnessLabel": "stale_or_market_closed",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2245:        "rawMarketDataPublished": false,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2246:        "publicSafeDerivedOnly": true,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2249:        "orderPlacementEnabled": false,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2254:    "recentMarketMovementPanel": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:2321:    "marketMovementSeries": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3215:    "staleDataWarningPanel": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3232:        "strongestPaperRegime": "melt_up",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3253:        "nextCycleScheduledStart": null,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3261:    "dashboardRefreshHealth": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3265:        "lastSuccessfulRefreshAt": "2026-05-19T01:46:54.531Z",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3267:        "refreshIntervalTargetHours": 2,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3319:    "watchlistMovementSummary": "real_alpaca_iex_market_movement",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3320:    "vehicleDirectionCounts": "real_alpaca_iex_market_movement",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3322:    "signalCandidatesGenerated": "real_paper_signal_scans",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3323:    "signalConfidenceDistribution": "real_paper_signal_scans",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3324:    "riskRejectionReasons": "real_paper_risk_decisions",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3325:    "almostApprovedCandidates": "real_paper_signal_scans_plus_risk_decisions",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3334:    "returnVsDrawdownSnapshot": "real_paper_equity_curve_plus_history",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3335:    "paperAccountMilestoneStrip": "real_paper_equity_curve_plus_config_target",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3337:    "syntheticBenchmarkComparison": "synthetic_analytics_from_regime_rows",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3338:    "marketDataFreshnessPanel": "real_market_data_or_sample_freshness",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3339:    "recentMarketMovementPanel": "real_alpaca_iex_market_movement",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3340:    "marketMovementSeries": "real_alpaca_iex_market_movement",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3342:    "staleDataWarningPanel": true,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3345:    "dashboardRefreshHealth": "real_refresh_health_tracker",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3363:    "rollingPaperReturnPctValues": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-public-safe-v0.1.json:3395:    "rollingMaxDrawdownPctValues": [
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/marketops-public-trial-status-v0.1.json:9:  "latestMarketDataStatus": "PASS",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/marketops-public-trial-status-v0.1.json:12:  "lastSuccessfulRefreshAt": "2026-05-19T01:47:01.835Z",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/marketops-public-trial-status-v0.1.json:22:  "rejectedSignalsCount": 473,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/marketops-public-trial-status-v0.1.json:23:  "approvedSignalsCount": 151,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/marketops-public-trial-status-v0.1.json:26:  "publicFailureSummary": null,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/marketops-public-trial-status-v0.1.json:27:  "lastKnownGoodPreserved": false,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/marketops-public-trial-status-v0.1.json:28:  "lastKnownGoodGeneratedAt": null,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/marketops-shareable-snapshot-v0.1.json:14:  "orderPlacementEnabled": false,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/marketops-shareable-snapshot-v0.1.json:46:      "lastSuccessfulRefreshAt": "2026-05-19T01:46:54.531Z",
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/marketops-shareable-snapshot-v0.1.json:50:      "refreshIntervalTargetHours": 2,
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.2.json:28:  "publicSafeRiskSummary": {
+/home/sjohnsoniii/Projects/MarketOps/../sj3labs/data/marketops/dashboard-bundle-public-v0.2.json:37:  "publicSafeTradeSummary": [
+WARN: Possible long string values detected - manual review recommended
+[OK] Leak checks passed
+
+--- sj3labs git status ---
+Changes in sj3labs (outside our data):
+ M data/marketops/dashboard-bundle-public-v0.4.json
+ M data/marketops/dashboard-public-safe-v0.1.json
+ M data/marketops/dashboard-refresh-health-v0.1.json
+ M data/marketops/dashboard-refresh-latest-v0.1.json
+ M data/marketops/marketops-public-trial-status-v0.1.json
+ M data/marketops/marketops-shareable-snapshot-v0.1.json
+ M marketops/dashboard/index.html
+ M marketops/marketops.css
+
+Committing and pushing sj3labs...
+[main 2fd5977] Update MarketOps public paper trial status
+ 6 files changed, 414 insertions(+), 414 deletions(-)
+[COMMITTED]
+Current branch: main
+To https://github.com/sjohnsoniii/sj3labs-site.git
+   83c1f65..2fd5977  main -> main
+[PUSHED] origin main
+
+--- Writing sync report ---
+Sync report: /home/sjohnsoniii/Projects/MarketOps/Reports/Public/sync-report-20260518-214702.md
+Log file: /home/sjohnsoniii/Projects/MarketOps/logs/public-sync-20260518-214702.log
+
+=== Sync complete ===
+Public sync exit code: 0
+Data-only git publish not allowed (MARKETOPS_ALLOW_DATA_ONLY_GIT_PUBLISH != 1).
+Scheduler report: /home/sjohnsoniii/Projects/MarketOps/Reports/Scheduler/marketops-scheduled-public-data-publish-repair-v0.3.md
+
+Completed: 2026-05-18T21:47:03-0400
+Refresh exit: 0, Final: 0, Status: PASS
+Scheduler report: /home/sjohnsoniii/Projects/MarketOps/Reports/Scheduler/marketops-scheduled-public-data-publish-repair-v0.3.md

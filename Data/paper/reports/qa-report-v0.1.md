@@ -2,7 +2,7 @@
 
 Mode: paper_simulation
 
-Generated: 2026-05-18T02:25:34.248Z
+Generated: 2026-05-19T02:17:00.824Z
 Result: QA PASS
 
 | Check | Status | Detail |
@@ -32,11 +32,11 @@ Result: QA PASS
 | output exists: Data/paper/reports/performance-summary-v0.1.md | PASS | /home/sjohnsoniii/Projects/MarketOps/Data/paper/reports/performance-summary-v0.1.md |
 | output exists: Data/paper/reports/staff-writer-brief-v0.1.md | PASS | /home/sjohnsoniii/Projects/MarketOps/Data/paper/reports/staff-writer-brief-v0.1.md |
 | paper trades are paper-only | PASS | 0 trades checked |
-| trades timestamp is not stale sample default | PASS | generatedAt=2026-05-18T02:25:33.405Z |
-| max drawdown is finite | PASS | maxDrawdown=58.02 |
+| trades timestamp is not stale sample default | PASS | generatedAt=2026-05-19T02:16:58.589Z |
+| max drawdown is finite | PASS | maxDrawdown=58.42 |
 | open position count present | PASS | count=3 |
 | cash balance present | PASS | cash=4218.75 |
-| total equity present | PASS | equity=4218.75 |
+| total equity present | PASS | equity=4192.26 |
 | open position count matches trades | PASS | trades_with_open_status=0 positions=3 |
 | no sample-only language in real-data simulation | PASS | sampleDataOnly=undefined |
 | automation output exists: Data/paper/history/run-history.json | PASS | /home/sjohnsoniii/Projects/MarketOps/Data/paper/history/run-history.json |

@@ -2,12 +2,12 @@
   "startingCash": 10000,
   "cashBalance": 4218.75,
   "realizedPnl": 0,
-  "unrealizedPnl": 0,
-  "totalEquity": 4218.75,
-  "maxDrawdown": 58.02,
+  "unrealizedPnl": -26.49,
+  "totalEquity": 4192.26,
+  "maxDrawdown": 58.42,
   "peakEquity": 10000,
   "dailyRealizedPnl": 0,
   "dailyTradeCount": 0,
-  "dailyDrawdown": 57.81,
-  "tradeDate": "2026-05-18"
+  "dailyDrawdown": 58.08,
+  "tradeDate": "2026-05-19"
 }

@@ -2,16 +2,16 @@
 
 Mode: paper_simulation
 
-Generated: 2026-05-18T02:25:33.405Z
+Generated: 2026-05-19T02:16:58.589Z
 Starting balance: $4218.75
 Cash balance: $4218.75
-Total equity: $4218.75
+Total equity: $4192.26
 Realized P/L: $0.00
-Unrealized P/L: $0.00
+Unrealized P/L: $-26.49
 Paper return: 0.00%
 New trades executed this run: 0
 Open positions: 3
-Max drawdown: 58.02%
+Max drawdown: 58.42%
 
 ### Open Positions
 
@@ -26,7 +26,6 @@ Max drawdown: 58.02%
 
 ### Skipped / No-Trade Reasons
 
-- AAPL: position already open
 - MSFT: position already open
 - NVDA: position already open
 

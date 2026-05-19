@@ -1,27 +1,27 @@
 # MarketOps Market Weather Station v0.1
 
-Generated: 2026-05-18T02:25:34.131Z
+Generated: 2026-05-19T02:17:00.665Z
 
 ## Summary
 
-- Latest market data refresh: 2026-05-16T02:50:17.720Z
+- Latest market data refresh: 2026-05-19T02:16:58.357Z
 - Symbols covered: 5
-- Total bars: 10138
+- Total bars: 12143
 - Data coverage: has_data
-- Usable for signal: 0/5 symbols usable
-- Confidence readiness: not_ready
-- Stale symbols: AAPL, MSFT, NVDA, QQQ, SPY
+- Usable for signal: 5/5 symbols usable
+- Confidence readiness: ready
+- Stale symbols: none
 - Missing symbols: none
 
 ## Per Symbol
 
 | Symbol | Bar Count | First | Last | Freshness (min) | Status | Latest Move | Usable | Missing Reason |
 |--------|-----------|-------|------|-----------------|--------|-------------|--------|----------------|
-| AAPL | 2028 | 2026-05-11T12:09:00Z | 2026-05-15T20:18:00Z | 3247.57 | stale | 0.98% | false | stale |
-| MSFT | 1977 | 2026-05-11T13:28:00Z | 2026-05-15T20:16:00Z | 3249.57 | stale | 1.43% | false | stale |
-| NVDA | 2050 | 2026-05-11T12:42:00Z | 2026-05-15T20:43:00Z | 3222.57 | stale | -1.25% | false | stale |
-| QQQ | 2054 | 2026-05-11T12:05:00Z | 2026-05-15T20:54:00Z | 3211.57 | stale | -0.27% | false | stale |
-| SPY | 2029 | 2026-05-11T12:10:00Z | 2026-05-15T20:40:00Z | 3225.57 | stale | -0.08% | false | stale |
+| AAPL | 2434 | 2026-05-11T12:09:00Z | 2026-05-18T20:33:00Z | 344.01 | fresh | -0.24% | true | ok |
+| MSFT | 2377 | 2026-05-11T13:28:00Z | 2026-05-18T20:20:00Z | 357.01 | fresh | 0.1% | true | ok |
+| NVDA | 2446 | 2026-05-11T12:42:00Z | 2026-05-18T20:31:00Z | 346.01 | fresh | -1.68% | true | ok |
+| QQQ | 2451 | 2026-05-11T12:05:00Z | 2026-05-18T20:31:00Z | 346.01 | fresh | 0.16% | true | ok |
+| SPY | 2435 | 2026-05-11T12:10:00Z | 2026-05-18T20:01:00Z | 376.01 | fresh | 0.04% | true | ok |
 
 ## Data Sources Available
 

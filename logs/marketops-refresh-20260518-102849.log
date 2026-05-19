@@ -1,0 +1,195 @@
+================================================
+MarketOps Refresh: 20260518-102849
+Mode: paper_simulation
+Live trading: disabled
+Broker orders: disabled
+External posts: disabled
+Public site sync allowed: 1
+================================================
+
+> marketops-core@0.1.0 marketops:refresh
+> node src/simulation/runMarketOpsRefresh.js
+
+============================================================
+MarketOps Super-Mega-Cruise: MarketOps Refresh v0.1
+Started: 2026-05-18T14:28:49.698Z
+============================================================
+
+[PASS] marketdata:refresh: Fetch latest Alpaca market data (0.2s)
+[PASS] marketdata:backfill: Backfill past 7 days (1.5s)
+[PASS] marketdata:rolling: Rolling history merge (0.1s)
+[PASS] marketdata:weather: Market weather station (0.0s)
+MarketOps Intraday Simulation starting at 2026-05-18T14:28:51.594Z
+Mode: paper_simulation
+
+Vehicles loaded: 8
+Backfill complete: 10162 bars across 5 symbols
+Rolling history: 10480 bars across 5 symbols
+Weather station: has_data, 5/5 symbols usable
+Signals: 8 vehicles, 2 candidates
+Risk review: 2 approved, 6 blocked
+Paper trades: 0 executed, 3 open positions
+Cash balance: $4218.75, Equity: $4196.30
+Equity curve built: 0 points, ending $4218.75
+MarketOps paper history updated.
+runId: paper-20260518-142851594Z
+history file: /home/sjohnsoniii/Projects/MarketOps/Data/paper/history/run-history.json
+
+Run history appended.
+Confidence: 0 approvable, 1 close
+[PASS] intraday:simulate: Intraday simulation (1.7s)
+[PASS] confidence:calibrate: Confidence calibration (0.1s)
+MarketOps trade rejection explainability report written
+report: /home/sjohnsoniii/Projects/MarketOps/Reports/Risk/marketops-trade-rejection-explainability-v0.1.md
+signals reviewed: 8
+rejected: 6
+[PASS] risk:explain: Risk explainability (0.0s)
+MarketOps paper cycle built
+cycleId: cycle-20260514-0220
+status: active
+currentBalance: 1000
+report: /home/sjohnsoniii/Projects/MarketOps/Reports/Cycles/marketops-paper-cycle-status-v0.1.md
+[PASS] cycle:build: Cycle build (0.0s)
+MARKET DATA QA PASS
+checks passed: 28
+checks failed: 0
+market data report path: /home/sjohnsoniii/Projects/MarketOps/Reports/MarketData/marketops-alpaca-market-data-v0.1.md
+dataSource: alpaca_iex
+bars loaded: 100
+quotes loaded: 5
+latest bar timestamp: 2026-05-18T13:44:00Z
+[PASS] marketdata:qa: Market data QA (0.0s)
+CYCLE QA PASS
+checks passed: 15
+checks failed: 0
+qa report: /home/sjohnsoniii/Projects/MarketOps/Reports/Cycles/marketops-paper-cycle-qa-v0.1.md
+[PASS] cycle:qa: Cycle QA (0.0s)
+MarketOps public-safe dashboard bundle complete
+cards generated: 24
+chart sections generated: 35
+rolling runs reviewed: 30
+strongest paper regime: melt_up
+bundle: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/dashboard-public-safe-v0.1.json
+timestamped bundle: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/dashboard-public-safe-20260518-102853.json
+report: /home/sjohnsoniii/Projects/MarketOps/Reports/Dashboard/marketops-dashboard-public-safe-v0.1.md
+MarketOps shareable snapshot written
+snapshot: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/marketops-shareable-snapshot-v0.1.json
+shareable snapshot: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/marketops-shareable-snapshot-v0.1.json
+[PASS] dashboard:build: Dashboard build (0.0s)
+MARKET DATA QA PASS
+checks passed: 28
+checks failed: 0
+market data report path: /home/sjohnsoniii/Projects/MarketOps/Reports/MarketData/marketops-alpaca-market-data-v0.1.md
+dataSource: alpaca_iex
+bars loaded: 100
+quotes loaded: 5
+latest bar timestamp: 2026-05-18T13:44:00Z
+MarketOps Intraday Simulation starting at 2026-05-18T14:28:53.517Z
+Mode: paper_simulation
+
+Vehicles loaded: 8
+Backfill complete: 10162 bars across 5 symbols
+Rolling history: 10480 bars across 5 symbols
+Weather station: has_data, 5/5 symbols usable
+Signals: 8 vehicles, 2 candidates
+Risk review: 2 approved, 6 blocked
+Paper trades: 0 executed, 3 open positions
+Cash balance: $4218.75, Equity: $4196.30
+Equity curve built: 0 points, ending $4218.75
+MarketOps paper history updated.
+runId: paper-20260518-142853517Z
+history file: /home/sjohnsoniii/Projects/MarketOps/Data/paper/history/run-history.json
+
+Run history appended.
+Confidence: 0 approvable, 1 close
+MarketOps paper:run complete.
+mode: paper_simulation
+ending paper equity: $4218.75
+QA checks passed: 44
+
+MarketOps public dashboard data refreshed.
+dashboard bundle: /home/sjohnsoniii/Projects/sj3labs/data/marketops/dashboard-bundle-public-v0.4.json
+activity preview: /home/sjohnsoniii/Projects/sj3labs/data/marketops/market-activity-30d-preview-v0.1.json
+
+MarketOps paper:full complete.
+runId: paper-20260518-142853517Z
+ending paper equity: $4218.75
+paper P/L: $0.00
+final QA: PASS
+
+MarketOps trade rejection explainability report written
+report: /home/sjohnsoniii/Projects/MarketOps/Reports/Risk/marketops-trade-rejection-explainability-v0.1.md
+signals reviewed: 8
+rejected: 6
+MarketOps paper cycle built
+cycleId: cycle-20260514-0220
+status: active
+currentBalance: 1000
+report: /home/sjohnsoniii/Projects/MarketOps/Reports/Cycles/marketops-paper-cycle-status-v0.1.md
+CYCLE QA PASS
+checks passed: 15
+checks failed: 0
+qa report: /home/sjohnsoniii/Projects/MarketOps/Reports/Cycles/marketops-paper-cycle-qa-v0.1.md
+MarketOps public-safe dashboard bundle complete
+cards generated: 24
+chart sections generated: 35
+rolling runs reviewed: 30
+strongest paper regime: melt_up
+bundle: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/dashboard-public-safe-v0.1.json
+timestamped bundle: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/dashboard-public-safe-20260518-102855.json
+report: /home/sjohnsoniii/Projects/MarketOps/Reports/Dashboard/marketops-dashboard-public-safe-v0.1.md
+MarketOps shareable snapshot written
+snapshot: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/marketops-shareable-snapshot-v0.1.json
+shareable snapshot: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/marketops-shareable-snapshot-v0.1.json
+MarketOps public dashboard data refreshed.
+dashboard bundle: /home/sjohnsoniii/Projects/sj3labs/data/marketops/dashboard-bundle-public-v0.4.json
+activity preview: /home/sjohnsoniii/Projects/sj3labs/data/marketops/market-activity-30d-preview-v0.1.json
+
+DASHBOARD QA PASS
+checks passed: 154
+checks failed: 0
+bundle: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/dashboard-public-safe-v0.1.json
+report: /home/sjohnsoniii/Projects/MarketOps/Reports/Dashboard/marketops-dashboard-public-safe-v0.1.md
+PUBLIC DASHBOARD REFRESH QA PASS
+checks passed: 24
+checks failed: 0
+cadence report: /home/sjohnsoniii/Projects/MarketOps/Reports/Dashboard/marketops-public-dashboard-refresh-cadence-v0.1.md
+MarketOps dashboard refresh PASS
+refresh report: /home/sjohnsoniii/Projects/MarketOps/Reports/Dashboard/marketops-dashboard-refresh-latest-v0.1.md
+[PASS] dashboard:refresh: Dashboard refresh (1.9s)
+NOT_READY
+checks passed: 70
+checks failed: 1
+install state: {"paper":"not_installed","office":"not_installed","marketOpsTaskCount":0,"platform":"Linux","schedulerAvailable":false}
+readiness report: /home/sjohnsoniii/Projects/MarketOps/Reports/Automation/marketops-automation-readiness-v0.1.md
+[PASS] automation:check: Automation check (0.0s)
+Scheduler check: ISSUES_FOUND
+Checks passed: 8, failed: 1
+Report: /home/sjohnsoniii/Projects/MarketOps/Reports/Automation/marketops-scheduler-check-v0.1.md
+[PASS] scheduler:check: Scheduler check (0.0s)
+
+============================================================
+MarketOps Refresh Summary
+============================================================
+Total steps: 14
+Passed: 14
+Skipped: 0
+Failed: 0
+
+  [OK] marketdata:refresh (0.2s)
+  [OK] marketdata:backfill (1.5s)
+  [OK] marketdata:rolling (0.1s)
+  [OK] marketdata:weather (0.0s)
+  [OK] intraday:simulate (1.7s)
+  [OK] confidence:calibrate (0.1s)
+  [OK] risk:explain (0.0s)
+  [OK] cycle:build (0.0s)
+  [OK] marketdata:qa (0.0s)
+  [OK] cycle:qa (0.0s)
+  [OK] dashboard:build (0.0s)
+  [OK] dashboard:refresh (1.9s)
+  [OK] automation:check (0.0s)
+  [OK] scheduler:check (0.0s)
+
+MarketOps refresh: ALL PASS
+

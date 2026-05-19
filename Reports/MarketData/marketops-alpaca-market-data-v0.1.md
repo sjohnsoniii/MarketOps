@@ -1,6 +1,6 @@
 # MarketOps Market Data QA v0.1
 
-Generated: 2026-05-16T02:50:17.786Z
+Generated: 2026-05-19T02:16:58.589Z
 
 ## Verdict
 
@@ -9,9 +9,11 @@ PASS
 ## Latest Data
 
 - symbols: SPY, QQQ, AAPL, MSFT, NVDA
+- freshBarsStatus: FRESH_BARS_AVAILABLE
+- marketDataStatus: OPERATIONAL
 - bars loaded: 100
 - quotes loaded: 5
-- latest bar timestamp: 2026-05-15T13:48:00Z
+- latest bar timestamp: 2026-05-18T13:44:00Z
 
 ## Safety Boundary
 
@@ -34,6 +36,8 @@ MarketOps uses Alpaca as a market-data-only adapter. Paper trades remain simulat
 - PASS: paperOnly true - true
 - PASS: liveTradingEnabled false - false
 - PASS: orderPlacementEnabled false - false
+- PASS: freshBarsStatus field present - FRESH_BARS_AVAILABLE
+- PASS: marketDataStatus field present - OPERATIONAL
 - PASS: bars loaded - 100
 - PASS: quotes loaded - 5
 - PASS: bars are labeled paper-only - bar labels checked

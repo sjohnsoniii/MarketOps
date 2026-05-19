@@ -195,7 +195,9 @@ Generated: ${bundle.generatedAt}
 - orderPlacementEnabled: ${bundle.orderPlacementEnabled}
 - feed: ${bundle.feed}
 - symbols requested: ${bundle.symbolsRequested.join(", ")}
-- bars loaded: ${bundle.bars.length}
+- freshBarsStatus: ${bundle.freshBarsStatus}
+- marketDataStatus: ${bundle.marketDataStatus}
+- bars loaded: ${bundle.freshBarCount} (expected: ${bundle.expectedBarCount})
 - quotes loaded: ${bundle.quotes.length}
 
 ## Unsupported Assets
@@ -237,13 +239,19 @@ async function refreshAlpacaMarketData({ generatedAt = new Date().toISOString() 
   })));
   const quotes = normalizeQuotes(quotesResponse.quotes);
 
-  if (bars.length < symbols.length * 2) {
-    throw new Error(`Alpaca market data returned too few bars for simulation: ${bars.length}.`);
-  }
+  const freshBarCount = bars.length;
+  const expectedBarCount = symbols.length * 2;
+  const freshBarsStatus = freshBarCount >= expectedBarCount
+    ? "FRESH_BARS_AVAILABLE"
+    : freshBarCount === 0
+      ? "OFF_HOURS_NO_FRESH_BARS"
+      : "LIMITED_FRESH_BARS";
 
   const latestBarTimestamp = bars.reduce((latest, bar) => (
     !latest || new Date(bar.timestamp) > new Date(latest) ? bar.timestamp : latest
   ), null);
+
+  const marketDataStatus = freshBarsStatus === "FRESH_BARS_AVAILABLE" ? "OPERATIONAL" : "DEGRADED_OFF_HOURS";
 
   const bundle = {
     schemaVersion: "0.1",
@@ -258,6 +266,10 @@ async function refreshAlpacaMarketData({ generatedAt = new Date().toISOString() 
     symbolsRequested: symbols,
     unsupportedSymbols,
     latestBarTimestamp,
+    freshBarsStatus,
+    marketDataStatus,
+    freshBarCount,
+    expectedBarCount,
     bars,
     quotes,
     safetyLabels: [
@@ -289,7 +301,9 @@ async function runCli() {
     console.log(`paperOnly: ${result.bundle.paperOnly}`);
     console.log(`liveTradingEnabled: ${result.bundle.liveTradingEnabled}`);
     console.log(`symbols: ${result.bundle.symbolsRequested.join(", ")}`);
-    console.log(`bars loaded: ${result.bundle.bars.length}`);
+    console.log(`freshBarsStatus: ${result.bundle.freshBarsStatus}`);
+    console.log(`marketDataStatus: ${result.bundle.marketDataStatus}`);
+    console.log(`bars loaded: ${result.bundle.freshBarCount} (expected: ${result.bundle.expectedBarCount})`);
     console.log(`quotes loaded: ${result.bundle.quotes.length}`);
     console.log(`latest bar timestamp: ${result.bundle.latestBarTimestamp}`);
     console.log(`market data bundle: ${result.bundlePath}`);

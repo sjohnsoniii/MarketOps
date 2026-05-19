@@ -1,12 +1,13 @@
 {
   "schemaVersion": "marketops-dashboard-refresh-health-v0.1",
-  "lastStatus": "FAIL",
-  "lastAttemptAt": "2026-05-18T02:25:34.524Z",
-  "lastSuccessfulRefreshAt": "2026-05-16T02:50:18.309Z",
-  "lastFailureAt": "2026-05-18T02:25:34.524Z",
-  "consecutiveFailures": 1,
-  "staleWarning": "Last successful refresh was 47.6 hours ago (target: 2 hours)",
-  "failureReason": "npm run marketdata:refresh failed: Alpaca market data returned too few bars for simulation: 0.",
+  "lastStatus": "PASS",
+  "isDegraded": false,
+  "lastAttemptAt": "2026-05-19T02:17:00.846Z",
+  "lastSuccessfulRefreshAt": "2026-05-19T02:17:00.846Z",
+  "lastFailureAt": "2026-05-18T02:32:39.255Z",
+  "consecutiveFailures": 0,
+  "staleWarning": null,
+  "failureReason": null,
   "refreshIntervalTargetHours": 2,
   "schedulerInstalled": false
 }

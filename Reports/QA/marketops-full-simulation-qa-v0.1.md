@@ -1,6 +1,6 @@
 # MarketOps Full Simulation QA v0.1
 
-Generated: 2026-05-16T02:47:57.761Z
+Generated: 2026-05-19T01:43:08.409Z
 
 ## Verdict
 
@@ -8,9 +8,9 @@ PASS
 
 ## Summary
 
-- Checks passed: 69
+- Checks passed: 71
 - Checks failed: 0
-- Total checks: 69
+- Total checks: 71
 
 ## Checks
 
@@ -61,8 +61,10 @@ PASS
 - PASS: alpaca data source is iex - alpaca_iex
 - PASS: alpaca paperOnly true - true
 - PASS: alpaca liveTradingEnabled false - false
-- PASS: backfill has bars - 10138 bars
-- PASS: rolling history has bars - 10138 bars
+- PASS: alpaca has freshBarsStatus field - FRESH_BARS_AVAILABLE
+- PASS: alpaca has marketDataStatus field - OPERATIONAL
+- PASS: backfill has bars - 10152 bars
+- PASS: rolling history has bars - 12143 bars
 - PASS: rolling history has symbols - AAPL, MSFT, NVDA, QQQ, SPY
 - PASS: weather station has coverage - has_data
 - PASS: confidence calibration exists - symbols: 5, status: calibrated
@@ -71,7 +73,7 @@ PASS
 - PASS: positions file exists - present
 - PASS: open positions tracked - count: 3
 - PASS: performance file exists - present
-- PASS: performance has equity - $4218.75
+- PASS: performance has equity - $4192.26
 - PASS: latest run summary has startingBalance - $4218.75
 - PASS: latest run summary has endingEquity - $4218.75
 - PASS: latest run summary has paperPnl - $0

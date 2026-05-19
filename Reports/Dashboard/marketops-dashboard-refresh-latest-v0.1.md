@@ -1,19 +1,10 @@
 # MarketOps Dashboard Refresh Latest v0.1
 
-Generated: 2026-05-18T02:25:34.520Z
+Generated: 2026-05-19T02:17:00.843Z
 
 ## Status
 
-FAIL
-
-Error: npm run marketdata:refresh failed: Alpaca market data returned too few bars for simulation: 0.
-
-## Failure Details
-
-- failureReason: npm run marketdata:refresh failed: Alpaca market data returned too few bars for simulation: 0.
-- lastKnownGoodPreserved: true
-- lastKnownGoodGeneratedAt: 2026-05-16T02:50:18.300Z
-- Dashboard and public bundles were NOT overwritten. Last-known-good data is preserved.
+PASS
 
 ## Safety
 
@@ -32,19 +23,19 @@ Error: npm run marketdata:refresh failed: Alpaca market data returned too few ba
 ## Market Data
 
 - source/feed: alpaca_iex / iex
-- generatedAt: 2026-05-16T02:50:17.720Z
-- latestBarTimestamp: 2026-05-15T13:48:00Z
+- generatedAt: 2026-05-19T02:16:58.357Z
+- latestBarTimestamp: 2026-05-18T13:44:00Z
 - barsLoaded: 100
 - quotesLoaded: 5
-- refreshAgeMinutes: 2855.28
-- latestBarAgeMinutes: 3637.58
+- refreshAgeMinutes: 0.04
+- latestBarAgeMinutes: 753.01
 - paperOnly: true
 - liveTradingEnabled: false
 
 ## Paper Account
 
-- latestRunId: paper-20260518-022533405Z
-- latestRunGeneratedAt: 2026-05-18T02:25:33.405Z
+- latestRunId: paper-20260519-021658589Z
+- latestRunGeneratedAt: 2026-05-19T02:16:58.589Z
 - endingEquity: 4218.75
 - paperPnl: 0
 - paperReturnPct: 0
@@ -58,9 +49,9 @@ Error: npm run marketdata:refresh failed: Alpaca market data returned too few ba
 - status: active
 - startingBalance: 1000
 - currentBalance: 1000
-- daysSurvived: 2.02
-- approvedTrades: 39
-- rejectedTrades: 145
+- daysSurvived: 5
+- approvedTrades: 161
+- rejectedTrades: 503
 - depletionRisk: normal
 - nextCycleScheduledStart: null
 
@@ -81,7 +72,7 @@ Error: npm run marketdata:refresh failed: Alpaca market data returned too few ba
 - Cumulative paper P&L: updated, points=1, source=paper_trade_outputs
 - Progress toward +30% target: updated, points=4, source=paper_account_targets
 - Trade outcome mix: updated, points=3, source=paper_trade_outputs
-- Risk decision mix: updated, points=3, source=risk_outputs
+- Risk decision mix: updated, points=2, source=risk_outputs
 - Vehicle contribution: updated, points=8, source=paper_outputs_plus_market_movement
 - Return vs drawdown snapshot: updated, points=11, source=paper_run_history
 - Paper account milestone strip: updated, points=4, source=paper_account_targets
@@ -103,7 +94,16 @@ Error: npm run marketdata:refresh failed: Alpaca market data returned too few ba
 
 ## Commands Run
 
-- FAIL: npm run marketdata:refresh - Alpaca market data returned too few bars for simulation: 0.
+- PASS: npm run marketdata:refresh - complete
+- PASS: npm run marketdata:qa - complete
+- PASS: npm run paper:full - complete
+- PASS: npm run risk:explain - complete
+- PASS: npm run cycle:build - complete
+- PASS: npm run cycle:qa - complete
+- PASS: npm run dashboard:build - complete
+- PASS: npm run paper:refresh-site - complete
+- PASS: npm run dashboard:qa - complete
+- PASS: npm run dashboard:public-refresh:qa - complete
 
 ## Local Preview
 

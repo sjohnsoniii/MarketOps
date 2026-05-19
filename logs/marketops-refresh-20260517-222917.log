@@ -1,0 +1,120 @@
+================================================
+MarketOps Refresh: 20260517-222917
+Mode: paper_simulation
+Live trading: disabled
+Broker orders: disabled
+External posts: disabled
+================================================
+
+> marketops-core@0.1.0 marketops:refresh
+> node src/simulation/runMarketOpsRefresh.js
+
+============================================================
+MarketOps Super-Mega-Cruise: MarketOps Refresh v0.1
+Started: 2026-05-18T02:29:17.658Z
+============================================================
+
+[FAIL] marketdata:refresh: Fetch latest Alpaca market data - Alpaca market data returned too few bars for simulation: 0. (0.4s)
+[PASS] marketdata:backfill: Backfill past 7 days (1.7s)
+[PASS] marketdata:rolling: Rolling history merge (0.1s)
+[PASS] marketdata:weather: Market weather station (0.0s)
+MarketOps Intraday Simulation starting at 2026-05-18T02:29:19.869Z
+Mode: paper_simulation
+
+Vehicles loaded: 8
+Backfill complete: 10138 bars across 5 symbols
+Rolling history: 10138 bars across 5 symbols
+Weather station: has_data, 0/5 symbols usable
+Signals: 8 vehicles, 3 candidates
+Risk review: 3 approved, 5 blocked
+Paper trades: 0 executed, 3 open positions
+Cash balance: $4218.75, Equity: $4218.75
+Equity curve built: 0 points, ending $4218.75
+MarketOps paper history updated.
+runId: paper-20260518-022919869Z
+history file: /home/sjohnsoniii/Projects/MarketOps/Data/paper/history/run-history.json
+
+Run history appended.
+Confidence: 0 approvable, 0 close
+[PASS] intraday:simulate: Intraday simulation (1.1s)
+[PASS] confidence:calibrate: Confidence calibration (0.1s)
+MarketOps trade rejection explainability report written
+report: /home/sjohnsoniii/Projects/MarketOps/Reports/Risk/marketops-trade-rejection-explainability-v0.1.md
+signals reviewed: 8
+rejected: 5
+[PASS] risk:explain: Risk explainability (0.0s)
+MarketOps paper cycle built
+cycleId: cycle-20260514-0220
+status: active
+currentBalance: 1000
+report: /home/sjohnsoniii/Projects/MarketOps/Reports/Cycles/marketops-paper-cycle-status-v0.1.md
+[PASS] cycle:build: Cycle build (0.0s)
+MARKET DATA QA PASS
+checks passed: 26
+checks failed: 0
+market data report path: /home/sjohnsoniii/Projects/MarketOps/Reports/MarketData/marketops-alpaca-market-data-v0.1.md
+dataSource: alpaca_iex
+bars loaded: 100
+quotes loaded: 5
+latest bar timestamp: 2026-05-15T13:48:00Z
+[PASS] marketdata:qa: Market data QA (0.0s)
+CYCLE QA PASS
+checks passed: 15
+checks failed: 0
+qa report: /home/sjohnsoniii/Projects/MarketOps/Reports/Cycles/marketops-paper-cycle-qa-v0.1.md
+[PASS] cycle:qa: Cycle QA (0.0s)
+MarketOps public-safe dashboard bundle complete
+cards generated: 24
+chart sections generated: 35
+rolling runs reviewed: 30
+strongest paper regime: melt_up
+bundle: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/dashboard-public-safe-v0.1.json
+timestamped bundle: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/dashboard-public-safe-20260517-222921.json
+report: /home/sjohnsoniii/Projects/MarketOps/Reports/Dashboard/marketops-dashboard-public-safe-v0.1.md
+MarketOps shareable snapshot written
+snapshot: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/marketops-shareable-snapshot-v0.1.json
+shareable snapshot: /home/sjohnsoniii/Projects/MarketOps/Data/dashboard/marketops-shareable-snapshot-v0.1.json
+[PASS] dashboard:build: Dashboard build (0.0s)
+[health] Last successful refresh was 47.7 hours ago (target: 2 hours)
+[health] 2 consecutive failure(s) since last success
+MarketOps dashboard refresh FAIL
+npm run marketdata:refresh failed: Alpaca market data returned too few bars for simulation: 0.
+refresh report: /home/sjohnsoniii/Projects/MarketOps/Reports/Dashboard/marketops-dashboard-refresh-latest-v0.1.md
+[FAIL] dashboard:refresh: Dashboard refresh - npm run marketdata:refresh failed: Alpaca market data returned too few bars for simulation: 0. (0.0s)
+NOT_READY
+checks passed: 70
+checks failed: 1
+install state: {"paper":"not_installed","office":"not_installed","marketOpsTaskCount":0,"platform":"Linux","schedulerAvailable":false}
+readiness report: /home/sjohnsoniii/Projects/MarketOps/Reports/Automation/marketops-automation-readiness-v0.1.md
+[PASS] automation:check: Automation check (0.0s)
+Scheduler check: ISSUES_FOUND
+Checks passed: 7, failed: 2
+Report: /home/sjohnsoniii/Projects/MarketOps/Reports/Automation/marketops-scheduler-check-v0.1.md
+[PASS] scheduler:check: Scheduler check (0.0s)
+
+============================================================
+MarketOps Refresh Summary
+============================================================
+Total steps: 14
+Passed: 12
+Failed: 2
+
+  [XX] marketdata:refresh (0.4s)
+       error: Alpaca market data returned too few bars for simulation: 0.
+  [OK] marketdata:backfill (1.7s)
+  [OK] marketdata:rolling (0.1s)
+  [OK] marketdata:weather (0.0s)
+  [OK] intraday:simulate (1.1s)
+  [OK] confidence:calibrate (0.1s)
+  [OK] risk:explain (0.0s)
+  [OK] cycle:build (0.0s)
+  [OK] marketdata:qa (0.0s)
+  [OK] cycle:qa (0.0s)
+  [OK] dashboard:build (0.0s)
+  [XX] dashboard:refresh (0.0s)
+       error: npm run marketdata:refresh failed: Alpaca market data returned too few bars for simulation: 0.
+  [OK] automation:check (0.0s)
+  [OK] scheduler:check (0.0s)
+
+MarketOps refresh: 2 step(s) failed
+

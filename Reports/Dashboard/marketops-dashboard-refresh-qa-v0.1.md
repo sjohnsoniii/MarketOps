@@ -1,19 +1,16 @@
 # MarketOps Dashboard Refresh QA v0.1
 
-Generated: 2026-05-16T02:46:51.109Z
+Generated: 2026-05-19T02:16:42.179Z
 
 ## Result
 
-FAIL
+PASS
 
 ## Checks
 
-- Passed: 109
-- Failed: 4
+- Passed: 110
+- Failed: 0
 
 ## Failed Checks
 
-- refresh status PASS: FAIL
-- required charts updated or fallback-labeled: chart status set
-- chart non-empty: paperEquityCurve: 0
-- chart non-empty: drawdownSeries: 0
+- None

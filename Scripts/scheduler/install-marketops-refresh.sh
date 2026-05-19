@@ -37,6 +37,7 @@ Type=oneshot
 ExecStart=$SCRIPT_DIR/run-marketops-refresh.sh
 WorkingDirectory=$CORE_DIR
 Environment=MARKETOPS_ALLOW_LOCAL_SCHEDULER_INSTALL=0
+Environment=MARKETOPS_ALLOW_PUBLIC_SITE_SYNC=1
 Environment=NODE_ENV=production
 StandardOutput=journal
 StandardError=journal
@@ -52,20 +53,17 @@ PrivateTmp=true
 WantedBy=default.target
 EOF
 
-# Write timer file (every 2 hours)
+# Write timer file (Mon-Fri market-hours cadence)
 cat > "$TIMER_FILE" << EOF
 [Unit]
-Description=MarketOps Paper Simulation Refresh Timer (2-hour cadence)
+Description=MarketOps Paper Simulation Refresh Timer (Mon-Fri market-hours: 10:00, 12:00, 14:00, 15:50 ET)
 Documentation=https://github.com/anomalyco/opencode
 
 [Timer]
-OnCalendar=*-*-* 08:00:00
-OnCalendar=*-*-* 10:00:00
-OnCalendar=*-*-* 12:00:00
-OnCalendar=*-*-* 14:00:00
-OnCalendar=*-*-* 16:00:00
-OnCalendar=*-*-* 18:00:00
-OnCalendar=*-*-* 20:00:00
+OnCalendar=Mon..Fri 10:00:00 America/New_York
+OnCalendar=Mon..Fri 12:00:00 America/New_York
+OnCalendar=Mon..Fri 14:00:00 America/New_York
+OnCalendar=Mon..Fri 15:50:00 America/New_York
 Persistent=true
 
 [Install]

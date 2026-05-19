@@ -1,0 +1,95 @@
+MarketOps Scheduled Public Data Publish Repair v0.3
+
+Context:
+MarketOps generated dashboard/public-safe data locally and synced data into the sj3labs repo, but the systemd service exited with status 1. GitHub and Vercel only updated after manual git add/commit/push.
+
+Known facts:
+- MarketOps data generated under ~/Projects/MarketOps/Data/dashboard.
+- sj3labs received updated data/marketops/dashboard-bundle-public-v0.4.json.
+- systemd service still failed after update.
+- dashboard:refresh:qa failed because paperEquityCurve and drawdownSeries were empty.
+- Empty charts are valid when no paper trades occurred, but they must be explicitly labeled.
+- Manual commit/push successfully updated GitHub and Vercel.
+
+Goals:
+1. Make no-trades dashboard refresh a valid successful state.
+2. Make the scheduler exit 0 when public-safe data was generated and synced correctly.
+3. Add optional data-only auto-publish to GitHub so Vercel receives updates without manual commits.
+4. Keep all changes paper-only and public-safe.
+
+Hard safety rules:
+- Do not add live trading.
+- Do not add broker execution.
+- Do not add live-money behavior.
+- Do not add social posting, email/SMS, payments, or subscriber automation.
+- Do not auto-commit or auto-push code files.
+- Do not commit/push unless the changed files are strictly allowlisted public data files.
+- Do not modify secrets or API keys.
+- Do not reinstall the scheduler.
+- Do not deploy manually.
+- Do not push code changes unless explicitly instructed after review.
+
+Implementation requirements:
+1. Find where paperEquityCurve and drawdownSeries are generated and where dashboard:refresh:qa validates them.
+2. Add explicit chart status/provenance for no-trades states.
+3. Allow empty paperEquityCurve/drawdownSeries only when labeled as one of:
+   - no_trades
+   - controlled_degraded
+   - last_known_good
+   - fallback
+   - sample_fallback
+4. dashboard:refresh:qa must fail empty unlabeled charts but pass valid labeled no-trades charts.
+5. Update the scheduler runner so valid states can return:
+   - PASS
+   - CONTROLLED_DEGRADED
+   - PUBLISHED_WITH_WARNINGS
+   - FAIL
+6. A valid no-trades dashboard update should exit 0, not 1.
+7. Add a data-only publish step controlled by env var:
+   MARKETOPS_ALLOW_DATA_ONLY_GIT_PUBLISH=1
+8. The data-only publish step may only commit/push allowlisted files under:
+   ~/Projects/sj3labs/data/marketops/*.json
+9. If git diff includes non-allowlisted files, block auto-publish and write a human-review report.
+10. Add a scheduler report under:
+   ~/Projects/MarketOps/Reports/Scheduler/
+11. The report must include:
+   - timestamp
+   - market data status
+   - dashboard refresh status
+   - chart status
+   - sj3labs sync status
+   - git publish status
+   - final scheduler status
+   - exit code reason
+12. Add or update package scripts only if needed. Preserve existing scripts unless broken.
+13. Do not make broad refactors. Keep the fix narrow.
+
+Validation commands to run:
+npm run dashboard:refresh
+npm run dashboard:refresh:qa
+npm run cycle:status
+bash -x ~/Projects/MarketOps/Scripts/scheduler/run-marketops-refresh.sh
+
+Then test systemd manually:
+systemctl --user reset-failed marketops-refresh.service
+systemctl --user start marketops-refresh.service
+systemctl --user status marketops-refresh.service --no-pager -l
+
+Also check:
+journalctl --user -u marketops-refresh.service --since "10 minutes ago" --no-pager -l
+
+Stop when:
+- dashboard:refresh exits 0
+- dashboard:refresh:qa exits 0
+- cycle:status works
+- runner script exits 0
+- systemd service exits 0
+- no-trades state is properly labeled
+- data-only git publish is guarded by allowlist
+- no unsafe external actions occurred
+
+Deliverables:
+- Implemented code changes.
+- A checkpoint report at:
+  ~/Projects/MarketOps/Reports/Scheduler/marketops-scheduled-public-data-publish-repair-v0.3.md
+- A final summary listing files changed, tests run, pass/fail results, and any remaining human steps.

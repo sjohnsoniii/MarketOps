@@ -1,0 +1,3436 @@
+{
+  "generatedAt": "2026-05-19T01:46:54.514Z",
+  "dashboardVersion": "marketops-public-safe-dashboard-v0.1",
+  "mode": "paper_simulation",
+  "paperOnly": true,
+  "sampleData": true,
+  "realMarketDataInputs": true,
+  "dataSource": "alpaca_iex",
+  "marketDataMode": "real_market_data_for_paper_simulation",
+  "latestMarketDataRefreshAt": "2026-05-19T01:46:53.484Z",
+  "latestAlpacaBarTimestamp": "2026-05-18T13:44:00Z",
+  "liveTradingEnabled": false,
+  "orderPlacementEnabled": false,
+  "notFinancialAdvice": true,
+  "notLiveMarketData": true,
+  "noBrokerConnection": true,
+  "noSocialAutoPosting": true,
+  "externalEffects": false,
+  "publishAllowed": false,
+  "rawMarketDataPublished": false,
+  "publicSafe": true,
+  "dataProvenance": {
+    "note": "This dashboard combines data from multiple sources with different provenance. Fields below document the source of each major section.",
+    "paperCycleBalance": "real_paper_cycle_output",
+    "latestPaperRun": "real_paper_run_history",
+    "marketBars": "real_alpaca_iex_bars",
+    "marketQuotes": "real_alpaca_iex_quotes",
+    "equityCurve": "unavailable",
+    "tradeRecords": "no_trades_executed",
+    "riskDecisions": "real_paper_risk_decisions",
+    "signalScans": "real_paper_signal_scans",
+    "agentReviews": "real_agent_review_outputs",
+    "refreshHealth": "real_refresh_health_tracker",
+    "cycleStatus": "real_cycle_status",
+    "disclaimer": "All performance numbers are paper simulation only. No real money, broker execution, or live trading is involved."
+  },
+  "dashboardCards": {
+    "currentPaperPerformance": {
+      "startingEquity": 4218.75,
+      "endingEquity": 4218.75,
+      "paperPnl": 0,
+      "paperReturnPct": 0,
+      "maxDrawdownPct": -0.65,
+      "riskAdjustedScore": 42.4,
+      "dataSource": "paper_outputs_current"
+    },
+    "signalFunnel": {
+      "vehiclesScanned": 8,
+      "marketBarsScanned": 12143,
+      "signalsReviewed": 8,
+      "candidates": 2,
+      "riskApproved": 2,
+      "riskBlocked": 6,
+      "fakePaperTrades": 0,
+      "conversionRates": {
+        "candidateRatePct": 25,
+        "approvalRatePct": 25,
+        "fakeTradeRatePct": 0
+      },
+      "chartSteps": [
+        {
+          "label": "Vehicles",
+          "value": 8
+        },
+        {
+          "label": "Signals",
+          "value": 8
+        },
+        {
+          "label": "Candidates",
+          "value": 2
+        },
+        {
+          "label": "Risk approved",
+          "value": 2
+        },
+        {
+          "label": "Fake paper trades",
+          "value": 0
+        }
+      ]
+    },
+    "tradeOutcomeDistribution": {
+      "wins": 0,
+      "losses": 2,
+      "flats": 0,
+      "winRatePct": 0,
+      "averageTradePnl": -32.54,
+      "averageTradeReturnPct": -3.15,
+      "longestWinStreak": 0,
+      "longestLossStreak": 2,
+      "outcomeBars": [
+        {
+          "label": "Wins",
+          "value": 0
+        },
+        {
+          "label": "Losses",
+          "value": 2
+        },
+        {
+          "label": "Flat",
+          "value": 0
+        }
+      ],
+      "publicTradeRows": []
+    },
+    "riskEventSummary": {
+      "approvedCount": 2,
+      "blockedCount": 6,
+      "approvalRatePct": 25,
+      "blockedRatePct": 75,
+      "finalRiskLevelCounts": {
+        "blocked": 6,
+        "medium": 2
+      },
+      "originalRiskLevelCounts": {
+        "low": 3,
+        "medium": 2,
+        "blocked": 3
+      },
+      "topBlockReasons": [
+        {
+          "reason": "Signal did not qualify as a candidate.",
+          "count": 6
+        },
+        {
+          "reason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+          "count": 6
+        },
+        {
+          "reason": "Confidence sample-threshold is below minimum sample-threshold.",
+          "count": 3
+        },
+        {
+          "reason": "Confidence 0 is below minimum sample-threshold.",
+          "count": 3
+        },
+        {
+          "reason": "Missing invalidation.",
+          "count": 3
+        }
+      ]
+    },
+    "regimeSummary": {
+      "regimesCompared": 6,
+      "strongestPaperRegime": "melt_up",
+      "weakestPaperRegime": "panic_drawdown",
+      "worstSyntheticDrawdownRegime": "panic_drawdown",
+      "activeRegimes": [
+        "trend_up",
+        "melt_up"
+      ],
+      "inactiveRegimes": [
+        "trend_down",
+        "choppy_sideways",
+        "panic_drawdown",
+        "low_volatility_drift"
+      ],
+      "averageRegimeScore": 60.35,
+      "regimeScoreBars": [
+        {
+          "regime": "trend_up",
+          "score": 82.1,
+          "strategyReturnPct": 3.57,
+          "syntheticPeriodDrawdownPct": -0.12,
+          "tradeCount": 4
+        },
+        {
+          "regime": "trend_down",
+          "score": 46,
+          "strategyReturnPct": 0,
+          "syntheticPeriodDrawdownPct": -5.62,
+          "tradeCount": 0
+        },
+        {
+          "regime": "choppy_sideways",
+          "score": 46,
+          "strategyReturnPct": 0,
+          "syntheticPeriodDrawdownPct": -0.67,
+          "tradeCount": 0
+        },
+        {
+          "regime": "panic_drawdown",
+          "score": 42,
+          "strategyReturnPct": 0,
+          "syntheticPeriodDrawdownPct": -15.35,
+          "tradeCount": 0
+        },
+        {
+          "regime": "low_volatility_drift",
+          "score": 46,
+          "strategyReturnPct": 0,
+          "syntheticPeriodDrawdownPct": -0.02,
+          "tradeCount": 0
+        },
+        {
+          "regime": "melt_up",
+          "score": 100,
+          "strategyReturnPct": 14.49,
+          "syntheticPeriodDrawdownPct": -0.55,
+          "tradeCount": 5
+        }
+      ],
+      "syntheticBenchmarkComparison": [
+        {
+          "regime": "trend_up",
+          "strategyReturnPct": 3.57,
+          "benchmarkReturnPct": 6.43,
+          "benchmarkComparisonPct": -2.86
+        },
+        {
+          "regime": "trend_down",
+          "strategyReturnPct": 0,
+          "benchmarkReturnPct": -5.92,
+          "benchmarkComparisonPct": 5.92
+        },
+        {
+          "regime": "choppy_sideways",
+          "strategyReturnPct": 0,
+          "benchmarkReturnPct": -0.1,
+          "benchmarkComparisonPct": 0.1
+        },
+        {
+          "regime": "panic_drawdown",
+          "strategyReturnPct": 0,
+          "benchmarkReturnPct": -15.78,
+          "benchmarkComparisonPct": 15.78
+        },
+        {
+          "regime": "low_volatility_drift",
+          "strategyReturnPct": 0,
+          "benchmarkReturnPct": 0.79,
+          "benchmarkComparisonPct": -0.79
+        },
+        {
+          "regime": "melt_up",
+          "strategyReturnPct": 14.49,
+          "benchmarkReturnPct": 23.82,
+          "benchmarkComparisonPct": -9.33
+        }
+      ]
+    },
+    "contentGenerationStats": {
+      "contentGenerated": 10,
+      "queueItems": 33,
+      "complianceStatus": "passed",
+      "publishAllowed": false,
+      "draftReviewRequiredCount": 33,
+      "publishBlockedCount": 33,
+      "contentTypeCounts": {
+        "blog_report": 2,
+        "case_study": 1,
+        "social_post": 8,
+        "faceless_video_script": 3,
+        "avatar_presenter_script": 3,
+        "video_generation_package": 16
+      },
+      "platformCounts": {
+        "x": 2,
+        "instagram": 2,
+        "facebook": 2,
+        "linkedin": 2,
+        "IG Reels": 4,
+        "TikTok": 4,
+        "YouTube Shorts": 4,
+        "X Video": 4
+      }
+    },
+    "agentReviewStats": {
+      "reviewsGenerated": 12,
+      "proposalCount": 18,
+      "reviewCadence": "biweekly_digest",
+      "cadence": "biweekly",
+      "nextSuggestedReviewWindow": "2026-05-27",
+      "urgentItemsCount": 0,
+      "routineItemsDeferredCount": 18,
+      "humanReviewLoad": "low",
+      "complianceStatus": "passed",
+      "humanReviewRequired": true,
+      "autoApplyAllowed": false
+    },
+    "marketDataHeartbeat": {
+      "dataSource": "alpaca_iex",
+      "generatedAt": "2026-05-19T01:46:53.484Z",
+      "latestBarTimestamp": "2026-05-18T13:44:00Z",
+      "barsLoaded": 100,
+      "quotesLoaded": 5,
+      "paperOnly": true,
+      "liveTradingEnabled": false
+    },
+    "marketDataFreshnessPanel": {
+      "dataSource": "alpaca_iex",
+      "feed": "iex",
+      "generatedAt": "2026-05-19T01:46:53.484Z",
+      "latestBarTimestamp": "2026-05-18T13:44:00Z",
+      "barsLoaded": 100,
+      "quotesLoaded": 5,
+      "refreshAgeMinutes": 0.02,
+      "latestBarAgeMinutes": 722.91,
+      "refreshFreshnessLabel": "fresh",
+      "latestBarFreshnessLabel": "stale_or_market_closed",
+      "rawMarketDataPublished": false,
+      "publicSafeDerivedOnly": true,
+      "paperOnly": true,
+      "liveTradingEnabled": false,
+      "orderPlacementEnabled": false,
+      "externalEffects": false,
+      "publishAllowed": false
+    },
+    "watchlistMovementSummary": {
+      "vehiclesReviewed": 5,
+      "dataSource": "alpaca_iex",
+      "strongestMover": {
+        "symbol": "NVDA",
+        "changePct": -1.68,
+        "direction": "down",
+        "movementBucket": "moderate_1_to_2pct"
+      },
+      "summaryRows": [
+        {
+          "symbol": "NVDA",
+          "changePct": -1.68,
+          "direction": "down",
+          "movementBucket": "moderate_1_to_2pct",
+          "dataSource": "alpaca_iex",
+          "paperOnly": true,
+          "rawPricesPublished": false
+        },
+        {
+          "symbol": "AAPL",
+          "changePct": -0.24,
+          "direction": "flat",
+          "movementBucket": "flat_under_0_25pct",
+          "dataSource": "alpaca_iex",
+          "paperOnly": true,
+          "rawPricesPublished": false
+        },
+        {
+          "symbol": "QQQ",
+          "changePct": 0.16,
+          "direction": "flat",
+          "movementBucket": "flat_under_0_25pct",
+          "dataSource": "alpaca_iex",
+          "paperOnly": true,
+          "rawPricesPublished": false
+        },
+        {
+          "symbol": "MSFT",
+          "changePct": 0.1,
+          "direction": "flat",
+          "movementBucket": "flat_under_0_25pct",
+          "dataSource": "alpaca_iex",
+          "paperOnly": true,
+          "rawPricesPublished": false
+        },
+        {
+          "symbol": "SPY",
+          "changePct": 0.04,
+          "direction": "flat",
+          "movementBucket": "flat_under_0_25pct",
+          "dataSource": "alpaca_iex",
+          "paperOnly": true,
+          "rawPricesPublished": false
+        }
+      ]
+    },
+    "vehicleDirectionCounts": [
+      {
+        "label": "up",
+        "value": 0
+      },
+      {
+        "label": "down",
+        "value": 1
+      },
+      {
+        "label": "flat",
+        "value": 4
+      }
+    ],
+    "movementBuckets": [
+      {
+        "label": "flat_under_0_25pct",
+        "value": 4
+      },
+      {
+        "label": "micro_0_25_to_0_5pct",
+        "value": 0
+      },
+      {
+        "label": "small_0_5_to_1pct",
+        "value": 0
+      },
+      {
+        "label": "moderate_1_to_2pct",
+        "value": 1
+      },
+      {
+        "label": "large_2pct_plus",
+        "value": 0
+      }
+    ],
+    "signalCandidatesGenerated": [
+      {
+        "label": "Candidates generated",
+        "value": 2
+      },
+      {
+        "label": "Ignored signals",
+        "value": 6
+      },
+      {
+        "label": "Signals reviewed",
+        "value": 8
+      }
+    ],
+    "signalConfidenceDistribution": [
+      {
+        "label": "0.00-0.25",
+        "value": 6
+      },
+      {
+        "label": "0.25-0.55",
+        "value": 0
+      },
+      {
+        "label": "0.55-0.75",
+        "value": 2
+      },
+      {
+        "label": "0.75-1.00",
+        "value": 0
+      }
+    ],
+    "riskRejectionReasons": [
+      {
+        "reason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+        "count": 6
+      },
+      {
+        "reason": "Signal did not qualify as a candidate.",
+        "count": 6
+      },
+      {
+        "reason": "Confidence 0 is below minimum threshold.",
+        "count": 3
+      },
+      {
+        "reason": "Confidence threshold is below minimum threshold.",
+        "count": 3
+      },
+      {
+        "reason": "Missing invalidation.",
+        "count": 3
+      }
+    ],
+    "almostApprovedCandidates": [
+      {
+        "symbol": "NVDA",
+        "status": "approved",
+        "confidence": 0.7,
+        "changePct": 3.95,
+        "directionBias": "up",
+        "missingGateCount": 0,
+        "primaryBlockReason": "No block reason recorded.",
+        "wouldNeed": "Already satisfies current paper-only gate."
+      },
+      {
+        "symbol": "MSFT",
+        "status": "approved",
+        "confidence": 0.69,
+        "changePct": 3.82,
+        "directionBias": "up",
+        "missingGateCount": 0,
+        "primaryBlockReason": "No block reason recorded.",
+        "wouldNeed": "Already satisfies current paper-only gate."
+      },
+      {
+        "symbol": "AAPL",
+        "status": "closest_rejected",
+        "confidence": 0.15,
+        "changePct": 1.49,
+        "directionBias": "flat",
+        "missingGateCount": 3,
+        "primaryBlockReason": "Signal did not qualify as a candidate.",
+        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement."
+      },
+      {
+        "symbol": "QQQ",
+        "status": "closest_rejected",
+        "confidence": 0.1,
+        "changePct": -0.72,
+        "directionBias": "flat",
+        "missingGateCount": 3,
+        "primaryBlockReason": "Signal did not qualify as a candidate.",
+        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement."
+      },
+      {
+        "symbol": "SPY",
+        "status": "closest_rejected",
+        "confidence": 0.1,
+        "changePct": 0.25,
+        "directionBias": "flat",
+        "missingGateCount": 3,
+        "primaryBlockReason": "Signal did not qualify as a candidate.",
+        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement."
+      },
+      {
+        "symbol": "BTC",
+        "status": "closest_rejected",
+        "confidence": 0,
+        "changePct": 0,
+        "directionBias": "none",
+        "missingGateCount": 4,
+        "primaryBlockReason": "Signal did not qualify as a candidate.",
+        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, a defined invalidation level, no downside/short/margin/leverage/options/futures requirement."
+      },
+      {
+        "symbol": "ETH",
+        "status": "closest_rejected",
+        "confidence": 0,
+        "changePct": 0,
+        "directionBias": "none",
+        "missingGateCount": 4,
+        "primaryBlockReason": "Signal did not qualify as a candidate.",
+        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, a defined invalidation level, no downside/short/margin/leverage/options/futures requirement."
+      },
+      {
+        "symbol": "SOL",
+        "status": "closest_rejected",
+        "confidence": 0,
+        "changePct": 0,
+        "directionBias": "none",
+        "missingGateCount": 4,
+        "primaryBlockReason": "Signal did not qualify as a candidate.",
+        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, a defined invalidation level, no downside/short/margin/leverage/options/futures requirement."
+      }
+    ],
+    "recentMarketMovementPanel": [
+      {
+        "symbol": "NVDA",
+        "firstTimestamp": "2026-05-18T12:05:00Z",
+        "latestTimestamp": "2026-05-18T13:44:00Z",
+        "changePct": -1.68,
+        "direction": "down",
+        "movementBucket": "moderate_1_to_2pct",
+        "barsReviewed": 20,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "liveTradingEnabled": false,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "AAPL",
+        "firstTimestamp": "2026-05-18T12:05:00Z",
+        "latestTimestamp": "2026-05-18T13:34:00Z",
+        "changePct": -0.24,
+        "direction": "flat",
+        "movementBucket": "flat_under_0_25pct",
+        "barsReviewed": 20,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "liveTradingEnabled": false,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "QQQ",
+        "firstTimestamp": "2026-05-18T12:06:00Z",
+        "latestTimestamp": "2026-05-18T13:41:00Z",
+        "changePct": 0.16,
+        "direction": "flat",
+        "movementBucket": "flat_under_0_25pct",
+        "barsReviewed": 20,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "liveTradingEnabled": false,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "MSFT",
+        "firstTimestamp": "2026-05-18T12:00:00Z",
+        "latestTimestamp": "2026-05-18T13:40:00Z",
+        "changePct": 0.1,
+        "direction": "flat",
+        "movementBucket": "flat_under_0_25pct",
+        "barsReviewed": 20,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "liveTradingEnabled": false,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "SPY",
+        "firstTimestamp": "2026-05-18T12:09:00Z",
+        "latestTimestamp": "2026-05-18T13:34:00Z",
+        "changePct": 0.04,
+        "direction": "flat",
+        "movementBucket": "flat_under_0_25pct",
+        "barsReviewed": 20,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "liveTradingEnabled": false,
+        "rawPricesPublished": false
+      }
+    ],
+    "botActivityTimeline": [
+      {
+        "sequence": 23,
+        "generatedAt": "2026-05-19T01:43:02.536Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 27.69,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 24,
+        "generatedAt": "2026-05-19T01:43:09.825Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.12,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 25,
+        "generatedAt": "2026-05-19T01:43:10.520Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.01,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 26,
+        "generatedAt": "2026-05-19T01:43:17.567Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.12,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 27,
+        "generatedAt": "2026-05-19T01:43:19.706Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.04,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 28,
+        "generatedAt": "2026-05-19T01:46:50.365Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 3.51,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 29,
+        "generatedAt": "2026-05-19T01:46:52.577Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.04,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 30,
+        "generatedAt": "2026-05-19T01:46:53.563Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.02,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      }
+    ],
+    "staleDataWarningPanel": {
+      "status": "review",
+      "generatedAt": "2026-05-19T01:46:54.514Z",
+      "warnings": [
+        {
+          "item": "analytics_summary",
+          "status": "stale_context_only",
+          "detail": "Analytics summary 2026-05-08T03:46:14.425Z is older than latest paper run 2026-05-19T01:46:53.563Z. Dashboard headline cards use current paper outputs instead."
+        },
+        {
+          "item": "latest_market_bar",
+          "status": "market_closed_or_delayed",
+          "detail": "Latest bar is 722.91 minutes old. Label as delayed/closed-market data, not live tick data."
+        }
+      ]
+    },
+    "marketRegimeSummary": {
+      "source": "synthetic_regime_context_plus_watchlist_movement",
+      "broadDirection": "watchlist_tilt_down",
+      "regimesCompared": 6,
+      "strongestPaperRegime": "melt_up",
+      "weakestPaperRegime": "panic_drawdown",
+      "fallbackLabeled": true,
+      "publicSafe": true
+    },
+    "paperCycleStatus": {
+      "cycleId": "cycle-20260514-0220",
+      "status": "active",
+      "startingBalance": 1000,
+      "currentBalance": 1000,
+      "endingBalance": null,
+      "cycleStartTimestamp": "2026-05-14T02:20:20.137Z",
+      "cycleEndTimestamp": null,
+      "hoursSurvived": 119.44,
+      "daysSurvived": 4.98,
+      "approvedTrades": 147,
+      "rejectedTrades": 461,
+      "depletionRisk": "normal",
+      "resetTriggerReason": null,
+      "nextCycleScheduledStart": null,
+      "doesNotResetDaily": true,
+      "paperOnly": true,
+      "externalEffects": false,
+      "publishAllowed": false,
+      "activePreset": "standard"
+    },
+    "targetProgress": {
+      "startingBalance": 4218.75,
+      "currentBalance": 4218.75,
+      "targetBalance": 13000,
+      "progressTowardTargetPct": 0,
+      "remainingToTarget": 8781.25,
+      "paperOnly": true,
+      "milestones": [
+        {
+          "label": "Start",
+          "balance": 4218.75
+        },
+        {
+          "label": "Current",
+          "balance": 4218.75
+        },
+        {
+          "label": "+15%",
+          "balance": 4851.56
+        },
+        {
+          "label": "+30%",
+          "balance": 13000
+        }
+      ]
+    },
+    "publicSafetyState": {
+      "paperOnly": true,
+      "externalEffects": false,
+      "publishAllowed": false,
+      "liveTradingEnabled": false,
+      "orderPlacementEnabled": false,
+      "rawMarketDataPublished": false
+    },
+    "dashboardRefreshHealth": {
+      "lastStatus": "PASS",
+      "lastAttemptAt": "2026-05-19T01:46:51.198Z",
+      "lastSuccessfulRefreshAt": "2026-05-19T01:46:51.198Z",
+      "lastFailureAt": "2026-05-18T02:32:39.255Z",
+      "consecutiveFailures": 0,
+      "staleWarning": null,
+      "refreshIntervalTargetHours": 2,
+      "schedulerInstalled": false,
+      "paperOnly": true,
+      "mode": "paper_simulation"
+    }
+  },
+  "charts": {
+    "equityCurve": [],
+    "paperEquityCurve": [],
+    "paperPnlSeries": [
+      {
+        "sequence": 1,
+        "generatedAt": "2026-05-19T00:56:56.351Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 2,
+        "generatedAt": "2026-05-19T00:56:57.249Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 3,
+        "generatedAt": "2026-05-19T00:57:05.537Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 4,
+        "generatedAt": "2026-05-19T00:57:06.201Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 5,
+        "generatedAt": "2026-05-19T00:58:10.916Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 6,
+        "generatedAt": "2026-05-19T00:58:11.853Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 7,
+        "generatedAt": "2026-05-19T00:58:37.034Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 8,
+        "generatedAt": "2026-05-19T00:58:37.763Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 9,
+        "generatedAt": "2026-05-19T00:58:59.464Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 10,
+        "generatedAt": "2026-05-19T00:59:00.316Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 11,
+        "generatedAt": "2026-05-19T00:59:11.213Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 12,
+        "generatedAt": "2026-05-19T00:59:11.891Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 13,
+        "generatedAt": "2026-05-19T01:13:10.815Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 14,
+        "generatedAt": "2026-05-19T01:13:19.577Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 15,
+        "generatedAt": "2026-05-19T01:13:20.257Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 16,
+        "generatedAt": "2026-05-19T01:13:37.504Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 17,
+        "generatedAt": "2026-05-19T01:13:39.812Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 18,
+        "generatedAt": "2026-05-19T01:15:00.385Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 19,
+        "generatedAt": "2026-05-19T01:15:07.104Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 20,
+        "generatedAt": "2026-05-19T01:15:07.803Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 21,
+        "generatedAt": "2026-05-19T01:15:18.846Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 22,
+        "generatedAt": "2026-05-19T01:15:20.977Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 23,
+        "generatedAt": "2026-05-19T01:43:02.536Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 24,
+        "generatedAt": "2026-05-19T01:43:09.825Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 25,
+        "generatedAt": "2026-05-19T01:43:10.520Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 26,
+        "generatedAt": "2026-05-19T01:43:17.567Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 27,
+        "generatedAt": "2026-05-19T01:43:19.706Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 28,
+        "generatedAt": "2026-05-19T01:46:50.365Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 29,
+        "generatedAt": "2026-05-19T01:46:52.577Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      },
+      {
+        "sequence": 30,
+        "generatedAt": "2026-05-19T01:46:53.563Z",
+        "paperPnl": 0,
+        "paperReturnPct": 0,
+        "endingEquity": 4218.75
+      }
+    ],
+    "rollingEquity": [
+      {
+        "sequence": 1,
+        "generatedAt": "2026-05-19T00:56:56.351Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 2,
+        "generatedAt": "2026-05-19T00:56:57.249Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 3,
+        "generatedAt": "2026-05-19T00:57:05.537Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 4,
+        "generatedAt": "2026-05-19T00:57:06.201Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 5,
+        "generatedAt": "2026-05-19T00:58:10.916Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 6,
+        "generatedAt": "2026-05-19T00:58:11.853Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 7,
+        "generatedAt": "2026-05-19T00:58:37.034Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 8,
+        "generatedAt": "2026-05-19T00:58:37.763Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 9,
+        "generatedAt": "2026-05-19T00:58:59.464Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 10,
+        "generatedAt": "2026-05-19T00:59:00.316Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 11,
+        "generatedAt": "2026-05-19T00:59:11.213Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 12,
+        "generatedAt": "2026-05-19T00:59:11.891Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 13,
+        "generatedAt": "2026-05-19T01:13:10.815Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 14,
+        "generatedAt": "2026-05-19T01:13:19.577Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 15,
+        "generatedAt": "2026-05-19T01:13:20.257Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 16,
+        "generatedAt": "2026-05-19T01:13:37.504Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 17,
+        "generatedAt": "2026-05-19T01:13:39.812Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 18,
+        "generatedAt": "2026-05-19T01:15:00.385Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 19,
+        "generatedAt": "2026-05-19T01:15:07.104Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 20,
+        "generatedAt": "2026-05-19T01:15:07.803Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 21,
+        "generatedAt": "2026-05-19T01:15:18.846Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 22,
+        "generatedAt": "2026-05-19T01:15:20.977Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 23,
+        "generatedAt": "2026-05-19T01:43:02.536Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 24,
+        "generatedAt": "2026-05-19T01:43:09.825Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 25,
+        "generatedAt": "2026-05-19T01:43:10.520Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 26,
+        "generatedAt": "2026-05-19T01:43:17.567Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 27,
+        "generatedAt": "2026-05-19T01:43:19.706Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 28,
+        "generatedAt": "2026-05-19T01:46:50.365Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 29,
+        "generatedAt": "2026-05-19T01:46:52.577Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      },
+      {
+        "sequence": 30,
+        "generatedAt": "2026-05-19T01:46:53.563Z",
+        "endingEquity": 4218.75,
+        "paperReturnPct": 0
+      }
+    ],
+    "drawdownVisualData": {
+      "currentRun": [],
+      "rollingRuns": [
+        {
+          "sequence": 1,
+          "generatedAt": "2026-05-19T00:56:56.351Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 2,
+          "generatedAt": "2026-05-19T00:56:57.249Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 3,
+          "generatedAt": "2026-05-19T00:57:05.537Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 4,
+          "generatedAt": "2026-05-19T00:57:06.201Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 5,
+          "generatedAt": "2026-05-19T00:58:10.916Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 6,
+          "generatedAt": "2026-05-19T00:58:11.853Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 7,
+          "generatedAt": "2026-05-19T00:58:37.034Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 8,
+          "generatedAt": "2026-05-19T00:58:37.763Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 9,
+          "generatedAt": "2026-05-19T00:58:59.464Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 10,
+          "generatedAt": "2026-05-19T00:59:00.316Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 11,
+          "generatedAt": "2026-05-19T00:59:11.213Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 12,
+          "generatedAt": "2026-05-19T00:59:11.891Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 13,
+          "generatedAt": "2026-05-19T01:13:10.815Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 14,
+          "generatedAt": "2026-05-19T01:13:19.577Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 15,
+          "generatedAt": "2026-05-19T01:13:20.257Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 16,
+          "generatedAt": "2026-05-19T01:13:37.504Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 17,
+          "generatedAt": "2026-05-19T01:13:39.812Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 18,
+          "generatedAt": "2026-05-19T01:15:00.385Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 19,
+          "generatedAt": "2026-05-19T01:15:07.104Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 20,
+          "generatedAt": "2026-05-19T01:15:07.803Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 21,
+          "generatedAt": "2026-05-19T01:15:18.846Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 22,
+          "generatedAt": "2026-05-19T01:15:20.977Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 23,
+          "generatedAt": "2026-05-19T01:43:02.536Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 24,
+          "generatedAt": "2026-05-19T01:43:09.825Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 25,
+          "generatedAt": "2026-05-19T01:43:10.520Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 26,
+          "generatedAt": "2026-05-19T01:43:17.567Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 27,
+          "generatedAt": "2026-05-19T01:43:19.706Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 28,
+          "generatedAt": "2026-05-19T01:46:50.365Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 29,
+          "generatedAt": "2026-05-19T01:46:52.577Z",
+          "maxDrawdownPct": 0
+        },
+        {
+          "sequence": 30,
+          "generatedAt": "2026-05-19T01:46:53.563Z",
+          "maxDrawdownPct": 0
+        }
+      ]
+    },
+    "drawdownSeries": [],
+    "vehicleActivity": [
+      {
+        "symbol": "SPY",
+        "assetType": "ETF",
+        "status": "ignore",
+        "directionBias": "flat",
+        "marketChangePct": 0.25,
+        "movementBucket": "flat_under_0_25pct",
+        "riskApproved": false,
+        "riskLevel": "blocked",
+        "fakePaperPnl": 0,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "QQQ",
+        "assetType": "ETF",
+        "status": "ignore",
+        "directionBias": "flat",
+        "marketChangePct": -0.72,
+        "movementBucket": "flat_under_0_25pct",
+        "riskApproved": false,
+        "riskLevel": "blocked",
+        "fakePaperPnl": 0,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "AAPL",
+        "assetType": "EQUITY",
+        "status": "ignore",
+        "directionBias": "flat",
+        "marketChangePct": 1.49,
+        "movementBucket": "flat_under_0_25pct",
+        "riskApproved": false,
+        "riskLevel": "blocked",
+        "fakePaperPnl": 0,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "MSFT",
+        "assetType": "EQUITY",
+        "status": "candidate",
+        "directionBias": "up",
+        "marketChangePct": 3.82,
+        "movementBucket": "flat_under_0_25pct",
+        "riskApproved": true,
+        "riskLevel": "medium",
+        "fakePaperPnl": 0,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "NVDA",
+        "assetType": "EQUITY",
+        "status": "candidate",
+        "directionBias": "up",
+        "marketChangePct": 3.95,
+        "movementBucket": "moderate_1_to_2pct",
+        "riskApproved": true,
+        "riskLevel": "medium",
+        "fakePaperPnl": 0,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "BTC",
+        "assetType": "CRYPTO",
+        "status": "no_data",
+        "directionBias": "none",
+        "marketChangePct": 0,
+        "movementBucket": "flat_under_0_25pct",
+        "riskApproved": false,
+        "riskLevel": "blocked",
+        "fakePaperPnl": 0,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "ETH",
+        "assetType": "CRYPTO",
+        "status": "no_data",
+        "directionBias": "none",
+        "marketChangePct": 0,
+        "movementBucket": "flat_under_0_25pct",
+        "riskApproved": false,
+        "riskLevel": "blocked",
+        "fakePaperPnl": 0,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "SOL",
+        "assetType": "CRYPTO",
+        "status": "no_data",
+        "directionBias": "none",
+        "marketChangePct": 0,
+        "movementBucket": "flat_under_0_25pct",
+        "riskApproved": false,
+        "riskLevel": "blocked",
+        "fakePaperPnl": 0,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "rawPricesPublished": false
+      }
+    ],
+    "watchlistMovementSummary": [
+      {
+        "symbol": "NVDA",
+        "changePct": -1.68,
+        "direction": "down",
+        "movementBucket": "moderate_1_to_2pct",
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "AAPL",
+        "changePct": -0.24,
+        "direction": "flat",
+        "movementBucket": "flat_under_0_25pct",
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "QQQ",
+        "changePct": 0.16,
+        "direction": "flat",
+        "movementBucket": "flat_under_0_25pct",
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "MSFT",
+        "changePct": 0.1,
+        "direction": "flat",
+        "movementBucket": "flat_under_0_25pct",
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "SPY",
+        "changePct": 0.04,
+        "direction": "flat",
+        "movementBucket": "flat_under_0_25pct",
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "rawPricesPublished": false
+      }
+    ],
+    "vehicleDirectionCounts": [
+      {
+        "label": "up",
+        "value": 0
+      },
+      {
+        "label": "down",
+        "value": 1
+      },
+      {
+        "label": "flat",
+        "value": 4
+      }
+    ],
+    "movementBuckets": [
+      {
+        "label": "flat_under_0_25pct",
+        "value": 4
+      },
+      {
+        "label": "micro_0_25_to_0_5pct",
+        "value": 0
+      },
+      {
+        "label": "small_0_5_to_1pct",
+        "value": 0
+      },
+      {
+        "label": "moderate_1_to_2pct",
+        "value": 1
+      },
+      {
+        "label": "large_2pct_plus",
+        "value": 0
+      }
+    ],
+    "signalCandidatesGenerated": [
+      {
+        "label": "Candidates generated",
+        "value": 2
+      },
+      {
+        "label": "Ignored signals",
+        "value": 6
+      },
+      {
+        "label": "Signals reviewed",
+        "value": 8
+      }
+    ],
+    "signalConfidenceDistribution": [
+      {
+        "label": "0.00-0.25",
+        "value": 6
+      },
+      {
+        "label": "0.25-0.55",
+        "value": 0
+      },
+      {
+        "label": "0.55-0.75",
+        "value": 2
+      },
+      {
+        "label": "0.75-1.00",
+        "value": 0
+      }
+    ],
+    "riskRejectionReasons": [
+      {
+        "reason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+        "count": 6
+      },
+      {
+        "reason": "Signal did not qualify as a candidate.",
+        "count": 6
+      },
+      {
+        "reason": "Confidence 0 is below minimum threshold.",
+        "count": 3
+      },
+      {
+        "reason": "Confidence threshold is below minimum threshold.",
+        "count": 3
+      },
+      {
+        "reason": "Missing invalidation.",
+        "count": 3
+      }
+    ],
+    "almostApprovedCandidates": [
+      {
+        "symbol": "NVDA",
+        "status": "approved",
+        "confidence": 0.7,
+        "changePct": 3.95,
+        "directionBias": "up",
+        "missingGateCount": 0,
+        "primaryBlockReason": "No block reason recorded.",
+        "wouldNeed": "Already satisfies current paper-only gate."
+      },
+      {
+        "symbol": "MSFT",
+        "status": "approved",
+        "confidence": 0.69,
+        "changePct": 3.82,
+        "directionBias": "up",
+        "missingGateCount": 0,
+        "primaryBlockReason": "No block reason recorded.",
+        "wouldNeed": "Already satisfies current paper-only gate."
+      },
+      {
+        "symbol": "AAPL",
+        "status": "closest_rejected",
+        "confidence": 0.15,
+        "changePct": 1.49,
+        "directionBias": "flat",
+        "missingGateCount": 3,
+        "primaryBlockReason": "Signal did not qualify as a candidate.",
+        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement."
+      },
+      {
+        "symbol": "QQQ",
+        "status": "closest_rejected",
+        "confidence": 0.1,
+        "changePct": -0.72,
+        "directionBias": "flat",
+        "missingGateCount": 3,
+        "primaryBlockReason": "Signal did not qualify as a candidate.",
+        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement."
+      },
+      {
+        "symbol": "SPY",
+        "status": "closest_rejected",
+        "confidence": 0.1,
+        "changePct": 0.25,
+        "directionBias": "flat",
+        "missingGateCount": 3,
+        "primaryBlockReason": "Signal did not qualify as a candidate.",
+        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, no downside/short/margin/leverage/options/futures requirement."
+      },
+      {
+        "symbol": "BTC",
+        "status": "closest_rejected",
+        "confidence": 0,
+        "changePct": 0,
+        "directionBias": "none",
+        "missingGateCount": 4,
+        "primaryBlockReason": "Signal did not qualify as a candidate.",
+        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, a defined invalidation level, no downside/short/margin/leverage/options/futures requirement."
+      },
+      {
+        "symbol": "ETH",
+        "status": "closest_rejected",
+        "confidence": 0,
+        "changePct": 0,
+        "directionBias": "none",
+        "missingGateCount": 4,
+        "primaryBlockReason": "Signal did not qualify as a candidate.",
+        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, a defined invalidation level, no downside/short/margin/leverage/options/futures requirement."
+      },
+      {
+        "symbol": "SOL",
+        "status": "closest_rejected",
+        "confidence": 0,
+        "changePct": 0,
+        "directionBias": "none",
+        "missingGateCount": 4,
+        "primaryBlockReason": "Signal did not qualify as a candidate.",
+        "wouldNeed": "Needs a movement signal that qualifies as a candidate, confidence at or above 0.55, an up/long-only direction bias, a defined invalidation level, no downside/short/margin/leverage/options/futures requirement."
+      }
+    ],
+    "signalRiskCounts": [
+      {
+        "sequence": 1,
+        "generatedAt": "2026-05-19T00:56:56.351Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 2,
+        "generatedAt": "2026-05-19T00:56:57.249Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 3,
+        "generatedAt": "2026-05-19T00:57:05.537Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 4,
+        "generatedAt": "2026-05-19T00:57:06.201Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 5,
+        "generatedAt": "2026-05-19T00:58:10.916Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 6,
+        "generatedAt": "2026-05-19T00:58:11.853Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 7,
+        "generatedAt": "2026-05-19T00:58:37.034Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 8,
+        "generatedAt": "2026-05-19T00:58:37.763Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 9,
+        "generatedAt": "2026-05-19T00:58:59.464Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 10,
+        "generatedAt": "2026-05-19T00:59:00.316Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 11,
+        "generatedAt": "2026-05-19T00:59:11.213Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 12,
+        "generatedAt": "2026-05-19T00:59:11.891Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 13,
+        "generatedAt": "2026-05-19T01:13:10.815Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 14,
+        "generatedAt": "2026-05-19T01:13:19.577Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 15,
+        "generatedAt": "2026-05-19T01:13:20.257Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 16,
+        "generatedAt": "2026-05-19T01:13:37.504Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 17,
+        "generatedAt": "2026-05-19T01:13:39.812Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 18,
+        "generatedAt": "2026-05-19T01:15:00.385Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 19,
+        "generatedAt": "2026-05-19T01:15:07.104Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 20,
+        "generatedAt": "2026-05-19T01:15:07.803Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 21,
+        "generatedAt": "2026-05-19T01:15:18.846Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 22,
+        "generatedAt": "2026-05-19T01:15:20.977Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 23,
+        "generatedAt": "2026-05-19T01:43:02.536Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 24,
+        "generatedAt": "2026-05-19T01:43:09.825Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 25,
+        "generatedAt": "2026-05-19T01:43:10.520Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 26,
+        "generatedAt": "2026-05-19T01:43:17.567Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 27,
+        "generatedAt": "2026-05-19T01:43:19.706Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 28,
+        "generatedAt": "2026-05-19T01:46:50.365Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 29,
+        "generatedAt": "2026-05-19T01:46:52.577Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      },
+      {
+        "sequence": 30,
+        "generatedAt": "2026-05-19T01:46:53.563Z",
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0
+      }
+    ],
+    "cumulativePaperPnl": [
+      {
+        "label": "Start",
+        "cumulativePaperPnl": 0
+      }
+    ],
+    "targetProgress": [
+      {
+        "label": "Start",
+        "balance": 4218.75
+      },
+      {
+        "label": "Current",
+        "balance": 4218.75
+      },
+      {
+        "label": "+15%",
+        "balance": 4851.56
+      },
+      {
+        "label": "+30%",
+        "balance": 13000
+      }
+    ],
+    "signalFunnel": [
+      {
+        "label": "Vehicles",
+        "value": 8
+      },
+      {
+        "label": "Signals",
+        "value": 8
+      },
+      {
+        "label": "Candidates",
+        "value": 2
+      },
+      {
+        "label": "Risk approved",
+        "value": 2
+      },
+      {
+        "label": "Fake paper trades",
+        "value": 0
+      }
+    ],
+    "tradeOutcomeBars": [
+      {
+        "label": "Wins",
+        "value": 0
+      },
+      {
+        "label": "Losses",
+        "value": 2
+      },
+      {
+        "label": "Flat",
+        "value": 0
+      }
+    ],
+    "tradeOutcomeMix": [
+      {
+        "label": "Wins",
+        "value": 0
+      },
+      {
+        "label": "Losses",
+        "value": 2
+      },
+      {
+        "label": "Flat",
+        "value": 0
+      }
+    ],
+    "riskDecisionMix": [
+      {
+        "label": "blocked",
+        "value": 6
+      },
+      {
+        "label": "medium",
+        "value": 2
+      }
+    ],
+    "vehicleContribution": [
+      {
+        "symbol": "AAPL",
+        "fakePaperPnl": 0,
+        "marketChangePct": -0.24,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true
+      },
+      {
+        "symbol": "BTC",
+        "fakePaperPnl": 0,
+        "marketChangePct": 0,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true
+      },
+      {
+        "symbol": "ETH",
+        "fakePaperPnl": 0,
+        "marketChangePct": 0,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true
+      },
+      {
+        "symbol": "MSFT",
+        "fakePaperPnl": 0,
+        "marketChangePct": 0.1,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true
+      },
+      {
+        "symbol": "NVDA",
+        "fakePaperPnl": 0,
+        "marketChangePct": -1.68,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true
+      },
+      {
+        "symbol": "QQQ",
+        "fakePaperPnl": 0,
+        "marketChangePct": 0.16,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true
+      },
+      {
+        "symbol": "SOL",
+        "fakePaperPnl": 0,
+        "marketChangePct": 0,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true
+      },
+      {
+        "symbol": "SPY",
+        "fakePaperPnl": 0,
+        "marketChangePct": 0.04,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true
+      }
+    ],
+    "returnVsDrawdownSnapshot": [
+      {
+        "label": "Current paper run",
+        "paperReturnPct": 0,
+        "maxDrawdownPct": -0.65
+      },
+      {
+        "label": "2026-05-19T01:15:18.846Z",
+        "paperReturnPct": 0,
+        "maxDrawdownPct": 0
+      },
+      {
+        "label": "2026-05-19T01:15:20.977Z",
+        "paperReturnPct": 0,
+        "maxDrawdownPct": 0
+      },
+      {
+        "label": "2026-05-19T01:43:02.536Z",
+        "paperReturnPct": 0,
+        "maxDrawdownPct": 0
+      },
+      {
+        "label": "2026-05-19T01:43:09.825Z",
+        "paperReturnPct": 0,
+        "maxDrawdownPct": 0
+      },
+      {
+        "label": "2026-05-19T01:43:10.520Z",
+        "paperReturnPct": 0,
+        "maxDrawdownPct": 0
+      },
+      {
+        "label": "2026-05-19T01:43:17.567Z",
+        "paperReturnPct": 0,
+        "maxDrawdownPct": 0
+      },
+      {
+        "label": "2026-05-19T01:43:19.706Z",
+        "paperReturnPct": 0,
+        "maxDrawdownPct": 0
+      },
+      {
+        "label": "2026-05-19T01:46:50.365Z",
+        "paperReturnPct": 0,
+        "maxDrawdownPct": 0
+      },
+      {
+        "label": "2026-05-19T01:46:52.577Z",
+        "paperReturnPct": 0,
+        "maxDrawdownPct": 0
+      },
+      {
+        "label": "2026-05-19T01:46:53.563Z",
+        "paperReturnPct": 0,
+        "maxDrawdownPct": 0
+      }
+    ],
+    "paperAccountMilestoneStrip": [
+      {
+        "label": "Start",
+        "balance": 4218.75
+      },
+      {
+        "label": "Current",
+        "balance": 4218.75
+      },
+      {
+        "label": "+15%",
+        "balance": 4851.56
+      },
+      {
+        "label": "+30%",
+        "balance": 13000
+      }
+    ],
+    "regimeScoreBars": [
+      {
+        "regime": "trend_up",
+        "score": 82.1,
+        "strategyReturnPct": 3.57,
+        "syntheticPeriodDrawdownPct": -0.12,
+        "tradeCount": 4
+      },
+      {
+        "regime": "trend_down",
+        "score": 46,
+        "strategyReturnPct": 0,
+        "syntheticPeriodDrawdownPct": -5.62,
+        "tradeCount": 0
+      },
+      {
+        "regime": "choppy_sideways",
+        "score": 46,
+        "strategyReturnPct": 0,
+        "syntheticPeriodDrawdownPct": -0.67,
+        "tradeCount": 0
+      },
+      {
+        "regime": "panic_drawdown",
+        "score": 42,
+        "strategyReturnPct": 0,
+        "syntheticPeriodDrawdownPct": -15.35,
+        "tradeCount": 0
+      },
+      {
+        "regime": "low_volatility_drift",
+        "score": 46,
+        "strategyReturnPct": 0,
+        "syntheticPeriodDrawdownPct": -0.02,
+        "tradeCount": 0
+      },
+      {
+        "regime": "melt_up",
+        "score": 100,
+        "strategyReturnPct": 14.49,
+        "syntheticPeriodDrawdownPct": -0.55,
+        "tradeCount": 5
+      }
+    ],
+    "syntheticBenchmarkComparison": [
+      {
+        "regime": "trend_up",
+        "strategyReturnPct": 3.57,
+        "benchmarkReturnPct": 6.43,
+        "benchmarkComparisonPct": -2.86
+      },
+      {
+        "regime": "trend_down",
+        "strategyReturnPct": 0,
+        "benchmarkReturnPct": -5.92,
+        "benchmarkComparisonPct": 5.92
+      },
+      {
+        "regime": "choppy_sideways",
+        "strategyReturnPct": 0,
+        "benchmarkReturnPct": -0.1,
+        "benchmarkComparisonPct": 0.1
+      },
+      {
+        "regime": "panic_drawdown",
+        "strategyReturnPct": 0,
+        "benchmarkReturnPct": -15.78,
+        "benchmarkComparisonPct": 15.78
+      },
+      {
+        "regime": "low_volatility_drift",
+        "strategyReturnPct": 0,
+        "benchmarkReturnPct": 0.79,
+        "benchmarkComparisonPct": -0.79
+      },
+      {
+        "regime": "melt_up",
+        "strategyReturnPct": 14.49,
+        "benchmarkReturnPct": 23.82,
+        "benchmarkComparisonPct": -9.33
+      }
+    ],
+    "marketDataFreshnessPanel": [
+      {
+        "dataSource": "alpaca_iex",
+        "feed": "iex",
+        "generatedAt": "2026-05-19T01:46:53.484Z",
+        "latestBarTimestamp": "2026-05-18T13:44:00Z",
+        "barsLoaded": 100,
+        "quotesLoaded": 5,
+        "refreshAgeMinutes": 0.02,
+        "latestBarAgeMinutes": 722.91,
+        "refreshFreshnessLabel": "fresh",
+        "latestBarFreshnessLabel": "stale_or_market_closed",
+        "rawMarketDataPublished": false,
+        "publicSafeDerivedOnly": true,
+        "paperOnly": true,
+        "liveTradingEnabled": false,
+        "orderPlacementEnabled": false,
+        "externalEffects": false,
+        "publishAllowed": false
+      }
+    ],
+    "recentMarketMovementPanel": [
+      {
+        "symbol": "NVDA",
+        "firstTimestamp": "2026-05-18T12:05:00Z",
+        "latestTimestamp": "2026-05-18T13:44:00Z",
+        "changePct": -1.68,
+        "direction": "down",
+        "movementBucket": "moderate_1_to_2pct",
+        "barsReviewed": 20,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "liveTradingEnabled": false,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "AAPL",
+        "firstTimestamp": "2026-05-18T12:05:00Z",
+        "latestTimestamp": "2026-05-18T13:34:00Z",
+        "changePct": -0.24,
+        "direction": "flat",
+        "movementBucket": "flat_under_0_25pct",
+        "barsReviewed": 20,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "liveTradingEnabled": false,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "QQQ",
+        "firstTimestamp": "2026-05-18T12:06:00Z",
+        "latestTimestamp": "2026-05-18T13:41:00Z",
+        "changePct": 0.16,
+        "direction": "flat",
+        "movementBucket": "flat_under_0_25pct",
+        "barsReviewed": 20,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "liveTradingEnabled": false,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "MSFT",
+        "firstTimestamp": "2026-05-18T12:00:00Z",
+        "latestTimestamp": "2026-05-18T13:40:00Z",
+        "changePct": 0.1,
+        "direction": "flat",
+        "movementBucket": "flat_under_0_25pct",
+        "barsReviewed": 20,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "liveTradingEnabled": false,
+        "rawPricesPublished": false
+      },
+      {
+        "symbol": "SPY",
+        "firstTimestamp": "2026-05-18T12:09:00Z",
+        "latestTimestamp": "2026-05-18T13:34:00Z",
+        "changePct": 0.04,
+        "direction": "flat",
+        "movementBucket": "flat_under_0_25pct",
+        "barsReviewed": 20,
+        "dataSource": "alpaca_iex",
+        "paperOnly": true,
+        "liveTradingEnabled": false,
+        "rawPricesPublished": false
+      }
+    ],
+    "marketMovementSeries": [
+      {
+        "symbol": "AAPL",
+        "dataSource": "alpaca_iex",
+        "points": [
+          {
+            "sequence": 1,
+            "timestamp": "2026-05-18T12:05:00Z",
+            "changePct": 0,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 2,
+            "timestamp": "2026-05-18T12:11:00Z",
+            "changePct": -0.01,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 3,
+            "timestamp": "2026-05-18T12:20:00Z",
+            "changePct": 0.01,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 4,
+            "timestamp": "2026-05-18T12:26:00Z",
+            "changePct": 0.04,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 5,
+            "timestamp": "2026-05-18T12:35:00Z",
+            "changePct": 0.18,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 6,
+            "timestamp": "2026-05-18T12:43:00Z",
+            "changePct": 0.29,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 7,
+            "timestamp": "2026-05-18T12:44:00Z",
+            "changePct": 0.32,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 8,
+            "timestamp": "2026-05-18T12:45:00Z",
+            "changePct": 0.38,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 9,
+            "timestamp": "2026-05-18T12:46:00Z",
+            "changePct": 0.48,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 10,
+            "timestamp": "2026-05-18T12:47:00Z",
+            "changePct": 0.49,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 11,
+            "timestamp": "2026-05-18T12:49:00Z",
+            "changePct": 0.51,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 12,
+            "timestamp": "2026-05-18T12:53:00Z",
+            "changePct": 0.43,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 13,
+            "timestamp": "2026-05-18T12:57:00Z",
+            "changePct": 0.44,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 14,
+            "timestamp": "2026-05-18T12:58:00Z",
+            "changePct": 0.49,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 15,
+            "timestamp": "2026-05-18T12:59:00Z",
+            "changePct": 0.53,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 16,
+            "timestamp": "2026-05-18T13:30:00Z",
+            "changePct": 0.08,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 17,
+            "timestamp": "2026-05-18T13:31:00Z",
+            "changePct": -0.08,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 18,
+            "timestamp": "2026-05-18T13:32:00Z",
+            "changePct": -0.47,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 19,
+            "timestamp": "2026-05-18T13:33:00Z",
+            "changePct": -0.41,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 20,
+            "timestamp": "2026-05-18T13:34:00Z",
+            "changePct": -0.24,
+            "rawPricePublished": false
+          }
+        ]
+      },
+      {
+        "symbol": "MSFT",
+        "dataSource": "alpaca_iex",
+        "points": [
+          {
+            "sequence": 1,
+            "timestamp": "2026-05-18T12:00:00Z",
+            "changePct": 0,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 2,
+            "timestamp": "2026-05-18T12:36:00Z",
+            "changePct": 0.29,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 3,
+            "timestamp": "2026-05-18T12:45:00Z",
+            "changePct": 0.38,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 4,
+            "timestamp": "2026-05-18T12:46:00Z",
+            "changePct": 0.52,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 5,
+            "timestamp": "2026-05-18T12:47:00Z",
+            "changePct": 0.51,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 6,
+            "timestamp": "2026-05-18T12:59:00Z",
+            "changePct": 0.1,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 7,
+            "timestamp": "2026-05-18T13:02:00Z",
+            "changePct": -0.08,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 8,
+            "timestamp": "2026-05-18T13:11:00Z",
+            "changePct": -0.24,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 9,
+            "timestamp": "2026-05-18T13:23:00Z",
+            "changePct": -0.29,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 10,
+            "timestamp": "2026-05-18T13:30:00Z",
+            "changePct": -0.2,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 11,
+            "timestamp": "2026-05-18T13:31:00Z",
+            "changePct": 0.35,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 12,
+            "timestamp": "2026-05-18T13:32:00Z",
+            "changePct": 0.06,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 13,
+            "timestamp": "2026-05-18T13:33:00Z",
+            "changePct": -0.24,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 14,
+            "timestamp": "2026-05-18T13:34:00Z",
+            "changePct": -0.49,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 15,
+            "timestamp": "2026-05-18T13:35:00Z",
+            "changePct": -0.26,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 16,
+            "timestamp": "2026-05-18T13:36:00Z",
+            "changePct": -0.21,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 17,
+            "timestamp": "2026-05-18T13:37:00Z",
+            "changePct": -0.15,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 18,
+            "timestamp": "2026-05-18T13:38:00Z",
+            "changePct": -0.05,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 19,
+            "timestamp": "2026-05-18T13:39:00Z",
+            "changePct": 0.06,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 20,
+            "timestamp": "2026-05-18T13:40:00Z",
+            "changePct": 0.1,
+            "rawPricePublished": false
+          }
+        ]
+      },
+      {
+        "symbol": "NVDA",
+        "dataSource": "alpaca_iex",
+        "points": [
+          {
+            "sequence": 1,
+            "timestamp": "2026-05-18T12:05:00Z",
+            "changePct": 0,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 2,
+            "timestamp": "2026-05-18T12:30:00Z",
+            "changePct": 0.03,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 3,
+            "timestamp": "2026-05-18T12:59:00Z",
+            "changePct": 0.84,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 4,
+            "timestamp": "2026-05-18T13:04:00Z",
+            "changePct": 0.69,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 5,
+            "timestamp": "2026-05-18T13:09:00Z",
+            "changePct": 0.78,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 6,
+            "timestamp": "2026-05-18T13:30:00Z",
+            "changePct": 0.55,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 7,
+            "timestamp": "2026-05-18T13:31:00Z",
+            "changePct": 0.39,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 8,
+            "timestamp": "2026-05-18T13:32:00Z",
+            "changePct": 0.06,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 9,
+            "timestamp": "2026-05-18T13:33:00Z",
+            "changePct": 0.05,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 10,
+            "timestamp": "2026-05-18T13:34:00Z",
+            "changePct": -0.25,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 11,
+            "timestamp": "2026-05-18T13:35:00Z",
+            "changePct": -0.32,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 12,
+            "timestamp": "2026-05-18T13:36:00Z",
+            "changePct": -0.81,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 13,
+            "timestamp": "2026-05-18T13:37:00Z",
+            "changePct": -0.71,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 14,
+            "timestamp": "2026-05-18T13:38:00Z",
+            "changePct": -0.65,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 15,
+            "timestamp": "2026-05-18T13:39:00Z",
+            "changePct": -0.68,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 16,
+            "timestamp": "2026-05-18T13:40:00Z",
+            "changePct": -1,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 17,
+            "timestamp": "2026-05-18T13:41:00Z",
+            "changePct": -0.96,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 18,
+            "timestamp": "2026-05-18T13:42:00Z",
+            "changePct": -1.22,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 19,
+            "timestamp": "2026-05-18T13:43:00Z",
+            "changePct": -1.07,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 20,
+            "timestamp": "2026-05-18T13:44:00Z",
+            "changePct": -1.68,
+            "rawPricePublished": false
+          }
+        ]
+      },
+      {
+        "symbol": "QQQ",
+        "dataSource": "alpaca_iex",
+        "points": [
+          {
+            "sequence": 1,
+            "timestamp": "2026-05-18T12:06:00Z",
+            "changePct": 0,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 2,
+            "timestamp": "2026-05-18T12:30:00Z",
+            "changePct": -0.03,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 3,
+            "timestamp": "2026-05-18T12:46:00Z",
+            "changePct": 0.53,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 4,
+            "timestamp": "2026-05-18T12:50:00Z",
+            "changePct": 0.63,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 5,
+            "timestamp": "2026-05-18T12:53:00Z",
+            "changePct": 0.62,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 6,
+            "timestamp": "2026-05-18T13:05:00Z",
+            "changePct": 0.56,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 7,
+            "timestamp": "2026-05-18T13:07:00Z",
+            "changePct": 0.53,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 8,
+            "timestamp": "2026-05-18T13:21:00Z",
+            "changePct": 0.51,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 9,
+            "timestamp": "2026-05-18T13:30:00Z",
+            "changePct": 0.42,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 10,
+            "timestamp": "2026-05-18T13:31:00Z",
+            "changePct": 0.37,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 11,
+            "timestamp": "2026-05-18T13:32:00Z",
+            "changePct": 0.28,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 12,
+            "timestamp": "2026-05-18T13:33:00Z",
+            "changePct": 0.38,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 13,
+            "timestamp": "2026-05-18T13:34:00Z",
+            "changePct": 0.28,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 14,
+            "timestamp": "2026-05-18T13:35:00Z",
+            "changePct": 0.27,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 15,
+            "timestamp": "2026-05-18T13:36:00Z",
+            "changePct": 0.15,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 16,
+            "timestamp": "2026-05-18T13:37:00Z",
+            "changePct": 0.21,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 17,
+            "timestamp": "2026-05-18T13:38:00Z",
+            "changePct": 0.22,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 18,
+            "timestamp": "2026-05-18T13:39:00Z",
+            "changePct": 0.18,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 19,
+            "timestamp": "2026-05-18T13:40:00Z",
+            "changePct": 0.11,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 20,
+            "timestamp": "2026-05-18T13:41:00Z",
+            "changePct": 0.16,
+            "rawPricePublished": false
+          }
+        ]
+      },
+      {
+        "symbol": "SPY",
+        "dataSource": "alpaca_iex",
+        "points": [
+          {
+            "sequence": 1,
+            "timestamp": "2026-05-18T12:09:00Z",
+            "changePct": 0,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 2,
+            "timestamp": "2026-05-18T12:23:00Z",
+            "changePct": -0.01,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 3,
+            "timestamp": "2026-05-18T12:33:00Z",
+            "changePct": -0.03,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 4,
+            "timestamp": "2026-05-18T12:34:00Z",
+            "changePct": 0.05,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 5,
+            "timestamp": "2026-05-18T12:38:00Z",
+            "changePct": 0.13,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 6,
+            "timestamp": "2026-05-18T12:42:00Z",
+            "changePct": 0.23,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 7,
+            "timestamp": "2026-05-18T12:43:00Z",
+            "changePct": 0.24,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 8,
+            "timestamp": "2026-05-18T12:45:00Z",
+            "changePct": 0.32,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 9,
+            "timestamp": "2026-05-18T12:46:00Z",
+            "changePct": 0.41,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 10,
+            "timestamp": "2026-05-18T12:49:00Z",
+            "changePct": 0.41,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 11,
+            "timestamp": "2026-05-18T12:50:00Z",
+            "changePct": 0.4,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 12,
+            "timestamp": "2026-05-18T12:52:00Z",
+            "changePct": 0.34,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 13,
+            "timestamp": "2026-05-18T12:55:00Z",
+            "changePct": 0.34,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 14,
+            "timestamp": "2026-05-18T12:58:00Z",
+            "changePct": 0.38,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 15,
+            "timestamp": "2026-05-18T12:59:00Z",
+            "changePct": 0.38,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 16,
+            "timestamp": "2026-05-18T13:30:00Z",
+            "changePct": 0.19,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 17,
+            "timestamp": "2026-05-18T13:31:00Z",
+            "changePct": 0.2,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 18,
+            "timestamp": "2026-05-18T13:32:00Z",
+            "changePct": 0.15,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 19,
+            "timestamp": "2026-05-18T13:33:00Z",
+            "changePct": 0.1,
+            "rawPricePublished": false
+          },
+          {
+            "sequence": 20,
+            "timestamp": "2026-05-18T13:34:00Z",
+            "changePct": 0.04,
+            "rawPricePublished": false
+          }
+        ]
+      }
+    ],
+    "botActivityTimeline": [
+      {
+        "sequence": 11,
+        "generatedAt": "2026-05-19T00:59:11.213Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": null,
+        "cadenceLabel": "timeline_start"
+      },
+      {
+        "sequence": 12,
+        "generatedAt": "2026-05-19T00:59:11.891Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.01,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 13,
+        "generatedAt": "2026-05-19T01:13:10.815Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 13.98,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 14,
+        "generatedAt": "2026-05-19T01:13:19.577Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.15,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 15,
+        "generatedAt": "2026-05-19T01:13:20.257Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.01,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 16,
+        "generatedAt": "2026-05-19T01:13:37.504Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.29,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 17,
+        "generatedAt": "2026-05-19T01:13:39.812Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.04,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 18,
+        "generatedAt": "2026-05-19T01:15:00.385Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 1.34,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 19,
+        "generatedAt": "2026-05-19T01:15:07.104Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.11,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 20,
+        "generatedAt": "2026-05-19T01:15:07.803Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.01,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 21,
+        "generatedAt": "2026-05-19T01:15:18.846Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.18,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 22,
+        "generatedAt": "2026-05-19T01:15:20.977Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.04,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 23,
+        "generatedAt": "2026-05-19T01:43:02.536Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 27.69,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 24,
+        "generatedAt": "2026-05-19T01:43:09.825Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.12,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 25,
+        "generatedAt": "2026-05-19T01:43:10.520Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.01,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 26,
+        "generatedAt": "2026-05-19T01:43:17.567Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.12,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 27,
+        "generatedAt": "2026-05-19T01:43:19.706Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.04,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 28,
+        "generatedAt": "2026-05-19T01:46:50.365Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 3.51,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 29,
+        "generatedAt": "2026-05-19T01:46:52.577Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.04,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      },
+      {
+        "sequence": 30,
+        "generatedAt": "2026-05-19T01:46:53.563Z",
+        "endingEquity": 4218.75,
+        "paperPnl": 0,
+        "signalsReviewed": 8,
+        "riskApproved": 2,
+        "riskBlocked": 6,
+        "fakePaperTrades": 0,
+        "qaStatus": "PASS",
+        "gapMinutes": 0.02,
+        "cadenceLabel": "roughly_30_minute_cadence"
+      }
+    ],
+    "staleDataWarningPanel": [
+      {
+        "item": "analytics_summary",
+        "status": "stale_context_only",
+        "detail": "Analytics summary 2026-05-08T03:46:14.425Z is older than latest paper run 2026-05-19T01:46:53.563Z. Dashboard headline cards use current paper outputs instead."
+      },
+      {
+        "item": "latest_market_bar",
+        "status": "market_closed_or_delayed",
+        "detail": "Latest bar is 722.91 minutes old. Label as delayed/closed-market data, not live tick data."
+      }
+    ],
+    "marketRegimeSummary": [
+      {
+        "source": "synthetic_regime_context_plus_watchlist_movement",
+        "broadDirection": "watchlist_tilt_down",
+        "regimesCompared": 6,
+        "strongestPaperRegime": "melt_up",
+        "weakestPaperRegime": "panic_drawdown",
+        "fallbackLabeled": true,
+        "publicSafe": true
+      }
+    ],
+    "paperCycleStatus": [
+      {
+        "cycleId": "cycle-20260514-0220",
+        "status": "active",
+        "startingBalance": 1000,
+        "currentBalance": 1000,
+        "endingBalance": null,
+        "cycleStartTimestamp": "2026-05-14T02:20:20.137Z",
+        "cycleEndTimestamp": null,
+        "hoursSurvived": 119.44,
+        "daysSurvived": 4.98,
+        "approvedTrades": 147,
+        "rejectedTrades": 461,
+        "depletionRisk": "normal",
+        "resetTriggerReason": null,
+        "nextCycleScheduledStart": null,
+        "doesNotResetDaily": true,
+        "paperOnly": true,
+        "externalEffects": false,
+        "publishAllowed": false,
+        "activePreset": "standard"
+      }
+    ],
+    "dashboardRefreshHealth": [
+      {
+        "lastStatus": "PASS",
+        "lastAttemptAt": "2026-05-19T01:46:51.198Z",
+        "lastSuccessfulRefreshAt": "2026-05-19T01:46:51.198Z",
+        "staleWarning": null,
+        "refreshIntervalTargetHours": 2,
+        "schedulerInstalled": false,
+        "paperOnly": true
+      }
+    ],
+    "quoteSnapshot": [
+      {
+        "symbol": "MSFT",
+        "timestamp": "2026-05-18T20:00:00.029544466Z",
+        "spreadPct": 11.94,
+        "quoteAvailable": true,
+        "rawBidAskPublished": false
+      },
+      {
+        "symbol": "AAPL",
+        "timestamp": "2026-05-18T20:00:00.000970569Z",
+        "spreadPct": 10.03,
+        "quoteAvailable": true,
+        "rawBidAskPublished": false
+      },
+      {
+        "symbol": "QQQ",
+        "timestamp": "2026-05-18T20:51:51.376670245Z",
+        "spreadPct": 0.01,
+        "quoteAvailable": true,
+        "rawBidAskPublished": false
+      },
+      {
+        "symbol": "SPY",
+        "timestamp": "2026-05-18T20:00:00.009238988Z",
+        "spreadPct": 6.01,
+        "quoteAvailable": true,
+        "rawBidAskPublished": false
+      },
+      {
+        "symbol": "NVDA",
+        "timestamp": "2026-05-18T20:27:30.204436235Z",
+        "spreadPct": 11.71,
+        "quoteAvailable": true,
+        "rawBidAskPublished": false
+      }
+    ]
+  },
+  "chartDataSources": {
+    "note": "Each chart key is labeled by its primary data source. real_paper = from paper simulation outputs, real_market = from Alpaca IEX feed, synthetic_analytics = from analytics pipeline, sample_fallback = deterministic sample when real data is unavailable.",
+    "equityCurve": "no_trades",
+    "paperEquityCurve": "no_trades",
+    "paperPnlSeries": "real_paper_run_history",
+    "rollingEquity": "real_paper_run_history",
+    "drawdownVisualData": "real_paper_equity_curve_and_history",
+    "drawdownSeries": "no_trades",
+    "vehicleActivity": "real_paper_signal_scans_plus_market_data",
+    "watchlistMovementSummary": "real_alpaca_iex_market_movement",
+    "vehicleDirectionCounts": "real_alpaca_iex_market_movement",
+    "movementBuckets": "real_alpaca_iex_market_movement",
+    "signalCandidatesGenerated": "real_paper_signal_scans",
+    "signalConfidenceDistribution": "real_paper_signal_scans",
+    "riskRejectionReasons": "real_paper_risk_decisions",
+    "almostApprovedCandidates": "real_paper_signal_scans_plus_risk_decisions",
+    "signalRiskCounts": "real_paper_run_history",
+    "cumulativePaperPnl": "no_trades_executed",
+    "targetProgress": "real_paper_equity_curve_plus_config_target",
+    "signalFunnel": "real_paper_signal_scans_plus_risk_decisions",
+    "tradeOutcomeBars": "real_paper_trade_records_or_analytics",
+    "tradeOutcomeMix": "real_paper_trade_records_or_analytics",
+    "riskDecisionMix": "real_paper_risk_decisions",
+    "vehicleContribution": "real_paper_signals_plus_market_movement",
+    "returnVsDrawdownSnapshot": "real_paper_equity_curve_plus_history",
+    "paperAccountMilestoneStrip": "real_paper_equity_curve_plus_config_target",
+    "regimeScoreBars": "synthetic_analytics_from_regime_rows",
+    "syntheticBenchmarkComparison": "synthetic_analytics_from_regime_rows",
+    "marketDataFreshnessPanel": "real_market_data_or_sample_freshness",
+    "recentMarketMovementPanel": "real_alpaca_iex_market_movement",
+    "marketMovementSeries": "real_alpaca_iex_market_movement",
+    "botActivityTimeline": "real_paper_run_history",
+    "staleDataWarningPanel": true,
+    "marketRegimeSummary": "synthetic_analytics_plus_watchlist_movement",
+    "paperCycleStatus": "real_paper_cycle_output",
+    "dashboardRefreshHealth": "real_refresh_health_tracker",
+    "quoteSnapshot": "real_alpaca_iex_quotes"
+  },
+  "rollingAnalytics": {
+    "runsReviewed": 30,
+    "latestRun": {
+      "sequence": 30,
+      "generatedAt": "2026-05-19T01:46:53.563Z",
+      "endingEquity": 4218.75,
+      "paperPnl": 0,
+      "paperReturnPct": 0,
+      "maxDrawdownPct": 0,
+      "signalsReviewed": 8,
+      "riskApproved": 2,
+      "riskBlocked": 6,
+      "fakePaperTrades": 0,
+      "qaStatus": "PASS"
+    },
+    "rollingPaperReturnPctValues": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "rollingMaxDrawdownPctValues": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "disclaimers": [
+    "Paper simulation only.",
+    "Sample-data preview only.",
+    "Not live market data.",
+    "Not financial advice.",
+    "Not real trading performance.",
+    "No broker, API, payment, or social auto-posting behavior is enabled."
+  ]
+}
