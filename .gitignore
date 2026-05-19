@@ -33,3 +33,11 @@ Backups/
 *.tmp
 *.bak
 *.backup
+
+# MarketOps generated runtime artifacts
+Data/dashboard/dashboard-public-safe-*.json
+Data/paper/history/runs/*.json
+logs/*.log
+logs/public-sync-*.log
+Reports/Public/sync-report-*.md
+marketops-opencode-repair-*.txt

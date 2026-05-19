@@ -69,7 +69,9 @@
     "marketops:refresh": "node src/simulation/runMarketOpsRefresh.js",
     "scheduler:check": "node src/automation/runSchedulerCheck.js",
     "approvals:waterfall": "node src/approvals/approvalWaterfall.js",
-    "qa:full": "node src/qa/runFullSimulationQa.js"
+    "qa:full": "node src/qa/runFullSimulationQa.js",
+    "public:trial-status": "node src/public/generatePublicTrialStatus.js",
+    "training:prep-market-open": "node src/training/prepMarketOpen.js"
   },
   "private": true,
   "license": "UNLICENSED"

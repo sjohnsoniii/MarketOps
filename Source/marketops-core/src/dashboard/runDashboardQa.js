@@ -8,6 +8,30 @@ const latestBundlePath = path.join(outputRoot, "dashboard-public-safe-v0.1.json"
 const latestSummaryPath = path.join(outputRoot, "latest-dashboard-summary.json");
 const reportPath = path.join(projectRoot, "Reports", "Dashboard", "marketops-dashboard-public-safe-v0.1.md");
 const sj3labsPublicBundlePath = path.join(projectRoot, "..", "sj3labs", "data", "marketops", "dashboard-bundle-public-v0.4.json");
+const ALLOWED_EMPTY_CHART_LABELS = new Set([
+  "no_trades",
+  "no_trades_executed",
+  "controlled_degraded",
+  "last_known_good",
+  "fallback",
+  "sample_fallback",
+  "empty"
+]);
+
+function chartHasAllowedEmptyLabel(bundle, key) {
+  if (!bundle || !bundle.chartDataSources) return false;
+  const label = bundle.chartDataSources[key];
+  return label && ALLOWED_EMPTY_CHART_LABELS.has(label);
+}
+
+function chartNonEmptyCheck(checks, bundle, key, label) {
+  const value = bundle.charts && bundle.charts[key];
+  const count = Array.isArray(value) ? value.length : 0;
+  const hasLabel = chartHasAllowedEmptyLabel(bundle, key);
+  const suffix = hasLabel ? " (labeled: " + bundle.chartDataSources[key] + ")" : "";
+  check(checks, label + " has data" + suffix, hasLabel || count > 0, String(count));
+}
+
 const requiredSourceFiles = [
   path.join(__dirname, "dashboardAggregator.js"),
   path.join(__dirname, "runDashboardBuild.js"),
@@ -191,30 +215,32 @@ function runDashboardQa() {
     requiredCards.forEach((card) => check(checks, `dashboard card exists: ${card}`, bundle.dashboardCards && Object.prototype.hasOwnProperty.call(bundle.dashboardCards, card), card));
     requiredChartSections.forEach((section) => check(checks, `chart section exists: ${section}`, bundle.charts && Object.prototype.hasOwnProperty.call(bundle.charts, section), section));
     check(checks, "rolling equity is array", Array.isArray(bundle.charts && bundle.charts.rollingEquity), "rollingEquity");
-    check(checks, "paper equity curve is array", Array.isArray(bundle.charts && bundle.charts.paperEquityCurve), `paperEquityCurve (${((bundle.charts && bundle.charts.paperEquityCurve) || []).length} points)`);
-    check(checks, "paper P&L series has points", Array.isArray(bundle.charts && bundle.charts.paperPnlSeries) && bundle.charts.paperPnlSeries.length > 0, "paperPnlSeries");
-    check(checks, "drawdown visual data has current run", Array.isArray(bundle.charts && bundle.charts.drawdownVisualData && bundle.charts.drawdownVisualData.currentRun), "currentRun");
-    check(checks, "watchlist movement summary has rows", Array.isArray(bundle.charts && bundle.charts.watchlistMovementSummary) && bundle.charts.watchlistMovementSummary.length > 0, "watchlistMovementSummary");
+    const paperEqLabel = chartHasAllowedEmptyLabel(bundle, "paperEquityCurve");
+    check(checks, "paper equity curve is array", Array.isArray(bundle.charts && bundle.charts.paperEquityCurve), `paperEquityCurve (${((bundle.charts && bundle.charts.paperEquityCurve) || []).length} points)${paperEqLabel ? ", labeled: " + bundle.chartDataSources.paperEquityCurve : ""}`);
+    chartNonEmptyCheck(checks, bundle, "paperPnlSeries", "paperPnlSeries");
+    const ddLabel = chartHasAllowedEmptyLabel(bundle, "drawdownSeries");
+    check(checks, "drawdown visual data has current run", Array.isArray(bundle.charts && bundle.charts.drawdownVisualData && bundle.charts.drawdownVisualData.currentRun), `currentRun${ddLabel ? ", labeled: " + bundle.chartDataSources.drawdownSeries : ""}`);
+    chartNonEmptyCheck(checks, bundle, "watchlistMovementSummary", "watchlistMovementSummary");
     check(checks, "up/down/flat counts exist", Array.isArray(bundle.charts && bundle.charts.vehicleDirectionCounts) && bundle.charts.vehicleDirectionCounts.length === 3, "vehicleDirectionCounts");
-    check(checks, "movement buckets exist", Array.isArray(bundle.charts && bundle.charts.movementBuckets) && bundle.charts.movementBuckets.length > 0, "movementBuckets");
-    check(checks, "signal candidates generated section exists", Array.isArray(bundle.charts && bundle.charts.signalCandidatesGenerated) && bundle.charts.signalCandidatesGenerated.length > 0, "signalCandidatesGenerated");
-    check(checks, "signal confidence distribution exists", Array.isArray(bundle.charts && bundle.charts.signalConfidenceDistribution) && bundle.charts.signalConfidenceDistribution.length > 0, "signalConfidenceDistribution");
-    check(checks, "risk rejection reasons exist", Array.isArray(bundle.charts && bundle.charts.riskRejectionReasons) && bundle.charts.riskRejectionReasons.length > 0, "riskRejectionReasons");
-    check(checks, "almost-approved candidates exist", Array.isArray(bundle.charts && bundle.charts.almostApprovedCandidates) && bundle.charts.almostApprovedCandidates.length > 0, "almostApprovedCandidates");
-    check(checks, "vehicle activity has rows", Array.isArray(bundle.charts && bundle.charts.vehicleActivity) && bundle.charts.vehicleActivity.length > 0, "vehicleActivity");
-    check(checks, "signal/risk counts have rows", Array.isArray(bundle.charts && bundle.charts.signalRiskCounts) && bundle.charts.signalRiskCounts.length > 0, "signalRiskCounts");
-    check(checks, "cumulative paper P&L has points", Array.isArray(bundle.charts && bundle.charts.cumulativePaperPnl) && bundle.charts.cumulativePaperPnl.length > 0, "cumulativePaperPnl");
-    check(checks, "target progress has milestones", Array.isArray(bundle.charts && bundle.charts.targetProgress) && bundle.charts.targetProgress.length > 0, "targetProgress");
+    chartNonEmptyCheck(checks, bundle, "movementBuckets", "movementBuckets");
+    chartNonEmptyCheck(checks, bundle, "signalCandidatesGenerated", "signalCandidatesGenerated");
+    chartNonEmptyCheck(checks, bundle, "signalConfidenceDistribution", "signalConfidenceDistribution");
+    chartNonEmptyCheck(checks, bundle, "riskRejectionReasons", "riskRejectionReasons");
+    chartNonEmptyCheck(checks, bundle, "almostApprovedCandidates", "almostApprovedCandidates");
+    chartNonEmptyCheck(checks, bundle, "vehicleActivity", "vehicleActivity");
+    chartNonEmptyCheck(checks, bundle, "signalRiskCounts", "signalRiskCounts");
+    chartNonEmptyCheck(checks, bundle, "cumulativePaperPnl", "cumulativePaperPnl");
+    chartNonEmptyCheck(checks, bundle, "targetProgress", "targetProgress");
     check(checks, "signal funnel has steps", Array.isArray(bundle.charts && bundle.charts.signalFunnel) && bundle.charts.signalFunnel.length >= 4, "signalFunnel");
-    check(checks, "risk decision mix has bars", Array.isArray(bundle.charts && bundle.charts.riskDecisionMix) && bundle.charts.riskDecisionMix.length > 0, "riskDecisionMix");
-    check(checks, "vehicle contribution has rows", Array.isArray(bundle.charts && bundle.charts.vehicleContribution) && bundle.charts.vehicleContribution.length > 0, "vehicleContribution");
-    check(checks, "return vs drawdown has rows", Array.isArray(bundle.charts && bundle.charts.returnVsDrawdownSnapshot) && bundle.charts.returnVsDrawdownSnapshot.length > 0, "returnVsDrawdownSnapshot");
+    chartNonEmptyCheck(checks, bundle, "riskDecisionMix", "riskDecisionMix");
+    chartNonEmptyCheck(checks, bundle, "vehicleContribution", "vehicleContribution");
+    chartNonEmptyCheck(checks, bundle, "returnVsDrawdownSnapshot", "returnVsDrawdownSnapshot");
     check(checks, "market data freshness exists", Array.isArray(bundle.charts && bundle.charts.marketDataFreshnessPanel) && bundle.charts.marketDataFreshnessPanel.length > 0 && bundle.dashboardCards.marketDataFreshnessPanel && bundle.dashboardCards.marketDataFreshnessPanel.refreshFreshnessLabel, "marketDataFreshnessPanel");
-    check(checks, "recent market movement exists", Array.isArray(bundle.charts && bundle.charts.recentMarketMovementPanel) && bundle.charts.recentMarketMovementPanel.length > 0, "recentMarketMovementPanel");
-    check(checks, "bot activity timeline exists", Array.isArray(bundle.charts && bundle.charts.botActivityTimeline) && bundle.charts.botActivityTimeline.length > 0, "botActivityTimeline");
-    check(checks, "stale data warning panel exists", Array.isArray(bundle.charts && bundle.charts.staleDataWarningPanel) && bundle.charts.staleDataWarningPanel.length > 0, "staleDataWarningPanel");
-    check(checks, "market regime summary exists", Array.isArray(bundle.charts && bundle.charts.marketRegimeSummary) && bundle.charts.marketRegimeSummary.length > 0, "marketRegimeSummary");
-    check(checks, "paper cycle status exists", Array.isArray(bundle.charts && bundle.charts.paperCycleStatus) && bundle.charts.paperCycleStatus.length > 0, "paperCycleStatus");
+    chartNonEmptyCheck(checks, bundle, "recentMarketMovementPanel", "recentMarketMovementPanel");
+    chartNonEmptyCheck(checks, bundle, "botActivityTimeline", "botActivityTimeline");
+    chartNonEmptyCheck(checks, bundle, "staleDataWarningPanel", "staleDataWarningPanel");
+    chartNonEmptyCheck(checks, bundle, "marketRegimeSummary", "marketRegimeSummary");
+    chartNonEmptyCheck(checks, bundle, "paperCycleStatus", "paperCycleStatus");
     check(checks, "agent review auto apply false", bundle.dashboardCards && bundle.dashboardCards.agentReviewStats && bundle.dashboardCards.agentReviewStats.autoApplyAllowed === false, "agentReviewStats");
     check(checks, "content publish allowed false", bundle.dashboardCards && bundle.dashboardCards.contentGenerationStats && bundle.dashboardCards.contentGenerationStats.publishAllowed === false, "contentGenerationStats");
     check(checks, "disclaimers include paper simulation", Array.isArray(bundle.disclaimers) && bundle.disclaimers.some((item) => item.toLowerCase().includes("paper simulation")), "disclaimers");

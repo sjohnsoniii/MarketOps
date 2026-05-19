@@ -36,6 +36,12 @@ async function runStep(name, description, fn) {
       console.log(`[FAIL] ${name}: ${description} - ${msg} (${elapsed}s)`);
       return { name, status: "FAIL", error: msg, elapsed };
     }
+    const isSkipped = result && typeof result === "object" && result.status === "SKIPPED";
+    if (isSkipped) {
+      const msg = result.reason || "step skipped";
+      console.log(`[SKIP] ${name}: ${description} - ${msg} (${elapsed}s)`);
+      return { name, status: "SKIPPED", reason: msg, elapsed, result };
+    }
     console.log(`[PASS] ${name}: ${description} (${elapsed}s)`);
     return { name, status: "PASS", elapsed, result };
   } catch (error) {
@@ -58,6 +64,17 @@ async function runMarketOpsRefresh() {
 
   stepResults.push(await runStep("marketdata:refresh", "Fetch latest Alpaca market data", () => refreshAlpacaMarketData({ generatedAt })));
 
+  const marketDataStep = stepResults[stepResults.length - 1];
+  const marketDataBundle = marketDataStep?.result?.bundle;
+  const freshBarsStatus = marketDataBundle?.freshBarsStatus;
+  const hasFreshBars = marketDataStep.status === "PASS" && freshBarsStatus === "FRESH_BARS_AVAILABLE";
+
+  if (!hasFreshBars) {
+    console.log(`\n[NOTE] Market data status: ${freshBarsStatus || "UNAVAILABLE"}`);
+    console.log("[NOTE] Market likely closed or off-hours. Simulation steps that require fresh bars will be skipped.");
+    console.log("[NOTE] Rolling history is preserved. No new trades will be generated from stale data.\n");
+  }
+
   stepResults.push(await runStep("marketdata:backfill", "Backfill past 7 days", () => {
     const { backfillMarketData } = require("../marketdata/backfillMarketData");
     return backfillMarketData({ generatedAt });
@@ -73,12 +90,24 @@ async function runMarketOpsRefresh() {
     return buildWeatherStation();
   }));
 
-  stepResults.push(await runStep("intraday:simulate", "Intraday simulation", () => runIntradaySimulation()));
-
-  stepResults.push(await runStep("confidence:calibrate", "Confidence calibration", () => {
-    const { calibrateAllSymbols } = require("../signals/confidenceCalibration");
-    return calibrateAllSymbols();
-  }));
+  if (hasFreshBars) {
+    stepResults.push(await runStep("intraday:simulate", "Intraday simulation", () => runIntradaySimulation()));
+    stepResults.push(await runStep("confidence:calibrate", "Confidence calibration", () => {
+      const { calibrateAllSymbols } = require("../signals/confidenceCalibration");
+      return calibrateAllSymbols();
+    }));
+  } else {
+    stepResults.push(await runStep("intraday:simulate", "Intraday simulation (SKIPPED - no fresh bars)", async () => ({
+      status: "SKIPPED",
+      reason: "No fresh market data available. Market likely closed or off-hours.",
+      skippedBecause: freshBarsStatus
+    })));
+    stepResults.push(await runStep("confidence:calibrate", "Confidence calibration (SKIPPED - no fresh bars)", async () => ({
+      status: "SKIPPED",
+      reason: "No fresh bars to calibrate against.",
+      skippedBecause: freshBarsStatus
+    })));
+  }
 
   stepResults.push(await runStep("risk:explain", "Risk explainability", () => runTradeRejectionExplainability()));
 
@@ -97,6 +126,7 @@ async function runMarketOpsRefresh() {
   stepResults.push(await runStep("scheduler:check", "Scheduler check", () => runSchedulerCheck()));
 
   const passed = stepResults.filter((s) => s.status === "PASS").length;
+  const skipped = stepResults.filter((s) => s.status === "SKIPPED").length;
   const failed = stepResults.filter((s) => s.status === "FAIL").length;
   const total = stepResults.length;
 
@@ -106,24 +136,35 @@ async function runMarketOpsRefresh() {
   console.log("=".repeat(60));
   console.log(`Total steps: ${total}`);
   console.log(`Passed: ${passed}`);
+  console.log(`Skipped: ${skipped}`);
   console.log(`Failed: ${failed}`);
   console.log("");
 
   for (const step of stepResults) {
-    const icon = step.status === "PASS" ? "OK" : "XX";
+    const icon = step.status === "PASS" ? "OK" : step.status === "SKIPPED" ? "--" : "XX";
     console.log(`  [${icon}] ${step.name} (${step.elapsed}s)`);
     if (step.status === "FAIL" && step.error) {
       console.log(`       error: ${step.error}`);
     }
+    if (step.status === "SKIPPED" && step.reason) {
+      console.log(`       reason: ${step.reason}`);
+    }
   }
 
   console.log("");
-  if (failed === 0) {
+  if (failed === 0 && skipped === 0) {
     console.log("MarketOps refresh: ALL PASS");
+  } else if (failed === 0 && skipped > 0) {
+    console.log(`MarketOps refresh: CONTROLLED_DEGRADED (${skipped} step(s) skipped, 0 failed)`);
+    console.log("Reason: Market data unavailable during off-hours. Rolling history preserved. No new trades generated.");
   } else {
     console.log(`MarketOps refresh: ${failed} step(s) failed`);
   }
   console.log("");
+
+  if (failed === 0) {
+    process.exitCode = 0;
+  }
 
   return { generatedAt, stepResults, passed, failed };
 }
