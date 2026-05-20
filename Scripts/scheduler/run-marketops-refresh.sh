@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# MarketOps Refresh Runner v0.3
+# MarketOps Refresh Runner v0.4 (Cruise 5)
 # Runs the full paper simulation loop.
 # Paper-only. No live trading. No deploy. No post. No email. No SMS.
 # After refresh, generates public trial status and optionally syncs to sj3labs.
@@ -60,6 +60,36 @@ CHART_STATUS=$(node -e "try{const d=JSON.parse(require('fs').readFileSync('$REFR
 echo "Refresh status: $REFRESH_STATUS" >> "$LOG_FILE"
 echo "Market data status: $MARKET_DATA_STATUS" >> "$LOG_FILE"
 echo "Chart status: $CHART_STATUS" >> "$LOG_FILE"
+
+# --------------------------------------------------
+# Step 1b: Cruise 1 - Dashboard Data Bundle Build
+# --------------------------------------------------
+echo "" >> "$LOG_FILE"
+echo "Building Cruise 1 dashboard data bundle..." >> "$LOG_FILE"
+npm run dashboard:data:build >> "$LOG_FILE" 2>&1
+echo "Dashboard data build exit code: $?" >> "$LOG_FILE"
+npm run dashboard:data:qa >> "$LOG_FILE" 2>&1
+echo "Dashboard data QA exit code: $?" >> "$LOG_FILE"
+
+# --------------------------------------------------
+# Step 1c: Cruise 3 - Risk Desk Learning Records
+# --------------------------------------------------
+echo "" >> "$LOG_FILE"
+echo "Building Risk Desk learning records..." >> "$LOG_FILE"
+npm run risk:learning >> "$LOG_FILE" 2>&1
+echo "Risk learning exit code: $?" >> "$LOG_FILE"
+npm run risk:learning:qa >> "$LOG_FILE" 2>&1
+echo "Risk learning QA exit code: $?" >> "$LOG_FILE"
+
+# --------------------------------------------------
+# Step 1d: Cruise 4 - Review Queue Import
+# --------------------------------------------------
+echo "" >> "$LOG_FILE"
+echo "Importing proposals to review queue..." >> "$LOG_FILE"
+npm run review:import >> "$LOG_FILE" 2>&1
+echo "Review import exit code: $?" >> "$LOG_FILE"
+npm run review:qa >> "$LOG_FILE" 2>&1
+echo "Review QA exit code: $?" >> "$LOG_FILE"
 
 # --------------------------------------------------
 # Step 2: Generate public trial status
@@ -189,7 +219,27 @@ fi
 cd "$CORE_DIR"
 
 # --------------------------------------------------
-# Step 5: Determine final scheduler status and exit code
+# Step 5: Generate public update manifest
+# --------------------------------------------------
+MANIFEST_STATUS="skipped_no_changes"
+if [ "$GIT_PUBLISH_STATUS" = "pushed" ]; then
+    MANIFEST_STATUS="published"
+elif [ "$GIT_PUBLISH_STATUS" = "committed_not_pushed" ]; then
+    MANIFEST_STATUS="published_awaiting_push"
+elif [ "$GIT_PUBLISH_STATUS" = "blocked" ]; then
+    MANIFEST_STATUS="blocked_non_allowlisted_changes"
+elif [ "$GIT_PUBLISH_STATUS" = "no_changes" ]; then
+    MANIFEST_STATUS="skipped_no_changes"
+fi
+
+echo "" >> "$LOG_FILE"
+echo "Generating public update manifest (status: $MANIFEST_STATUS)..." >> "$LOG_FILE"
+npm run public:update-manifest -- "$MANIFEST_STATUS" >> "$LOG_FILE" 2>&1
+MANIFEST_EXIT_CODE=$?
+echo "Public update manifest exit code: $MANIFEST_EXIT_CODE" >> "$LOG_FILE"
+
+# --------------------------------------------------
+# Step 6: Determine final scheduler status and exit code
 # --------------------------------------------------
 FINAL_SCHEDULER_STATUS="UNKNOWN"
 EXIT_CODE_REASON=""
@@ -212,7 +262,7 @@ else
 fi
 
 # --------------------------------------------------
-# Step 6: Write scheduler report
+# Step 7: Write scheduler report
 # --------------------------------------------------
 {
     echo "# MarketOps Scheduled Public Data Publish Repair v0.3"
@@ -251,6 +301,25 @@ fi
         echo "- Review report: $GIT_PUBLISH_REPORT"
     fi
     echo ""
+    echo "## Public Update Manifest"
+    echo ""
+    echo "- Generated: true"
+    echo "- Status: $MANIFEST_STATUS"
+    echo "- Expected Vercel trigger: $(if [ "$MANIFEST_STATUS" = "published" ]; then echo "yes"; else echo "no"; fi)"
+    echo ""
+    echo "## Production Update Coordination"
+    echo ""
+    echo "- Refresh run completed: YES"
+    echo "- Dashboard JSON generated: YES"
+    echo "- Trial status generated: YES"
+    echo "- Manifest generated: YES"
+    echo "- Site data synced to sj3labs: $(if [ "$SYNC_STATUS" = "success" ] || [ "$SYNC_STATUS" = "dry_run" ]; then echo "YES"; else echo "NO ($SYNC_STATUS)"; fi)"
+    echo "- Allowlist check passed: $(if [ "$GIT_PUBLISH_BLOCKED" = true ]; then echo "NO"; else echo "YES"; fi)"
+    echo "- Git commit created: $(if [ "$GIT_PUBLISH_STATUS" = "pushed" ] || [ "$GIT_PUBLISH_STATUS" = "committed_not_pushed" ]; then echo "YES"; elif [ "$GIT_PUBLISH_STATUS" = "no_changes" ]; then echo "NO (no changes)"; else echo "NO ($GIT_PUBLISH_STATUS)"; fi)"
+    echo "- Git push succeeded: $(if [ "$GIT_PUBLISH_STATUS" = "pushed" ]; then echo "YES"; else echo "NO ($GIT_PUBLISH_STATUS)"; fi)"
+    echo "- Vercel trigger: $(if [ "$MANIFEST_STATUS" = "published" ]; then echo "EXPECTED (data commit pushed to main)"; else echo "NOT EXPECTED (no data published)"; fi)"
+    echo "- Public data freshness: see manifest generatedAt"
+    echo ""
     echo "## Final Scheduler Status"
     echo ""
     echo "- Status: $FINAL_SCHEDULER_STATUS"
@@ -262,6 +331,10 @@ fi
     echo "## Log File"
     echo ""
     echo "- $LOG_FILE"
+    echo ""
+    echo "## Next Scheduled Run"
+    echo ""
+    echo "- Check: systemctl --user list-timers --all | grep -i marketops"
     echo ""
     echo "## Safety"
     echo ""
@@ -283,7 +356,7 @@ fi
 echo "Scheduler report: $REPORT_FILE" >> "$LOG_FILE"
 
 # --------------------------------------------------
-# Step 7: Determine final exit code
+# Step 8: Determine final exit code
 # --------------------------------------------------
 FINAL_EXIT_CODE=0
 if [ "$FINAL_SCHEDULER_STATUS" = "FAIL" ]; then

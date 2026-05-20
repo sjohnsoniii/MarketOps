@@ -86,7 +86,8 @@
     "review:approve": "node src/review/runReviewQueueAction.js approve",
     "review:reject": "node src/review/runReviewQueueAction.js reject",
     "review:revise": "node src/review/runReviewQueueAction.js revise",
-    "review:qa": "node src/review/runReviewQueueQa.js"
+    "review:qa": "node src/review/runReviewQueueQa.js",
+    "marketops:stabilize": "node src/simulation/runStabilize.js"
   },
   "private": true,
   "license": "UNLICENSED"
