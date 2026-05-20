@@ -71,7 +71,14 @@
     "approvals:waterfall": "node src/approvals/approvalWaterfall.js",
     "qa:full": "node src/qa/runFullSimulationQa.js",
     "public:trial-status": "node src/public/generatePublicTrialStatus.js",
-    "training:prep-market-open": "node src/training/prepMarketOpen.js"
+    "public:update-manifest": "node src/public/generatePublicUpdateManifest.js",
+    "training:clean-start": "node src/training/cleanStart.js",
+    "training:backfill-prior-day": "node src/training/backfillPriorDay.js",
+    "training:prep-market-open": "node src/training/prepMarketOpen.js",
+    "dashboard:site-binding:qa": "node src/dashboard/runSiteBindingQa.js",
+    "dashboard:prod-update:qa": "node src/dashboard/runProdUpdateQa.js",
+    "dashboard:data:build": "node src/dashboard/runDashboardDataBuild.js",
+    "dashboard:data:qa": "node src/dashboard/runDashboardDataQa.js"
   },
   "private": true,
   "license": "UNLICENSED"
