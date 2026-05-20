@@ -39,6 +39,8 @@
     "signal:preview": "node src/signals/runSignalPreview.js",
     "signal:qa": "node src/signals/runSignalQa.js",
     "risk:explain": "node src/risk/runTradeRejectionExplainability.js",
+    "risk:learning": "node src/risk/runRiskDeskLearning.js",
+    "risk:learning:qa": "node src/risk/runRiskDeskLearningQa.js",
     "approvals:generate": "node src/approvals/runApprovalsGenerate.js",
     "approvals:index": "node src/admin-checkpoint/runAdminCheckpointBuild.js",
     "approvals:qa": "node src/approvals/runApprovalsQa.js",
