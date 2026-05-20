@@ -80,7 +80,13 @@
     "dashboard:site-binding:qa": "node src/dashboard/runSiteBindingQa.js",
     "dashboard:prod-update:qa": "node src/dashboard/runProdUpdateQa.js",
     "dashboard:data:build": "node src/dashboard/runDashboardDataBuild.js",
-    "dashboard:data:qa": "node src/dashboard/runDashboardDataQa.js"
+    "dashboard:data:qa": "node src/dashboard/runDashboardDataQa.js",
+    "review:import": "node src/review/runReviewQueueImport.js",
+    "review:list": "node src/review/runReviewQueueAction.js list",
+    "review:approve": "node src/review/runReviewQueueAction.js approve",
+    "review:reject": "node src/review/runReviewQueueAction.js reject",
+    "review:revise": "node src/review/runReviewQueueAction.js revise",
+    "review:qa": "node src/review/runReviewQueueQa.js"
   },
   "private": true,
   "license": "UNLICENSED"
