@@ -4,6 +4,87 @@ const { fileExists, loadJson, writeJson } = require("../utils/fileStore");
 const { round } = require("../utils/number");
 const { paths } = require("../utils/paths");
 
+function computeHoldingsValue(positions) {
+  if (!positions || !Array.isArray(positions.openPositions)) return 0;
+  return round(positions.openPositions.reduce((sum, p) => sum + Number(p.currentValue || 0), 0));
+}
+
+function buildTotalAccountValueCurve({ paperResults, positions, cycle, runHistory, generatedAt, startingBalanceOverride }) {
+  const originalStartingBalance = startingBalanceOverride || 1000;
+  const cashBalance = Number(paperResults.cashBalance || paperResults.endingBalance || originalStartingBalance);
+  const holdingsValue = computeHoldingsValue(positions);
+  const totalAccountValue = round(cashBalance + holdingsValue);
+
+  const fourteenDaysAgo = new Date(Date.now() - 14 * 24 * 60 * 60 * 1000);
+  const cycleStartTimestamp = cycle.cycleStartTimestamp || null;
+  const windowStart = cycleStartTimestamp && new Date(cycleStartTimestamp) > fourteenDaysAgo ? new Date(cycleStartTimestamp) : fourteenDaysAgo;
+
+  const points = [];
+
+  points.push({
+    timestamp: windowStart.toISOString(),
+    cycleId: cycle.cycleId || "cycle_not_built",
+    cashBalance: originalStartingBalance,
+    holdingsValue: 0,
+    totalAccountValue: originalStartingBalance,
+    label: "Start ($1,000 paper balance)",
+    source: "cycle_start"
+  });
+
+  const runs = Array.isArray(runHistory.runs) ? runHistory.runs : [];
+  const recentRuns = runs.filter(r => {
+    const t = new Date(r.generatedAt);
+    return t >= windowStart && t < new Date();
+  });
+
+  recentRuns.forEach(r => {
+    const cash = Number(r.endingEquity || 0);
+    points.push({
+      timestamp: r.generatedAt,
+      cycleId: cycle.cycleId || "cycle_not_built",
+      cashBalance: round(cash),
+      holdingsValue: 0,
+      totalAccountValue: round(cash),
+      label: "Cash balance checkpoint",
+      source: "run_history_cash_only"
+    });
+  });
+
+  points.push({
+    timestamp: generatedAt,
+    cycleId: cycle.cycleId || "cycle_not_built",
+    cashBalance: round(cashBalance),
+    holdingsValue: round(holdingsValue),
+    totalAccountValue,
+    label: holdingsValue > 0 ? "Current (cash + holdings)" : "Current (cash only, no positions)",
+    source: "paper_simulation"
+  });
+
+  const seen = new Set();
+  const deduped = points.filter(p => {
+    const key = p.timestamp;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+
+  deduped.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+  return {
+    label: "Total Account Value (Cash + Holdings)",
+    definition: "Current cash balance plus market value of all open positions",
+    paperStartingBalance: originalStartingBalance,
+    paperCurrentCashBalance: round(cashBalance),
+    holdingsValue: round(holdingsValue),
+    totalAccountValue,
+    openPositionCount: positions && Array.isArray(positions.openPositions) ? positions.openPositions.length : 0,
+    windowDays: 14,
+    windowStart: windowStart.toISOString(),
+    windowEnd: generatedAt,
+    points: deduped
+  };
+}
+
 function sanitizeRunHistorySummary(runHistorySummary) {
   if (!runHistorySummary) return null;
   return {
@@ -296,6 +377,7 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
   const signals = loadJson(paths.signalsJson);
   const riskReview = loadJson(paths.riskJson);
   const paperResults = loadJson(paths.tradesJson);
+  const paperPositions = fileExists(paths.paperPositionsJson) ? loadJson(paths.paperPositionsJson) : { openPositions: [] };
   const equityCurve = loadJson(paths.equityJson);
   const dashboardBundle = loadJson(paths.dashboardJson);
   const alpacaMarketData = fileExists(paths.alpacaMarketDataLatestJson) ? loadJson(paths.alpacaMarketDataLatestJson) : null;
@@ -366,6 +448,16 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
   const marketRefreshAgeMinutes = minutesOld(latestMarketDataRefreshAt, new Date(generatedAt));
   const latestBarAgeMinutes = minutesOld(latestBarTimestamp, new Date(generatedAt));
   const staleDataWarnings = buildStaleWarnings({ generatedAt, latestMarketDataRefreshAt, latestBarTimestamp, rollingHistory });
+
+  const originalPaperStartingBalance = cycle.startingBalance || config.paperAccount && config.paperAccount.paperStartingBalance || 1000;
+  const totalAccountValueCurve = buildTotalAccountValueCurve({
+    paperResults,
+    positions: paperPositions,
+    cycle,
+    runHistory,
+    generatedAt,
+    startingBalanceOverride: originalPaperStartingBalance
+  });
 
   return {
     mode: "paper_simulation",
@@ -566,6 +658,15 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
     botActivityTimeline: buildBotActivityTimeline(rollingHistory),
     staleDataWarningPanel: staleDataWarnings,
     staleDataWarnings,
+    totalAccountValueCurve,
+    accountSummary: {
+      cashBalance: round(totalAccountValueCurve.paperCurrentCashBalance),
+      holdingsValue: round(totalAccountValueCurve.holdingsValue),
+      totalAccountValue: round(totalAccountValueCurve.totalAccountValue),
+      openPositionCount: totalAccountValueCurve.openPositionCount,
+      paperStartingBalance: originalPaperStartingBalance,
+      paperOnly: true
+    },
     equityPoints: (equityCurve.points || []).map((point, index) => ({
       label: index === 0 ? "Start" : `Step ${index}`,
       equity: point.equity,
