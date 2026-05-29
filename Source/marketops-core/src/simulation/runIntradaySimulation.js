@@ -7,7 +7,7 @@ const { buildVehicleHistory } = require("../marketdata/vehicleHistory");
 const { calibrateAllSymbols } = require("../signals/confidenceCalibration");
 const { generateSampleSignals } = require("../signals/simpleSignalScanner");
 const { reviewSignals } = require("../risk/riskDesk");
-const { executePaperTrades, checkAndExecuteExits, loadExitRules } = require("../execution/paperTradeExecutor");
+const { executePaperTrades, checkAndExecuteExits, loadExitRules, resetCycleIfDepleted } = require("../execution/paperTradeExecutor");
 const { buildEquityCurve } = require("../performance/equityBuilder");
 const { appendRunHistory } = require("../paper/writeHistory");
 const { writeJson } = require("../utils/fileStore");
@@ -122,6 +122,18 @@ async function runIntradaySimulation() {
       portfolioState.cashBalance = perfData.cashBalance || 1000;
     }
   } catch {}
+
+  // --- Cycle depletion check: auto-reset if total equity < $10 ---
+  const depletionCheck = resetCycleIfDepleted({
+    cashBalance: portfolioState.cashBalance,
+    openPositions: portfolioState.openPositions,
+    generatedAt
+  });
+
+  if (depletionCheck.reset) {
+    portfolioState.cashBalance = depletionCheck.freshCashBalance;
+    portfolioState.openPositions = [];
+  }
 
   // --- Exit check: close positions that hit target, stop-loss, or 72hr window ---
   const exitRules = loadExitRules();

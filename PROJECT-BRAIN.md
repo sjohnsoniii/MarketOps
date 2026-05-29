@@ -1,6 +1,6 @@
 # MarketOps — Project Brain
-Last Updated: 2026-05-28
-Current Version: v0.17
+Last Updated: 2026-05-29
+Current Version: v0.19
 
 ## What This Is
 MarketOps is a local AI-powered paper trading office. It runs autonomous paper trading cycles, generates public-safe dashboard bundles, manages agent desk reviews, and preps content for future social/video publishing. No real money. No live keys. No automated posting.
@@ -15,16 +15,24 @@ MarketOps is a local AI-powered paper trading office. It runs autonomous paper t
 - Supercruise system: active with approval workflow
 
 ## Active Issues
-- Public site (marketops.sj3labs.com or equivalent) appears dead — pipeline now fixed, needs Sam to run `npm run public:sync` to push and verify Vercel trigger
-- Risk Desk over-blocking in paper/learning mode
-- Exit management incomplete — no target sell, stop-loss, or time-stop logic on buys
-- marketops:public-status command does not exist yet
+- dashboard-public-safe-v0.1.json schema mismatch — stale, written by different pipeline than paper:refresh-site (low priority)
+- Cycle reset_pending status in cycle file — will clear on next successful run with new depletion logic
 
-## Fixed Issues (2026-05-28)
+## Autonomous Operation Status
+- Scheduler: ACTIVE — systemd timers installed, market hours M-F 9:25 AM - 4:30 PM ET
+- Exit logic: ACTIVE — target +8%, stop-loss -4%, 72hr time-stop
+- Public sync: ACTIVE — auto-push to sj3labs on every run
+- Cycle reset: ACTIVE — auto-resets at depletion threshold $10, preserves learning records
+- Learning records: ACTIVE — written on every position close
+
+## Fixed Issues (2026-05-28 / 2026-05-29)
 - Alpaca 429 rate limit: FIXED — bulk bars request replaces per-symbol Promise.all in alpacaMarketDataAdapter.js
 - Stack overflow in marketdata:rolling: FIXED — Array.concat replaces spread/push in rollingHistoryStore.js
 - automation:check path error: FIXED — coreRoot added to local paths object in runAutomationCheck.js
 - Public sync dry-run only: FIXED — Scripts/run-marketops-public-sync-v0.1.sh wrapper created, npm run public:sync ready
+- Exit logic: ADDED — checkAndExecuteExits() in paperTradeExecutor.js, wired into runIntradaySimulation.js
+- Cycle depletion reset: ADDED — resetCycleIfDepleted() auto-resets to $1,000 at equity < $10
+- Public site: LIVE — pipeline active, Vercel triggered on push
 
 ## Architecture Summary
 - Entry: Source/marketops-core/src/index.js

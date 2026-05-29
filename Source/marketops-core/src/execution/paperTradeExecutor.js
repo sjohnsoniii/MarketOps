@@ -492,4 +492,78 @@ function executePaperTrades(params) {
   };
 }
 
-module.exports = { executeIntradayPaperTrades, executePaperTrades, closePosition, updateUnrealizedPnl, loadPositions, loadPerformance, checkAndExecuteExits, loadExitRules };
+function resetCycleIfDepleted({ cashBalance, openPositions, generatedAt }) {
+  const DEPLETION_THRESHOLD = 10;
+  const totalHoldingsValue = openPositions.reduce((sum, p) => sum + (p.currentValue || p.positionValue || 0), 0);
+  const totalEquity = cashBalance + totalHoldingsValue;
+
+  if (totalEquity > DEPLETION_THRESHOLD) return { reset: false };
+
+  const learningPath = require("path").join(paths.dataRoot, "paper", "learning-records-v0.1.json");
+  const existing = fileExists(learningPath) ? loadJson(learningPath) : { records: [] };
+
+  const resetRecord = {
+    learningRecordId: "reset-" + Date.now(),
+    eventType: "cycle_depletion_reset",
+    generatedAt,
+    finalEquity: totalEquity,
+    finalCash: cashBalance,
+    openPositionsAtReset: openPositions.length,
+    totalLearningRecords: existing.records.length,
+    outcome: "depleted",
+    paperOnly: true
+  };
+
+  existing.records.push(resetRecord);
+  existing.lastUpdated = generatedAt;
+  writeJson(learningPath, existing);
+
+  const freshPerformance = {
+    startingCash: 1000,
+    cashBalance: 1000,
+    realizedPnl: 0,
+    unrealizedPnl: 0,
+    totalEquity: 1000,
+    maxDrawdown: 0,
+    peakEquity: 1000,
+    dailyRealizedPnl: 0,
+    dailyTradeCount: 0,
+    dailyDrawdown: 0,
+    tradeDate: generatedAt.slice(0, 10),
+    resetAt: generatedAt,
+    resetReason: "cash_depleted",
+    paperOnly: true
+  };
+
+  const currentPositions = fileExists(paths.paperPositionsJson)
+    ? loadJson(paths.paperPositionsJson)
+    : { openPositions: [], closedPositions: [] };
+
+  const depletionClosures = (currentPositions.openPositions || []).map(p => ({
+    ...p,
+    exitTime: generatedAt,
+    exitPrice: p.entryPrice,
+    realizedPnl: 0,
+    exitReason: "cycle_depleted_reset",
+    closedAt: generatedAt,
+    paperOnly: true
+  }));
+
+  const freshPositions = {
+    openPositions: [],
+    closedPositions: [...(currentPositions.closedPositions || []), ...depletionClosures],
+    dailyTradeCount: 0,
+    tradeDate: generatedAt.slice(0, 10),
+    resetAt: generatedAt
+  };
+
+  writeJson(paths.paperPositionsJson, freshPositions);
+  writeJson(paths.paperPerformanceJson, freshPerformance);
+
+  console.log(`[CYCLE RESET] Cash depleted to $${totalEquity.toFixed(2)} — resetting to $1,000 paper balance`);
+  console.log(`[CYCLE RESET] Learning records preserved: ${existing.records.length}`);
+
+  return { reset: true, freshCashBalance: 1000 };
+}
+
+module.exports = { executeIntradayPaperTrades, executePaperTrades, closePosition, updateUnrealizedPnl, loadPositions, loadPerformance, checkAndExecuteExits, loadExitRules, resetCycleIfDepleted };
