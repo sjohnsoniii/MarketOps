@@ -1,0 +1,41 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.env.example": "allow"
+    },
+    "glob": "allow",
+    "grep": "allow",
+    "edit": "allow",
+    "lsp": "allow",
+    "task": "allow",
+    "todowrite": "allow",
+    "webfetch": "allow",
+    "websearch": "allow",
+    "skill": "allow",
+
+    "bash": {
+      "*": "allow",
+
+      "sudo *": "deny",
+      "systemctl *": "deny",
+      "git push*": "deny",
+      "git commit*": "deny",
+      "vercel *": "deny",
+      "npm publish*": "deny",
+      "rm -rf /*": "deny",
+      "rm -rf ~*": "deny"
+    },
+
+    "external_directory": {
+      "~/Projects/MarketOps/**": "allow",
+      "~/Projects/sj3labs/**": "allow"
+    },
+
+    "doom_loop": "deny",
+    "question": "deny"
+  }
+}

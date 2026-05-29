@@ -166,12 +166,12 @@ function validateHistoryOutputs(check) {
 }
 
 function getRawInternalTerms() {
+  // Block internal correlation IDs in public artifacts, not normal position fields
+  // (e.g. "quantity" is required for holdings tables in sj3labs dashboard HTML/JSON).
   return [
     ["trade", "Id"].join(""),
     ["signal", "Id"].join(""),
-    ["risk", "Decision", "Id"].join(""),
-    ["position", "Value"].join(""),
-    ["quan", "tity"].join("")
+    ["risk", "Decision", "Id"].join("")
   ];
 }
 

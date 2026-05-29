@@ -155,67 +155,106 @@ function resetLatestRunSummary() {
 }
 
 function resetCycle() {
-  const state = fileExists(paths.cycleStateJson) ? loadJson(paths.cycleStateJson) : null;
-  if (state && state.currentCycle) {
-    state.currentCycle.currentBalance = CLEAN_BALANCE;
-    state.currentCycle.remainingBalance = CLEAN_BALANCE;
-    state.currentCycle.drawdownFromStart = 0;
-    state.currentCycle.drawdownPct = 0;
-    state.currentCycle.depletionRisk = "normal";
-    state.updatedAt = new Date().toISOString();
-    writeJson(paths.cycleStateJson, state);
-  }
-  const latest = fileExists(paths.cycleLatestJson) ? loadJson(paths.cycleLatestJson) : null;
-  if (latest) {
-    latest.currentBalance = CLEAN_BALANCE;
-    latest.remainingBalance = CLEAN_BALANCE;
-    latest.drawdownFromStart = 0;
-    latest.drawdownPct = 0;
-    latest.depletionRisk = "normal";
-    writeJson(paths.cycleLatestJson, latest);
-  }
-  console.log("  cycle state reset to $1000");
-}
+  const now = new Date().toISOString();
+  const pad = (value) => String(value).padStart(2, "0");
+  const date = new Date(now);
+  const cycleId = `cycle-${date.getUTCFullYear()}${pad(date.getUTCMonth() + 1)}${pad(date.getUTCDate())}-${pad(date.getUTCHours())}${pad(date.getUTCMinutes())}`;
 
-function appendRunHistory() {
-  const history = fileExists(paths.runHistoryJson) ? loadJson(paths.runHistoryJson) : { updatedAt: null, runs: [] };
-  history.updatedAt = new Date().toISOString();
-  history.cleanStartV07 = {
-    note: "Clean paper start v0.7. All runs before this entry are legacy/test history from the pre-reconciliation account. The active paper training baseline was set to $1000.00.",
-    resetAt: new Date().toISOString(),
-    previousLegacyRunsCount: (history.runs || []).length
+  const freshCycle = {
+    cycleId,
+    cycleNumber: 1,
+    status: "active",
+    startingBalance: CLEAN_BALANCE,
+    currentBalance: CLEAN_BALANCE,
+    endingBalance: null,
+    depletionThreshold: 0,
+    cycleStartTimestamp: now,
+    cycleEndTimestamp: null,
+    hoursSurvived: 0,
+    daysSurvived: 0,
+    approvedTrades: 0,
+    rejectedTrades: 0,
+    rejectionReasons: [],
+    strategyVersionUsed: "strategy-v0.1-watchlist-threshold-paper",
+    riskModelVersionUsed: "risk-desk-v0.1-long-up-confidence-gate",
+    lessonsLearnedSoFar: [
+      "Clean paper start: new cycle at $1,000 with no legacy positions.",
+      "No daily reset while capital stays above the depletion threshold."
+    ],
+    proposedImprovements: [],
+    approvedImprovementsForNextCycle: [],
+    humanReviewNeededItems: [],
+    resetTriggerReason: "clean_start_v0.7",
+    nextCycleScheduledStart: null,
+    appliedRunIds: ["clean-start-v0.7"],
+    lastRunAppliedAt: now,
+    externalEffects: false,
+    publishAllowed: false,
+    cleanStartV07: true
   };
-  history.runs.push({
-    runId: "clean-start-v0.7",
-    generatedAt: new Date().toISOString(),
+
+  const state = {
+    schemaVersion: "marketops-paper-cycle-state-v0.1",
     mode: "paper_simulation",
     paperOnly: true,
-    sampleData: false,
-    startingBalance: CLEAN_BALANCE,
-    endingEquity: CLEAN_BALANCE,
-    paperPnl: 0,
-    paperReturnPct: 0,
-    maxDrawdownPct: null,
-    vehiclesScanned: 0,
-    signalsReviewed: 0,
-    riskApproved: 0,
-    riskBlocked: 0,
-    fakePaperTrades: 0,
-    openPositionCount: 0,
-    realizedPnl: 0,
-    unrealizedPnl: 0,
-    cashBalance: CLEAN_BALANCE,
-    totalEquity: CLEAN_BALANCE,
-    qaStatus: "PASS",
-    cleanStartV07: true,
-    notes: [
-      "Clean paper start v0.7.",
-      "Account reset to $1000 training baseline.",
-      "All previous positions and history archived."
-    ]
-  });
+    cycleStartingBalance: CLEAN_BALANCE,
+    depletionThreshold: 0,
+    currentCycle: freshCycle,
+    cycleHistory: [],
+    externalEffects: false,
+    publishAllowed: false,
+    liveTradingEnabled: false,
+    brokerExecutionEnabled: false,
+    updatedAt: now,
+    cleanStartV07: true
+  };
+
+  writeJson(paths.cycleStateJson, state);
+  writeJson(paths.cycleLatestJson, freshCycle);
+  console.log(`  cycle reset: new ${cycleId} at $1000 (legacy cycle archived in backup)`);
+}
+
+function resetRunHistory(legacyRunsCount = 0) {
+  const now = new Date().toISOString();
+  const history = {
+    updatedAt: now,
+    cleanStartV07: {
+      note: "Clean paper start v0.7. Legacy run history was archived to Backups; public charts restart from $1000 only.",
+      resetAt: now,
+      previousLegacyRunsCount: legacyRunsCount
+    },
+    runs: [{
+      runId: "clean-start-v0.7",
+      generatedAt: now,
+      mode: "paper_simulation",
+      paperOnly: true,
+      sampleData: false,
+      startingBalance: CLEAN_BALANCE,
+      endingEquity: CLEAN_BALANCE,
+      paperPnl: 0,
+      paperReturnPct: 0,
+      maxDrawdownPct: 0,
+      vehiclesScanned: 0,
+      signalsReviewed: 0,
+      riskApproved: 0,
+      riskBlocked: 0,
+      fakePaperTrades: 0,
+      openPositionCount: 0,
+      realizedPnl: 0,
+      unrealizedPnl: 0,
+      cashBalance: CLEAN_BALANCE,
+      totalEquity: CLEAN_BALANCE,
+      qaStatus: "PASS",
+      cleanStartV07: true,
+      notes: [
+        "Clean paper start v0.7.",
+        "Account reset to $1000 training baseline.",
+        "All previous positions and history archived."
+      ]
+    }]
+  };
   writeJson(paths.runHistoryJson, history);
-  console.log("  run-history.json updated with clean-start entry");
+  console.log("  run-history.json replaced with clean-start baseline only");
 }
 
 function resetDashboardRefresh() {
@@ -303,6 +342,9 @@ function cleanStart() {
 
   const backup = backupDir();
   archiveState(backup);
+  const legacyRunsCount = fileExists(paths.runHistoryJson)
+    ? (loadJson(paths.runHistoryJson).runs || []).length
+    : 0;
 
   console.log("\nResetting active paper state to $1000...");
   resetPerformance();
@@ -311,7 +353,7 @@ function cleanStart() {
   resetEquity();
   resetLatestRunSummary();
   resetCycle();
-  appendRunHistory();
+  resetRunHistory(legacyRunsCount);
   resetDashboardRefresh();
   resetPublicTrialStatus();
 

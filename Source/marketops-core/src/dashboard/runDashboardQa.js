@@ -125,6 +125,9 @@ const requiredCards = [
   "agentReviewStats"
 ];
 
+const { paths } = require("../utils/paths");
+const { fileExists, loadJson } = require("../utils/fileStore");
+
 function restrictedTerms() {
   return [
     ["C:", "\\Users"].join(""),
@@ -146,7 +149,9 @@ function restrictedTerms() {
     ["broker connection", "enabled"].join(" "),
     ["live market data", "enabled"].join(" "),
     ["social auto-posting", "enabled"].join(" "),
-    ["payment", "enabled"].join(" ")
+    ["payment", "enabled"].join(" "),
+    "vehicle-history-14d",
+    "vehicleHistory"
   ];
 }
 
@@ -255,6 +260,66 @@ function runDashboardQa() {
     check(checks, "public v0.4 dashboard JSON valid", false, error.message);
   }
 
+  // --- Aggressive Learning Mode Dashboard QA ---
+  if (bundle) {
+    check(checks, "dashboard bundle has vehicleUniverse", Boolean(bundle.vehicleUniverse), typeof bundle.vehicleUniverse);
+    check(checks, "dashboard bundle has riskPipeline", Boolean(bundle.riskPipeline), typeof bundle.riskPipeline);
+    check(checks, "dashboard bundle has openPositionsDetailed", Array.isArray(bundle.openPositionsDetailed), String(Array.isArray(bundle.openPositionsDetailed)));
+    check(checks, "dashboard bundle has recentlyClosedPositions", Array.isArray(bundle.recentlyClosedPositions), String(Array.isArray(bundle.recentlyClosedPositions)));
+    check(checks, "dashboard bundle has aggressiveLearningMode flag", "aggressiveLearningMode" in bundle, String(bundle.aggressiveLearningMode));
+    check(checks, "dashboard bundle has learningMode", "learningMode" in bundle, typeof bundle.learningMode);
+
+    if (bundle.riskPipeline) {
+      const rp = bundle.riskPipeline;
+      check(checks, "riskPipeline has vehiclesScanned", rp.vehiclesScanned !== undefined, String(rp.vehiclesScanned));
+      check(checks, "riskPipeline has signalsReviewed", rp.signalsReviewed !== undefined, String(rp.signalsReviewed));
+      check(checks, "riskPipeline has approvedStandard", rp.approvedStandard !== undefined, String(rp.approvedStandard));
+      check(checks, "riskPipeline has approvedLearningProbe", rp.approvedLearningProbe !== undefined, String(rp.approvedLearningProbe));
+      check(checks, "riskPipeline has watched", rp.watched !== undefined, String(rp.watched));
+      check(checks, "riskPipeline has rejected", rp.rejected !== undefined, String(rp.rejected));
+      check(checks, "riskPipeline has tradesAttempted", rp.tradesAttempted !== undefined, String(rp.tradesAttempted));
+      check(checks, "riskPipeline has tradesExecuted", rp.tradesExecuted !== undefined, String(rp.tradesExecuted));
+      check(checks, "riskPipeline has openPositions", rp.openPositions !== undefined, String(rp.openPositions));
+      check(checks, "riskPipeline has learningProbesExecutedToday", rp.learningProbesExecutedToday !== undefined, String(rp.learningProbesExecutedToday));
+      check(checks, "riskPipeline tradesExecuted <= tradesAttempted",
+        rp.tradesExecuted <= rp.tradesAttempted,
+        `${rp.tradesExecuted} <= ${rp.tradesAttempted}`);
+      check(checks, "riskPipeline openPositions matches detailed length",
+        rp.openPositions === bundle.openPositionsDetailed.length,
+        `${rp.openPositions} vs ${bundle.openPositionsDetailed.length}`);
+    }
+
+    if (bundle.vehicleUniverse) {
+      check(checks, "vehicleUniverse has targetCount", bundle.vehicleUniverse.targetCount === 150, String(bundle.vehicleUniverse.targetCount));
+      check(checks, "vehicleUniverse has actualCount", bundle.vehicleUniverse.actualCount > 0, String(bundle.vehicleUniverse.actualCount));
+      check(checks, "vehicleUniverse has source", Boolean(bundle.vehicleUniverse.source), bundle.vehicleUniverse.source);
+    }
+
+    if (bundle.learningMode) {
+      check(checks, "learningMode.paperOnly is true", bundle.learningMode.paperOnly === true, String(bundle.learningMode.paperOnly));
+      check(checks, "learningMode profile is aggressive_paper_learning", bundle.learningMode.profile === "aggressive_paper_learning", bundle.learningMode.profile);
+    }
+
+    if (bundle.openPositionsDetailed) {
+      bundle.openPositionsDetailed.forEach((pos, i) => {
+        check(checks, `openPosition[${i}] has ticker`, Boolean(pos.ticker), pos.ticker || "missing");
+        check(checks, `openPosition[${i}] has status`, Boolean(pos.status), pos.status);
+        check(checks, `openPosition[${i}] has entryPrice`, Number.isFinite(pos.entryPrice), String(pos.entryPrice));
+        check(checks, `openPosition[${i}] has unrealizedPnl`, Number.isFinite(pos.unrealizedPnl), String(pos.unrealizedPnl));
+        check(checks, `openPosition[${i}] has riskBand`, Boolean(pos.riskBand), pos.riskBand);
+        check(checks, `openPosition[${i}] has isLearningProbe flag`, typeof pos.isLearningProbe === "boolean", String(pos.isLearningProbe));
+      });
+    }
+
+    if (bundle.recentlyClosedPositions) {
+      bundle.recentlyClosedPositions.forEach((pos, i) => {
+        check(checks, `recentlyClosed[${i}] has ticker`, Boolean(pos.ticker), pos.ticker || "missing");
+        check(checks, `recentlyClosed[${i}] has realizedPnl`, Number.isFinite(pos.realizedPnl), String(pos.realizedPnl));
+        check(checks, `recentlyClosed[${i}] has exitReason`, Boolean(pos.exitReason), pos.exitReason);
+      });
+    }
+  }
+
   if (publicBundle) {
     check(checks, "public v0.4 dataSource is alpaca_iex", publicBundle.dataSource === "alpaca_iex", publicBundle.dataSource);
     check(checks, "public v0.4 paperOnly true", publicBundle.paperOnly === true, String(publicBundle.paperOnly));
@@ -280,12 +345,37 @@ function runDashboardQa() {
     check(checks, "public v0.4 stale warning labels exist", Array.isArray(publicBundle.staleDataWarningPanel) && publicBundle.staleDataWarningPanel.length > 0, `${(publicBundle.staleDataWarningPanel || []).length} rows`);
     check(checks, "public v0.4 vehicle contribution exists", Array.isArray(publicBundle.vehicleContribution) && publicBundle.vehicleContribution.length > 0, `${(publicBundle.vehicleContribution || []).length} rows`);
     check(checks, "public v0.4 no-trade reason available when no trades", publicBundle.fakePaperTradeCount > 0 || Boolean(publicBundle.noTradeReason), publicBundle.noTradeReason || "trades present");
+
+    // New public bundle fields for aggressive learning mode
+    check(checks, "public bundle has riskPipeline", "riskPipeline" in publicBundle, typeof publicBundle.riskPipeline);
+    check(checks, "public bundle has openPositionsDetailed", Array.isArray(publicBundle.openPositionsDetailed), String(Array.isArray(publicBundle.openPositionsDetailed)));
+    check(checks, "public bundle has recentlyClosedPositions", Array.isArray(publicBundle.recentlyClosedPositions), String(Array.isArray(publicBundle.recentlyClosedPositions)));
+    check(checks, "public bundle has vehicleUniverse", "vehicleUniverse" in publicBundle, typeof publicBundle.vehicleUniverse);
+    check(checks, "public bundle has aggressiveLearningMode", "aggressiveLearningMode" in publicBundle, String(publicBundle.aggressiveLearningMode));
+    check(checks, "public bundle has learningModeEnabled", "learningModeEnabled" in publicBundle, String(publicBundle.learningModeEnabled));
+    if (publicBundle.riskPipeline) {
+      check(checks, "public riskPipeline signalsReviewed includes all bands",
+        (publicBundle.riskPipeline.approvedStandard + publicBundle.riskPipeline.approvedLearningProbe + publicBundle.riskPipeline.watched + publicBundle.riskPipeline.rejected) <= publicBundle.riskPipeline.signalsReviewed,
+        `sum <= ${publicBundle.riskPipeline.signalsReviewed}`);
+    }
   }
 
   const filesToScan = [latestBundlePath, latestSummaryPath, reportPath, sj3labsPublicBundlePath].filter((filePath) => fs.existsSync(filePath));
   if (timestampedBundle) filesToScan.push(timestampedBundle);
   const hits = scanOutputFiles(filesToScan);
   check(checks, "dashboard outputs contain no private IDs/paths/risky terms", hits.length === 0, hits.join("; "));
+
+  if (fileExists(paths.vehicleHistoryJson)) {
+    try {
+      const vh = loadJson(paths.vehicleHistoryJson);
+      check(checks, "vehicle history internalOnly true", vh.internalOnly === true, String(vh.internalOnly));
+      check(checks, "vehicle history paperOnly true", vh.paperOnly === true, String(vh.paperOnly));
+      check(checks, "vehicle history not in public bundle", !JSON.stringify(bundle || {}).includes("vehicleHistory"), "clean");
+      check(checks, "vehicle history not in public v0.4 bundle", !JSON.stringify(publicBundle || {}).includes("vehicleHistory"), "clean");
+    } catch (e) {
+      check(checks, "vehicle history internal check", false, e.message);
+    }
+  }
 
   const passed = checks.every((item) => item.passed);
   console.log(passed ? "DASHBOARD QA PASS" : "DASHBOARD QA FAIL");

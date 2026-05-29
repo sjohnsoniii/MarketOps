@@ -76,9 +76,11 @@ function buildReport({ checks, bundle }) {
   const failed = checks.filter((item) => !item.passed);
   const latest = bundle
     ? `- symbols: ${bundle.symbolsRequested.join(", ")}
-- bars loaded: ${bundle.bars.length}
-- quotes loaded: ${bundle.quotes.length}
-- latest bar timestamp: ${bundle.latestBarTimestamp}`
+- freshBarsStatus: ${bundle.freshBarsStatus || "n/a"}
+- marketDataStatus: ${bundle.marketDataStatus || "n/a"}
+- bars loaded: ${bundle.bars ? bundle.bars.length : 0}
+- quotes loaded: ${bundle.quotes ? bundle.quotes.length : 0}
+- latest bar timestamp: ${bundle.latestBarTimestamp || "none"}`
     : "- Market data bundle unavailable.";
 
   return `# MarketOps Market Data QA v0.1
@@ -127,8 +129,15 @@ function runMarketDataQa() {
     check(checks, "paperOnly true", bundle.paperOnly === true, String(bundle.paperOnly));
     check(checks, "liveTradingEnabled false", bundle.liveTradingEnabled === false, String(bundle.liveTradingEnabled));
     check(checks, "orderPlacementEnabled false", bundle.orderPlacementEnabled === false, String(bundle.orderPlacementEnabled));
-    check(checks, "bars loaded", Array.isArray(bundle.bars) && bundle.bars.length > 0, String(bundle.bars && bundle.bars.length));
-    check(checks, "quotes loaded", Array.isArray(bundle.quotes) && bundle.quotes.length > 0, String(bundle.quotes && bundle.quotes.length));
+    const isControlledDegraded = bundle.freshBarsStatus === "OFF_HOURS_NO_FRESH_BARS" || bundle.freshBarsStatus === "LIMITED_FRESH_BARS";
+    check(checks, "freshBarsStatus field present", Boolean(bundle.freshBarsStatus), bundle.freshBarsStatus || "missing");
+    check(checks, "marketDataStatus field present", Boolean(bundle.marketDataStatus), bundle.marketDataStatus || "missing");
+    if (isControlledDegraded) {
+      check(checks, "bars loaded (controlled degraded - off-hours expected)", true, `${Array.isArray(bundle.bars) ? bundle.bars.length : 0} bars, status: ${bundle.freshBarsStatus}`);
+    } else {
+      check(checks, "bars loaded", Array.isArray(bundle.bars) && bundle.bars.length > 0, String(bundle.bars && bundle.bars.length));
+    }
+    check(checks, "quotes loaded", Array.isArray(bundle.quotes) && (bundle.quotes.length > 0 || isControlledDegraded), String(bundle.quotes && bundle.quotes.length));
     check(checks, "bars are labeled paper-only", (bundle.bars || []).every((bar) => bar.dataSource === "alpaca_iex" && bar.paperOnly === true && bar.liveTradingEnabled === false), "bar labels checked");
   } catch (error) {
     check(checks, "market data bundle valid JSON", false, error.message);

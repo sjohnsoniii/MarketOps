@@ -1,6 +1,6 @@
 {
   "schemaVersion": "marketops-shareable-snapshot-v0.1",
-  "generatedAt": "2026-05-16T02:50:18.301Z",
+  "generatedAt": "2026-05-28T19:51:54.832Z",
   "mode": "paper_simulation",
   "paperOnly": true,
   "sampleData": false,
@@ -22,34 +22,34 @@
       "note": "Use config paperAccountPreset to switch: micro (100), small (250), standard (1000)."
     },
     "paperCycle": {
-      "cycleId": "cycle-20260514-0220",
-      "status": "active",
+      "cycleId": "cycle-20260520-2356",
+      "status": "reset_pending",
       "startingBalance": 1000,
-      "currentBalance": 1000,
+      "currentBalance": -17.84,
       "paperPnl": 0,
       "paperReturnPct": 0,
       "maxDrawdownPct": null,
-      "daysSurvived": 2.02,
-      "depletionRisk": "normal",
-      "approvedTrades": 39,
-      "rejectedTrades": 145
+      "daysSurvived": 5.59,
+      "depletionRisk": "depleted",
+      "approvedTrades": 62,
+      "rejectedTrades": 836
     },
     "signalsAndRisk": {
-      "signalsReviewed": 8,
-      "riskApproved": 3,
-      "riskBlocked": 5,
+      "signalsReviewed": 150,
+      "riskApproved": 0,
+      "riskBlocked": 150,
       "fakePaperTrades": 0,
       "noTradeReason": "Risk Desk did not approve any candidate for fake paper execution."
     },
     "refreshStatus": {
-      "lastRefreshAt": "2026-05-16T02:50:16.192Z",
-      "lastSuccessfulRefreshAt": "2026-05-16T02:50:16.192Z",
-      "lastStatus": "PASS",
-      "staleWarning": null,
-      "failureReason": null,
+      "lastRefreshAt": "2026-05-28T18:02:03.640Z",
+      "lastSuccessfulRefreshAt": "2026-05-21T14:01:39.855Z",
+      "lastStatus": "FAIL",
+      "staleWarning": "Last successful refresh was 172.0 hours ago (target: 2 hours)",
+      "failureReason": "npm run marketdata:refresh failed: Alpaca data request failed with HTTP 429.",
       "refreshIntervalTargetHours": 2,
       "schedulerInstalled": false,
-      "isDegraded": false
+      "isDegraded": true
     },
     "disclaimers": [
       "Paper simulation only.",

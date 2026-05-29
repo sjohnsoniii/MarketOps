@@ -105,6 +105,8 @@ function runFullSimulationQa() {
   check("alpaca data source is iex", alpacaBundle.dataSource === "alpaca_iex", alpacaBundle.dataSource || "missing");
   check("alpaca paperOnly true", alpacaBundle.paperOnly === true, String(alpacaBundle.paperOnly));
   check("alpaca liveTradingEnabled false", alpacaBundle.liveTradingEnabled === false, String(alpacaBundle.liveTradingEnabled));
+  check("alpaca has freshBarsStatus field", Boolean(alpacaBundle.freshBarsStatus), alpacaBundle.freshBarsStatus || "missing");
+  check("alpaca has marketDataStatus field", Boolean(alpacaBundle.marketDataStatus), alpacaBundle.marketDataStatus || "missing");
 
   const backfill = loadOptional(paths.backfillDataJson, {});
   if (backfill.totalBars) {
@@ -115,6 +117,11 @@ function runFullSimulationQa() {
   if (rolling.totalBars) {
     check("rolling history has bars", rolling.totalBars > 0, `${rolling.totalBars} bars`);
     check("rolling history has symbols", (rolling.symbolsCovered || []).length > 0, (rolling.symbolsCovered || []).join(", "));
+  }
+
+  if (alpacaBundle.freshBarsStatus === "OFF_HOURS_NO_FRESH_BARS") {
+    check("off-hours: no fresh bars is controlled state", alpacaBundle.marketDataStatus === "DEGRADED_OFF_HOURS", alpacaBundle.marketDataStatus);
+    check("off-hours: rolling history is usable fallback", rolling && rolling.totalBars > 0, `${rolling ? rolling.totalBars : 0} bars in rolling history`);
   }
 
   const weather = loadOptional(paths.weatherStationJson, {});

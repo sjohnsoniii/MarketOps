@@ -223,6 +223,15 @@ function runDashboardRefreshQa() {
     check(checks, "public movement summaries visible", Boolean(publicBundle.watchlistMovementSummary && publicBundle.watchlistMovementSummary.summaryRows && publicBundle.watchlistMovementSummary.summaryRows.length), "watchlistMovementSummary");
     check(checks, "public rejection explanations summarized", Array.isArray(publicBundle.riskRejectionReasons) && publicBundle.riskRejectionReasons.length > 0, "riskRejectionReasons");
     check(checks, "public cycle status visible", publicBundle.paperCycleStatus && publicBundle.paperCycleStatus.doesNotResetDaily === true, "paperCycleStatus");
+    check(checks, "public paperProfitLoss section exists", Boolean(publicBundle.paperProfitLoss), "paperProfitLoss");
+    check(checks, "public corePaperTarget section exists", Boolean(publicBundle.corePaperTarget), "coreTarget");
+    if (publicBundle.cycleDecisionBoard && publicBundle.cycleDecisionBoard.sections) {
+      check(checks, "public cycleDecisionBoard has capacity_blocked", Boolean(publicBundle.cycleDecisionBoard.sections.capacity_blocked), typeof publicBundle.cycleDecisionBoard.sections.capacity_blocked);
+    }
+    if (publicBundle.openPositionsDetailed) {
+      const hasEntryRiskBand = publicBundle.openPositionsDetailed.some(p => p.entryRiskBand != null);
+      check(checks, "public openPositionsDetailed has entryRiskBand", hasEntryRiskBand, "entryRiskBand present");
+    }
   }
 
   check(checks, "trade rejection explainability report exists", fileExists(paths.tradeRejectionExplainabilityReport), paths.tradeRejectionExplainabilityReport);

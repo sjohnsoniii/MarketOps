@@ -1,45 +1,71 @@
-# MarketOps Paper Cycle Status v0.1
+# MarketOps Paper Cycle Status v0.2
 
-Generated: 2026-05-16T02:50:18.299Z
+Generated: 2026-05-28T19:51:54.784Z
+Source runId: paper-20260528-195105653Z
+Source cycleId: cycle-20260520-2356
+Source file: /home/sjohnsoniii/Projects/MarketOps/Data/paper/cycles/paper-cycle-latest-v0.1.json
 
 ## Cycle
 
-- cycleId: cycle-20260514-0220
-- status: active
+- cycleId: cycle-20260520-2356
+- status: reset_pending
 - startingBalance: 1000
-- currentBalance: 1000
-- endingBalance: null
+- currentBalance (depletion basis): -17.84
+- endingBalance: -17.84
 - depletionThreshold: 0
-- cycleStartTimestamp: 2026-05-14T02:20:20.137Z
-- cycleEndTimestamp: null
-- hoursSurvived: 48.5
-- daysSurvived: 2.02
-- approvedTrades: 39
-- rejectedTrades: 145
-- depletionRisk: normal
-- resetTriggerReason: null
-- nextCycleScheduledStart: null
+- cycleStartTimestamp: 2026-05-20T23:56:14.139Z
+- cycleEndTimestamp: 2026-05-26T14:04:10.263Z
+- hoursSurvived: 134.13
+- daysSurvived: 5.59
+- approvedTrades: 62
+- rejectedTrades: 836
+- depletionRisk: depleted
+- resetTriggerReason: Balance -17.84 is at or below depletion threshold 0.
+- nextCycleScheduledStart: 2026-05-27T13:30:00.000Z
+
+## Canonical Account (from paper performance + positions)
+
+- cashBalance: 22.33
+- holdingsValue: 985.02
+- totalEquity: 1007.35
+- unrealizedPnl: 7.36
+- realizedPnl: 0
+- openPositionsCount: 17
+- closedPositionsCount: 0
+- totalEquity = cashBalance + holdingsValue: true
 
 ## Latest Paper Run Applied
 
-- runId: paper-20260516-025017787Z
-- generatedAt: 2026-05-16T02:50:17.787Z
+- runId: paper-20260528-195105653Z
+- generatedAt: 2026-05-28T19:51:05.653Z
 - paperPnl: 0
-- riskApproved: 3
-- riskBlocked: 5
+- riskApproved: 0
+- riskBlocked: 150
 
 ## Rejection Reasons
 
-- Signal did not qualify as a candidate.: 5
-- Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.: 5
-- Confidence 0 is below minimum threshold.: 3
-- Missing invalidation.: 3
-- Confidence threshold is below minimum threshold.: 2
+- Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.: 140
+- Signal did not qualify as a candidate.: 131
+- Missing invalidation.: 2
+- Position already open for AMD.: 2
+- Position already open for XLV.: 1
+- Position already open for XLE.: 1
+- Position already open for AAPL.: 1
+- Position already open for MSFT.: 1
+- Position already open for NVDA.: 1
+- Position already open for ORCL.: 1
+- Position already open for TXN.: 1
+- Position already open for QCOM.: 1
+- Position already open for NOW.: 1
+- Position already open for ADI.: 1
+- Position already open for PANW.: 1
+- Position already open for F.: 1
+- Position already open for LCID.: 1
 
 ## Lessons So Far
 
-- A cycle should continue while capital remains above the depletion threshold.
-- No daily reset is allowed for a surviving cycle.
+- Clean paper start: new cycle at $1,000 with no legacy positions.
+- No daily reset while capital stays above the depletion threshold.
 
 ## Proposed Improvements
 
@@ -48,7 +74,7 @@ Generated: 2026-05-16T02:50:18.299Z
 
 ## Human Review Needed
 
-- Review whether 0-approved-trade cycles should tune signal threshold or remain observation-only.
+- Cycle depleted. Review closeout and approve next-cycle parameter changes before restart.
 
 ## Rule Confirmation
 

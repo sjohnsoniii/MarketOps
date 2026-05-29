@@ -1,18 +1,18 @@
 # MarketOps Dashboard Refresh Latest v0.1
 
-Generated: 2026-05-18T02:25:34.520Z
+Generated: 2026-05-28T19:51:55.089Z
 
 ## Status
 
 FAIL
 
-Error: npm run marketdata:refresh failed: Alpaca market data returned too few bars for simulation: 0.
+Error: npm run marketdata:refresh failed: Alpaca data request failed with HTTP 429.
 
 ## Failure Details
 
-- failureReason: npm run marketdata:refresh failed: Alpaca market data returned too few bars for simulation: 0.
+- failureReason: npm run marketdata:refresh failed: Alpaca data request failed with HTTP 429.
 - lastKnownGoodPreserved: true
-- lastKnownGoodGeneratedAt: 2026-05-16T02:50:18.300Z
+- lastKnownGoodGeneratedAt: 2026-05-28T19:51:54.806Z
 - Dashboard and public bundles were NOT overwritten. Last-known-good data is preserved.
 
 ## Safety
@@ -32,20 +32,20 @@ Error: npm run marketdata:refresh failed: Alpaca market data returned too few ba
 ## Market Data
 
 - source/feed: alpaca_iex / iex
-- generatedAt: 2026-05-16T02:50:17.720Z
-- latestBarTimestamp: 2026-05-15T13:48:00Z
-- barsLoaded: 100
-- quotesLoaded: 5
-- refreshAgeMinutes: 2855.28
-- latestBarAgeMinutes: 3637.58
+- generatedAt: 2026-05-28T19:50:25.338Z
+- latestBarTimestamp: 2026-05-28T19:48:00Z
+- barsLoaded: 2945
+- quotesLoaded: 149
+- refreshAgeMinutes: 1.5
+- latestBarAgeMinutes: 3.92
 - paperOnly: true
 - liveTradingEnabled: false
 
 ## Paper Account
 
-- latestRunId: paper-20260518-022533405Z
-- latestRunGeneratedAt: 2026-05-18T02:25:33.405Z
-- endingEquity: 4218.75
+- latestRunId: paper-20260528-195105653Z
+- latestRunGeneratedAt: 2026-05-28T19:51:05.653Z
+- endingEquity: 11.78
 - paperPnl: 0
 - paperReturnPct: 0
 - maxDrawdownPct: null
@@ -54,42 +54,42 @@ Error: npm run marketdata:refresh failed: Alpaca market data returned too few ba
 
 ## Balance-Based Paper Cycle
 
-- cycleId: cycle-20260514-0220
-- status: active
+- cycleId: cycle-20260520-2356
+- status: reset_pending
 - startingBalance: 1000
-- currentBalance: 1000
-- daysSurvived: 2.02
-- approvedTrades: 39
-- rejectedTrades: 145
-- depletionRisk: normal
-- nextCycleScheduledStart: null
+- currentBalance: -17.84
+- daysSurvived: 5.59
+- approvedTrades: 62
+- rejectedTrades: 836
+- depletionRisk: depleted
+- nextCycleScheduledStart: 2026-05-27T13:30:00.000Z
 
 ## Charts Updated
 
 - Paper equity curve: missing_or_empty, points=0, source=paper_outputs
 - Paper P&L: updated, points=30, source=paper_run_history
 - Drawdown: missing_or_empty, points=0, source=paper_outputs
-- Watchlist movement summary: updated, points=5, source=alpaca_iex_derived_summary
+- Watchlist movement summary: updated, points=148, source=alpaca_iex_derived_summary
 - Up/down/flat vehicle counts: updated, points=3, source=alpaca_iex_derived_summary
 - Top movement buckets: updated, points=5, source=alpaca_iex_derived_summary
 - Signal candidates generated: updated, points=3, source=paper_signal_outputs
 - Signal confidence distribution: updated, points=4, source=paper_signal_outputs
-- Risk rejection counts by reason: updated, points=5, source=risk_outputs
+- Risk rejection counts by reason: updated, points=32, source=risk_outputs
 - Almost-approved candidates: updated, points=8, source=risk_outputs
-- Vehicle activity: updated, points=8, source=paper_signals_plus_market_movement
+- Vehicle activity: updated, points=150, source=paper_signals_plus_market_movement
 - Signal/risk counts: updated, points=30, source=paper_run_history
 - Cumulative paper P&L: updated, points=1, source=paper_trade_outputs
 - Progress toward +30% target: updated, points=4, source=paper_account_targets
 - Trade outcome mix: updated, points=3, source=paper_trade_outputs
-- Risk decision mix: updated, points=3, source=risk_outputs
-- Vehicle contribution: updated, points=8, source=paper_outputs_plus_market_movement
+- Risk decision mix: updated, points=1, source=risk_outputs
+- Vehicle contribution: updated, points=149, source=paper_outputs_plus_market_movement
 - Return vs drawdown snapshot: updated, points=11, source=paper_run_history
 - Paper account milestone strip: updated, points=4, source=paper_account_targets
 - Signal funnel: updated, points=5, source=paper_signal_outputs
 - Market data freshness panel: updated, points=1, source=alpaca_iex_metadata
-- Recent market movement panel: updated, points=5, source=alpaca_iex_derived_bars
+- Recent market movement panel: updated, points=148, source=alpaca_iex_derived_bars
 - Bot activity / latest run timeline: updated, points=20, source=paper_run_history
-- Stale-data warning panel: updated, points=2, source=freshness_labels
+- Stale-data warning panel: updated, points=1, source=freshness_labels
 - Market regime summary: updated, points=1, source=watchlist_and_regime_context
 - Regime score bars: updated, points=6, source=synthetic_backtest_context, fallback/sample-labeled
 - Synthetic benchmark comparison: updated, points=6, source=synthetic_backtest_context, fallback/sample-labeled
@@ -103,7 +103,7 @@ Error: npm run marketdata:refresh failed: Alpaca market data returned too few ba
 
 ## Commands Run
 
-- FAIL: npm run marketdata:refresh - Alpaca market data returned too few bars for simulation: 0.
+- FAIL: npm run marketdata:refresh - Alpaca data request failed with HTTP 429.
 
 ## Local Preview
 

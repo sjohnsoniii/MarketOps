@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "marketops-lower-learning-office-v0.1",
+  "mode": "lower_environment_shadow",
+  "generatedAt": "2026-05-26T11:39:11.574Z",
+  "comparisonType": "lower_environment_only",
+  "deskCount": 8,
+  "deskNames": [
+    "operatorDefense",
+    "marketRegime",
+    "dataQuality",
+    "performanceAttribution",
+    "replayBacktest",
+    "strategyTournament",
+    "riskBudget",
+    "learningGovernor"
+  ],
+  "summary": "Lower-environment shadow comparison. No production baseline compared — all desks are advisory-only.",
+  "details": {
+    "operatorDefense": {
+      "status": "operational",
+      "confidence": 0.6,
+      "qualityScore": null,
+      "findingsCount": 8,
+      "dataLimitationsCount": 0
+    },
+    "marketRegime": {
+      "status": "operational",
+      "confidence": 0.9,
+      "qualityScore": null,
+      "findingsCount": 3,
+      "dataLimitationsCount": 0
+    },
+    "dataQuality": {
+      "status": "operational",
+      "confidence": null,
+      "qualityScore": 80,
+      "findingsCount": 1,
+      "dataLimitationsCount": 0
+    },
+    "performanceAttribution": {
+      "status": "operational",
+      "confidence": 0.7999999999999999,
+      "qualityScore": null,
+      "findingsCount": 4,
+      "dataLimitationsCount": 1
+    },
+    "replayBacktest": {
+      "status": "operational",
+      "confidence": 0.2,
+      "qualityScore": null,
+      "findingsCount": 2,
+      "dataLimitationsCount": 0
+    },
+    "strategyTournament": {
+      "status": "operational",
+      "confidence": 0.7,
+      "qualityScore": null,
+      "findingsCount": 3,
+      "dataLimitationsCount": 0
+    },
+    "riskBudget": {
+      "status": "operational",
+      "confidence": 0.8,
+      "qualityScore": null,
+      "findingsCount": 6,
+      "dataLimitationsCount": 0
+    },
+    "learningGovernor": {
+      "status": "operational",
+      "confidence": 1,
+      "qualityScore": null,
+      "findingsCount": 10,
+      "dataLimitationsCount": 0
+    }
+  }
+}

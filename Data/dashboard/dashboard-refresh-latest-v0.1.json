@@ -1,11 +1,11 @@
 {
   "schemaVersion": "marketops-dashboard-refresh-v0.1",
-  "generatedAt": "2026-05-18T02:25:34.520Z",
+  "generatedAt": "2026-05-28T19:51:55.089Z",
   "status": "FAIL",
-  "errorMessage": "npm run marketdata:refresh failed: Alpaca market data returned too few bars for simulation: 0.",
-  "failureReason": "npm run marketdata:refresh failed: Alpaca market data returned too few bars for simulation: 0.",
+  "errorMessage": "npm run marketdata:refresh failed: Alpaca data request failed with HTTP 429.",
+  "failureReason": "npm run marketdata:refresh failed: Alpaca data request failed with HTTP 429.",
   "lastKnownGoodPreserved": true,
-  "lastKnownGoodGeneratedAt": "2026-05-16T02:50:18.300Z",
+  "lastKnownGoodGeneratedAt": "2026-05-28T19:51:54.806Z",
   "mode": "paper_simulation",
   "paperOnly": true,
   "externalEffects": false,
@@ -20,19 +20,19 @@
   "marketData": {
     "source": "alpaca_iex",
     "feed": "iex",
-    "generatedAt": "2026-05-16T02:50:17.720Z",
-    "latestBarTimestamp": "2026-05-15T13:48:00Z",
-    "barsLoaded": 100,
-    "quotesLoaded": 5,
-    "refreshAgeMinutes": 2855.28,
-    "latestBarAgeMinutes": 3637.58,
+    "generatedAt": "2026-05-28T19:50:25.338Z",
+    "latestBarTimestamp": "2026-05-28T19:48:00Z",
+    "barsLoaded": 2945,
+    "quotesLoaded": 149,
+    "refreshAgeMinutes": 1.5,
+    "latestBarAgeMinutes": 3.92,
     "paperOnly": true,
     "liveTradingEnabled": false
   },
   "paper": {
-    "latestRunId": "paper-20260518-022533405Z",
-    "latestRunGeneratedAt": "2026-05-18T02:25:33.405Z",
-    "endingEquity": 4218.75,
+    "latestRunId": "paper-20260528-195105653Z",
+    "latestRunGeneratedAt": "2026-05-28T19:51:05.653Z",
+    "endingEquity": 11.78,
     "paperPnl": 0,
     "paperReturnPct": 0,
     "maxDrawdownPct": null,
@@ -40,21 +40,21 @@
     "qaStatus": "PASS"
   },
   "cycle": {
-    "cycleId": "cycle-20260514-0220",
-    "status": "active",
+    "cycleId": "cycle-20260520-2356",
+    "status": "reset_pending",
     "startingBalance": 1000,
-    "currentBalance": 1000,
-    "daysSurvived": 2.02,
-    "approvedTrades": 39,
-    "rejectedTrades": 145,
-    "depletionRisk": "normal",
-    "nextCycleScheduledStart": null
+    "currentBalance": -17.84,
+    "daysSurvived": 5.59,
+    "approvedTrades": 62,
+    "rejectedTrades": 836,
+    "depletionRisk": "depleted",
+    "nextCycleScheduledStart": "2026-05-27T13:30:00.000Z"
   },
   "dashboard": {
     "latestBundlePath": "Data/dashboard/dashboard-public-safe-v0.1.json",
     "publicBundlePath": "../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json",
-    "generatedAt": "2026-05-16T02:50:18.300Z",
-    "publicGeneratedAt": "2026-05-18T02:25:34.240Z",
+    "generatedAt": "2026-05-28T19:51:54.806Z",
+    "publicGeneratedAt": "2026-05-27T19:54:44.945Z",
     "chartStatuses": [
       {
         "label": "Paper equity curve",
@@ -86,7 +86,7 @@
         "source": "alpaca_iex_derived_summary",
         "fallback": false,
         "status": "updated",
-        "points": 5
+        "points": 148
       },
       {
         "label": "Up/down/flat vehicle counts",
@@ -126,7 +126,7 @@
         "source": "risk_outputs",
         "fallback": false,
         "status": "updated",
-        "points": 5
+        "points": 32
       },
       {
         "label": "Almost-approved candidates",
@@ -142,7 +142,7 @@
         "source": "paper_signals_plus_market_movement",
         "fallback": false,
         "status": "updated",
-        "points": 8
+        "points": 150
       },
       {
         "label": "Signal/risk counts",
@@ -182,7 +182,7 @@
         "source": "risk_outputs",
         "fallback": false,
         "status": "updated",
-        "points": 3
+        "points": 1
       },
       {
         "label": "Vehicle contribution",
@@ -190,7 +190,7 @@
         "source": "paper_outputs_plus_market_movement",
         "fallback": false,
         "status": "updated",
-        "points": 8
+        "points": 149
       },
       {
         "label": "Return vs drawdown snapshot",
@@ -230,7 +230,7 @@
         "source": "alpaca_iex_derived_bars",
         "fallback": false,
         "status": "updated",
-        "points": 5
+        "points": 148
       },
       {
         "label": "Bot activity / latest run timeline",
@@ -246,7 +246,7 @@
         "source": "freshness_labels",
         "fallback": false,
         "status": "updated",
-        "points": 2
+        "points": 1
       },
       {
         "label": "Market regime summary",
@@ -312,9 +312,9 @@
     {
       "command": "npm run marketdata:refresh",
       "status": "FAIL",
-      "startedAt": "2026-05-18T02:25:34.381Z",
-      "completedAt": "2026-05-18T02:25:34.520Z",
-      "detail": "Alpaca market data returned too few bars for simulation: 0."
+      "startedAt": "2026-05-28T19:51:54.834Z",
+      "completedAt": "2026-05-28T19:51:55.089Z",
+      "detail": "Alpaca data request failed with HTTP 429."
     }
   ]
 }

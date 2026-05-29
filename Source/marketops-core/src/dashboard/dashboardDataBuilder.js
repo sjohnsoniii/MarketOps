@@ -58,6 +58,7 @@ function buildEquityCurve({ cycle, positions, performance, runHistory, trades, g
 
   recentRuns.forEach((r) => {
     const cash = safeNumber(r.endingEquity, safeNumber(r.cashBalance, 0));
+    if (cash > originalStartingBalance * 2.5) return;
     points.push({
       timestamp: r.generatedAt,
       cashBalance: round(cash),
@@ -174,6 +175,13 @@ function buildCurrentCycleActivity({ cycle, positions, performance, trades, sign
     const unrealizedPnl = safeNumber(pos.unrealizedPnl, round(currentValue - amountSpent));
     const unrealizedPnlPct = amountSpent ? round((unrealizedPnl / amountSpent) * 100) : 0;
 
+    const positionStoredBand = pos.entryRiskBand || pos.approvalBand || null;
+    const decisionCurrentBand = decision.approvalBand || null;
+    const entryRiskBand = positionStoredBand || decisionCurrentBand || null;
+    const currentRiskBand = decisionCurrentBand || positionStoredBand || null;
+    const riskBandSource = pos.riskBandSource || decision.riskBandSource || null;
+    const riskBandStale = (positionStoredBand && decisionCurrentBand && positionStoredBand !== decisionCurrentBand) || false;
+
     openHoldings.push({
       symbol: pos.symbol,
       companyName: null,
@@ -185,7 +193,11 @@ function buildCurrentCycleActivity({ cycle, positions, performance, trades, sign
       currentValue,
       unrealizedPnl,
       unrealizedPnlPct,
-      daysHeld: pos.entryTime ? round((Date.now() - new Date(pos.entryTime).getTime()) / 86400000, 1) : 0
+      daysHeld: pos.entryTime ? round((Date.now() - new Date(pos.entryTime).getTime()) / 86400000, 1) : 0,
+      entryRiskBand,
+      currentRiskBand,
+      riskBandSource,
+      riskBandStale
     });
 
     buys.push({
@@ -229,6 +241,9 @@ function buildCurrentCycleActivity({ cycle, positions, performance, trades, sign
     });
   });
 
+  const learningModeEnabled = risk.aggressiveLearningMode || false;
+  const learningProfile = risk.learningProfile || null;
+
   return {
     cycleId: cycle.cycleId || "cycle_not_built",
     cycleStartedAt: cycle.cycleStartTimestamp || null,
@@ -237,6 +252,9 @@ function buildCurrentCycleActivity({ cycle, positions, performance, trades, sign
     currentHoldingsValue: round(holdingsValue),
     currentTotalAccountValue,
     openPositionCount: openPositions.length,
+    maxOpenPositions: risk.thresholds ? risk.thresholds.maxOpenPositions : risk.maxOpenPositions,
+    learningModeEnabled,
+    learningProfile,
     buys,
     sells,
     openHoldings,
@@ -260,23 +278,33 @@ function buildCycleDecisionBoard({ signals, risk, positions, cycle, generatedAt 
 
   const bought = [];
   const watched = [];
+  const capacityBlocked = [];
   const rejected = [];
 
   (signals.signals || []).forEach((signal) => {
     const decision = riskDecisionsBySymbol[signal.symbol] || {};
     const isApproved = decision.approved === true;
+    const isCapacityBlocked = decision.approvalBand === "watched_capacity_blocked";
     const isOpen = openSymbols.has(signal.symbol);
-    const isCandidate = signal.status === "candidate";
+    const isCandidate = signal.status === "candidate" || signal.status === "learning_candidate";
 
     const item = {
       symbol: signal.symbol,
       companyName: null,
-      decision: isApproved ? "approved" : "blocked",
+      decision: isApproved ? "approved" : (isCapacityBlocked ? "capacity_blocked" : "blocked"),
       timestamp: decision.generatedAt || signal.generatedAt || generatedAt,
       technicalReason: signal.trigger || "No trigger recorded",
       plainEnglishReason: "",
       riskDeskReason: null,
-      confidence: safeNumber(signal.confidence, 0)
+      confidence: safeNumber(signal.confidence, 0),
+      normalizedConfidence: signal.normalizedConfidence != null ? safeNumber(signal.normalizedConfidence, 0) : null,
+      learningCandidateScore: signal.learningCandidateScore != null ? safeNumber(signal.learningCandidateScore, 0) : null,
+      nearCandidate: signal.nearCandidate || false,
+      entryRiskBand: decision.entryRiskBand || null,
+      currentRiskBand: decision.currentRiskBand || null,
+      riskBandSource: decision.riskBandSource || null,
+      riskBandStale: decision.riskBandStale || false,
+      approvalBand: decision.approvalBand || null
     };
 
     if (isApproved && isOpen) {
@@ -289,6 +317,13 @@ function buildCycleDecisionBoard({ signals, risk, positions, cycle, generatedAt 
       item.plainEnglishReason = `Signal met criteria but no paper position was opened.`;
       item.riskDeskReason = null;
       watched.push(item);
+    } else if (isCapacityBlocked) {
+      item.decision = "capacity_blocked";
+      item.plainEnglishReason = decision.blockReasons && decision.blockReasons.length
+        ? decision.blockReasons.join("; ")
+        : `Capacity reached — ${signal.symbol} held for watch.`;
+      item.riskDeskReason = (decision.blockReasons || []).join("; ");
+      capacityBlocked.push(item);
     } else if (isCandidate && !isApproved) {
       item.decision = "rejected";
       item.plainEnglishReason = decision.blockReasons && decision.blockReasons.length
@@ -297,8 +332,8 @@ function buildCycleDecisionBoard({ signals, risk, positions, cycle, generatedAt 
       item.riskDeskReason = (decision.blockReasons || []).join("; ");
       rejected.push(item);
     } else {
-      item.decision = "watched";
-      item.plainEnglishReason = signal.status === "ignore"
+      item.decision = "ignored";
+      item.plainEnglishReason = signal.status === "ignore" || signal.status === "no_data"
         ? `Signal did not meet movement threshold (${signal.sampleChangePct}%).`
         : "Signal reviewed but not acted upon.";
       item.riskDeskReason = null;
@@ -319,6 +354,12 @@ function buildCycleDecisionBoard({ signals, risk, positions, cycle, generatedAt 
         description: "Signals reviewed but not acted upon (below threshold, no position opened)",
         count: watched.length,
         items: watched
+      },
+      capacity_blocked: {
+        label: "Capacity Blocked",
+        description: "Usable candidates blocked only by position capacity limits (aggressive learning mode)",
+        count: capacityBlocked.length,
+        items: capacityBlocked
       },
       rejected: {
         label: "Rejected",

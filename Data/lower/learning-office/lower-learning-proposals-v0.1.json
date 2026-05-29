@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "marketops-lower-learning-office-v0.1",
+  "generatedAt": "2026-05-26T11:39:11.574Z",
+  "proposals": [
+    "v0.1 Learning Office — Initial observation period. Recommend continued observation before any promotion.",
+    "Operator Defense Desk: Consider adding order-book data source for v0.2 to enable spoofing/layering detection.",
+    "Market Regime Desk: Consider adding VIX or broad market index data for improved regime classification.",
+    "Data Quality Desk: Issues found should be reviewed before relying on affected data for decisions.",
+    "Performance Attribution: Consider adding sector mapping and entry/exit reason tracking for v0.2.",
+    "Replay Lab: Expand to full symbol set and add transaction cost model for v0.2.",
+    "Strategy Tournament: Results are statistical only. Do not auto-promote any strategy based on v0.1 data alone.",
+    "Risk Budget: Drawdown is significant. Consider reviewing risk parameters before next cycle.",
+    "No proposals will be automatically applied. All require human review."
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-05-26T10:15:57.517Z",
+  "paperSimulation": true,
+  "equityCurvePoints": 23,
+  "openPositions": 14,
+  "buys": 14,
+  "sells": 0,
+  "openHoldings": 14,
+  "decisionBoardBought": 0,
+  "decisionBoardWatched": 150,
+  "decisionBoardRejected": 0,
+  "totalAccountValue": 999.99,
+  "cashBalance": 52.92,
+  "holdingsValue": 947.07,
+  "cycleId": "cycle-20260520-2356",
+  "windowDays": 14
+}

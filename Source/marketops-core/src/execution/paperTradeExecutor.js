@@ -11,6 +11,27 @@ function loadDayTradingConfig() {
   }
 }
 
+function loadLearningConfig() {
+  try {
+    const config = loadJson(paths.config);
+    if (config.learningMode && config.learningMode.enabled) {
+      return config.learningMode;
+    }
+  } catch {}
+  return null;
+}
+
+function loadExitRules() {
+  try {
+    const config = loadJson(paths.config);
+    return config.learningMode && config.learningMode.exitRules
+      ? config.learningMode.exitRules
+      : { targetProfitPct: 8, stopLossPct: 4, maxHoldHours: 72 };
+  } catch {
+    return { targetProfitPct: 8, stopLossPct: 4, maxHoldHours: 72 };
+  }
+}
+
 function loadPositions() {
   if (!fileExists(paths.paperPositionsJson)) {
     return { openPositions: [], closedPositions: [], dailyTradeCount: 0, tradeDate: null };
@@ -79,7 +100,7 @@ function resetDailyCounts(positions, timestamp, performance) {
   }
 }
 
-function openPosition({ symbol, assetType, entryTime, entryPrice, quantity, positionValue, signalId, riskDecisionId }) {
+function openPosition({ symbol, assetType, entryTime, entryPrice, quantity, positionValue, signalId, riskDecisionId, riskBand }) {
   return {
     positionId: `pos-${symbol}-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
     symbol,
@@ -96,7 +117,9 @@ function openPosition({ symbol, assetType, entryTime, entryPrice, quantity, posi
     riskDecisionId,
     openedAt: new Date().toISOString(),
     paperOnly: true,
-    liveTradingEnabled: false
+    liveTradingEnabled: false,
+    entryRiskBand: riskBand ? riskBand.entryRiskBand : null,
+    riskBandSource: riskBand ? riskBand.riskBandSource : null
   };
 }
 
@@ -127,6 +150,71 @@ function closePosition(position, exitTime, exitPrice, exitReason) {
   };
 }
 
+function checkAndExecuteExits({ openPositions, marketBars, generatedAt, exitRules }) {
+  const closedList = [];
+  const keepOpenList = [];
+  const learningRecordsList = [];
+  let cashReturned = 0;
+
+  for (const position of (openPositions || [])) {
+    const symBars = (marketBars || [])
+      .filter((b) => b.symbol === position.symbol)
+      .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    const currentPrice = symBars.length > 0 ? symBars[0].close : position.entryPrice;
+    const returnPct = position.entryPrice > 0
+      ? ((currentPrice - position.entryPrice) / position.entryPrice) * 100
+      : 0;
+    const holdHours = (Date.now() - new Date(position.entryTime).getTime()) / 3600000;
+
+    let exitTrigger = null;
+    if (returnPct >= exitRules.targetProfitPct) {
+      exitTrigger = "target_hit";
+    } else if (returnPct <= -(exitRules.stopLossPct)) {
+      exitTrigger = "stop_loss";
+    } else if (holdHours >= exitRules.maxHoldHours) {
+      exitTrigger = "time_stop";
+    }
+
+    if (exitTrigger !== null) {
+      const closed = closePosition(position, generatedAt, currentPrice, exitTrigger);
+      closedList.push(closed);
+      cashReturned += currentPrice * position.quantity;
+
+      learningRecordsList.push({
+        learningRecordId: "learn-" + position.positionId,
+        symbol: position.symbol,
+        entryTime: position.entryTime,
+        exitTime: generatedAt,
+        entryPrice: position.entryPrice,
+        exitPrice: currentPrice,
+        returnPct: round(returnPct),
+        holdHours: round(holdHours),
+        exitReason: exitTrigger,
+        approvalBand: position.approvalBand || position.entryRiskBand,
+        isLearningProbe: position.approvalBand === "approved_learning_probe",
+        outcome: returnPct >= 0 ? "win" : "loss",
+        paperOnly: true,
+        generatedAt
+      });
+    } else {
+      keepOpenList.push(position);
+    }
+  }
+
+  return {
+    closedPositions: closedList,
+    keptOpenPositions: keepOpenList,
+    learningRecords: learningRecordsList,
+    cashReturned: round(cashReturned),
+    exitSummary: {
+      checked: (openPositions || []).length,
+      closed: closedList.length,
+      kept: keepOpenList.length
+    }
+  };
+}
+
 function updateUnrealizedPnl(openPositions, marketBars) {
   return openPositions.map((pos) => {
     const symBars = (marketBars || [])
@@ -150,10 +238,15 @@ function updateUnrealizedPnl(openPositions, marketBars) {
 
 function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDataInfo = {}, generatedAt }) {
   const dtConfig = loadDayTradingConfig();
-  const maxTradesPerDay = dtConfig.maxTradesPerDay || 10;
-  const maxOpenPositions = dtConfig.maxOpenPositions || 5;
+  const learningConfig = loadLearningConfig();
+  const maxTradesPerDay = learningConfig ? learningConfig.sizing.maxTotalTradesPerDay : (dtConfig.maxTradesPerDay || 10);
+  const maxOpenPositions = learningConfig
+    ? (learningConfig.maxOpenPositions || Math.max(dtConfig.maxOpenPositions || 5, 10))
+    : (dtConfig.maxOpenPositions || 5);
   const maxPositionSizePct = dtConfig.maxPositionSizePct || 0.25;
   const maxDailyLossPct = dtConfig.maxDailyLossPct || 0.05;
+  const maxLearningProbesPerDay = learningConfig ? learningConfig.sizing.maxLearningProbesPerDay : 10;
+  const maxStandardTradesPerDay = learningConfig ? learningConfig.sizing.maxStandardTradesPerDay : 10;
   const longOnly = dtConfig.longOnly !== false;
 
   let positions = loadPositions();
@@ -194,6 +287,8 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
 
   const approvedDecisions = (riskReview.decisions || []).filter((d) => d.approved);
   let tradesExecuted = 0;
+  let learningProbesExecuted = 0;
+  let standardTradesExecuted = 0;
 
   for (const decision of approvedDecisions) {
     if (tradesExecuted + openPositionsList.length >= maxOpenPositions) {
@@ -203,6 +298,16 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
     if (positions.dailyTradeCount + tradesExecuted >= maxTradesPerDay) {
       skippedReasons.push("Max daily trades would be exceeded");
       break;
+    }
+
+    const isProbe = decision.approvalBand === "approved_learning_probe";
+    if (isProbe && learningProbesExecuted >= maxLearningProbesPerDay) {
+      skippedReasons.push(`Max learning probes per day (${maxLearningProbesPerDay}) reached`);
+      continue;
+    }
+    if (!isProbe && standardTradesExecuted >= maxStandardTradesPerDay) {
+      skippedReasons.push(`Max standard trades per day (${maxStandardTradesPerDay}) reached`);
+      continue;
     }
 
     const signal = (signals || []).find((item) => item.symbol === decision.symbol);
@@ -232,7 +337,8 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
     }
 
     const entryBar = bars[bars.length - 1];
-    const positionValue = cashBalance * maxPositionSizePct;
+    const sizeMultiplier = decision.positionSizeMultiplier || 1.0;
+    const positionValue = cashBalance * maxPositionSizePct * sizeMultiplier;
     const quantity = positionValue / entryBar.close;
     const cashAfterTrade = cashBalance - positionValue;
 
@@ -249,8 +355,15 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
       quantity,
       positionValue,
       signalId: signal.signalId,
-      riskDecisionId: decision.riskDecisionId
+      riskDecisionId: decision.riskDecisionId,
+      riskBand: {
+        entryRiskBand: decision.entryRiskBand || decision.approvalBand,
+        riskBandSource: decision.riskBandSource || "paper_simulation"
+      }
     });
+
+    pos.approvalBand = decision.approvalBand || "approved_standard";
+    pos.positionSizeMultiplier = round(sizeMultiplier);
 
     openPositionsList.push(pos);
     cashBalance = cashAfterTrade;
@@ -270,6 +383,8 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
     });
 
     tradesExecuted++;
+    if (isProbe) learningProbesExecuted++;
+    else standardTradesExecuted++;
 
     trades.push({
       tradeId: `paper-trade-${pos.symbol}-${Date.now()}`,
@@ -287,7 +402,14 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
       cashBalanceAfterEntry: round(cashBalance),
       dataSource: marketDataInfo.dataSource || "deterministic_sample",
       paperOnly: true,
-      liveTradingEnabled: false
+      liveTradingEnabled: false,
+      approvalBand: decision.approvalBand || "approved_standard",
+      positionSizeMultiplier: round(sizeMultiplier),
+      entryPlan: decision.entryPlan || null,
+      exitPlan: decision.exitPlan || null,
+      riskPlan: decision.riskPlan || null,
+      isLearningProbe: isProbe,
+      learningMetadata: decision.learningMetadata || null
     });
 
     if (positions.dailyTradeCount + tradesExecuted >= maxTradesPerDay) break;
@@ -332,6 +454,11 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
     openPositionCount: openPositionsList.length,
     maxOpenPositions,
     executedTrades: trades.length,
+    learningProbesExecuted,
+    standardTradesExecuted,
+    maxLearningProbesPerDay,
+    maxStandardTradesPerDay,
+    learningModeEnabled: !!learningConfig,
     skippedReasons: skippedReasons.length > 0 ? [...new Set(skippedReasons)] : [],
     noTradeReason: !hasTrades ? "No approved candidates passed all day-trading gates" : null,
     ledger,
@@ -365,4 +492,4 @@ function executePaperTrades(params) {
   };
 }
 
-module.exports = { executeIntradayPaperTrades, executePaperTrades, closePosition, updateUnrealizedPnl, loadPositions, loadPerformance };
+module.exports = { executeIntradayPaperTrades, executePaperTrades, closePosition, updateUnrealizedPnl, loadPositions, loadPerformance, checkAndExecuteExits, loadExitRules };

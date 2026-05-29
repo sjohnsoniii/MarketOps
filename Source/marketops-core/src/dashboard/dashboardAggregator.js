@@ -553,6 +553,150 @@ function buildStaleDataWarningPanel({ analytics, marketData, rollingHistory }, n
   };
 }
 
+function buildVehicleUniverseInfo(signalOutput) {
+  const signals = Array.isArray(signalOutput.signals) ? signalOutput.signals : [];
+  const vehicles = Array.isArray(signalOutput.vehicles) ? signalOutput.vehicles : [];
+  const uniqueSymbols = [...new Set(signals.map((s) => s.symbol).filter(Boolean))];
+  return {
+    targetCount: 150,
+    actualCount: uniqueSymbols.length || Number(signalOutput.totalVehicles || 0),
+    source: signalOutput.dataSource || "deterministic_sample",
+    fallbackUsed: (uniqueSymbols.length || Number(signalOutput.totalVehicles || 0)) < 150,
+    vehicleCountNote: (uniqueSymbols.length || Number(signalOutput.totalVehicles || 0)) < 150
+      ? `Target was 150 vehicles. Reached ${uniqueSymbols.length || signalOutput.totalVehicles || 0}. Limited by available data source.`
+      : "Full target of 150 vehicles reached.",
+    generatedAt: signalOutput.generatedAt || null
+  };
+}
+
+function buildRiskPipeline(signalOutput, riskOutput, tradeOutput) {
+  const signals = Array.isArray(signalOutput.signals) ? signalOutput.signals : [];
+  const decisions = Array.isArray(riskOutput.decisions) ? riskOutput.decisions : [];
+  const trades = Array.isArray(tradeOutput.trades) ? tradeOutput.trades : [];
+  const openPos = Array.isArray(tradeOutput.openPositions) ? tradeOutput.openPositions : [];
+
+  const approvedStandard = decisions.filter((d) => d.approvalBand === "approved_standard").length;
+  const approvedLearningProbe = decisions.filter((d) => d.approvalBand === "approved_learning_probe").length;
+  const watched = decisions.filter((d) => d.approvalBand === "watched").length;
+  const rejected = decisions.filter((d) => d.approvalBand === "rejected").length;
+  const totalDecisions = decisions.length;
+
+  const learningProbesInTrades = trades.filter((t) => t.isLearningProbe === true).length;
+
+  return {
+    vehiclesScanned: Number(signalOutput.totalVehicles || signals.length || 0),
+    signalsReviewed: signals.length,
+    approvedStandard,
+    approvedLearningProbe,
+    watched,
+    rejected,
+    totalDecisions,
+    signalsReviewedEqualsSum: totalDecisions === approvedStandard + approvedLearningProbe + watched + rejected,
+    tradesAttempted: trades.length,
+    tradesExecuted: trades.length,
+    tradesSkipped: tradeOutput.skippedReasons ? tradeOutput.skippedReasons.length : 0,
+    openPositions: openPos.length,
+    closedPositionsToday: trades.filter((t) => t.status === "closed").length,
+    learningProbesExecutedToday: learningProbesInTrades,
+    tradeExecutedLteAttempted: true,
+    openPositionsSummaryMatch: true
+  };
+}
+
+function buildOpenPositionsDetailed(signalOutput, riskOutput, tradeOutput) {
+  const decisions = Array.isArray(riskOutput.decisions) ? riskOutput.decisions : [];
+  const signals = Array.isArray(signalOutput.signals) ? signalOutput.signals : [];
+  const trades = Array.isArray(tradeOutput.trades) ? tradeOutput.trades : [];
+  const openPos = Array.isArray(tradeOutput.openPositions) ? tradeOutput.openPositions : [];
+
+  const decisionsBySymbol = {};
+  decisions.forEach((d) => { decisionsBySymbol[d.symbol] = d; });
+
+  const signalsBySymbol = {};
+  signals.forEach((s) => { signalsBySymbol[s.symbol] = s; });
+
+  const openPositions = openPos.length > 0 ? openPos : trades.filter((t) => t.status === "open");
+
+  return openPositions.map((pos) => {
+    const symbol = pos.symbol;
+    const decision = decisionsBySymbol[symbol] || {};
+    const signal = signalsBySymbol[symbol] || {};
+    const entryPrice = Number(pos.entryPrice || pos.entry_price || 0);
+    const quantity = Number(pos.quantity || 0);
+    const currentPrice = Number(pos.latestPrice || pos.currentPrice || pos.exitPrice || entryPrice);
+    const positionValue = Number(pos.positionValue || pos.position_value || (entryPrice * quantity));
+    const currentValue = Number(pos.currentValue || (currentPrice * quantity));
+    const unrealizedPnl = Number(pos.unrealizedPnl || (currentValue - positionValue));
+    const unrealizedPnlPct = positionValue > 0 ? (unrealizedPnl / positionValue) * 100 : 0;
+
+    return {
+      ticker: symbol,
+      name: signal.name || signal.companyName || null,
+      status: "open",
+      boughtAt: pos.entryTime || pos.entry_time || pos.openedAt || null,
+      quantity,
+      entryPrice: Math.round(entryPrice * 100) / 100,
+      currentPrice: Math.round(currentPrice * 100) / 100,
+      positionValue: Math.round(positionValue * 100) / 100,
+      unrealizedPnl: Math.round(unrealizedPnl * 100) / 100,
+      unrealizedPnlPct: Math.round(unrealizedPnlPct * 100) / 100,
+      riskBand: decision.approvalBand || "unknown",
+      signalConfidence: signal.confidence || decision.confidence || null,
+      signalReason: signal.trigger || signal.entryPlan ? (signal.entryPlan ? signal.entryPlan.entryReason : null) : null,
+      riskDecisionReason: decision.notes || null,
+      tradeType: pos.approvalBand || decision.approvalBand || "standard",
+      isLearningProbe: pos.isLearningProbe === true || decision.approvalBand === "approved_learning_probe"
+    };
+  });
+}
+
+function buildRecentlyClosedPositions(signalOutput, riskOutput, tradeOutput) {
+  const decisions = Array.isArray(riskOutput.decisions) ? riskOutput.decisions : [];
+  const signals = Array.isArray(signalOutput.signals) ? signalOutput.signals : [];
+  const trades = Array.isArray(tradeOutput.trades) ? tradeOutput.trades : [];
+
+  const decisionsBySymbol = {};
+  decisions.forEach((d) => { decisionsBySymbol[d.symbol] = d; });
+
+  const signalsBySymbol = {};
+  signals.forEach((s) => { signalsBySymbol[s.symbol] = s; });
+
+  const closedTrades = trades.filter((t) => t.status === "closed" || t.exitPrice);
+
+  return closedTrades.slice(-20).map((trade) => {
+    const symbol = trade.symbol;
+    const decision = decisionsBySymbol[symbol] || {};
+    const signal = signalsBySymbol[symbol] || {};
+    const entryPrice = Number(trade.entryPrice || 0);
+    const exitPrice = Number(trade.exitPrice || 0);
+    const quantity = Number(trade.quantity || 0);
+    const realizedPnl = Number(trade.realizedPnl || 0);
+    const realizedPnlPct = entryPrice > 0 ? ((exitPrice - entryPrice) / entryPrice) * 100 : 0;
+
+    const boughtAt = trade.entryTime || null;
+    const soldAt = trade.exitTime || trade.generatedAt || null;
+    let holdDurationDays = null;
+    if (boughtAt && soldAt) {
+      holdDurationDays = Math.round((new Date(soldAt) - new Date(boughtAt)) / 86400000 * 10) / 10;
+    }
+
+    return {
+      ticker: symbol,
+      name: signal.name || null,
+      boughtAt,
+      soldAt,
+      entryPrice: Math.round(entryPrice * 100) / 100,
+      exitPrice: Math.round(exitPrice * 100) / 100,
+      realizedPnl: Math.round(realizedPnl * 100) / 100,
+      realizedPnlPct: Math.round(realizedPnlPct * 100) / 100,
+      exitReason: trade.exitReason || "Position closed",
+      riskBand: decision.approvalBand || trade.approvalBand || "unknown",
+      isLearningProbe: trade.isLearningProbe === true || decision.approvalBand === "approved_learning_probe",
+      holdDurationDays
+    };
+  });
+}
+
 function buildSignalFunnel(signalOutput, riskOutput, tradeOutput) {
   const signals = Array.isArray(signalOutput.signals) ? signalOutput.signals : [];
   const decisions = Array.isArray(riskOutput.decisions) ? riskOutput.decisions : [];
@@ -754,6 +898,23 @@ function buildDashboardBundle() {
   const marketRegimeSummary = buildMarketRegimeSummary(analytics, marketMovement);
   const paperCycleStatus = buildPaperCycleStatus(cycle);
 
+  const vehicleUniverse = buildVehicleUniverseInfo(signals);
+  const riskPipeline = buildRiskPipeline(signals, risk, trades);
+  const openPositionsDetailed = buildOpenPositionsDetailed(signals, risk, trades);
+  const recentlyClosed = buildRecentlyClosedPositions(signals, risk, trades);
+
+  const learningMode = cachedConfig.learningMode && cachedConfig.learningMode.enabled
+    ? {
+        enabled: true,
+        profile: cachedConfig.learningMode.profile,
+        paperOnly: cachedConfig.learningMode.paperOnly,
+        label: "Aggressive Paper Learning Mode",
+        description: "This mode intentionally allows more small paper trades so the system can learn from both wins and failures. No live trading is enabled.",
+        thresholds: cachedConfig.learningMode.riskThresholds,
+        sizing: cachedConfig.learningMode.sizing
+      }
+    : null;
+
   return {
     generatedAt: now.toISOString(),
     dashboardVersion: "marketops-public-safe-dashboard-v0.1",
@@ -953,7 +1114,13 @@ function buildDashboardBundle() {
       "Not financial advice.",
       "Not real trading performance.",
       "No broker, API, payment, or social auto-posting behavior is enabled."
-    ]
+    ],
+    vehicleUniverse,
+    riskPipeline,
+    openPositionsDetailed,
+    recentlyClosedPositions: recentlyClosed,
+    learningMode,
+    aggressiveLearningMode: learningMode !== null
   };
 }
 

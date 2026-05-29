@@ -13,6 +13,7 @@ const reportRoot = path.join(projectRoot, "Reports", "Automation");
 const sj3labsRoot = path.join(projectRoot, "..", "sj3labs");
 
 const paths = {
+  coreRoot: coreRoot,
   packageJson: path.join(coreRoot, "package.json"),
   config: path.join(coreRoot, "config", "marketops.phase1.config.json"),
   paperFull: path.join(coreRoot, "src", "paper", "full.js"),
@@ -146,7 +147,8 @@ function runAutomationCheck() {
   fileExists(checks, "office:qa source", paths.officeQa);
   fileExists(checks, "agents:review source", paths.agentsReview);
   fileExists(checks, "agents:qa source", paths.agentsQa);
-  contains(checks, "paper:full includes simulation, history, dashboard refresh, QA", paths.paperFull, ["runPaperPipeline", "appendRunHistory", "refreshSiteDashboard", "runQa"]);
+  contains(checks, "paper:full includes pipeline, site refresh, QA", paths.paperFull, ["runPaperPipeline", "refreshSiteDashboard", "runQa"]);
+  contains(checks, "intraday simulation appends run history", path.join(paths.coreRoot, "src/simulation/runIntradaySimulation.js"), ["appendRunHistory"]);
   contains(checks, "office:run includes office and agent review flow", paths.officeRun, ["runOffice", "runAgentReviews", "runAgentsQa"]);
 
   [["paper PowerShell runner", paths.paperRunner], ["paper refresh v0.2 runner", paths.paperRefreshRunnerV02], ["refresh task v0.2 install/repair helper", paths.refreshInstallRepairV02], ["refresh task v0.2 check helper", paths.refreshCheckV02], ["refresh task v0.2 run-once helper", paths.refreshOnceV02], ["office PowerShell runner", paths.officeRunner], ["paper scheduled-task install helper", paths.paperInstall], ["paper scheduled-task remove helper", paths.paperRemove], ["office scheduled-task install helper", paths.officeInstall], ["office scheduled-task remove helper", paths.officeRemove]].forEach(([label, filePath]) => fileExists(checks, label, filePath));

@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "0.2",
+  "generatedAt": "2026-05-21T17:43:39.289Z",
+  "mode": "paper_simulation",
+  "paperOnly": true,
+  "liveTradingEnabled": false,
+  "totalSignals": 32,
+  "waterfallLevels": {
+    "watchlist_movements_reviewed": 32,
+    "enough_data": 32,
+    "trade_candidates_generated": 15,
+    "passed_long_up_direction_gate": 12,
+    "passed_confidence_threshold": 9,
+    "had_invalidation_stop": 9,
+    "passed_risk_rules": 12,
+    "approved_standard": 9,
+    "approved_learning_probe": 3,
+    "approved_fake_paper_trades": 3
+  },
+  "waterfallSteps": [
+    {
+      "step": "watchlist_movements_reviewed",
+      "count": 32,
+      "label": "Watchlist Movements Reviewed"
+    },
+    {
+      "step": "enough_data",
+      "count": 32,
+      "label": "Enough Data"
+    },
+    {
+      "step": "trade_candidates_generated",
+      "count": 15,
+      "label": "Trade Candidates Generated"
+    },
+    {
+      "step": "passed_long_up_direction_gate",
+      "count": 12,
+      "label": "Passed Long Up Direction Gate"
+    },
+    {
+      "step": "passed_confidence_threshold",
+      "count": 9,
+      "label": "Passed Confidence Threshold"
+    },
+    {
+      "step": "had_invalidation_stop",
+      "count": 9,
+      "label": "Had Invalidation Stop"
+    },
+    {
+      "step": "passed_risk_rules",
+      "count": 12,
+      "label": "Passed Risk Rules"
+    },
+    {
+      "step": "approved_standard",
+      "count": 9,
+      "label": "Approved Standard"
+    },
+    {
+      "step": "approved_learning_probe",
+      "count": 3,
+      "label": "Approved Learning Probe"
+    },
+    {
+      "step": "approved_fake_paper_trades",
+      "count": 3,
+      "label": "Approved Fake Paper Trades"
+    }
+  ],
+  "approvedCount": 12,
+  "approvedStandard": 9,
+  "approvedLearningProbe": 3,
+  "watchedCount": 0,
+  "rejectedCount": 20,
+  "fakeTradeCount": 3,
+  "topBlockers": [
+    {
+      "reason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+      "count": 20
+    },
+    {
+      "reason": "Signal did not qualify as a candidate.",
+      "count": 17
+    }
+  ],
+  "noTradeReason": null,
+  "thresholds": {
+    "standardApproval": 0.63,
+    "learningProbe": 0.57,
+    "watched": 0.5,
+    "rejectBelow": 0.55,
+    "learningProbeSizePct": 0.35
+  },
+  "reporting": {
+    "incomplete_trade_plan": 0,
+    "phase_rule_block": 20,
+    "insufficient_history": 0,
+    "averageCandidateConfidence": 0.3787,
+    "reasonDistribution": {
+      "Signal did not qualify as a candidate.": 17,
+      "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.": 20,
+      "approved:approved_standard": 9,
+      "approved:approved_learning_probe": 3
+    }
+  },
+  "riskGates": [
+    {
+      "gate": "long/up-only",
+      "passed": 12,
+      "failed": 3
+    },
+    {
+      "gate": "confidence >= 0.63",
+      "passed": 9,
+      "failed": 3
+    },
+    {
+      "gate": "invalidation/stop defined",
+      "passed": 9,
+      "failed": 0
+    },
+    {
+      "gate": "risk rules - standard",
+      "approved": 9,
+      "rejected": 23
+    },
+    {
+      "gate": "risk rules - learning_probe",
+      "approved": 3,
+      "rejected": 29
+    }
+  ]
+}

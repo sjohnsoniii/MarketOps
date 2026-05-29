@@ -23,13 +23,14 @@ function buildHealthSummary(currentSummary, previousHealth) {
   const now = new Date().toISOString();
   const lastStatus = currentSummary.status || "UNKNOWN";
   const isPass = lastStatus === "PASS";
+  const isDegraded = lastStatus === "CONTROLLED_DEGRADED";
 
   const prev = previousHealth || {};
   const prevConsecutiveFailures = typeof prev.consecutiveFailures === "number" ? prev.consecutiveFailures : 0;
 
-  const consecutiveFailures = isPass ? 0 : prevConsecutiveFailures + 1;
+  const consecutiveFailures = isPass ? 0 : (isDegraded ? prevConsecutiveFailures : prevConsecutiveFailures + 1);
   const lastSuccessfulRefreshAt = isPass ? now : (prev.lastSuccessfulRefreshAt || null);
-  const lastFailureAt = isPass ? (prev.lastFailureAt || null) : now;
+  const lastFailureAt = isPass ? (prev.lastFailureAt || null) : (isDegraded ? (prev.lastFailureAt || null) : now);
   const failureReason = isPass ? null : (currentSummary.errorMessage || prev.failureReason || null);
 
   const lastSuccessfulAgeHours = lastSuccessfulRefreshAt ? hoursOld(lastSuccessfulRefreshAt) : null;
@@ -41,6 +42,7 @@ function buildHealthSummary(currentSummary, previousHealth) {
   return {
     schemaVersion: "marketops-dashboard-refresh-health-v0.1",
     lastStatus,
+    isDegraded,
     lastAttemptAt: now,
     lastSuccessfulRefreshAt,
     lastFailureAt,
@@ -60,6 +62,7 @@ Generated: ${health.lastAttemptAt}
 ## Status
 
 - lastStatus: ${health.lastStatus}
+- isDegraded: ${health.isDegraded}
 - lastAttemptAt: ${health.lastAttemptAt}
 - lastSuccessfulRefreshAt: ${health.lastSuccessfulRefreshAt || "never"}
 - lastFailureAt: ${health.lastFailureAt || "none"}

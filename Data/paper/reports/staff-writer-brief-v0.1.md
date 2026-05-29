@@ -10,12 +10,12 @@ MarketOps completed a deterministic paper-only simulation using sample vehicles 
 
 ## Snapshot
 
-Vehicles scanned: 8
-Candidate signals: 0
-Risk approved: 0
-Risk blocked: 8
+Vehicles scanned: 150
+Candidate signals: 2
+Risk approved: 2
+Risk blocked: 148
 Fake paper trades: 0
-Ending paper balance: $4218.75
+Ending paper balance: $216.54
 Paper P/L: $0.00
 Win rate: 0.00%
 

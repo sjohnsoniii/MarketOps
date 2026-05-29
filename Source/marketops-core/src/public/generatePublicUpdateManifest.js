@@ -67,7 +67,7 @@ function generateManifest(publishStatus, overrides) {
     },
     universeTargetSize: universe.length,
     vehiclesLoaded,
-    dataBundleFile: "dashboard-bundle-public-v0.4.json",
+    dataBundleFile: "dashboard-bundle-public-v0.5.json",
     dashboardBundleGeneratedAt: bundle?.generatedAt || null,
     dashboardBundleHash: bundleHash,
     publicTrialStatusFile: "marketops-public-trial-status-v0.1.json",

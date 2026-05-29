@@ -1,0 +1,1800 @@
+{
+  "equityCurve": {
+    "label": "Total Account Value",
+    "definition": "Cash balance plus market value of open positions",
+    "paperStartingBalance": 1000,
+    "windowDays": 14,
+    "cycleId": "cycle-20260514-0220",
+    "windowStart": "2026-05-14T02:20:20.137Z",
+    "windowEnd": "2026-05-20T14:52:29.117Z",
+    "points": [
+      {
+        "timestamp": "2026-05-14T02:20:20.137Z",
+        "cashBalance": 1000,
+        "holdingsValue": 0,
+        "totalAccountValue": 1000,
+        "source": "cycle_start",
+        "isBackfilled": false,
+        "note": "Cycle start with $1,000 paper balance"
+      },
+      {
+        "timestamp": "2026-05-14T02:36:53.328Z",
+        "cashBalance": 10000,
+        "holdingsValue": 0,
+        "totalAccountValue": 10000,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-15T02:02:35.513Z",
+        "cashBalance": 10000,
+        "holdingsValue": 0,
+        "totalAccountValue": 10000,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-15T02:05:48.215Z",
+        "cashBalance": 10000,
+        "holdingsValue": 0,
+        "totalAccountValue": 10000,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-15T02:11:20.713Z",
+        "cashBalance": 10000,
+        "holdingsValue": 0,
+        "totalAccountValue": 10000,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-15T02:11:49.350Z",
+        "cashBalance": 10000,
+        "holdingsValue": 0,
+        "totalAccountValue": 10000,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-15T02:12:58.389Z",
+        "cashBalance": 10000,
+        "holdingsValue": 0,
+        "totalAccountValue": 10000,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-15T02:22:59.154Z",
+        "cashBalance": 10000,
+        "holdingsValue": 0,
+        "totalAccountValue": 10000,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-15T12:21:36.974Z",
+        "cashBalance": 10000,
+        "holdingsValue": 0,
+        "totalAccountValue": 10000,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-15T15:56:30.434Z",
+        "cashBalance": 10000,
+        "holdingsValue": 0,
+        "totalAccountValue": 10000,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:29:57.802Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:30:24.423Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:34:28.178Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:35:36.007Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:43:53.943Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:44:22.005Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:44:29.451Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:45:06.407Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:45:18.994Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:45:31.290Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:45:58.951Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:46:27.702Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:46:28.615Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:46:32.683Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:46:33.428Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:46:34.029Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:46:34.781Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:46:35.539Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:47:39.833Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:47:40.897Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:47:53.297Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:47:53.926Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:47:54.719Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:48:19.264Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:48:25.426Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:48:26.865Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:50:14.229Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:50:15.508Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:50:17.122Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-16T02:50:17.787Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-18T02:25:33.405Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-18T02:29:19.869Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-18T02:32:37.393Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-18T14:00:35.843Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-18T14:00:41.115Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-18T14:27:57.388Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-18T14:28:00.415Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-18T14:28:51.594Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-18T14:28:53.517Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-18T16:00:14.539Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-18T16:00:16.861Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-18T18:00:15.428Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-18T18:00:18.391Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-18T19:50:14.188Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-18T19:50:16.224Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-18T23:00:00.000Z",
+        "cashBalance": 1000,
+        "holdingsValue": 0,
+        "totalAccountValue": 1000,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-18T23:27:44.629Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-18T23:27:46.584Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T00:53:46.765Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T00:54:19.242Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T00:54:19.917Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T00:55:36.800Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T00:55:37.489Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T00:56:29.777Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T00:56:30.490Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T00:56:56.351Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T00:56:57.249Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T00:57:05.537Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T00:57:06.201Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T00:58:10.916Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T00:58:11.853Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T00:58:37.034Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T00:58:37.763Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T00:58:59.464Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T00:59:00.316Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T00:59:11.213Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T00:59:11.891Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:13:10.815Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:13:19.577Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:13:20.257Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:13:37.504Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:13:39.812Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:15:00.385Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:15:07.104Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:15:07.803Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:15:18.846Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:15:20.977Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:43:02.536Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:43:09.825Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:43:10.520Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:43:17.567Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:43:19.706Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:46:50.365Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:46:52.577Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:46:53.563Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:46:57.982Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T01:47:00.043Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T02:16:41.011Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T02:16:51.286Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T02:16:52.103Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T02:16:55.965Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T02:16:58.589Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T02:23:41.702Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T02:23:44.142Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T02:47:10.681Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T02:47:14.243Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T02:47:16.403Z",
+        "cashBalance": 4218.75,
+        "holdingsValue": 0,
+        "totalAccountValue": 4218.75,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T02:59:40.722Z",
+        "cashBalance": 562.5,
+        "holdingsValue": 0,
+        "totalAccountValue": 562.5,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T02:59:52.403Z",
+        "cashBalance": 562.5,
+        "holdingsValue": 0,
+        "totalAccountValue": 562.5,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T02:59:53.363Z",
+        "cashBalance": 562.5,
+        "holdingsValue": 0,
+        "totalAccountValue": 562.5,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T03:00:00.810Z",
+        "cashBalance": 562.5,
+        "holdingsValue": 0,
+        "totalAccountValue": 562.5,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T03:00:03.639Z",
+        "cashBalance": 562.5,
+        "holdingsValue": 0,
+        "totalAccountValue": 562.5,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T03:04:39.577Z",
+        "cashBalance": 1000,
+        "holdingsValue": 0,
+        "totalAccountValue": 1000,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T03:06:38.869Z",
+        "cashBalance": 1000,
+        "holdingsValue": 0,
+        "totalAccountValue": 1000,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T03:07:01.620Z",
+        "cashBalance": 421.88,
+        "holdingsValue": 0,
+        "totalAccountValue": 421.88,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T03:07:19.056Z",
+        "cashBalance": 316.41,
+        "holdingsValue": 0,
+        "totalAccountValue": 316.41,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T03:07:26.681Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T14:00:33.606Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T14:00:51.102Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T14:46:16.986Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T14:46:33.578Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T16:00:33.515Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T16:00:50.327Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T18:00:34.353Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T18:00:52.444Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T19:50:32.154Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-19T19:50:48.955Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-20T01:21:23.474Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-20T01:34:07.278Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-20T02:23:39.044Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-20T02:23:50.875Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-20T02:24:07.952Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-20T02:24:35.113Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-20T02:24:45.970Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-20T14:01:06.737Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-20T14:01:25.362Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-20T14:52:08.238Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-20T14:52:21.459Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 0,
+        "totalAccountValue": 237.31,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-20T14:52:29.117Z",
+        "cashBalance": 237.31,
+        "holdingsValue": 757.58,
+        "totalAccountValue": 994.89,
+        "source": "paper_simulation_current",
+        "isBackfilled": false,
+        "note": "Current: cash 237.31 + holdings 757.58 = 994.89 (accumulated step not strictly additive)"
+      }
+    ],
+    "cashBalance": 237.31,
+    "holdingsValue": 757.58,
+    "totalAccountValue": 994.89,
+    "openPositionCount": 5,
+    "validation": {
+      "totalAccountValueEqualsCashPlusHoldings": true,
+      "allPointsValid": true,
+      "noNaN": true,
+      "noInfinity": true
+    }
+  },
+  "currentCycleActivity": {
+    "cycleId": "cycle-20260514-0220",
+    "cycleStartedAt": "2026-05-14T02:20:20.137Z",
+    "startingPaperBalance": 1000,
+    "currentCashBalance": 237.31,
+    "currentHoldingsValue": 757.58,
+    "currentTotalAccountValue": 994.89,
+    "openPositionCount": 5,
+    "buys": [
+      {
+        "symbol": "XLE",
+        "companyName": null,
+        "purchaseDate": "2026-05-18T19:59:00Z",
+        "quantity": 4.128137,
+        "averageBuyPrice": 60.56,
+        "amountSpent": 250,
+        "currentPrice": 60.78,
+        "currentValue": 250.91,
+        "unrealizedPnl": 0.91,
+        "unrealizedPnlPct": 0.36,
+        "signalReason": "XLE moved 5.08% across Alpaca IEX market data.",
+        "plainEnglishReason": "Risk Desk approved XLE for paper execution.",
+        "riskDeskVerdict": "approved"
+      },
+      {
+        "symbol": "MSFT",
+        "companyName": null,
+        "purchaseDate": "2026-05-18T20:20:00Z",
+        "quantity": 0.44277,
+        "averageBuyPrice": 423.47,
+        "amountSpent": 187.5,
+        "currentPrice": 415.26,
+        "currentValue": 183.86,
+        "unrealizedPnl": -3.64,
+        "unrealizedPnlPct": -1.94,
+        "signalReason": "MSFT movement did not clear 2% threshold.",
+        "plainEnglishReason": "MSFT was opened during paper simulation.",
+        "riskDeskVerdict": "not_rated"
+      },
+      {
+        "symbol": "NVDA",
+        "companyName": null,
+        "purchaseDate": "2026-05-18T20:31:00Z",
+        "quantity": 0.632449,
+        "averageBuyPrice": 222.35,
+        "amountSpent": 140.63,
+        "currentPrice": 224.59,
+        "currentValue": 142.04,
+        "unrealizedPnl": 1.41,
+        "unrealizedPnlPct": 1,
+        "signalReason": "NVDA moved 5% across Alpaca IEX market data.",
+        "plainEnglishReason": "Risk Desk approved NVDA for paper execution.",
+        "riskDeskVerdict": "approved"
+      },
+      {
+        "symbol": "META",
+        "companyName": null,
+        "purchaseDate": "2026-05-18T19:59:00Z",
+        "quantity": 0.172549,
+        "averageBuyPrice": 611.25,
+        "amountSpent": 105.47,
+        "currentPrice": 603.51,
+        "currentValue": 104.14,
+        "unrealizedPnl": -1.33,
+        "unrealizedPnlPct": -1.26,
+        "signalReason": "META movement did not clear 2% threshold.",
+        "plainEnglishReason": "META was opened during paper simulation.",
+        "riskDeskVerdict": "not_rated"
+      },
+      {
+        "symbol": "GOOGL",
+        "companyName": null,
+        "purchaseDate": "2026-05-18T20:19:00Z",
+        "quantity": 0.199401,
+        "averageBuyPrice": 396.7,
+        "amountSpent": 79.1,
+        "currentPrice": 384.3,
+        "currentValue": 76.63,
+        "unrealizedPnl": -2.47,
+        "unrealizedPnlPct": -3.12,
+        "signalReason": "GOOGL movement did not clear 2% threshold.",
+        "plainEnglishReason": "GOOGL was opened during paper simulation.",
+        "riskDeskVerdict": "not_rated"
+      }
+    ],
+    "sells": [],
+    "openHoldings": [
+      {
+        "symbol": "XLE",
+        "companyName": null,
+        "purchaseDate": "2026-05-18T19:59:00Z",
+        "sellDate": null,
+        "quantity": 4.128137,
+        "averageBuyPrice": 60.56,
+        "currentPrice": 60.78,
+        "currentValue": 250.91,
+        "unrealizedPnl": 0.91,
+        "unrealizedPnlPct": 0.36,
+        "daysHeld": 1.8
+      },
+      {
+        "symbol": "MSFT",
+        "companyName": null,
+        "purchaseDate": "2026-05-18T20:20:00Z",
+        "sellDate": null,
+        "quantity": 0.44277,
+        "averageBuyPrice": 423.47,
+        "currentPrice": 415.26,
+        "currentValue": 183.86,
+        "unrealizedPnl": -3.64,
+        "unrealizedPnlPct": -1.94,
+        "daysHeld": 1.8
+      },
+      {
+        "symbol": "NVDA",
+        "companyName": null,
+        "purchaseDate": "2026-05-18T20:31:00Z",
+        "sellDate": null,
+        "quantity": 0.632449,
+        "averageBuyPrice": 222.35,
+        "currentPrice": 224.59,
+        "currentValue": 142.04,
+        "unrealizedPnl": 1.41,
+        "unrealizedPnlPct": 1,
+        "daysHeld": 1.8
+      },
+      {
+        "symbol": "META",
+        "companyName": null,
+        "purchaseDate": "2026-05-18T19:59:00Z",
+        "sellDate": null,
+        "quantity": 0.172549,
+        "averageBuyPrice": 611.25,
+        "currentPrice": 603.51,
+        "currentValue": 104.14,
+        "unrealizedPnl": -1.33,
+        "unrealizedPnlPct": -1.26,
+        "daysHeld": 1.8
+      },
+      {
+        "symbol": "GOOGL",
+        "companyName": null,
+        "purchaseDate": "2026-05-18T20:19:00Z",
+        "sellDate": null,
+        "quantity": 0.199401,
+        "averageBuyPrice": 396.7,
+        "currentPrice": 384.3,
+        "currentValue": 76.63,
+        "unrealizedPnl": -2.47,
+        "unrealizedPnlPct": -3.12,
+        "daysHeld": 1.8
+      }
+    ],
+    "paperOnly": true,
+    "liveTradingEnabled": false,
+    "externalEffects": false,
+    "publishAllowed": false,
+    "canRenderEmpty": false
+  },
+  "cycleDecisionBoard": {
+    "sections": {
+      "bought": {
+        "label": "Bought",
+        "description": "Signals approved by Risk Desk that resulted in open paper positions",
+        "count": 2,
+        "items": [
+          {
+            "symbol": "XLE",
+            "companyName": null,
+            "decision": "bought",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "XLE moved 5.08% across Alpaca IEX market data.",
+            "plainEnglishReason": "Risk Desk approved and paper execution opened XLE.",
+            "riskDeskReason": null,
+            "confidence": 0.75
+          },
+          {
+            "symbol": "NVDA",
+            "companyName": null,
+            "decision": "bought",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "NVDA moved 5% across Alpaca IEX market data.",
+            "plainEnglishReason": "Risk Desk approved and paper execution opened NVDA.",
+            "riskDeskReason": null,
+            "confidence": 0.75
+          }
+        ]
+      },
+      "watched": {
+        "label": "Watched",
+        "description": "Signals reviewed but not acted upon (below threshold, no position opened)",
+        "count": 26,
+        "items": [
+          {
+            "symbol": "SPY",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "SPY movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (0.26%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "QQQ",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "QQQ movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (-0.22%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "DIA",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "DIA movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (-0.02%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "VTI",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "VTI movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (0%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "XLF",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "XLF movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (0.18%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "XLK",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "XLK movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (0.23%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "XLV",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "XLV moved 2.23% across Alpaca IEX market data.",
+            "plainEnglishReason": "Signal met criteria but no paper position was opened.",
+            "riskDeskReason": null,
+            "confidence": 0.61
+          },
+          {
+            "symbol": "AAPL",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "AAPL moved 2.42% across Alpaca IEX market data.",
+            "plainEnglishReason": "Signal met criteria but no paper position was opened.",
+            "riskDeskReason": null,
+            "confidence": 0.62
+          },
+          {
+            "symbol": "MSFT",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "MSFT movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (1.8%).",
+            "riskDeskReason": null,
+            "confidence": 0.18
+          },
+          {
+            "symbol": "AMZN",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "AMZN movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (-1.32%).",
+            "riskDeskReason": null,
+            "confidence": 0.13
+          },
+          {
+            "symbol": "META",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "META movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (1.37%).",
+            "riskDeskReason": null,
+            "confidence": 0.14
+          },
+          {
+            "symbol": "GOOGL",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "GOOGL movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (-0.14%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "AVGO",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "AVGO movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (-0.81%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "JPM",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "JPM movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (-0.07%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "V",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "V movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (0.59%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "JNJ",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "JNJ moved 3.49% across Alpaca IEX market data.",
+            "plainEnglishReason": "Signal met criteria but no paper position was opened.",
+            "riskDeskReason": null,
+            "confidence": 0.67
+          },
+          {
+            "symbol": "WMT",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "WMT moved 3.43% across Alpaca IEX market data.",
+            "plainEnglishReason": "Signal met criteria but no paper position was opened.",
+            "riskDeskReason": null,
+            "confidence": 0.67
+          },
+          {
+            "symbol": "PG",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "PG movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (-1.77%).",
+            "riskDeskReason": null,
+            "confidence": 0.18
+          },
+          {
+            "symbol": "XOM",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "XOM moved 5.87% across Alpaca IEX market data.",
+            "plainEnglishReason": "Signal met criteria but no paper position was opened.",
+            "riskDeskReason": null,
+            "confidence": 0.79
+          },
+          {
+            "symbol": "UNH",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "UNH movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (1.56%).",
+            "riskDeskReason": null,
+            "confidence": 0.16
+          },
+          {
+            "symbol": "COST",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "COST moved 7.88% across Alpaca IEX market data.",
+            "plainEnglishReason": "Signal met criteria but no paper position was opened.",
+            "riskDeskReason": null,
+            "confidence": 0.89
+          },
+          {
+            "symbol": "MRK",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "MRK movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (1.89%).",
+            "riskDeskReason": null,
+            "confidence": 0.19
+          },
+          {
+            "symbol": "ABBV",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "ABBV moved 3.39% across Alpaca IEX market data.",
+            "plainEnglishReason": "Signal met criteria but no paper position was opened.",
+            "riskDeskReason": null,
+            "confidence": 0.67
+          },
+          {
+            "symbol": "CRM",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "CRM movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (-0.07%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "AMD",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "AMD movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (-0.55%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "NFLX",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "NFLX moved 2.76% across Alpaca IEX market data.",
+            "plainEnglishReason": "Signal met criteria but no paper position was opened.",
+            "riskDeskReason": null,
+            "confidence": 0.64
+          }
+        ]
+      },
+      "rejected": {
+        "label": "Rejected",
+        "description": "Candidates blocked by Risk Desk",
+        "count": 4,
+        "items": [
+          {
+            "symbol": "IWM",
+            "companyName": null,
+            "decision": "rejected",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "IWM moved -2.01% across Alpaca IEX market data.",
+            "plainEnglishReason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+            "riskDeskReason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+            "confidence": 0.6
+          },
+          {
+            "symbol": "TSLA",
+            "companyName": null,
+            "decision": "rejected",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "TSLA moved -6.28% across Alpaca IEX market data.",
+            "plainEnglishReason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+            "riskDeskReason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+            "confidence": 0.81
+          },
+          {
+            "symbol": "HD",
+            "companyName": null,
+            "decision": "rejected",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "HD moved -2.27% across Alpaca IEX market data.",
+            "plainEnglishReason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+            "riskDeskReason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+            "confidence": 0.61
+          },
+          {
+            "symbol": "INTC",
+            "companyName": null,
+            "decision": "rejected",
+            "timestamp": "2026-05-20T14:52:29.117Z",
+            "technicalReason": "INTC moved -4.77% across Alpaca IEX market data.",
+            "plainEnglishReason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+            "riskDeskReason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+            "confidence": 0.74
+          }
+        ]
+      }
+    },
+    "totalDecisions": 32,
+    "paperOnly": true
+  },
+  "paperSimulation": true,
+  "generatedAt": "2026-05-20T14:52:29.117Z",
+  "dataFreshness": {
+    "generatedAt": "2026-05-20T14:52:29.117Z",
+    "marketDataRefreshAt": "2026-05-20T14:52:20.548Z",
+    "latestBarTimestamp": "2026-05-20T14:09:00Z",
+    "marketDataSource": "alpaca_iex",
+    "cycleBuildAt": "2026-05-20T14:52:08.238Z",
+    "cycleStatus": "active",
+    "runCount": 221,
+    "openPositionCount": 5,
+    "dataSource": "alpaca_iex"
+  },
+  "disclaimers": [
+    "Paper simulation only. All values are fake paper money.",
+    "Not financial advice. No real trading or investment decisions.",
+    "No broker connection, live trading, or real-money execution.",
+    "Market data from Alpaca IEX used for paper simulation context.",
+    "Past paper performance does not guarantee future results."
+  ]
+}

@@ -1,11 +1,11 @@
 # MarketOps Scheduled Public Data Publish Repair v0.3
 
-Generated: 2026-05-19T02:17:03Z
+Generated: 2026-05-21T14:01:45Z
 
 ## Timestamp
 
-- Run started: 2026-05-19T02:17:03Z
-- Report generated: 2026-05-19T02:17:03Z
+- Run started: 2026-05-21T14:01:45Z
+- Report generated: 2026-05-21T14:01:45Z
 
 ## Market Data Status
 
@@ -18,7 +18,7 @@ Generated: 2026-05-19T02:17:03Z
 
 ## Chart Status
 
-- Status: 2 empty/27 total
+- Status: 0 empty/27 total
 
 ## sj3labs Sync Status
 
@@ -27,7 +27,26 @@ Generated: 2026-05-19T02:17:03Z
 
 ## Git Publish Status
 
-- Status: not_run
+- Status: no_changes
+
+## Public Update Manifest
+
+- Generated: true
+- Status: skipped_no_changes
+- Expected Vercel trigger: no
+
+## Production Update Coordination
+
+- Refresh run completed: YES
+- Dashboard JSON generated: YES
+- Trial status generated: YES
+- Manifest generated: YES
+- Site data synced to sj3labs: YES
+- Allowlist check passed: YES
+- Git commit created: NO (no changes)
+- Git push succeeded: NO (no_changes)
+- Vercel trigger: NOT EXPECTED (no data published)
+- Public data freshness: see manifest generatedAt
 
 ## Final Scheduler Status
 
@@ -39,7 +58,11 @@ Generated: 2026-05-19T02:17:03Z
 
 ## Log File
 
-- /home/sjohnsoniii/Projects/MarketOps/logs/marketops-refresh-20260518-221653.log
+- /home/sjohnsoniii/Projects/MarketOps/logs/marketops-refresh-20260521-100014.log
+
+## Next Scheduled Run
+
+- Check: systemctl --user list-timers --all | grep -i marketops
 
 ## Safety
 
@@ -50,7 +73,7 @@ Generated: 2026-05-19T02:17:03Z
 - Email/SMS disabled: true
 - Payments disabled: true
 - Code auto-commit disabled: true
-- Data-only auto-publish: 0
+- Data-only auto-publish: 1
 - Allowlist enforced: true
 - No secrets modified: true
 

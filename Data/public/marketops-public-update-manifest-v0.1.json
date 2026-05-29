@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "marketops-public-update-manifest-v0.1",
+  "generatedAt": "2026-05-21T14:01:45.053Z",
+  "localRunId": "2026-05-21T14:01:39.852Z",
+  "refreshStatus": "PASS",
+  "paperCycleId": "cycle-20260520-2356",
+  "paperBalance": 1000,
+  "paperEquity": 316.41,
+  "universeProfile": {
+    "totalVehicles": 32,
+    "types": {
+      "ETF": 9,
+      "EQUITY": 23
+    },
+    "targetSize": 32,
+    "vehiclesLoaded": 32
+  },
+  "universeTargetSize": 32,
+  "vehiclesLoaded": 32,
+  "dataBundleFile": "dashboard-bundle-public-v0.5.json",
+  "dashboardBundleGeneratedAt": "2026-05-21T14:01:39.838Z",
+  "dashboardBundleHash": "c75651c4389873d9dbd756726c2552fb",
+  "publicTrialStatusFile": "marketops-public-trial-status-v0.1.json",
+  "publicTrialStatusGeneratedAt": "2026-05-21T14:01:42.883Z",
+  "publicTrialStatusHash": "212d3b0b346e02d54c6bebe77f3517e9",
+  "manifestFile": "marketops-public-update-manifest-v0.1.json",
+  "sourceCommitBeforePublish": "ea53b818d4172f3271c69c6adb304a1b72bb5709",
+  "sourceCommitAfterPublish": null,
+  "sourceBranch": "main",
+  "sj3labsCommitBeforePublish": "8020c59eae148915def802598c051efa336c0227",
+  "sj3labsCommitAfterPublish": null,
+  "publishStatus": "skipped_no_changes",
+  "expectedVercelTrigger": false,
+  "note": "Paper simulation only. Public update manifest for MarketOps paper trial."
+}

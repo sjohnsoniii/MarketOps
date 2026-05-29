@@ -145,6 +145,22 @@ function updateCycleFromLatestRun({ state = loadCycleState(), generatedAt = new 
     cycle.lastRunAppliedAt = latestRun.generatedAt;
   }
 
+  if (fileExists(paths.paperPerformanceJson)) {
+    try {
+      const perf = loadJson(paths.paperPerformanceJson);
+      const positions = fileExists(paths.paperPositionsJson) ? loadJson(paths.paperPositionsJson) : { openPositions: [] };
+      const holdingsValue = (positions.openPositions || []).reduce((sum, p) => sum + (p.currentValue || p.positionValue || 0), 0);
+      const actualTotalEquity = round((perf.cashBalance || 0) + holdingsValue);
+      cycle.canonicalCashBalance = round(perf.cashBalance || 0);
+      cycle.canonicalHoldingsValue = round(holdingsValue);
+      cycle.canonicalTotalEquity = actualTotalEquity;
+      cycle.canonicalUnrealizedPnl = round(perf.unrealizedPnl || 0);
+      cycle.canonicalRealizedPnl = round(perf.realizedPnl || 0);
+      cycle.canonicalOpenPositionsCount = (positions.openPositions || []).length;
+      cycle.canonicalClosedPositionsCount = (positions.closedPositions || []).length;
+    } catch {}
+  }
+
   cycle.rejectionReasons = countRejectionReasons(risk);
   cycle.hoursSurvived = hoursBetween(cycle.cycleStartTimestamp, latestRun.generatedAt || generatedAt);
   cycle.daysSurvived = round(cycle.hoursSurvived / 24);
@@ -184,16 +200,33 @@ function updateCycleFromLatestRun({ state = loadCycleState(), generatedAt = new 
 }
 
 function buildCycleReport(cycle, latestRun) {
-  return `# MarketOps Paper Cycle Status v0.1
+  const canonicalSection = cycle.canonicalTotalEquity !== undefined
+    ? `
+## Canonical Account (from paper performance + positions)
+
+- cashBalance: ${cycle.canonicalCashBalance}
+- holdingsValue: ${cycle.canonicalHoldingsValue}
+- totalEquity: ${cycle.canonicalTotalEquity}
+- unrealizedPnl: ${cycle.canonicalUnrealizedPnl}
+- realizedPnl: ${cycle.canonicalRealizedPnl}
+- openPositionsCount: ${cycle.canonicalOpenPositionsCount}
+- closedPositionsCount: ${cycle.canonicalClosedPositionsCount}
+- totalEquity = cashBalance + holdingsValue: ${round((cycle.canonicalCashBalance || 0) + (cycle.canonicalHoldingsValue || 0)) === cycle.canonicalTotalEquity}`
+    : "";
+
+  return `# MarketOps Paper Cycle Status v0.2
 
 Generated: ${new Date().toISOString()}
+Source runId: ${latestRun ? latestRun.runId : "n/a"}
+Source cycleId: ${cycle.cycleId}
+Source file: ${paths.cycleLatestJson}
 
 ## Cycle
 
 - cycleId: ${cycle.cycleId}
 - status: ${cycle.status}
 - startingBalance: ${cycle.startingBalance}
-- currentBalance: ${cycle.currentBalance}
+- currentBalance (depletion basis): ${cycle.currentBalance}
 - endingBalance: ${cycle.endingBalance}
 - depletionThreshold: ${cycle.depletionThreshold}
 - cycleStartTimestamp: ${cycle.cycleStartTimestamp}
@@ -205,6 +238,7 @@ Generated: ${new Date().toISOString()}
 - depletionRisk: ${cycle.depletionRisk}
 - resetTriggerReason: ${cycle.resetTriggerReason}
 - nextCycleScheduledStart: ${cycle.nextCycleScheduledStart}
+${canonicalSection}
 
 ## Latest Paper Run Applied
 
@@ -297,6 +331,21 @@ function runCycleQa() {
     check("cycle has lessons", Array.isArray(cycle.lessonsLearnedSoFar) && cycle.lessonsLearnedSoFar.length > 0, `${(cycle.lessonsLearnedSoFar || []).length}`);
     check("cycle has proposed improvements", Array.isArray(cycle.proposedImprovements), `${(cycle.proposedImprovements || []).length}`);
     check("cycle is local-only", cycle.externalEffects === false && cycle.publishAllowed === false, `${cycle.externalEffects}/${cycle.publishAllowed}`);
+
+    if (cycle.canonicalTotalEquity !== undefined) {
+      const expectedTotal = round((cycle.canonicalCashBalance || 0) + (cycle.canonicalHoldingsValue || 0));
+      check("totalEquity = cashBalance + holdingsValue", expectedTotal === cycle.canonicalTotalEquity, `expected=${expectedTotal} actual=${cycle.canonicalTotalEquity}`);
+      check("canonical fields present", Boolean(cycle.canonicalCashBalance !== undefined && cycle.canonicalHoldingsValue !== undefined), "missing canonical fields");
+    }
+
+    if (cycle.currentBalance !== undefined && cycle.canonicalTotalEquity !== undefined) {
+      const diff = Math.abs(cycle.currentBalance - cycle.canonicalTotalEquity);
+      check("currentBalance not ambiguous (has canonicalTotalEquity)", true, `currentBalance=${cycle.currentBalance} canonicalTotalEquity=${cycle.canonicalTotalEquity} diff=${round(diff)}`);
+    }
+
+    if (cycle.depletionRisk !== undefined) {
+      check("depletionRisk is labeled", ["depleted", "high", "elevated", "normal"].includes(cycle.depletionRisk), cycle.depletionRisk);
+    }
   }
 
   const failed = checks.filter((item) => !item.passed);
@@ -328,13 +377,77 @@ ${failed.length ? failed.map((item) => `- ${item.name}: ${item.detail}`).join("\
 
 function runCycleStatus() {
   const cycle = loadJson(paths.cycleLatestJson);
-  console.log(`cycleId: ${cycle.cycleId}`);
-  console.log(`status: ${cycle.status}`);
-  console.log(`currentBalance: ${cycle.currentBalance}`);
-  console.log(`daysSurvived: ${cycle.daysSurvived}`);
-  console.log(`depletionRisk: ${cycle.depletionRisk}`);
-  console.log(`nextCycleScheduledStart: ${cycle.nextCycleScheduledStart || "n/a"}`);
-  return cycle;
+  const performance = fileExists(paths.paperPerformanceJson)
+    ? loadJson(paths.paperPerformanceJson)
+    : null;
+  const positions = fileExists(paths.paperPositionsJson)
+    ? loadJson(paths.paperPositionsJson)
+    : null;
+  const latestRun = fileExists(paths.latestRunSummaryJson)
+    ? loadJson(paths.latestRunSummaryJson)
+    : null;
+
+  const cashBalance = performance ? (performance.cashBalance || 0) : 0;
+  const holdingsValue = positions
+    ? (positions.openPositions || []).reduce((sum, p) => sum + (p.currentValue || p.positionValue || 0), 0)
+    : 0;
+  const totalEquity = round(cashBalance + holdingsValue);
+  const unrealizedPnl = performance ? (performance.unrealizedPnl || 0) : 0;
+  const realizedPnl = performance ? (performance.realizedPnl || 0) : 0;
+  const openPositionsCount = positions ? (positions.openPositions || []).length : 0;
+  const closedPositionsCount = positions ? (positions.closedPositions || []).length : 0;
+
+  const depletionBasis = cycle.currentBalance || 0;
+  const depletionRisk = totalEquity <= DEPLETION_THRESHOLD
+    ? "depleted"
+    : totalEquity <= (cycle.startingBalance || CYCLE_STARTING_BALANCE) * 0.25
+      ? "high"
+      : totalEquity <= (cycle.startingBalance || CYCLE_STARTING_BALANCE) * 0.5
+        ? "elevated"
+        : "normal";
+
+  const statusOutput = {
+    cycleId: cycle.cycleId,
+    status: cycle.status,
+    startingBalance: cycle.startingBalance || CYCLE_STARTING_BALANCE,
+    cashBalance: round(cashBalance),
+    holdingsValue: round(holdingsValue),
+    totalEquity,
+    realizedPnl: round(realizedPnl),
+    unrealizedPnl: round(unrealizedPnl),
+    openPositionsCount,
+    closedPositionsCount,
+    daysSurvived: cycle.daysSurvived || 0,
+    depletionRisk,
+    depletionBasis: round(depletionBasis),
+    lastUpdatedAt: latestRun ? (latestRun.generatedAt || cycle.lastRunAppliedAt || null) : (cycle.lastRunAppliedAt || null),
+    generatedAt: new Date().toISOString(),
+    sourceRunId: latestRun ? (latestRun.runId || null) : null,
+    sourceCycleId: cycle.cycleId,
+    sourceFile: paths.cycleLatestJson
+  };
+
+  console.log(`cycleId: ${statusOutput.cycleId}`);
+  console.log(`status: ${statusOutput.status}`);
+  console.log(`startingBalance: ${statusOutput.startingBalance}`);
+  console.log(`cashBalance: ${statusOutput.cashBalance}`);
+  console.log(`holdingsValue: ${statusOutput.holdingsValue}`);
+  console.log(`totalEquity: ${statusOutput.totalEquity}`);
+  console.log(`realizedPnl: ${statusOutput.realizedPnl}`);
+  console.log(`unrealizedPnl: ${statusOutput.unrealizedPnl}`);
+  console.log(`openPositionsCount: ${statusOutput.openPositionsCount}`);
+  console.log(`closedPositionsCount: ${statusOutput.closedPositionsCount}`);
+  console.log(`daysSurvived: ${statusOutput.daysSurvived}`);
+  console.log(`depletionRisk: ${statusOutput.depletionRisk}`);
+  console.log(`depletionBasis: ${statusOutput.depletionBasis}`);
+  console.log(`lastUpdatedAt: ${statusOutput.lastUpdatedAt || "n/a"}`);
+  console.log(`generatedAt: ${statusOutput.generatedAt}`);
+  console.log(`sourceRunId: ${statusOutput.sourceRunId || "n/a"}`);
+  console.log(`sourceFile: ${statusOutput.sourceFile}`);
+
+  writeJson(paths.cycleLatestJson, { ...cycle, ...statusOutput });
+
+  return statusOutput;
 }
 
 module.exports = {

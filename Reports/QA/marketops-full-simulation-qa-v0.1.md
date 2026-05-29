@@ -1,6 +1,6 @@
 # MarketOps Full Simulation QA v0.1
 
-Generated: 2026-05-16T02:47:57.761Z
+Generated: 2026-05-20T14:52:30.548Z
 
 ## Verdict
 
@@ -8,9 +8,9 @@ PASS
 
 ## Summary
 
-- Checks passed: 69
+- Checks passed: 71
 - Checks failed: 0
-- Total checks: 69
+- Total checks: 71
 
 ## Checks
 
@@ -61,27 +61,29 @@ PASS
 - PASS: alpaca data source is iex - alpaca_iex
 - PASS: alpaca paperOnly true - true
 - PASS: alpaca liveTradingEnabled false - false
-- PASS: backfill has bars - 10138 bars
-- PASS: rolling history has bars - 10138 bars
-- PASS: rolling history has symbols - AAPL, MSFT, NVDA, QQQ, SPY
+- PASS: alpaca has freshBarsStatus field - FRESH_BARS_AVAILABLE
+- PASS: alpaca has marketDataStatus field - OPERATIONAL
+- PASS: backfill has bars - 58171 bars
+- PASS: rolling history has bars - 74712 bars
+- PASS: rolling history has symbols - AAPL, ABBV, AMD, AMZN, AVGO, COST, CRM, DIA, GOOGL, HD, INTC, IWM, JNJ, JPM, META, MRK, MSFT, NFLX, NVDA, PG, QQQ, SPY, TSLA, UNH, V, VTI, WMT, XLE, XLF, XLK, XLV, XOM
 - PASS: weather station has coverage - has_data
-- PASS: confidence calibration exists - symbols: 5, status: calibrated
+- PASS: confidence calibration exists - symbols: 32, status: calibrated
 - PASS: trades object exists - paper_simulation
 - PASS: trades are paper-only - true
 - PASS: positions file exists - present
-- PASS: open positions tracked - count: 3
+- PASS: open positions tracked - count: 5
 - PASS: performance file exists - present
-- PASS: performance has equity - $4218.75
-- PASS: latest run summary has startingBalance - $4218.75
-- PASS: latest run summary has endingEquity - $4218.75
+- PASS: performance has equity - $232.19
+- PASS: latest run summary has startingBalance - $237.31
+- PASS: latest run summary has endingEquity - $237.31
 - PASS: latest run summary has paperPnl - $0
 - PASS: latest run no live trade flags - clean
-- PASS: performance cash vs run summary match - perf_cash=4218.75 summary=4218.75 diff=0
+- PASS: performance cash vs run summary match - perf_cash=237.31 summary=237.31 diff=0
 - PASS: trade count matches ledger count - trades=0 ledger=0
 - PASS: backward-compat fields present - fields: startingBalance=true endingBalance=true totalPnl=true
-- PASS: startingBalance equals cashBalance for no-trade runs - both=4218.75
-- PASS: cash balance matches paper performance - trades=4218.75 perf=4218.75
-- PASS: open position count consistent - positions=3 trades=3
+- PASS: startingBalance equals cashBalance for no-trade runs - both=237.31
+- PASS: cash balance matches paper performance - trades=237.31 perf=237.31
+- PASS: open position count consistent - positions=5 trades=5
 - PASS: outputs contain no secret markers - clean
 
 ## Failed Checks

@@ -33,6 +33,38 @@
     "scanCadenceMinutes": 15,
     "dashboardRefreshCadenceHours": 2
   },
+  "learningMode": {
+    "enabled": true,
+    "profile": "aggressive_paper_learning",
+    "paperOnly": true,
+    "expandedUniverseTarget": 150,
+    "maxOpenPositions": 20,
+    "learningCandidateMovementThreshold": 1.2,
+    "riskThresholds": {
+      "standardApprovalMin": 0.58,
+      "learningProbeMin": 0.42,
+      "watchMin": 0.34,
+      "hardRejectBelow": 0.34
+    },
+    "sizing": {
+      "learningProbePositionSizeMultiplier": 0.25,
+      "maxLearningProbesPerDay": 10,
+      "maxStandardTradesPerDay": 10,
+      "maxTotalTradesPerDay": 20
+    },
+    "objective": {
+      "prioritizeLearningEvents": true,
+      "allowSmallPaperFailures": true,
+      "requireFailureLabeling": true
+    },
+    "exitRules": {
+      "targetProfitPct": 8,
+      "stopLossPct": 4,
+      "maxHoldHours": 72,
+      "timeStopAction": "close_at_market",
+      "writelearningRecord": true
+    }
+  },
   "safety": {
     "allowBrokerConnection": false,
     "allowLiveTrading": false,

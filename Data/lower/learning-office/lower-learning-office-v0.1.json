@@ -1,0 +1,583 @@
+{
+  "schemaVersion": "marketops-lower-learning-office-v0.1",
+  "mode": "lower_environment_shadow",
+  "generatedAt": "2026-05-26T11:39:11.574Z",
+  "productionImpact": false,
+  "tradeExecutionImpact": false,
+  "schedulerImpact": false,
+  "dashboardProductionImpact": false,
+  "brokerImpact": false,
+  "publicSiteImpact": false,
+  "autoPromotionEnabled": false,
+  "desks": {
+    "operatorDefense": {
+      "status": "operational",
+      "confidence": 0.6,
+      "findings": [
+        "Weather station reports 32/32 symbols stale (100.0%)",
+        "HIGH STALE RATIO: Over 50% of tracked symbols are stale — late-entry / stale-data risk elevated",
+        "Signal scan: 150 total signals, 150 low-confidence (<0.4), 150 blocked, 150 no-data",
+        "HIGH NO-DATA RATIO: Over 50% of signals have no data — pump/chase detection unreliable",
+        "Open positions: 14 (14 long) — symbols: XLV, XLE, AAPL, MSFT, NVDA, AMD, ORCL, QCOM, PANW, F, TXN, NOW, ADI, LCID",
+        "Risk decisions: 150 total, 0 approved, 150 rejected",
+        "Rolling history: 99920 bars across 32 symbols",
+        "Operator defense confidence: 60% (based on 5 checks, 2 risk flags)"
+      ],
+      "dataLimitations": [],
+      "orderBookManipulationDetectionAvailable": false,
+      "orderBookManipulationNote": "Level 2/order-book data not available; spoofing/layering detection not active in v0.1.",
+      "summary": "2 operator risk flag(s) detected. Review findings for details.",
+      "details": "## Operator Defense Desk v0.1 — Lower Environment\n\n### Spoofing / Layering Detection\n\n- Detection available: false\n- Note: Level 2/order-book data not available; spoofing/layering detection not active in v0.1.\n\n### Weather Station Analysis\n\n- Symbols tracked: 32\n- Stale symbols: 32\n- Stale ratio: 100.0%\n\n### Signal Analysis\n\n- Total signals: 150\n- Low-confidence signals: 150\n- Blocked signals: 150\n- No-data signals: 150\n\n### Open Positions\n\n- Total open positions: 14\n- Long positions: 14\n- Symbols: XLV, XLE, AAPL, MSFT, NVDA, AMD, ORCL, QCOM, PANW, F, TXN, NOW, ADI, LCID\n\n### Risk Decision Analysis\n\n- Total decisions: 150\n- Approved: 0\n- Rejected: 150\n\n### Rolling History Analysis\n\n- Total bars: 99920\n- Unique symbols: 32\n- Large moves (>5%): 0 (0.0%)\n\n### Risk Flags Summary\n\n- Total checks performed: 5\n- Risk flags raised: 2\n- Overall confidence: 60%\n\n### Data Availability\n\n- Fields available: weatherStation, signalScan, paperPositions, riskDecisions, rollingHistory\n- Data limitations: 0\n\n---\n*Operator Defense Desk is a lower-environment/shadow-mode component. No production systems were modified.*"
+    },
+    "marketRegime": {
+      "status": "operational",
+      "confidence": 0.9,
+      "findings": [
+        "Low average signal confidence suggests weak market conviction",
+        "Regime labels: chop, high_volatility, low_volume, risk_off",
+        "Confidence: 90% (based on 4/4 data sources)"
+      ],
+      "dataLimitations": [],
+      "summary": "Market regime classified as cautious/bearish. Confidence limited by available data.",
+      "details": "## Market Regime Desk v0.1 — Lower Environment\n\n### Regime Labels\n\n- **chop**\n- **high_volatility**\n- **low_volume**\n- **risk_off**\n\n### Label Reasoning\n\n- Close prices relatively flat (trend -0.31% — below 2% threshold)\n- Average intra-bar volatility 47.02% (>3% threshold)\n- Recent volumes low (avg 668 units)\n- High stale data ratio (100%) suggests risk-off conditions\n\n### Signal Context\n\n- Total signals: 150\n- High-confidence signals (>0.5): 0\n\n- Average signal confidence: 0.000\n### Risk Decision Context\n\n- Total decisions: 150\n- Approved: 0\n- Approval rate: 0.0%\n\n### Summary\n\n- Regime labels: chop, high_volatility, low_volume, risk_off\n- Confidence: 90%\n- Data sources available: 4/4\n- Data limitations: 0\n\n---\n*Market Regime Desk is a lower-environment/shadow-mode component. No production systems were modified.*",
+      "labels": [
+        "chop",
+        "high_volatility",
+        "low_volume",
+        "risk_off"
+      ],
+      "labelReasons": [
+        "Close prices relatively flat (trend -0.31% — below 2% threshold)",
+        "Average intra-bar volatility 47.02% (>3% threshold)",
+        "Recent volumes low (avg 668 units)",
+        "High stale data ratio (100%) suggests risk-off conditions"
+      ],
+      "availableData": [
+        "rollingHistory",
+        "weatherStation",
+        "signalScan",
+        "riskDecisions"
+      ]
+    },
+    "dataQuality": {
+      "status": "operational",
+      "qualityScore": 80,
+      "findings": [
+        "Dashboard refresh health: FAIL (10 consecutive failures, reason: npm run marketdata:refresh failed: Alpaca data request failed with HTTP 429.)"
+      ],
+      "dataLimitations": [],
+      "summary": "Data quality is acceptable. Some issues found but within tolerance.",
+      "details": "## Data Quality Desk v0.1 — Lower Environment\n\n### Dashboard Bundle Quality\n\n- Equity curve points: 23\n- Invalid timestamps: None\n- Negative balances: None\n- Duplicate timestamps: None\n\n### Dashboard Health Quality\n\n- Status: FAIL\n- Consecutive failures: 10\n- Last successful: 2026-05-21T14:01:39.855Z\n- Stale warning: Last successful refresh was 116.2 hours ago (target: 2 hours)\n\n### Rolling History Quality\n\n- Total bars: 99920\n- Unique symbols: 32\n- Null closes: 0\n- Zero volumes: 0\n- Extreme jumps (>50%): 0\n\n### Signal Scan Quality\n\n- Total signals: 150\n- Missing required fields: 0\n\n### Performance Data Quality\n\n- Cash balance: 52.92\n- Total equity: 52.92\n- Max drawdown: 94.71\n\n### Quality Summary\n\n- Checks performed: 5\n- Checks passed: 8\n- Issues flagged: 1\n- Quality score: 80/100\n\nData quality is acceptable. Some issues found but within tolerance.\n\n---\n*Data Quality Desk is a lower-environment/shadow-mode component. It does not block production systems.*"
+    },
+    "performanceAttribution": {
+      "status": "operational",
+      "confidence": 0.7999999999999999,
+      "findings": [
+        "Daily trade count > 0 but realized P&L is $0 — possible attribution gap",
+        "High max drawdown (94.71%) — significant risk event in window",
+        "Position concentration: top symbols — XLV(1), XLE(1), AAPL(1), MSFT(1), NVDA(1)",
+        "No executed trades recorded — cannot perform trade outcome attribution."
+      ],
+      "dataLimitations": [
+        "Sector mapping data not available; sector-level attribution skipped."
+      ],
+      "summary": "Performance attribution completed across 4 dimension(s). Account equity: $52.92.",
+      "details": "## Performance Attribution Desk v0.1 — Lower Environment\n\n### Performance Overview\n\n- Starting cash: $1000\n- Cash balance: $52.92\n- Realized P&L: $0\n- Unrealized P&L: $0\n- Total equity: $52.92\n- Max drawdown: 94.71%\n- Daily trade count: 8\n\n### Position-Level Attribution\n\n- Open positions: 14\n\n| Symbol | Side | Entry Price | Quantity | Unrealized P&L | Unrealized % | Band |\n|--------|------|-------------|----------|----------------|--------------|------|\n| XLV | long | $147.88 | 1.69056 | $0.00 | 0.00% | approved_standard |\n| XLE | long | $59.13 | 1.109937 | $0.00 | 0.00% | approved_learning_probe |\n| AAPL | long | $304.67 | 0.561571 | $0.00 | 0.00% | approved_standard |\n| MSFT | long | $419.2 | 0.306111 | $0.00 | 0.00% | approved_standard |\n| NVDA | long | $220.9 | 0.435672 | $0.00 | 0.00% | approved_standard |\n| AMD | long | $470.93 | 0.153271 | $0.00 | 0.00% | approved_standard |\n| ORCL | long | $196.55 | 0.275426 | $-0.01 | -0.01% | approved_standard |\n| QCOM | long | $226.28 | 0.179429 | $0.00 | 0.00% | approved_standard |\n| PANW | long | $256.17 | 0.11887 | $0.00 | 0.00% | approved_standard |\n| F | long | $14.18 | 1.611161 | $0.01 | 0.03% | approved_standard |\n| TXN | long | $309.9 | 0.013817 | $0.00 | 0.04% | approved_learning_probe |\n| NOW | long | $103.94 | 0.038621 | $0.00 | 0.11% | approved_learning_probe |\n| ADI | long | $397.02 | 0.009479 | $0.00 | 0.09% | approved_learning_probe |\n| LCID | long | $5.94 | 0.593966 | $0.00 | -0.05% | approved_learning_probe |\n\n\n### Equity Curve Attribution\n\n- Equity points: 0\n\n### Sector Attribution (Experimental)\n\n- Symbols held: XLV, XLE, AAPL, MSFT, NVDA, AMD, ORCL, QCOM, PANW, F, TXN, NOW, ADI, LCID\n- Note: Sector mapping not available in v0.1. Symbols listed for manual sector lookup.\n\n### Trade Outcome Attribution\n\n- Executed trades: 0\n- Ledger entries: 0\n- Trade records: 0\n\n### Risk Desk Learning Attribution\n\n- Approved learning trades: 2\n- Outcome distribution: {\"inconclusive\":2}\n\n### Summary\n\n- Confidence: 80%\n- Attribution dimensions available: 4\n- Data limitations: 1\n\nPerformance attribution completed across 4 dimension(s). Account equity: $52.92.\n\n---\n*Performance Attribution Desk is a lower-environment/shadow-mode component. No production systems were modified.*"
+    },
+    "replayBacktest": {
+      "status": "operational",
+      "confidence": 0.2,
+      "findings": [
+        "Limited replay to first 5 symbols (32 total available) for v0.1 scope.",
+        "Replayed 20 strategy-symbol combinations."
+      ],
+      "limitations": [
+        "Only first 5 symbols simulated; remaining symbols available for expanded runs.",
+        "Simplified strategy logic — not representative of MarketOps production signal/risk pipeline.",
+        "No transaction costs, slippage, or liquidity modeling."
+      ],
+      "dataLimitations": [],
+      "summary": "Replay/Backtest Lab completed 20 simulation(s) across 4 strategies and limited symbols. Results are advisory only and not predictive proof.",
+      "details": "## Replay / Backtest Lab v0.1 — Lower Environment\n\n### Data Summary\n\n- Total bars: 99920\n- Unique symbols: 32\n- Date range: 2026-05-11T12:05:00Z to 2026-05-22T15:59:00Z\n- Initial cash per strategy: $1000\n\n### Strategy Simulations\n\n**Note:** Simulations are simplified and deterministic. Results are for observation only, not predictive proof.\n\n#### Symbol: AAPL (3798 bars)\n\n| Strategy | Trades | Return % | Max DD % | Win Rate | Sharpe |\n|----------|--------|----------|----------|----------|--------|\n| trend_following | 0 | 0% | 0% | 0 | 0 |\n| mean_reversion | 0 | 0% | 0% | 0 | 0 |\n| breakout_confirmation | 0 | 0% | 0% | 0 | 0 |\n| pullback_entry | 0 | 0% | 0% | 0 | 0 |\n\n#### Symbol: ABBV (2334 bars)\n\n| Strategy | Trades | Return % | Max DD % | Win Rate | Sharpe |\n|----------|--------|----------|----------|----------|--------|\n| trend_following | 0 | 0% | 0% | 0 | 0 |\n| mean_reversion | 0 | 0% | 0% | 0 | 0 |\n| breakout_confirmation | 0 | 0% | 0% | 0 | 0 |\n| pullback_entry | 0 | 0% | 0% | 0 | 0 |\n\n#### Symbol: AMD (3159 bars)\n\n| Strategy | Trades | Return % | Max DD % | Win Rate | Sharpe |\n|----------|--------|----------|----------|----------|--------|\n| trend_following | 4 | -2.87% | 6.74% | 0.5 | 0 |\n| mean_reversion | 3 | 5.74% | 10.21% | 0.667 | 0 |\n| breakout_confirmation | 1 | 9.72% | 3.75% | 1 | 0 |\n| pullback_entry | 1 | 8.55% | 10.21% | 1 | 0 |\n\n#### Symbol: AMZN (3280 bars)\n\n| Strategy | Trades | Return % | Max DD % | Win Rate | Sharpe |\n|----------|--------|----------|----------|----------|--------|\n| trend_following | 0 | 0% | 0% | 0 | 0 |\n| mean_reversion | 0 | 0% | 0% | 0 | 0 |\n| breakout_confirmation | 0 | 0% | 0% | 0 | 0 |\n| pullback_entry | 0 | 0% | 0% | 0 | 0 |\n\n#### Symbol: AVGO (3297 bars)\n\n| Strategy | Trades | Return % | Max DD % | Win Rate | Sharpe |\n|----------|--------|----------|----------|----------|--------|\n| trend_following | 1 | 0.02% | 1.82% | 1 | 0 |\n| mean_reversion | 1 | -3.32% | 5.94% | 0 | 0 |\n| breakout_confirmation | 1 | -1.31% | 1.82% | 0 | 0 |\n| pullback_entry | 1 | -3.32% | 5.94% | 0 | 0 |\n\n### Paper Trade Replay (Experimental)\n\n- Executed trades (historical): 0\n- Ledger entries: 0\n- Note: Paper trade replay requires sequential historical state. v0.1 replays OHLCV bars only.\n\n### Assumptions\n\n- Sliding window of 20 bars used for strategy signal generation (approximate).\n- Execution at close prices of each bar (no slippage model).\n- Full position entry/exit (no fractional sizing beyond what price allows).\n- No transaction costs modeled.\n- No liquidity constraints modeled.\n- Results are deterministic from the same input data.\n- This is NOT predictive proof — it is a simplified replay for observation only.\n\n### Limitations\n\n- Only first 5 symbols simulated; remaining symbols available for expanded runs.\n- Simplified strategy logic — not representative of MarketOps production signal/risk pipeline.\n- No transaction costs, slippage, or liquidity modeling.\n\n### Summary\n\n- Simulations run: 20\n- Simulations with trades: 8\n- Confidence: 20%\n- Sample size: 99920 bars\n- Date range: 2026-05-11T12:05:00Z to 2026-05-22T15:59:00Z\n\nReplay/Backtest Lab completed 20 simulation(s) across 4 strategies and limited symbols. Results are advisory only and not predictive proof.\n\n---\n*Replay/Backtest Lab is a lower-environment/shadow-mode component. No production systems were modified.*",
+      "simulations": [
+        {
+          "strategyName": "trend_following",
+          "trades": 0,
+          "finalCash": 1000,
+          "totalReturn": 0,
+          "totalReturnPct": 0,
+          "maxDrawdown": 0,
+          "winRate": 0,
+          "sharpeApprox": 0,
+          "sampleSize": 3798,
+          "note": "No trades executed in simulation"
+        },
+        {
+          "strategyName": "mean_reversion",
+          "trades": 0,
+          "finalCash": 1000,
+          "totalReturn": 0,
+          "totalReturnPct": 0,
+          "maxDrawdown": 0,
+          "winRate": 0,
+          "sharpeApprox": 0,
+          "sampleSize": 3798,
+          "note": "No trades executed in simulation"
+        },
+        {
+          "strategyName": "breakout_confirmation",
+          "trades": 0,
+          "finalCash": 1000,
+          "totalReturn": 0,
+          "totalReturnPct": 0,
+          "maxDrawdown": 0,
+          "winRate": 0,
+          "sharpeApprox": 0,
+          "sampleSize": 3798,
+          "note": "No trades executed in simulation"
+        },
+        {
+          "strategyName": "pullback_entry",
+          "trades": 0,
+          "finalCash": 1000,
+          "totalReturn": 0,
+          "totalReturnPct": 0,
+          "maxDrawdown": 0,
+          "winRate": 0,
+          "sharpeApprox": 0,
+          "sampleSize": 3798,
+          "note": "No trades executed in simulation"
+        },
+        {
+          "strategyName": "trend_following",
+          "trades": 0,
+          "finalCash": 1000,
+          "totalReturn": 0,
+          "totalReturnPct": 0,
+          "maxDrawdown": 0,
+          "winRate": 0,
+          "sharpeApprox": 0,
+          "sampleSize": 2334,
+          "note": "No trades executed in simulation"
+        },
+        {
+          "strategyName": "mean_reversion",
+          "trades": 0,
+          "finalCash": 1000,
+          "totalReturn": 0,
+          "totalReturnPct": 0,
+          "maxDrawdown": 0,
+          "winRate": 0,
+          "sharpeApprox": 0,
+          "sampleSize": 2334,
+          "note": "No trades executed in simulation"
+        },
+        {
+          "strategyName": "breakout_confirmation",
+          "trades": 0,
+          "finalCash": 1000,
+          "totalReturn": 0,
+          "totalReturnPct": 0,
+          "maxDrawdown": 0,
+          "winRate": 0,
+          "sharpeApprox": 0,
+          "sampleSize": 2334,
+          "note": "No trades executed in simulation"
+        },
+        {
+          "strategyName": "pullback_entry",
+          "trades": 0,
+          "finalCash": 1000,
+          "totalReturn": 0,
+          "totalReturnPct": 0,
+          "maxDrawdown": 0,
+          "winRate": 0,
+          "sharpeApprox": 0,
+          "sampleSize": 2334,
+          "note": "No trades executed in simulation"
+        },
+        {
+          "strategyName": "trend_following",
+          "trades": 4,
+          "finalCash": 971.3,
+          "totalReturn": -28.7,
+          "totalReturnPct": -2.87,
+          "maxDrawdown": 6.74,
+          "winRate": 0.5,
+          "sharpeApprox": 0,
+          "sampleSize": 3159,
+          "note": "Simulation completed"
+        },
+        {
+          "strategyName": "mean_reversion",
+          "trades": 3,
+          "finalCash": 1057.43,
+          "totalReturn": 57.43,
+          "totalReturnPct": 5.74,
+          "maxDrawdown": 10.21,
+          "winRate": 0.667,
+          "sharpeApprox": 0,
+          "sampleSize": 3159,
+          "note": "Simulation completed"
+        },
+        {
+          "strategyName": "breakout_confirmation",
+          "trades": 1,
+          "finalCash": 1097.2,
+          "totalReturn": 97.2,
+          "totalReturnPct": 9.72,
+          "maxDrawdown": 3.75,
+          "winRate": 1,
+          "sharpeApprox": 0,
+          "sampleSize": 3159,
+          "note": "Simulation completed"
+        },
+        {
+          "strategyName": "pullback_entry",
+          "trades": 1,
+          "finalCash": 1085.47,
+          "totalReturn": 85.47,
+          "totalReturnPct": 8.55,
+          "maxDrawdown": 10.21,
+          "winRate": 1,
+          "sharpeApprox": 0,
+          "sampleSize": 3159,
+          "note": "Simulation completed"
+        },
+        {
+          "strategyName": "trend_following",
+          "trades": 0,
+          "finalCash": 1000,
+          "totalReturn": 0,
+          "totalReturnPct": 0,
+          "maxDrawdown": 0,
+          "winRate": 0,
+          "sharpeApprox": 0,
+          "sampleSize": 3280,
+          "note": "No trades executed in simulation"
+        },
+        {
+          "strategyName": "mean_reversion",
+          "trades": 0,
+          "finalCash": 1000,
+          "totalReturn": 0,
+          "totalReturnPct": 0,
+          "maxDrawdown": 0,
+          "winRate": 0,
+          "sharpeApprox": 0,
+          "sampleSize": 3280,
+          "note": "No trades executed in simulation"
+        },
+        {
+          "strategyName": "breakout_confirmation",
+          "trades": 0,
+          "finalCash": 1000,
+          "totalReturn": 0,
+          "totalReturnPct": 0,
+          "maxDrawdown": 0,
+          "winRate": 0,
+          "sharpeApprox": 0,
+          "sampleSize": 3280,
+          "note": "No trades executed in simulation"
+        },
+        {
+          "strategyName": "pullback_entry",
+          "trades": 0,
+          "finalCash": 1000,
+          "totalReturn": 0,
+          "totalReturnPct": 0,
+          "maxDrawdown": 0,
+          "winRate": 0,
+          "sharpeApprox": 0,
+          "sampleSize": 3280,
+          "note": "No trades executed in simulation"
+        },
+        {
+          "strategyName": "trend_following",
+          "trades": 1,
+          "finalCash": 1000.19,
+          "totalReturn": 0.19,
+          "totalReturnPct": 0.02,
+          "maxDrawdown": 1.82,
+          "winRate": 1,
+          "sharpeApprox": 0,
+          "sampleSize": 3297,
+          "note": "Simulation completed"
+        },
+        {
+          "strategyName": "mean_reversion",
+          "trades": 1,
+          "finalCash": 966.79,
+          "totalReturn": -33.21,
+          "totalReturnPct": -3.32,
+          "maxDrawdown": 5.94,
+          "winRate": 0,
+          "sharpeApprox": 0,
+          "sampleSize": 3297,
+          "note": "Simulation completed"
+        },
+        {
+          "strategyName": "breakout_confirmation",
+          "trades": 1,
+          "finalCash": 986.87,
+          "totalReturn": -13.13,
+          "totalReturnPct": -1.31,
+          "maxDrawdown": 1.82,
+          "winRate": 0,
+          "sharpeApprox": 0,
+          "sampleSize": 3297,
+          "note": "Simulation completed"
+        },
+        {
+          "strategyName": "pullback_entry",
+          "trades": 1,
+          "finalCash": 966.79,
+          "totalReturn": -33.21,
+          "totalReturnPct": -3.32,
+          "maxDrawdown": 5.94,
+          "winRate": 0,
+          "sharpeApprox": 0,
+          "sampleSize": 3297,
+          "note": "Simulation completed"
+        }
+      ],
+      "sampleSize": 99920,
+      "dateRange": {
+        "start": "2026-05-11T12:05:00Z",
+        "end": "2026-05-22T15:59:00Z"
+      },
+      "assumptions": [
+        "Sliding window of 20 bars used for strategy signal generation (approximate).",
+        "Execution at close prices of each bar (no slippage model).",
+        "Full position entry/exit (no fractional sizing beyond what price allows).",
+        "No transaction costs modeled.",
+        "No liquidity constraints modeled.",
+        "Results are deterministic from the same input data.",
+        "This is NOT predictive proof — it is a simplified replay for observation only."
+      ]
+    },
+    "strategyTournament": {
+      "status": "operational",
+      "confidence": 0.7,
+      "findings": [
+        "Top-ranked strategy: breakout_confirmation (avg return 1.68%)",
+        "Total strategy-symbol combinations scored: 35",
+        "Defensive/cash-preservation strategy ranked #5 — negative return"
+      ],
+      "limitations": [
+        "Tournament limited to first 5 symbols for v0.1 scope."
+      ],
+      "dataLimitations": [],
+      "summary": "Strategy tournament completed. Top-ranked: breakout_confirmation. All results are advisory only — no winner will be auto-promoted.",
+      "details": "## Strategy Tournament Desk v0.1 — Lower Environment\n\n**Labels:** ADVISORY ONLY — No winner will be auto-promoted.\n\n### Tournament Data\n\n- Total bars: 99920\n- Symbols available: 32\n- Strategy families: 7\n- Initial capital per strategy: $1,000\n\n#### AAPL — Tournament Results\n\n| Strategy | Return % | Trades | Win Rate | Max DD % |\n|----------|----------|--------|----------|----------|\n| baseline_current_behavior | 0% | 0 | 0 | 0% |\n| trend_following | 0% | 0 | 0 | 0% |\n| mean_reversion | 0% | 0 | 0 | 0% |\n| breakout_confirmation | 0% | 0 | 0 | 0% |\n| pullback_entry | 0% | 0 | 0 | 0% |\n| operator_defense_filtered | 0% | 0 | 0 | 0% |\n| defensive_cash_preservation | 0% | 0 | 0 | 0% |\n\n#### ABBV — Tournament Results\n\n| Strategy | Return % | Trades | Win Rate | Max DD % |\n|----------|----------|--------|----------|----------|\n| baseline_current_behavior | 0% | 0 | 0 | 0% |\n| trend_following | 0% | 0 | 0 | 0% |\n| mean_reversion | 0% | 0 | 0 | 0% |\n| breakout_confirmation | 0% | 0 | 0 | 0% |\n| pullback_entry | 0% | 0 | 0 | 0% |\n| operator_defense_filtered | 0% | 0 | 0 | 0% |\n| defensive_cash_preservation | 0% | 0 | 0 | 0% |\n\n#### AMD — Tournament Results\n\n| Strategy | Return % | Trades | Win Rate | Max DD % |\n|----------|----------|--------|----------|----------|\n| baseline_current_behavior | 0% | 0 | 0 | 0% |\n| trend_following | -2.87% | 4 | 0.5 | 6.87% |\n| mean_reversion | 5.74% | 3 | 0.667 | 10.21% |\n| breakout_confirmation | 9.72% | 1 | 1 | 3.75% |\n| pullback_entry | 8.55% | 1 | 1 | 10.21% |\n| operator_defense_filtered | 2.71% | 1 | 1 | 14.2% |\n| defensive_cash_preservation | 0% | 0 | 0 | 0% |\n\n#### AMZN — Tournament Results\n\n| Strategy | Return % | Trades | Win Rate | Max DD % |\n|----------|----------|--------|----------|----------|\n| baseline_current_behavior | 0% | 0 | 0 | 0% |\n| trend_following | 0% | 0 | 0 | 0% |\n| mean_reversion | 0% | 0 | 0 | 0% |\n| breakout_confirmation | 0% | 0 | 0 | 0% |\n| pullback_entry | 0% | 0 | 0 | 0% |\n| operator_defense_filtered | 0% | 0 | 0 | 0% |\n| defensive_cash_preservation | 0% | 0 | 0 | 0% |\n\n#### AVGO — Tournament Results\n\n| Strategy | Return % | Trades | Win Rate | Max DD % |\n|----------|----------|--------|----------|----------|\n| baseline_current_behavior | 0% | 0 | 0 | 0% |\n| trend_following | 0.02% | 1 | 1 | 1.82% |\n| mean_reversion | -3.32% | 1 | 0 | 5.94% |\n| breakout_confirmation | -1.31% | 1 | 0 | 1.82% |\n| pullback_entry | -3.32% | 1 | 0 | 5.94% |\n| operator_defense_filtered | -3.3% | 1 | 0 | 8.17% |\n| defensive_cash_preservation | 0% | 0 | 0 | 0% |\n\n### Overall Ranking (Advisory)\n\n| Rank | Strategy | Avg Return % | Total Trades |\n|------|----------|-------------|--------------|\n| 1 | breakout_confirmation | 1.68% | 2 |\n| 2 | pullback_entry | 1.05% | 2 |\n| 3 | mean_reversion | 0.48% | 4 |\n| 4 | baseline_current_behavior | 0% | 0 |\n| 5 | defensive_cash_preservation | 0% | 0 |\n| 6 | operator_defense_filtered | -0.12% | 2 |\n| 7 | trend_following | -0.57% | 5 |\n\n*Ranking is advisory only. No strategy will be auto-promoted.*\n\n### Context from Existing Pipeline\n\n- Signal scan: 150 signals available for reference.\n- Risk decisions: 150 decisions available for reference.\n- Note: Tournament uses simplified OHLCV-only strategies, not the full MarketOps signal/risk pipeline.\n\n### Limitations\n\n- Tournament limited to first 5 symbols for v0.1 scope.\n- Simplified OHLCV-only strategies — not representative of full MarketOps pipeline.\n- No transaction costs, slippage, or liquidity modeled.\n- Ranking is statistical only and may not persist across different market conditions.\n\n### Summary\n\n- Families evaluated: 7\n- Ranking produced: yes\n- Confidence: 70%\n- Auto-promotion: DISABLED\n\nStrategy tournament completed. Top-ranked: breakout_confirmation. All results are advisory only — no winner will be auto-promoted.\n\n---\n*Strategy Tournament Desk is a lower-environment/shadow-mode component. No production systems were modified.*",
+      "ranking": [
+        {
+          "rank": 1,
+          "strategyName": "breakout_confirmation",
+          "avgReturnPct": 1.68,
+          "totalTrades": 2
+        },
+        {
+          "rank": 2,
+          "strategyName": "pullback_entry",
+          "avgReturnPct": 1.05,
+          "totalTrades": 2
+        },
+        {
+          "rank": 3,
+          "strategyName": "mean_reversion",
+          "avgReturnPct": 0.48,
+          "totalTrades": 4
+        },
+        {
+          "rank": 4,
+          "strategyName": "baseline_current_behavior",
+          "avgReturnPct": 0,
+          "totalTrades": 0
+        },
+        {
+          "rank": 5,
+          "strategyName": "defensive_cash_preservation",
+          "avgReturnPct": 0,
+          "totalTrades": 0
+        },
+        {
+          "rank": 6,
+          "strategyName": "operator_defense_filtered",
+          "avgReturnPct": -0.12,
+          "totalTrades": 2
+        },
+        {
+          "rank": 7,
+          "strategyName": "trend_following",
+          "avgReturnPct": -0.57,
+          "totalTrades": 5
+        }
+      ],
+      "tournamentLabel": "ADVISORY ONLY — No winner auto-promoted",
+      "families": [
+        "baseline_current_behavior",
+        "trend_following",
+        "mean_reversion",
+        "breakout_confirmation",
+        "pullback_entry",
+        "operator_defense_filtered",
+        "defensive_cash_preservation"
+      ]
+    },
+    "riskBudget": {
+      "status": "operational",
+      "confidence": 0.8,
+      "findings": [
+        "Performance: max drawdown 94.71%, equity $52.92, cash $52.92",
+        "Open positions: 14",
+        "Weather station: 100% stale symbols — elevated risk warning",
+        "Low average signal confidence (0.00) suggests elevated uncertainty",
+        "Risk budget recommendations produced: 5",
+        "Active config NOT modified — verified."
+      ],
+      "dataLimitations": [],
+      "summary": "HIGH DRAWDOWN (94.71%) — Advisory recommends significantly reduced exposure limits. Defensive posture advised.",
+      "details": "## Risk Budget Desk v0.1 — Lower Environment\n\n**ADVISORY ONLY** — No active configuration is modified.\n\n### Risk Budget Recommendations (Advisory Only)\n\n| Parameter | Recommended | Reasoning |\n|-----------|-------------|-----------|\n| Max open positions | 2 | Drawdown 94.71% suggests reduced position limits |\n| Max daily trades | 5 | Reduced to limit further drawdown |\n| Max daily loss | 1.6% | Tighter loss limit given existing drawdown |\n| Max position size | 8% | Reduced position sizing recommended |\n| New entries | Exercise caution | 14 existing positions |\n| Risk mode | DEFENSIVE | Elevated operator defense warnings |\n| Position sizing | Reduce by 25-50% | Elevated volatility / low confidence |\n\n*All recommendations are advisory only. No active configuration has been modified.*\n\n### Summary\n\n- Recommendations: 5\n- Drawdown: 94.71%\n- Open positions: 14\n- Operator warning level: elevated\n- Volatility assessment: elevated\n- Confidence: 80%\n- Active config modified: false (verified)\n\nHIGH DRAWDOWN (94.71%) — Advisory recommends significantly reduced exposure limits. Defensive posture advised.\n\n---\n*Risk Budget Desk is a lower-environment/shadow-mode component. No active configuration was modified.*",
+      "recommendations": [
+        "Reduce max positions to 2 due to 94.71% drawdown.",
+        "Reduce max daily trades to 5.",
+        "Exercise caution on new entries — 14 positions already open.",
+        "Activate defensive posture due to elevated operator warnings.",
+        "Consider reducing position sizes by 25-50% in current conditions."
+      ],
+      "recommendationsAdvisory": true,
+      "activeConfigNotModified": true
+    },
+    "learningGovernor": {
+      "status": "operational",
+      "confidence": 1,
+      "findings": [
+        "Guardrail check: All desks lower-environment/shadow — PASS",
+        "Guardrail check: No production impact flags — PASS",
+        "Guardrail check: No public dashboard bundles modified by learning office — PASS",
+        "Guardrail check: No scheduler/live/broker changes — PASS",
+        "Guardrail check: No payment/SMS/email/social changes — PASS",
+        "Guardrail check: Proposals are review-only (not auto-applied) — PASS",
+        "Public bundle dashboard-bundle-public-v0.4.json exists and was NOT modified.",
+        "Public bundle dashboard-bundle-public-v0.5.json exists and was NOT modified.",
+        "No scheduler/systemd files created or modified — PASS.",
+        "Broker/live config flags all disabled — verified."
+      ],
+      "dataLimitations": [],
+      "summary": "All guardrails verified. Learning office is lower-environment only, no production impact detected.",
+      "details": "## Learning Governor / Promotion Gatekeeper v0.1\n\n### Guardrail Verification Summary\n\n| Guardrail | Status |\n|-----------|--------|\n| All desks lower-environment/shadow | PASS |\n| No production impact flags | PASS |\n| No public dashboard bundles modified by learning office | PASS |\n| No scheduler/live/broker changes | PASS |\n| No payment/SMS/email/social changes | PASS |\n| Proposals are review-only (not auto-applied) | PASS |\n\n### Public Dashboard Bundle Check\n\n- dashboard-bundle-public-v0.4.json: EXISTS (363870 bytes, last modified 2026-05-26T10:15:57.367Z) — NOT modified by learning office\n- dashboard-bundle-public-v0.5.json: EXISTS (363870 bytes, last modified 2026-05-26T10:15:57.365Z) — NOT modified by learning office\n\n### Scheduler / Systemd Check\n\n- No scheduler/systemd timer files found — verified no changes.\n\n### Live / Broker / Alpaca Check\n\n- No broker/live trading flags enabled — PASS.\n\n### Payment / SMS / Email / Social Check\n\n- Email prep module exists (src/emailprep/) — verified not enabled by learning office\n- Social module exists (src/social/) — verified not enabled by learning office\n- Payment/SMS automation: Not available in codebase — verified.\n- Social posting automation: Not enabled by learning office — verified.\n\n### Desk Review\n\n- **operatorDefense**: shadow-mode verified | status=operational | findings=8 | dataLimitations=none\n- **marketRegime**: shadow-mode verified | status=operational | findings=3 | dataLimitations=none\n- **dataQuality**: shadow-mode verified | status=operational | findings=1 | dataLimitations=none\n- **performanceAttribution**: shadow-mode verified | status=operational | findings=4 | dataLimitations=yes\n- **replayBacktest**: shadow-mode verified | status=operational | findings=2 | dataLimitations=none\n- **strategyTournament**: shadow-mode verified | status=operational | findings=3 | dataLimitations=none\n- **riskBudget**: shadow-mode verified | status=operational | findings=6 | dataLimitations=none\n\n### Promotion Proposals (Review Only)\n\n- v0.1 Learning Office — Initial observation period. Recommend continued observation before any promotion.\n- Operator Defense Desk: Consider adding order-book data source for v0.2 to enable spoofing/layering detection.\n- Market Regime Desk: Consider adding VIX or broad market index data for improved regime classification.\n- Data Quality Desk: Issues found should be reviewed before relying on affected data for decisions.\n- Performance Attribution: Consider adding sector mapping and entry/exit reason tracking for v0.2.\n- Replay Lab: Expand to full symbol set and add transaction cost model for v0.2.\n- Strategy Tournament: Results are statistical only. Do not auto-promote any strategy based on v0.1 data alone.\n- Risk Budget: Drawdown is significant. Consider reviewing risk parameters before next cycle.\n- No proposals will be automatically applied. All require human review.\n\n### Governor Verdict\n\n**ALL GUARDRAILS PASSED.** Lower learning office v0.1 is operating within safe parameters.\n\n---\n*Learning Governor is a lower-environment/shadow-mode component. No proposals were auto-applied.*",
+      "guardrails": {
+        "lowerEnvironmentOnly": true,
+        "shadowModeOnly": true,
+        "noPush": true,
+        "noDeploy": true,
+        "noCommit": true,
+        "noProductionImpact": true,
+        "noSchedulerChange": true,
+        "noBrokerLive": true,
+        "noAlpacaOrders": true,
+        "noPaymentSmsEmailSocial": true,
+        "noAutoPromote": true,
+        "noPublicDashboardChange": true
+      },
+      "proposals": [
+        "v0.1 Learning Office — Initial observation period. Recommend continued observation before any promotion.",
+        "Operator Defense Desk: Consider adding order-book data source for v0.2 to enable spoofing/layering detection.",
+        "Market Regime Desk: Consider adding VIX or broad market index data for improved regime classification.",
+        "Data Quality Desk: Issues found should be reviewed before relying on affected data for decisions.",
+        "Performance Attribution: Consider adding sector mapping and entry/exit reason tracking for v0.2.",
+        "Replay Lab: Expand to full symbol set and add transaction cost model for v0.2.",
+        "Strategy Tournament: Results are statistical only. Do not auto-promote any strategy based on v0.1 data alone.",
+        "Risk Budget: Drawdown is significant. Consider reviewing risk parameters before next cycle.",
+        "No proposals will be automatically applied. All require human review."
+      ],
+      "verified": {
+        "allDesksLowerEnv": true,
+        "noProductionFlags": true,
+        "noPublicBundleModified": true,
+        "noSchedulerModified": true,
+        "noLiveBrokerEnabled": true,
+        "noPaymentSocialEnabled": true,
+        "proposalsAreReviewOnly": true
+      }
+    }
+  },
+  "behaviorComparison": {
+    "comparisonType": "lower_environment_only",
+    "summary": "Lower-environment shadow comparison. No production baseline compared — all desks are advisory-only.",
+    "details": {
+      "operatorDefense": {
+        "status": "operational",
+        "confidence": 0.6,
+        "qualityScore": null,
+        "findingsCount": 8,
+        "dataLimitationsCount": 0
+      },
+      "marketRegime": {
+        "status": "operational",
+        "confidence": 0.9,
+        "qualityScore": null,
+        "findingsCount": 3,
+        "dataLimitationsCount": 0
+      },
+      "dataQuality": {
+        "status": "operational",
+        "confidence": null,
+        "qualityScore": 80,
+        "findingsCount": 1,
+        "dataLimitationsCount": 0
+      },
+      "performanceAttribution": {
+        "status": "operational",
+        "confidence": 0.7999999999999999,
+        "qualityScore": null,
+        "findingsCount": 4,
+        "dataLimitationsCount": 1
+      },
+      "replayBacktest": {
+        "status": "operational",
+        "confidence": 0.2,
+        "qualityScore": null,
+        "findingsCount": 2,
+        "dataLimitationsCount": 0
+      },
+      "strategyTournament": {
+        "status": "operational",
+        "confidence": 0.7,
+        "qualityScore": null,
+        "findingsCount": 3,
+        "dataLimitationsCount": 0
+      },
+      "riskBudget": {
+        "status": "operational",
+        "confidence": 0.8,
+        "qualityScore": null,
+        "findingsCount": 6,
+        "dataLimitationsCount": 0
+      },
+      "learningGovernor": {
+        "status": "operational",
+        "confidence": 1,
+        "qualityScore": null,
+        "findingsCount": 10,
+        "dataLimitationsCount": 0
+      }
+    }
+  },
+  "promotionProposals": [
+    "v0.1 Learning Office — Initial observation period. Recommend continued observation before any promotion.",
+    "Operator Defense Desk: Consider adding order-book data source for v0.2 to enable spoofing/layering detection.",
+    "Market Regime Desk: Consider adding VIX or broad market index data for improved regime classification.",
+    "Data Quality Desk: Issues found should be reviewed before relying on affected data for decisions.",
+    "Performance Attribution: Consider adding sector mapping and entry/exit reason tracking for v0.2.",
+    "Replay Lab: Expand to full symbol set and add transaction cost model for v0.2.",
+    "Strategy Tournament: Results are statistical only. Do not auto-promote any strategy based on v0.1 data alone.",
+    "Risk Budget: Drawdown is significant. Consider reviewing risk parameters before next cycle.",
+    "No proposals will be automatically applied. All require human review."
+  ],
+  "dataLimitations": [
+    "config not found at /home/sjohnsoniii/Projects/MarketOps/Source/marketops-core/src/config/marketops.phase1.config.json",
+    "Sector mapping data not available; sector-level attribution skipped."
+  ]
+}

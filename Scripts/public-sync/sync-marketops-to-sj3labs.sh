@@ -19,6 +19,7 @@ REPORT_DIR="$PROJECT_ROOT/Reports/Public"
 REPORT_FILE="$REPORT_DIR/sync-report-$TIMESTAMP.md"
 LOG_FILE="$LOG_DIR/public-sync-$TIMESTAMP.log"
 SYNC_ALLOWED="${MARKETOPS_ALLOW_PUBLIC_SITE_SYNC:-0}"
+PUSH_RESULT="not_needed"
 
 mkdir -p "$LOG_DIR" "$REPORT_DIR" "$SJ3LABS_MARKETOPS_DATA"
 
@@ -57,6 +58,7 @@ echo "--- Copying public-safe JSON files ---"
 
 declare -A FILE_MAP
 FILE_MAP["$MARKETOPS_DATA/public/marketops-public-trial-status-v0.1.json"]="marketops-public-trial-status-v0.1.json"
+FILE_MAP["$MARKETOPS_DATA/public/marketops-public-update-manifest-v0.1.json"]="marketops-public-update-manifest-v0.1.json"
 FILE_MAP["$MARKETOPS_DATA/dashboard/dashboard-public-safe-v0.1.json"]="dashboard-public-safe-v0.1.json"
 FILE_MAP["$MARKETOPS_DATA/dashboard/marketops-shareable-snapshot-v0.1.json"]="marketops-shareable-snapshot-v0.1.json"
 FILE_MAP["$MARKETOPS_DATA/dashboard/dashboard-refresh-health-v0.1.json"]="dashboard-refresh-health-v0.1.json"
@@ -78,13 +80,16 @@ for src in "${!FILE_MAP[@]}"; do
     NO_CHANGES=false
 done
 
-# Also copy dashboard bundle v0.4 if it exists locally (for backward compat)
-if [ -f "$MARKETOPS_DATA/dashboard/dashboard-bundle-public-v0.4.json" ]; then
-    cp "$MARKETOPS_DATA/dashboard/dashboard-bundle-public-v0.4.json" "$SJ3LABS_MARKETOPS_DATA/dashboard-bundle-public-v0.4.json"
-    echo "[COPIED] dashboard-bundle-public-v0.4.json"
-    CHANGED+=("data/marketops/dashboard-bundle-public-v0.4.json")
-    NO_CHANGES=false
-fi
+# Copy unified public dashboard bundles when present in sj3labs (written by refreshSiteDashboard)
+for bundle_name in dashboard-bundle-public-v0.5.json dashboard-bundle-public-v0.4.json; do
+    src_bundle="$SJ3LABS_MARKETOPS_DATA/$bundle_name"
+    if [ -f "$src_bundle" ]; then
+        echo "[OK] $bundle_name present in sj3labs data"
+    else
+        echo "[WARN] Missing $bundle_name in sj3labs — run npm run paper:refresh-site in marketops-core"
+        ERRORS+=("Missing sj3labs bundle: $bundle_name")
+    fi
+done
 
 # -------------------------------------------
 # Step 3: Copy/update dashboard HTML if newer templates exist
@@ -122,8 +127,24 @@ if grep -rni '\.env' "$SJ3LABS_MARKETOPS_DATA" --include="*.json" 2>/dev/null | 
 fi
 
 # Check for API key patterns
-if grep -rnE '[A-Za-z0-9]{20,40}' "$SJ3LABS_MARKETOPS_DATA" --include="*.json" 2>/dev/null | grep -v '"dataSource"' | grep -v '"feed"' | grep -v '"label"' | grep -v '"reason"' | grep -v '"detail"' | grep -v '"wouldNeed"' | grep -v '"note"'; then
-    echo "WARN: Possible long string values detected - manual review recommended"
+if grep -rnE ':\s*"[A-Za-z0-9]{32,}"' "$SJ3LABS_MARKETOPS_DATA" --include="*.json" 2>/dev/null \
+  | grep -v '"dataSource"' \
+  | grep -v '"positionId"' \
+  | grep -v '"tradeId"' \
+  | grep -v '"signalId"' \
+  | grep -v '"runId"' \
+  | grep -v '"cycleId"' \
+  | grep -v '"generatedAt"' \
+  | grep -v '"timestamp"' \
+  | grep -v '"label"' \
+  | grep -v '"reason"' \
+  | grep -v '"note"' \
+  | grep -v '"detail"' \
+  | grep -v 'Hash' \
+  | grep -v 'Commit' \
+  | grep -v 'sha' \
+  | grep -v 'bundleVersion'; then
+    echo "WARN: Possible credential-length value detected - manual review recommended"
 fi
 
 # Check for live-trading claims (excluding safety labels and disclaimers)

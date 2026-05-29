@@ -3,14 +3,16 @@ const { loadMarketBars, loadMarketDataInfo, loadVehicles } = require("../data/sa
 const { backfillMarketData } = require("../marketdata/backfillMarketData");
 const { updateRollingHistory } = require("../marketdata/rollingHistoryStore");
 const { buildWeatherStation } = require("../marketdata/marketWeatherStation");
+const { buildVehicleHistory } = require("../marketdata/vehicleHistory");
 const { calibrateAllSymbols } = require("../signals/confidenceCalibration");
 const { generateSampleSignals } = require("../signals/simpleSignalScanner");
 const { reviewSignals } = require("../risk/riskDesk");
-const { executePaperTrades } = require("../execution/paperTradeExecutor");
+const { executePaperTrades, checkAndExecuteExits, loadExitRules } = require("../execution/paperTradeExecutor");
 const { buildEquityCurve } = require("../performance/equityBuilder");
 const { appendRunHistory } = require("../paper/writeHistory");
 const { writeJson } = require("../utils/fileStore");
 const { paths } = require("../utils/paths");
+const { round } = require("../utils/number");
 
 async function runIntradaySimulation() {
   const generatedAt = new Date().toISOString();
@@ -45,6 +47,13 @@ async function runIntradaySimulation() {
   }
 
   try {
+    const vehicleHistoryOutput = buildVehicleHistory(marketBars, generatedAt);
+    console.log(`Vehicle history: ${vehicleHistoryOutput.symbolsWithHistory} with history, ${vehicleHistoryOutput.symbolsInsufficient} insufficient`);
+  } catch (error) {
+    console.log(`Vehicle history: ${error.message}`);
+  }
+
+  try {
     const weather = buildWeatherStation();
     console.log(`Weather station: ${weather.dataCoverageStatus}, ${weather.usableForSignalSummary}`);
   } catch (error) {
@@ -69,11 +78,20 @@ async function runIntradaySimulation() {
     };
   }
 
+  let vehicleHistoryOutput = null;
+  try {
+    const { fileExists, loadJson } = require("../utils/fileStore");
+    if (fileExists(paths.vehicleHistoryJson)) {
+      vehicleHistoryOutput = loadJson(paths.vehicleHistoryJson);
+    }
+  } catch {}
+
   const scan = generateSampleSignals({
     vehicles,
     marketBars: marketBars || [],
     generatedAt,
-    marketDataInfo
+    marketDataInfo,
+    vehicleHistoryOutput
   });
 
   scan.generatedAt = generatedAt;
@@ -81,10 +99,75 @@ async function runIntradaySimulation() {
   writeJson(paths.signalsJson, scan);
   console.log(`Signals: ${scan.totalVehicles} vehicles, ${scan.candidateCount} candidates`);
 
-  const riskReview = reviewSignals({ signals: scan.signals, generatedAt });
+  const learningConfig = config.learningMode && config.learningMode.enabled ? config.learningMode : null;
+  const effectiveMaxOpenPositions = learningConfig
+    ? (learningConfig.maxOpenPositions || 20)
+    : (config.dayTrading ? config.dayTrading.maxOpenPositions || 5 : 5);
+
+  const portfolioState = {
+    openPositions: [],
+    cashBalance: 1000,
+    maxOpenPositions: effectiveMaxOpenPositions,
+    maxPositionSizePct: config.dayTrading ? config.dayTrading.maxPositionSizePct || 0.25 : 0.25
+  };
+
+  try {
+    const { fileExists, loadJson } = require("../utils/fileStore");
+    if (fileExists(paths.paperPositionsJson)) {
+      const posData = loadJson(paths.paperPositionsJson);
+      portfolioState.openPositions = posData.openPositions || [];
+    }
+    if (fileExists(paths.paperPerformanceJson)) {
+      const perfData = loadJson(paths.paperPerformanceJson);
+      portfolioState.cashBalance = perfData.cashBalance || 1000;
+    }
+  } catch {}
+
+  // --- Exit check: close positions that hit target, stop-loss, or 72hr window ---
+  const exitRules = loadExitRules();
+  const exitResult = checkAndExecuteExits({
+    openPositions: portfolioState.openPositions,
+    marketBars: marketBars || [],
+    generatedAt,
+    exitRules
+  });
+
+  if (exitResult.closedPositions.length > 0) {
+    portfolioState.cashBalance += exitResult.cashReturned;
+    portfolioState.openPositions = exitResult.keptOpenPositions;
+
+    const { fileExists, loadJson } = require("../utils/fileStore");
+    const currentPositions = fileExists(paths.paperPositionsJson) ? loadJson(paths.paperPositionsJson) : { openPositions: [], closedPositions: [] };
+    currentPositions.openPositions = exitResult.keptOpenPositions;
+    currentPositions.closedPositions = [...(currentPositions.closedPositions || []), ...exitResult.closedPositions];
+    writeJson(paths.paperPositionsJson, currentPositions);
+
+    const currentPerf = fileExists(paths.paperPerformanceJson) ? loadJson(paths.paperPerformanceJson) : {};
+    const realizedFromExits = exitResult.closedPositions.reduce((sum, p) => sum + (p.realizedPnl || 0), 0);
+    currentPerf.cashBalance = round(portfolioState.cashBalance);
+    currentPerf.realizedPnl = round((currentPerf.realizedPnl || 0) + realizedFromExits);
+    writeJson(paths.paperPerformanceJson, currentPerf);
+
+    if (exitResult.learningRecords.length > 0) {
+      const learningPath = require("path").join(paths.dataRoot, "paper", "learning-records-v0.1.json");
+      const existing = fileExists(learningPath) ? loadJson(learningPath) : { records: [] };
+      existing.records = [...(existing.records || []), ...exitResult.learningRecords];
+      existing.lastUpdated = generatedAt;
+      writeJson(learningPath, existing);
+    }
+
+    console.log(`Exit check: ${exitResult.exitSummary.closed} positions closed, $${exitResult.cashReturned.toFixed(2)} cash returned`);
+    exitResult.learningRecords.forEach(r =>
+      console.log(`  [${r.exitReason}] ${r.symbol}: ${r.returnPct > 0 ? "+" : ""}${r.returnPct}% (${r.holdHours}h) → ${r.outcome}`)
+    );
+  }
+
+  const riskReview = reviewSignals({ signals: scan.signals, generatedAt, portfolioState });
   riskReview.generatedAt = generatedAt;
   writeJson(paths.riskJson, riskReview);
   console.log(`Risk review: ${riskReview.approvedCount} approved, ${riskReview.blockedCount} blocked`);
+  console.log(`  Standard: ${riskReview.approvalBands.approved_standard}, Learning probe: ${riskReview.approvalBands.approved_learning_probe}`);
+  console.log(`  Watched: ${riskReview.approvalBands.watched}, Rejected: ${riskReview.approvalBands.rejected}`);
 
   const startingBalance = config.paperAccount ? (config.paperAccount.paperStartingBalance || config.paperAccount.startingBalance || 1000) : 1000;
 

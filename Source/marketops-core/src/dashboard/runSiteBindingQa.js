@@ -9,6 +9,7 @@ const DASHBOARD_DIR = path.join(SJ3LABS_ROOT, "marketops", "dashboard");
 const DASHBOARD_HTML = path.join(DASHBOARD_DIR, "index.html");
 
 const BUNDLE_VERSIONS = [
+  "dashboard-bundle-public-v0.5.json",
   "dashboard-bundle-public-v0.4.json",
   "dashboard-bundle-public-v0.3.json",
   "dashboard-public-safe-v0.1.json"
@@ -50,8 +51,8 @@ if (fileExists(DASHBOARD_HTML)) {
   const html = fs.readFileSync(DASHBOARD_HTML, "utf8");
   check("HTML contains <script> block", html.includes("<script>"));
   check("HTML contains trial-status fetch url", html.includes("marketops-public-trial-status-v0.1.json"));
-  check("HTML contains bundle fetch url v0.4", html.includes("dashboard-bundle-public-v0.4.json"));
-  check("HTML contains bundle fetch url v0.3", html.includes("dashboard-bundle-public-v0.3.json"));
+  check("HTML contains bundle fetch url v0.5", html.includes("dashboard-bundle-public-v0.5.json"));
+  check("HTML contains bundle fetch url v0.5 (primary)", html.includes("dashboard-bundle-public-v0.5.json"));
   check("HTML contains safe bundle fallback url", html.includes("dashboard-public-safe-v0.1.json"));
   check("HTML uses cache busting (?v=)", html.includes("?v=") && html.includes("Date.now()"));
   check("HTML uses cache: no-store", html.includes("cache: 'no-store'"));
@@ -60,6 +61,14 @@ if (fileExists(DASHBOARD_HTML)) {
   check("HTML has risk metrics rendering", html.includes("renderRiskMetrics"));
   check("HTML has trades rendering", html.includes("renderRecentTrades"));
   check("HTML has vehicle activity rendering", html.includes("renderVehicleActivityFromBundle"));
+  check("HTML has paper profit/loss rendering", html.includes("renderPaperProfitLoss"));
+  check("HTML has core paper target rendering", html.includes("renderCorePaperTarget"));
+  check("HTML has capacity blocked rendering", html.includes("capacity_blocked"));
+  check("HTML has entry risk band rendering", html.includes("entryRiskBand"));
+  check("HTML has current risk band rendering", html.includes("currentRiskBand"));
+  check("HTML has risk band stale rendering", html.includes("riskBandStale"));
+  check("HTML has paper-pnl section", html.includes("paper-pnl"));
+  check("HTML has core-target section", html.includes("core-target"));
   check("HTML has last-refreshed timestamps", html.includes("updateLastRefreshed"));
   check("HTML handles no-data states", html.includes("renderNoData"));
 } else {
@@ -114,6 +123,25 @@ if (primaryBundle) {
   check("bundle.equityPoints is array", Array.isArray(bundle.equityPoints), bundle.equityPoints.length + " points");
   check("bundle.generatedAt present", !!bundle.generatedAt);
   check("bundle.startingBalance > 0", (bundle.startingBalance || 0) > 0, "$" + bundle.startingBalance);
+  check("bundle.paperProfitLoss section exists", Boolean(bundle.paperProfitLoss), "paperProfitLoss");
+  check("bundle.corePaperTarget section exists", Boolean(bundle.corePaperTarget), "coreTarget");
+  check("bundle.accountSummary has startingBalance", bundle.accountSummary && bundle.accountSummary.startingBalance != null, "$" + (bundle.accountSummary ? bundle.accountSummary.startingBalance : "missing"));
+  check("bundle.accountSummary has realizedPnl", bundle.accountSummary && bundle.accountSummary.realizedPnl != null, "$" + (bundle.accountSummary ? bundle.accountSummary.realizedPnl : "missing"));
+  check("bundle.accountSummary has unrealizedPnl", bundle.accountSummary && bundle.accountSummary.unrealizedPnl != null, "$" + (bundle.accountSummary ? bundle.accountSummary.unrealizedPnl : "missing"));
+
+  if (bundle.openPositionsDetailed) {
+    const hasEntryRiskBand = bundle.openPositionsDetailed.some(p => p.entryRiskBand != null);
+    const hasCurrentRiskBand = bundle.openPositionsDetailed.some(p => p.currentRiskBand != null);
+    check("openPositionsDetailed has entryRiskBand", hasEntryRiskBand, "entryRiskBand present on positions");
+    check("openPositionsDetailed has currentRiskBand", hasCurrentRiskBand, "currentRiskBand present on positions");
+  }
+
+  if (bundle.cycleDecisionBoard && bundle.cycleDecisionBoard.sections) {
+    check("cycleDecisionBoard has capacity_blocked section", Boolean(bundle.cycleDecisionBoard.sections.capacity_blocked), typeof bundle.cycleDecisionBoard.sections.capacity_blocked);
+    if (bundle.cycleDecisionBoard.sections.capacity_blocked) {
+      check("cycleDecisionBoard capacity_blocked.items is array", Array.isArray(bundle.cycleDecisionBoard.sections.capacity_blocked.items), String(bundle.cycleDecisionBoard.sections.capacity_blocked.items.length));
+    }
+  }
 
   // Chart data sources
   if (bundle.dataProvenance && bundle.dataProvenance.chartDataSources) {

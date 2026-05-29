@@ -26,6 +26,8 @@ const sj3labsMarketOpsDataRoot = path.join(sj3labsRoot, "data", "marketops");
 
 const rollingMarketDataRoot = path.join(marketDataRoot, "rolling");
 
+const vehicleHistoryRoot = path.join(dataRoot, "vehicle-history");
+
 const paths = {
   coreRoot,
   projectRoot,
@@ -33,6 +35,11 @@ const paths = {
   marketDataRoot,
   alpacaMarketDataRoot,
   rollingMarketDataRoot,
+  vehicleHistoryRoot,
+  vehicleHistoryJson: path.join(vehicleHistoryRoot, "vehicle-history-14d-v0.1.json"),
+  vehicleHistoryReport: path.join(projectRoot, "Reports", "MarketData", "marketops-vehicle-history-14d-v0.1.md"),
+  approvalBandsJson: path.join(paperRoot, "risk", "approval-bands-v0.1.json"),
+  approvalBandsReport: path.join(projectRoot, "Reports", "Risk", "marketops-approval-bands-v0.1.md"),
   config: path.join(coreRoot, "config", "marketops.phase1.config.json"),
   localEnv: path.join(projectRoot, ".env.local"),
   coreLocalEnv: path.join(coreRoot, ".env.local"),
@@ -119,6 +126,7 @@ const paths = {
   sj3labsRoot,
   sj3labsMarketOpsDataRoot,
   siteDashboardPublicV04Json: path.join(sj3labsMarketOpsDataRoot, "dashboard-bundle-public-v0.4.json"),
+  siteDashboardPublicV05Json: path.join(sj3labsMarketOpsDataRoot, "dashboard-bundle-public-v0.5.json"),
   reportsDir: path.join(paperRoot, "reports"),
   signalReport: path.join(paperRoot, "reports", "signal-scan-v0.1.md"),
   riskReport: path.join(paperRoot, "reports", "risk-desk-v0.1.md"),

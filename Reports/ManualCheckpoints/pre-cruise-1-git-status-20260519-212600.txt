@@ -1,0 +1,83 @@
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ../../Admin/dashboard-preview/marketops-dashboard-preview-v0.1.html
+	modified:   ../../Data/content/compliance/content-compliance-report-v0.1.md
+	modified:   ../../Data/dashboard/dashboard-public-safe-v0.1.json
+	modified:   ../../Data/dashboard/dashboard-refresh-health-v0.1.json
+	modified:   ../../Data/dashboard/dashboard-refresh-latest-v0.1.json
+	modified:   ../../Data/dashboard/latest-dashboard-summary.json
+	modified:   ../../Data/dashboard/marketops-shareable-snapshot-v0.1.json
+	modified:   ../../Data/market-data/alpaca/alpaca-market-bars-latest-v0.1.json
+	modified:   ../../Data/market-data/alpaca/alpaca-market-data-latest-v0.1.json
+	modified:   ../../Data/market-data/backfill-market-data-v0.1.json
+	modified:   ../../Data/market-data/market-weather-station-v0.1.json
+	modified:   ../../Data/market-data/rolling/rolling-market-history-v0.1.json
+	modified:   ../../Data/paper/cycles/archive/cycle-20260514-0220.json
+	modified:   ../../Data/paper/cycles/paper-cycle-latest-v0.1.json
+	modified:   ../../Data/paper/cycles/paper-cycle-state-v0.1.json
+	modified:   ../../Data/paper/equity/equity-curve-v0.1.json
+	modified:   ../../Data/paper/history/latest-run-summary.json
+	modified:   ../../Data/paper/history/run-history.json
+	modified:   ../../Data/paper/performance/paper-performance-v0.1.json
+	modified:   ../../Data/paper/positions/paper-positions-v0.1.json
+	modified:   ../../Data/paper/reports/equity-curve-v0.1.md
+	modified:   ../../Data/paper/reports/paper-trades-v0.1.md
+	modified:   ../../Data/paper/reports/performance-summary-v0.1.md
+	modified:   ../../Data/paper/reports/qa-report-v0.1.md
+	modified:   ../../Data/paper/reports/risk-desk-v0.1.md
+	modified:   ../../Data/paper/reports/signal-scan-v0.1.md
+	modified:   ../../Data/paper/risk/risk-decisions-v0.1.json
+	modified:   ../../Data/paper/signals/confidence-calibration-v0.1.json
+	modified:   ../../Data/paper/signals/signal-scan-v0.1.json
+	modified:   ../../Data/paper/trades/paper-trades-v0.1.json
+	modified:   ../../Data/sample/sample-vehicles-v0.1.json
+	modified:   ../../Reports/Automation/marketops-automation-readiness-v0.1.md
+	modified:   ../../Reports/Automation/marketops-scheduler-check-v0.1.md
+	modified:   ../../Reports/Cycles/marketops-paper-cycle-qa-v0.1.md
+	modified:   ../../Reports/Cycles/marketops-paper-cycle-status-v0.1.md
+	modified:   ../../Reports/Dashboard/marketops-dashboard-preview-v0.1.md
+	modified:   ../../Reports/Dashboard/marketops-dashboard-public-safe-v0.1.md
+	modified:   ../../Reports/Dashboard/marketops-dashboard-refresh-health-v0.1.md
+	modified:   ../../Reports/Dashboard/marketops-dashboard-refresh-latest-v0.1.md
+	modified:   ../../Reports/Dashboard/marketops-dashboard-refresh-qa-v0.1.md
+	modified:   ../../Reports/Dashboard/marketops-public-dashboard-refresh-cadence-v0.1.md
+	modified:   ../../Reports/Dashboard/marketops-shareable-snapshot-v0.1.md
+	modified:   ../../Reports/MarketData/marketops-alpaca-market-data-v0.1.md
+	modified:   ../../Reports/MarketData/marketops-market-data-backfill-v0.1.md
+	modified:   ../../Reports/MarketData/marketops-market-weather-station-v0.1.md
+	modified:   ../../Reports/MarketData/marketops-rolling-market-history-v0.1.md
+	modified:   ../../Reports/QA/marketops-full-simulation-qa-v0.1.md
+	modified:   ../../Reports/Risk/marketops-trade-rejection-explainability-v0.1.md
+	modified:   ../../Reports/Scheduler/marketops-scheduled-public-data-publish-repair-v0.3.md
+	modified:   ../../Reports/Signals/marketops-confidence-calibration-v0.1.md
+	modified:   ../../Scripts/public-sync/sync-marketops-to-sj3labs.sh
+	modified:   ../../Scripts/scheduler/README.md
+	modified:   ../../Scripts/scheduler/install-marketops-refresh.sh
+	modified:   ../../Scripts/scheduler/run-marketops-refresh.sh
+	modified:   package.json
+	modified:   src/dashboard/refreshHealthTracker.js
+	modified:   src/marketdata/alpacaMarketDataAdapter.js
+	modified:   src/marketdata/runMarketDataQa.js
+	modified:   src/qa/runFullSimulationQa.js
+	modified:   src/training/prepMarketOpen.js
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	../../Data/public/
+	../../Reports/ManualCheckpoints/
+	../../Reports/MarketData/marketops-prior-day-backfill-v0.7.md
+	../../Reports/Public/
+	../../Reports/Scheduler/git-publish-blocked-20260519-140020.md
+	../../Reports/Scheduler/marketops-prod-update-coordination-v0.9.md
+	../../Reports/Training/
+	../../Reports/Website/marketops-dashboard-site-binding-repair-v0.8.md
+	src/dashboard/runProdUpdateQa.js
+	src/dashboard/runSiteBindingQa.js
+	src/public/generatePublicUpdateManifest.js
+	src/training/backfillPriorDay.js
+	src/training/cleanStart.js
+	../../opencode.json
+
+no changes added to commit (use "git add" and/or "git commit -a")

@@ -1,0 +1,572 @@
+{
+  "equityCurve": {
+    "label": "Total Account Value",
+    "definition": "Cash balance plus market value of open positions",
+    "paperStartingBalance": 1000,
+    "windowDays": 14,
+    "cycleId": "cycle-20260520-2356",
+    "windowStart": "2026-05-20T23:56:14.139Z",
+    "windowEnd": "2026-05-21T14:01:40.521Z",
+    "points": [
+      {
+        "timestamp": "2026-05-20T23:56:14.139Z",
+        "cashBalance": 1000,
+        "holdingsValue": 0,
+        "totalAccountValue": 1000,
+        "source": "cycle_start",
+        "isBackfilled": false,
+        "note": "Cycle start with $1,000 paper balance"
+      },
+      {
+        "timestamp": "2026-05-21T14:00:43.323Z",
+        "cashBalance": 421.88,
+        "holdingsValue": 0,
+        "totalAccountValue": 421.88,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-21T14:01:15.419Z",
+        "cashBalance": 316.41,
+        "holdingsValue": 0,
+        "totalAccountValue": 316.41,
+        "source": "run_history",
+        "isBackfilled": false,
+        "note": "Cash balance from paper run history"
+      },
+      {
+        "timestamp": "2026-05-21T14:01:40.521Z",
+        "cashBalance": 316.41,
+        "holdingsValue": 683.46,
+        "totalAccountValue": 999.87,
+        "source": "paper_simulation_current",
+        "isBackfilled": false,
+        "note": "Current: cash 316.41 + holdings 683.46 = 999.87 (accumulated step not strictly additive)"
+      }
+    ],
+    "cashBalance": 316.41,
+    "holdingsValue": 683.46,
+    "totalAccountValue": 999.87,
+    "openPositionCount": 4,
+    "validation": {
+      "totalAccountValueEqualsCashPlusHoldings": true,
+      "allPointsValid": true,
+      "noNaN": true,
+      "noInfinity": true
+    }
+  },
+  "currentCycleActivity": {
+    "cycleId": "cycle-20260520-2356",
+    "cycleStartedAt": "2026-05-20T23:56:14.139Z",
+    "startingPaperBalance": 1000,
+    "currentCashBalance": 316.41,
+    "currentHoldingsValue": 683.46,
+    "currentTotalAccountValue": 999.87,
+    "openPositionCount": 4,
+    "buys": [
+      {
+        "symbol": "XLV",
+        "companyName": null,
+        "purchaseDate": "2026-05-21T13:59:00Z",
+        "quantity": 1.696756,
+        "averageBuyPrice": 147.34,
+        "amountSpent": 250,
+        "currentPrice": 147.22,
+        "currentValue": 249.8,
+        "unrealizedPnl": -0.2,
+        "unrealizedPnlPct": -0.08,
+        "signalReason": "XLV moved 2.23% across Alpaca IEX market data.",
+        "plainEnglishReason": "Risk Desk approved XLV for paper execution.",
+        "riskDeskVerdict": "approved"
+      },
+      {
+        "symbol": "XLE",
+        "companyName": null,
+        "purchaseDate": "2026-05-21T13:59:00Z",
+        "quantity": 3.12865,
+        "averageBuyPrice": 59.93,
+        "amountSpent": 187.5,
+        "currentPrice": 59.95,
+        "currentValue": 187.56,
+        "unrealizedPnl": 0.06,
+        "unrealizedPnlPct": 0.03,
+        "signalReason": "XLE moved 3.65% across Alpaca IEX market data.",
+        "plainEnglishReason": "Risk Desk approved XLE for paper execution.",
+        "riskDeskVerdict": "approved"
+      },
+      {
+        "symbol": "AAPL",
+        "companyName": null,
+        "purchaseDate": "2026-05-21T13:59:00Z",
+        "quantity": 0.464492,
+        "averageBuyPrice": 302.75,
+        "amountSpent": 140.63,
+        "currentPrice": 302.77,
+        "currentValue": 140.63,
+        "unrealizedPnl": 0,
+        "unrealizedPnlPct": 0,
+        "signalReason": "AAPL moved 3.31% across Alpaca IEX market data.",
+        "plainEnglishReason": "Risk Desk approved AAPL for paper execution.",
+        "riskDeskVerdict": "approved"
+      },
+      {
+        "symbol": "MSFT",
+        "companyName": null,
+        "purchaseDate": "2026-05-21T14:00:00Z",
+        "quantity": 0.252007,
+        "averageBuyPrice": 418.52,
+        "amountSpent": 105.47,
+        "currentPrice": 0,
+        "currentValue": 105.47,
+        "unrealizedPnl": 0,
+        "unrealizedPnlPct": 0,
+        "signalReason": "MSFT moved 2.6% across Alpaca IEX market data.",
+        "plainEnglishReason": "Risk Desk approved MSFT for paper execution.",
+        "riskDeskVerdict": "approved"
+      }
+    ],
+    "sells": [
+      {
+        "symbol": "MSFT",
+        "companyName": null,
+        "purchaseDate": "2026-05-21T14:00:00Z",
+        "sellDate": "2026-05-21T14:01:40.521Z",
+        "quantity": 0.252007,
+        "averageBuyPrice": 418.52,
+        "averageSellPrice": 0,
+        "proceeds": 0,
+        "realizedPnl": 0,
+        "realizedPnlPct": 0,
+        "exitReason": "Trade closed during paper simulation",
+        "plainEnglishExitReason": "Position closed during normal paper cycle."
+      }
+    ],
+    "openHoldings": [
+      {
+        "symbol": "XLV",
+        "companyName": null,
+        "purchaseDate": "2026-05-21T13:59:00Z",
+        "sellDate": null,
+        "quantity": 1.696756,
+        "averageBuyPrice": 147.34,
+        "currentPrice": 147.22,
+        "currentValue": 249.8,
+        "unrealizedPnl": -0.2,
+        "unrealizedPnlPct": -0.08,
+        "daysHeld": 0
+      },
+      {
+        "symbol": "XLE",
+        "companyName": null,
+        "purchaseDate": "2026-05-21T13:59:00Z",
+        "sellDate": null,
+        "quantity": 3.12865,
+        "averageBuyPrice": 59.93,
+        "currentPrice": 59.95,
+        "currentValue": 187.56,
+        "unrealizedPnl": 0.06,
+        "unrealizedPnlPct": 0.03,
+        "daysHeld": 0
+      },
+      {
+        "symbol": "AAPL",
+        "companyName": null,
+        "purchaseDate": "2026-05-21T13:59:00Z",
+        "sellDate": null,
+        "quantity": 0.464492,
+        "averageBuyPrice": 302.75,
+        "currentPrice": 302.77,
+        "currentValue": 140.63,
+        "unrealizedPnl": 0,
+        "unrealizedPnlPct": 0,
+        "daysHeld": 0
+      },
+      {
+        "symbol": "MSFT",
+        "companyName": null,
+        "purchaseDate": "2026-05-21T14:00:00Z",
+        "sellDate": null,
+        "quantity": 0.252007,
+        "averageBuyPrice": 418.52,
+        "currentPrice": 0,
+        "currentValue": 105.47,
+        "unrealizedPnl": 0,
+        "unrealizedPnlPct": 0,
+        "daysHeld": 0
+      }
+    ],
+    "paperOnly": true,
+    "liveTradingEnabled": false,
+    "externalEffects": false,
+    "publishAllowed": false,
+    "canRenderEmpty": false
+  },
+  "cycleDecisionBoard": {
+    "sections": {
+      "bought": {
+        "label": "Bought",
+        "description": "Signals approved by Risk Desk that resulted in open paper positions",
+        "count": 4,
+        "items": [
+          {
+            "symbol": "XLV",
+            "companyName": null,
+            "decision": "bought",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "XLV moved 2.23% across Alpaca IEX market data.",
+            "plainEnglishReason": "Risk Desk approved and paper execution opened XLV.",
+            "riskDeskReason": null,
+            "confidence": 0.61
+          },
+          {
+            "symbol": "XLE",
+            "companyName": null,
+            "decision": "bought",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "XLE moved 3.65% across Alpaca IEX market data.",
+            "plainEnglishReason": "Risk Desk approved and paper execution opened XLE.",
+            "riskDeskReason": null,
+            "confidence": 0.68
+          },
+          {
+            "symbol": "AAPL",
+            "companyName": null,
+            "decision": "bought",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "AAPL moved 3.31% across Alpaca IEX market data.",
+            "plainEnglishReason": "Risk Desk approved and paper execution opened AAPL.",
+            "riskDeskReason": null,
+            "confidence": 0.67
+          },
+          {
+            "symbol": "MSFT",
+            "companyName": null,
+            "decision": "bought",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "MSFT moved 2.6% across Alpaca IEX market data.",
+            "plainEnglishReason": "Risk Desk approved and paper execution opened MSFT.",
+            "riskDeskReason": null,
+            "confidence": 0.63
+          }
+        ]
+      },
+      "watched": {
+        "label": "Watched",
+        "description": "Signals reviewed but not acted upon (below threshold, no position opened)",
+        "count": 24,
+        "items": [
+          {
+            "symbol": "SPY",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "SPY movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (0.46%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "QQQ",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "QQQ movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (0.07%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "IWM",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "IWM movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (-1.17%).",
+            "riskDeskReason": null,
+            "confidence": 0.12
+          },
+          {
+            "symbol": "DIA",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "DIA movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (0.55%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "VTI",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "VTI movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (0.3%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "XLF",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "XLF movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (0.45%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "XLK",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "XLK movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (1.36%).",
+            "riskDeskReason": null,
+            "confidence": 0.14
+          },
+          {
+            "symbol": "NVDA",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "NVDA moved 4.37% across Alpaca IEX market data.",
+            "plainEnglishReason": "Signal met criteria but no paper position was opened.",
+            "riskDeskReason": null,
+            "confidence": 0.72
+          },
+          {
+            "symbol": "AMZN",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "AMZN movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (-1.33%).",
+            "riskDeskReason": null,
+            "confidence": 0.13
+          },
+          {
+            "symbol": "META",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "META movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (0.03%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "GOOGL",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "GOOGL movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (0.27%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "AVGO",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "AVGO movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (-0.24%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "JPM",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "JPM movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (1.03%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "V",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "V movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (1.3%).",
+            "riskDeskReason": null,
+            "confidence": 0.13
+          },
+          {
+            "symbol": "JNJ",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "JNJ moved 3.18% across Alpaca IEX market data.",
+            "plainEnglishReason": "Signal met criteria but no paper position was opened.",
+            "riskDeskReason": null,
+            "confidence": 0.66
+          },
+          {
+            "symbol": "XOM",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "XOM moved 3.7% across Alpaca IEX market data.",
+            "plainEnglishReason": "Signal met criteria but no paper position was opened.",
+            "riskDeskReason": null,
+            "confidence": 0.68
+          },
+          {
+            "symbol": "UNH",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "UNH movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (0.05%).",
+            "riskDeskReason": null,
+            "confidence": 0.1
+          },
+          {
+            "symbol": "HD",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "HD movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (-1.51%).",
+            "riskDeskReason": null,
+            "confidence": 0.15
+          },
+          {
+            "symbol": "COST",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "COST moved 3.52% across Alpaca IEX market data.",
+            "plainEnglishReason": "Signal met criteria but no paper position was opened.",
+            "riskDeskReason": null,
+            "confidence": 0.68
+          },
+          {
+            "symbol": "MRK",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "MRK movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (1.97%).",
+            "riskDeskReason": null,
+            "confidence": 0.2
+          },
+          {
+            "symbol": "ABBV",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "ABBV moved 3.78% across Alpaca IEX market data.",
+            "plainEnglishReason": "Signal met criteria but no paper position was opened.",
+            "riskDeskReason": null,
+            "confidence": 0.69
+          },
+          {
+            "symbol": "CRM",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "CRM movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (-1.78%).",
+            "riskDeskReason": null,
+            "confidence": 0.18
+          },
+          {
+            "symbol": "AMD",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "AMD movement did not clear 2% threshold.",
+            "plainEnglishReason": "Signal did not meet movement threshold (-1.06%).",
+            "riskDeskReason": null,
+            "confidence": 0.11
+          },
+          {
+            "symbol": "NFLX",
+            "companyName": null,
+            "decision": "watched",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "NFLX moved 2.17% across Alpaca IEX market data.",
+            "plainEnglishReason": "Signal met criteria but no paper position was opened.",
+            "riskDeskReason": null,
+            "confidence": 0.61
+          }
+        ]
+      },
+      "rejected": {
+        "label": "Rejected",
+        "description": "Candidates blocked by Risk Desk",
+        "count": 4,
+        "items": [
+          {
+            "symbol": "TSLA",
+            "companyName": null,
+            "decision": "rejected",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "TSLA moved -4.64% across Alpaca IEX market data.",
+            "plainEnglishReason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+            "riskDeskReason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+            "confidence": 0.73
+          },
+          {
+            "symbol": "WMT",
+            "companyName": null,
+            "decision": "rejected",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "WMT moved -5.78% across Alpaca IEX market data.",
+            "plainEnglishReason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+            "riskDeskReason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+            "confidence": 0.79
+          },
+          {
+            "symbol": "PG",
+            "companyName": null,
+            "decision": "rejected",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "PG moved -2.28% across Alpaca IEX market data.",
+            "plainEnglishReason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+            "riskDeskReason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+            "confidence": 0.61
+          },
+          {
+            "symbol": "INTC",
+            "companyName": null,
+            "decision": "rejected",
+            "timestamp": "2026-05-21T14:01:40.521Z",
+            "technicalReason": "INTC moved -4.71% across Alpaca IEX market data.",
+            "plainEnglishReason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+            "riskDeskReason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
+            "confidence": 0.74
+          }
+        ]
+      }
+    },
+    "totalDecisions": 32,
+    "paperOnly": true
+  },
+  "paperSimulation": true,
+  "generatedAt": "2026-05-21T14:01:40.521Z",
+  "dataFreshness": {
+    "generatedAt": "2026-05-21T14:01:40.521Z",
+    "marketDataRefreshAt": "2026-05-21T14:01:15.095Z",
+    "latestBarTimestamp": "2026-05-21T14:00:00Z",
+    "marketDataSource": "alpaca_iex",
+    "cycleBuildAt": "2026-05-21T14:01:15.419Z",
+    "cycleStatus": "active",
+    "runCount": 3,
+    "openPositionCount": 4,
+    "dataSource": "alpaca_iex"
+  },
+  "disclaimers": [
+    "Paper simulation only. All values are fake paper money.",
+    "Not financial advice. No real trading or investment decisions.",
+    "No broker connection, live trading, or real-money execution.",
+    "Market data from Alpaca IEX used for paper simulation context.",
+    "Past paper performance does not guarantee future results."
+  ]
+}

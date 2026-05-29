@@ -3,7 +3,7 @@ const path = require("path");
 
 const { loadJson, writeJson } = require("../utils/fileStore");
 const { paths } = require("../utils/paths");
-const { writePublicDashboardBundle } = require("./publicDashboardBundle");
+const { writePublicDashboardBundles } = require("./publicDashboardBundle");
 
 function buildMarketActivityPreview() {
   const vehicles = [
@@ -54,7 +54,7 @@ function refreshSiteDashboard() {
     runHistorySummary = null;
   }
 
-  const dashboard = writePublicDashboardBundle(paths.siteDashboardPublicV04Json, {
+  const dashboard = writePublicDashboardBundles({
     generatedAt: new Date().toISOString(),
     runHistorySummary
   });
@@ -65,10 +65,11 @@ function refreshSiteDashboard() {
   }
 
   console.log("MarketOps public dashboard data refreshed.");
-  console.log(`dashboard bundle: ${dashboard.filePath}`);
+  console.log(`dashboard bundle (primary): ${dashboard.filePath}`);
+  dashboard.outputs.forEach((outputPath) => console.log(`dashboard bundle copy: ${outputPath}`));
   console.log(`activity preview: ${activityPath}`);
   console.log("");
-  return { dashboardPath: dashboard.filePath, activityPath };
+  return { dashboardPath: dashboard.filePath, activityPath, outputs: dashboard.outputs };
 }
 
 if (require.main === module) {

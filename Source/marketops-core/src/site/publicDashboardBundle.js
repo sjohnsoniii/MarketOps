@@ -39,6 +39,7 @@ function buildTotalAccountValueCurve({ paperResults, positions, cycle, runHistor
 
   recentRuns.forEach(r => {
     const cash = Number(r.endingEquity || 0);
+    if (cash > originalStartingBalance * 2.5) return;
     points.push({
       timestamp: r.generatedAt,
       cycleId: cycle.cycleId || "cycle_not_built",
@@ -659,12 +660,40 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
     staleDataWarningPanel: staleDataWarnings,
     staleDataWarnings,
     totalAccountValueCurve,
+    paperProfitLoss: {
+      realizedPnl: round(paperResults.realizedPnl || 0),
+      unrealizedPnl: round(paperResults.totalUnrealizedPnl || (paperPositions.openPositions || []).reduce((s, p) => s + Number(p.unrealizedPnl || 0), 0)),
+      totalPnl: round((paperResults.realizedPnl || 0) + (paperResults.totalUnrealizedPnl || (paperPositions.openPositions || []).reduce((s, p) => s + Number(p.unrealizedPnl || 0), 0))),
+      totalPnlPct: startingBalance ? round((((endingEquity - startingBalance) / startingBalance) * 100)) : 0,
+      winningTrades: wins,
+      losingTrades: losses,
+      openPositionPnl: round((paperPositions.openPositions || []).reduce((s, p) => s + Number(p.unrealizedPnl || 0), 0))
+    },
+    corePaperTarget: {
+      startingBalance,
+      currentTotalAccountValue: round(totalAccountValueCurve.totalAccountValue),
+      targetValue: targetBalance,
+      progressPct: targetProgressPct,
+      remainingToTarget: round(Math.max(0, targetBalance - totalAccountValueCurve.totalAccountValue)),
+      depletionThreshold: round(startingBalance * 0.5),
+      distanceFromDepletion: round(totalAccountValueCurve.totalAccountValue - (startingBalance * 0.5)),
+      targetStatus: totalAccountValueCurve.totalAccountValue >= targetBalance
+        ? 'target_reached'
+        : totalAccountValueCurve.totalAccountValue <= (startingBalance * 0.5)
+          ? 'depletion_risk'
+          : 'in_progress'
+    },
     accountSummary: {
       cashBalance: round(totalAccountValueCurve.paperCurrentCashBalance),
       holdingsValue: round(totalAccountValueCurve.holdingsValue),
       totalAccountValue: round(totalAccountValueCurve.totalAccountValue),
       openPositionCount: totalAccountValueCurve.openPositionCount,
       paperStartingBalance: originalPaperStartingBalance,
+      startingBalance,
+      realizedPnl: round(paperResults.realizedPnl || 0),
+      unrealizedPnl: round(paperResults.totalUnrealizedPnl || (paperPositions.openPositions || []).reduce((s, p) => s + Number(p.unrealizedPnl || 0), 0)),
+      totalPnl: round((paperResults.realizedPnl || 0) + (paperResults.totalUnrealizedPnl || (paperPositions.openPositions || []).reduce((s, p) => s + Number(p.unrealizedPnl || 0), 0))),
+      totalPnlPct: startingBalance ? round((((endingEquity - startingBalance) / startingBalance) * 100)) : 0,
       paperOnly: true
     },
     equityPoints: (equityCurve.points || []).map((point, index) => ({
@@ -698,7 +727,10 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
     signalFunnel: [
       { label: "Vehicles scanned", value: signals.totalVehicles || signalsReviewed },
       { label: "Signals reviewed", value: signalsReviewed },
-      { label: "Risk approved", value: riskReview.approvedCount },
+      { label: "Approved standard", value: (riskReview.decisions || []).filter((d) => d.approvalBand === "approved_standard").length },
+      { label: "Approved learning probes", value: (riskReview.decisions || []).filter((d) => d.approvalBand === "approved_learning_probe").length },
+      { label: "Watched", value: (riskReview.decisions || []).filter((d) => d.approvalBand === "watched").length },
+      { label: "Rejected", value: (riskReview.decisions || []).filter((d) => d.approvalBand === "rejected").length },
       { label: "Fake paper trades", value: paperResults.executedTrades }
     ],
     milestoneTargets: [
@@ -732,14 +764,350 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
         "Public-facing labels remain paper simulation / fake money / sample-data preview."
       ]
     },
-    publicDisclaimer: "Paper simulation, fake-money, in-development sample-data preview only. Not real performance. Not financial advice. No guarantees. No copy-trading."
+    publicDisclaimer: "Paper simulation, fake-money, in-development sample-data preview only. Not real performance. Not financial advice. No guarantees. No copy-trading.",
+    riskPipeline: {
+      vehiclesScanned: signals.totalVehicles || signalsReviewed,
+      signalsReviewed,
+      approvedStandard: (riskReview.decisions || []).filter((d) => d.approvalBand === "approved_standard").length,
+      approvedLearningProbe: (riskReview.decisions || []).filter((d) => d.approvalBand === "approved_learning_probe").length,
+      watched: (riskReview.decisions || []).filter((d) => d.approvalBand === "watched").length,
+      rejected: (riskReview.decisions || []).filter((d) => d.approvalBand === "rejected").length,
+      tradesAttempted: fakePaperTradeCount,
+      tradesExecuted: fakePaperTradeCount,
+      openPositions: totalAccountValueCurve.openPositionCount,
+      closedPositionsToday: (paperResults.trades || []).filter((t) => t.status === "closed").length,
+      learningProbesExecutedToday: (paperResults.trades || []).filter((t) => t.isLearningProbe === true).length
+    },
+    openPositionsDetailed: openPositionsFromSignals(signals, riskReview, paperResults, paperPositions),
+    recentlyClosedPositions: recentlyClosedFromSignals(signals, riskReview, paperResults),
+    vehicleUniverse: {
+      targetCount: 150,
+      actualCount: signals.totalVehicles || signalsReviewed,
+      source: dataSource,
+      fallbackUsed: (signals.totalVehicles || signalsReviewed) < 150,
+      generatedAt
+    },
+    learningModeEnabled: !!(config.learningMode && config.learningMode.enabled),
+    aggressiveLearningMode: !!(config.learningMode && config.learningMode.enabled),
+    learningMode: config.learningMode && config.learningMode.enabled ? {
+      enabled: true,
+      profile: config.learningMode.profile,
+      paperOnly: config.learningMode.paperOnly,
+      label: "Aggressive Paper Learning Mode",
+      description: "This mode intentionally allows more small paper trades so the system can learn from both wins and failures. No live trading is enabled.",
+      thresholds: config.learningMode.riskThresholds,
+      sizing: config.learningMode.sizing
+    } : null
   };
 }
 
-function writePublicDashboardBundle(filePath = paths.siteDashboardPublicV04Json, options = {}) {
-  const bundle = buildPublicDashboardBundle(options);
+function openPositionsFromSignals(signals, riskReview, paperResults, paperPositions) {
+  const decisionsBySymbol = {};
+  (riskReview.decisions || []).forEach((d) => { decisionsBySymbol[d.symbol] = d; });
+  const signalsBySymbol = {};
+  (signals.signals || []).forEach((s) => { signalsBySymbol[s.symbol] = s; });
+
+  const openPos = Array.isArray(paperPositions.openPositions) ? paperPositions.openPositions : [];
+  if (openPos.length === 0) return [];
+
+  return openPos.map((pos) => {
+    const symbol = pos.symbol;
+    const decision = decisionsBySymbol[symbol] || {};
+    const signal = signalsBySymbol[symbol] || {};
+    const entryPrice = Number(pos.entryPrice || 0);
+    const quantity = Number(pos.quantity || 0);
+    const currentPrice = Number(pos.latestPrice || pos.currentPrice || entryPrice);
+    const positionValue = Number(pos.positionValue || (entryPrice * quantity));
+    const currentValue = Number(pos.currentValue || (currentPrice * quantity));
+    const unrealizedPnl = Number(pos.unrealizedPnl || (currentValue - positionValue));
+    const unrealizedPnlPct = positionValue > 0 ? (unrealizedPnl / positionValue) * 100 : 0;
+
+    const positionBand = pos.entryRiskBand || pos.approvalBand || null;
+    const decisionBand = decision.approvalBand || null;
+
+    return {
+      ticker: symbol,
+      name: signal.name || null,
+      status: "open",
+      boughtAt: pos.entryTime || pos.openedAt || null,
+      quantity,
+      entryPrice: Math.round(entryPrice * 100) / 100,
+      currentPrice: Math.round(currentPrice * 100) / 100,
+      positionValue: Math.round(positionValue * 100) / 100,
+      unrealizedPnl: Math.round(unrealizedPnl * 100) / 100,
+      unrealizedPnlPct: Math.round(unrealizedPnlPct * 100) / 100,
+      riskBand: decision.approvalBand || "unknown",
+      entryRiskBand: positionBand || decisionBand || null,
+      currentRiskBand: decisionBand || positionBand || null,
+      riskBandSource: pos.riskBandSource || decision.riskBandSource || null,
+      riskBandStale: (positionBand && decisionBand && positionBand !== decisionBand) || false,
+      signalConfidence: signal.confidence || decision.confidence || null,
+      signalReason: signal.trigger || null,
+      riskDecisionReason: decision.notes || null,
+      tradeType: pos.approvalBand || decision.approvalBand || "standard",
+      isLearningProbe: pos.isLearningProbe === true || decision.approvalBand === "approved_learning_probe"
+    };
+  });
+}
+
+function recentlyClosedFromSignals(signals, riskReview, paperResults) {
+  const decisionsBySymbol = {};
+  (riskReview.decisions || []).forEach((d) => { decisionsBySymbol[d.symbol] = d; });
+  const signalsBySymbol = {};
+  (signals.signals || []).forEach((s) => { signalsBySymbol[s.symbol] = s; });
+
+  const closed = (paperResults.trades || []).filter((t) => t.status === "closed" || t.exitPrice);
+  return closed.slice(-20).map((trade) => {
+    const symbol = trade.symbol;
+    const decision = decisionsBySymbol[symbol] || {};
+    const signal = signalsBySymbol[symbol] || {};
+    const entryPrice = Number(trade.entryPrice || 0);
+    const exitPrice = Number(trade.exitPrice || 0);
+    const realizedPnl = Number(trade.realizedPnl || 0);
+    const realizedPnlPct = entryPrice > 0 ? ((exitPrice - entryPrice) / entryPrice) * 100 : 0;
+    const boughtAt = trade.entryTime || null;
+    const soldAt = trade.exitTime || trade.generatedAt || null;
+    let holdDurationDays = null;
+    if (boughtAt && soldAt) {
+      holdDurationDays = Math.round((new Date(soldAt) - new Date(boughtAt)) / 86400000 * 10) / 10;
+    }
+    return {
+      ticker: symbol,
+      name: signal.name || null,
+      boughtAt,
+      soldAt,
+      entryPrice: Math.round(entryPrice * 100) / 100,
+      exitPrice: Math.round(exitPrice * 100) / 100,
+      realizedPnl: Math.round(realizedPnl * 100) / 100,
+      realizedPnlPct: Math.round(realizedPnlPct * 100) / 100,
+      exitReason: trade.exitReason || "Position closed",
+      riskBand: decision.approvalBand || trade.approvalBand || "unknown",
+      isLearningProbe: trade.isLearningProbe === true || decision.approvalBand === "approved_learning_probe",
+      holdDurationDays
+    };
+  });
+}
+
+function scrubEquityCurvePoints(points, startingBalance) {
+  const cap = Number(startingBalance || 1000) * 2.5;
+  return (Array.isArray(points) ? points : []).filter((point) => {
+    const total = Number(point.totalAccountValue);
+    return Number.isFinite(total) && total >= 0 && total <= cap;
+  });
+}
+
+function loadSiteDashboardCruise1() {
+  const cruise1Path = path.join(paths.dataRoot, "dashboard", "dashboard-data-bundle-v0.1.json");
+  if (!fileExists(cruise1Path)) return null;
+  try {
+    return loadJson(cruise1Path);
+  } catch {
+    return null;
+  }
+}
+
+function buildChartPointsFromAccountCurve(curve, startingBalance) {
+  const points = scrubEquityCurvePoints(curve.points, startingBalance);
+  let peak = startingBalance;
+  return points.map((point, index) => {
+    const equity = round(point.totalAccountValue);
+    if (equity > peak) peak = equity;
+    const drawdownPct = peak > 0 ? round(((peak - equity) / peak) * 100) : 0;
+    return {
+      label: index === 0 ? "Start" : (point.label || `Step ${index}`),
+      equity,
+      paperPnl: round(equity - startingBalance),
+      drawdownPct,
+      timestamp: point.timestamp
+    };
+  });
+}
+
+function enrichCycleActivity(activity, bundle, generatedAt) {
+  if (!activity) {
+    return {
+      cycleId: bundle.paperCycleStatus?.cycleId || 'cycle_not_built',
+      cycleStatus: bundle.paperCycleStatus?.status || 'missing',
+      cycleStartedAt: bundle.paperCycleStatus?.cycleStartTimestamp || null,
+      lastRefreshAt: generatedAt,
+      vehiclesScanned: bundle.vehiclesScanned || 0,
+      signalsReviewed: bundle.signalsReviewed || 0,
+      tradesAttempted: bundle.fakePaperTradeCount || 0,
+      tradesExecuted: bundle.fakePaperTradeCount || 0,
+      openPositions: bundle.totalAccountValueCurve?.openPositionCount || 0,
+      closedPositionsToday: bundle.riskPipeline?.closedPositionsToday || 0,
+      learningProbesExecutedToday: bundle.riskPipeline?.learningProbesExecutedToday || 0
+    };
+  }
+  return {
+    ...activity,
+    cycleStatus: bundle.paperCycleStatus?.status || activity.cycleStatus || 'missing',
+    lastRefreshAt: generatedAt,
+    vehiclesScanned: bundle.vehiclesScanned || activity.vehiclesScanned || 0,
+    signalsReviewed: bundle.signalsReviewed || activity.signalsReviewed || 0,
+    tradesAttempted: bundle.fakePaperTradeCount || activity.tradesAttempted || 0,
+    tradesExecuted: bundle.fakePaperTradeCount || activity.tradesExecuted || 0,
+    openPositions: bundle.totalAccountValueCurve?.openPositionCount || activity.openPositionCount || 0,
+    closedPositionsToday: bundle.riskPipeline?.closedPositionsToday || activity.closedPositionsToday || 0,
+    learningProbesExecutedToday: bundle.riskPipeline?.learningProbesExecutedToday || activity.learningProbesExecutedToday || 0
+  };
+}
+
+function enrichDecisionBoard(board, bundle) {
+  if (!board) {
+    return {
+      approvedStandard: 0, approvedLearningProbe: 0, watched: 0,
+      rejected: 0, capacityBlocked: 0, hardRejected: 0,
+      riskNotes: 'No risk decisions recorded yet.'
+    };
+  }
+  const riskPipeline = bundle.riskPipeline || {};
+  return {
+    ...board,
+    approvedStandard: riskPipeline.approvedStandard || board.approvedStandard || 0,
+    approvedLearningProbe: riskPipeline.approvedLearningProbe || board.approvedLearningProbe || 0,
+    watched: riskPipeline.watched || board.watched || 0,
+    rejected: riskPipeline.rejected || board.rejected || 0,
+    capacityBlocked: riskPipeline.capacityBlocked || board.capacityBlocked || 0,
+    hardRejected: riskPipeline.hardSafetyFailures || board.hardRejected || 0,
+    riskNotes: riskPipeline.rejected > 0
+      ? `${riskPipeline.rejected} signal(s) blocked by Risk Desk. ${riskPipeline.approvedLearningProbe > 0 ? riskPipeline.approvedLearningProbe + ' learning probe(s) approved.' : ''}`
+      : 'No recent risk decisions recorded.'
+  };
+}
+
+function mergeSiteDashboardSections(bundle, cruise1) {
+  const paperStart = Number(
+    bundle.accountSummary?.paperStartingBalance
+    || cruise1?.equityCurve?.paperStartingBalance
+    || bundle.paperCycleStatus?.startingBalance
+    || 1000
+  );
+  const curve = bundle.totalAccountValueCurve || {};
+  const scrubbedPoints = scrubEquityCurvePoints(curve.points, paperStart);
+  const totalAccountValue = round(curve.totalAccountValue || paperStart);
+  const cashBalance = round(curve.paperCurrentCashBalance || bundle.accountSummary?.cashBalance || 0);
+  const holdingsValue = round(curve.holdingsValue || bundle.accountSummary?.holdingsValue || 0);
+  const chartPoints = buildChartPointsFromAccountCurve({ ...curve, points: scrubbedPoints }, paperStart);
+
+  const merged = {
+    ...bundle,
+    schemaVersion: "marketops-dashboard-bundle-public-v0.5",
+    paperSimulation: true,
+    startingBalance: paperStart,
+    endingEquity: totalAccountValue,
+    paperPnl: round(totalAccountValue - paperStart),
+    paperReturnPct: paperStart ? round(((totalAccountValue - paperStart) / paperStart) * 100) : 0,
+    targetProgressPct: bundle.targetBalance
+      ? round(((totalAccountValue - paperStart) / (bundle.targetBalance - paperStart)) * 100)
+      : 0,
+    totalAccountValueCurve: {
+      ...curve,
+      paperStartingBalance: paperStart,
+      points: scrubbedPoints,
+      totalAccountValue,
+      paperCurrentCashBalance: cashBalance,
+      holdingsValue
+    },
+    equityCurve: {
+      label: curve.label || "Total Account Value (Cash + Holdings)",
+      definition: curve.definition || "Current cash balance plus market value of all open positions",
+      paperStartingBalance: paperStart,
+      windowDays: curve.windowDays || 14,
+      cycleId: curve.cycleId || bundle.paperCycleStatus?.cycleId || "cycle_not_built",
+      cashBalance,
+      holdingsValue,
+      totalAccountValue,
+      openPositionCount: curve.openPositionCount || bundle.accountSummary?.openPositionCount || 0,
+      points: scrubbedPoints
+    },
+    paperProfitLoss: bundle.paperProfitLoss || {
+      realizedPnl: 0, unrealizedPnl: 0, totalPnl: round(totalAccountValue - paperStart),
+      totalPnlPct: paperStart ? round(((totalAccountValue - paperStart) / paperStart) * 100) : 0,
+      winningTrades: 0, losingTrades: 0, openPositionPnl: holdingsValue
+    },
+    corePaperTarget: bundle.corePaperTarget || {
+      startingBalance: paperStart,
+      currentTotalAccountValue: totalAccountValue,
+      targetValue: bundle.targetBalance || 13000,
+      progressPct: bundle.targetProgressPct || 0,
+      remainingToTarget: round(Math.max(0, (bundle.targetBalance || 13000) - totalAccountValue)),
+      depletionThreshold: round(paperStart * 0.5),
+      distanceFromDepletion: round(totalAccountValue - (paperStart * 0.5)),
+      targetStatus: totalAccountValue >= (bundle.targetBalance || 13000) ? 'target_reached' : totalAccountValue <= (paperStart * 0.5) ? 'depletion_risk' : 'in_progress'
+    },
+    accountSummary: {
+      cashBalance,
+      holdingsValue,
+      totalAccountValue,
+      openPositionCount: curve.openPositionCount || bundle.accountSummary?.openPositionCount || 0,
+      paperStartingBalance: paperStart,
+      startingBalance: paperStart,
+      realizedPnl: bundle.accountSummary?.realizedPnl || 0,
+      unrealizedPnl: bundle.accountSummary?.unrealizedPnl || holdingsValue,
+      totalPnl: round(totalAccountValue - paperStart),
+      totalPnlPct: paperStart ? round(((totalAccountValue - paperStart) / paperStart) * 100) : 0,
+      paperOnly: true
+    },
+    equityPoints: chartPoints,
+    cumulativePnlPoints: chartPoints.length >= 2
+      ? chartPoints.map((point) => ({
+        label: point.label,
+        cumulativePaperPnl: point.paperPnl
+      }))
+      : [
+        { label: "Start", cumulativePaperPnl: 0 },
+        { label: "Current", cumulativePaperPnl: round(totalAccountValue - paperStart) }
+      ],
+    drawdownPoints: chartPoints.map((point) => ({
+      label: point.label,
+      drawdownPct: point.drawdownPct
+    })),
+    currentCycleActivity: enrichCycleActivity(cruise1?.currentCycleActivity || bundle.currentCycleActivity, bundle, bundle.generatedAt),
+    cycleDecisionBoard: enrichDecisionBoard(cruise1?.cycleDecisionBoard || bundle.cycleDecisionBoard, bundle),
+    siteDisclaimers: cruise1?.disclaimers || bundle.siteDisclaimers || [],
+    riskPipeline: bundle.riskPipeline ? {
+      ...bundle.riskPipeline,
+      capacityBlocked: bundle.riskPipeline.capacityBlocked || bundle.riskPipeline.watchedCapacityBlocked || 0,
+      hardSafetyFailures: bundle.riskPipeline.hardSafetyFailures || 0
+    } : null,
+    openPositionsDetailed: bundle.openPositionsDetailed || [],
+    recentlyClosedPositions: bundle.recentlyClosedPositions || [],
+    vehicleUniverse: bundle.vehicleUniverse || null,
+    learningModeEnabled: bundle.learningModeEnabled || false,
+    aggressiveLearningMode: bundle.aggressiveLearningMode || false,
+    learningMode: bundle.learningMode || null
+  };
+
+  if (merged.currentCycleActivity) {
+    merged.currentCycleActivity.currentTotalAccountValue = totalAccountValue;
+    merged.currentCycleActivity.currentCashBalance = cashBalance;
+    merged.currentCycleActivity.currentHoldingsValue = holdingsValue;
+  }
+
+  return merged;
+}
+
+function writePublicDashboardBundle(filePath = paths.siteDashboardPublicV05Json, options = {}) {
+  const bundle = mergeSiteDashboardSections(buildPublicDashboardBundle(options), loadSiteDashboardCruise1());
   writeJson(filePath, bundle);
   return { filePath, bundle };
 }
 
-module.exports = { buildPublicDashboardBundle, writePublicDashboardBundle };
+function writePublicDashboardBundles(options = {}) {
+  const bundle = mergeSiteDashboardSections(buildPublicDashboardBundle(options), loadSiteDashboardCruise1());
+  const outputs = [
+    paths.siteDashboardPublicV05Json,
+    paths.siteDashboardPublicV04Json
+  ];
+  outputs.forEach((filePath) => writeJson(filePath, bundle));
+  return { filePath: paths.siteDashboardPublicV05Json, bundle, outputs };
+}
+
+module.exports = {
+  buildPublicDashboardBundle,
+  mergeSiteDashboardSections,
+  writePublicDashboardBundle,
+  writePublicDashboardBundles,
+  scrubEquityCurvePoints
+};

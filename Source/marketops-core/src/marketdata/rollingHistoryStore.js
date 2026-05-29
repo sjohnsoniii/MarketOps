@@ -37,8 +37,6 @@ function deduplicateBars(bars) {
 }
 
 function mergeHistory(existingHistory, newBars, dataSource) {
-  const merged = [...(existingHistory || [])];
-
   const sourceLabel = dataSource === "alpaca_iex_backfill" ? "backfill" : "live_refresh";
 
   const annotated = newBars.map((bar) => ({
@@ -47,7 +45,7 @@ function mergeHistory(existingHistory, newBars, dataSource) {
     mergedAt: new Date().toISOString()
   }));
 
-  merged.push(...annotated);
+  const merged = (existingHistory || []).concat(annotated);
 
   const deduped = deduplicateBars(merged);
 

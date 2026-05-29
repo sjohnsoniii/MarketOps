@@ -1,10 +1,10 @@
 # MarketOps Automation Readiness Check v0.1
 
-Generated at: 2026-05-16T02:50:18.311Z
+Generated at: 2026-05-29T01:44:28.477Z
 
 ## Readiness Verdict
 
-NOT_READY
+CROSS_PLATFORM_READY
 - Windows scheduler (Task Scheduler) is not available on this platform.
 - PowerShell-based scheduled task operations are not available.
 - All automation checks that require PowerShell return 'not_installed' on Linux.
@@ -57,6 +57,8 @@ NOT_READY
 - PASS: office:qa source exists - /home/sjohnsoniii/Projects/MarketOps/Source/marketops-core/src/office/runOfficeQa.js
 - PASS: agents:review source exists - /home/sjohnsoniii/Projects/MarketOps/Source/marketops-core/src/agents/runAgentReviews.js
 - PASS: agents:qa source exists - /home/sjohnsoniii/Projects/MarketOps/Source/marketops-core/src/agents/runAgentsQa.js
+- PASS: paper:full includes pipeline, site refresh, QA - /home/sjohnsoniii/Projects/MarketOps/Source/marketops-core/src/paper/full.js
+- PASS: intraday simulation appends run history - /home/sjohnsoniii/Projects/MarketOps/Source/marketops-core/src/simulation/runIntradaySimulation.js
 - PASS: office:run includes office and agent review flow - /home/sjohnsoniii/Projects/MarketOps/Source/marketops-core/src/agents/runOfficeWithAgents.js
 - PASS: paper PowerShell runner exists - /home/sjohnsoniii/Projects/MarketOps/Scripts/run-marketops-paper-full-v0.1.ps1
 - PASS: paper refresh v0.2 runner exists - /home/sjohnsoniii/Projects/MarketOps/Scripts/run-marketops-paper-refresh-v0.2.ps1
@@ -111,7 +113,7 @@ NOT_READY
 
 ## Checks Failed
 
-- FAIL: paper:full includes simulation, history, dashboard refresh, QA - Missing: appendRunHistory
+None.
 
 ## Output Locations
 
@@ -139,7 +141,7 @@ powershell -ExecutionPolicy Bypass -File "C:\Users\sjohn\Desktop\Projects\Market
 
 ## Risks / Warnings / Cleanup Needed
 
-- Resolve failed checks before relying on scheduled automation.
+- No blocking readiness issues found. Installed tasks match approved MarketOps automation scope when present.
 - Automation remains local, paper-only, fake/sample-money, and review-gated.
 
 ## Confirmations
