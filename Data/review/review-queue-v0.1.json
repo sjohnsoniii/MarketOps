@@ -122,19 +122,45 @@
       "sourceReportPath": "/home/sjohnsoniii/Projects/MarketOps/Reports/Risk/marketops-risk-desk-learning-v0.1.md",
       "sourceDataPath": "/home/sjohnsoniii/Projects/MarketOps/Data/paper/risk/risk-desk-learning-v0.1.json",
       "autoApply": false
+    },
+    {
+      "proposalId": "rec-risk-001",
+      "entityId": "risk-desk",
+      "entityName": "Risk Desk",
+      "entityType": "risk",
+      "projectId": "marketops",
+      "proposalType": "threshold_adjustment",
+      "title": "Review approval criteria for underperforming positions",
+      "summary": "10 approved trade(s) are showing losses. Review whether confidence threshold or entry timing rules need adjustment.",
+      "currentBehavior": "See evidence for current behavior.",
+      "proposedChange": "Review each underperforming position for common patterns (sector, timing, confidence).",
+      "evidence": "10 position(s) with negative unrealized P&L after Risk Desk approval.",
+      "expectedBenefit": "Reduce false positive approvals and improve trade quality.",
+      "riskLevel": "low",
+      "safetyImpact": "none",
+      "affectedFilesOrConfig": "src/risk/riskDesk.js, src/risk/riskDeskLearningBuilder.js",
+      "recommendedAction": "Review each underperforming position for common patterns (sector, timing, confidence).",
+      "status": "pending_review",
+      "createdAt": "2026-05-29T14:01:18.244Z",
+      "updatedAt": "2026-05-29T14:01:19.045Z",
+      "reviewedBy": null,
+      "reviewHistory": [],
+      "sourceReportPath": "/home/sjohnsoniii/Projects/MarketOps/Reports/Risk/marketops-risk-desk-learning-v0.1.md",
+      "sourceDataPath": "/home/sjohnsoniii/Projects/MarketOps/Data/paper/risk/risk-desk-learning-v0.1.json",
+      "autoApply": false
     }
   ],
   "metadata": {
-    "totalProposals": 4,
+    "totalProposals": 5,
     "byStatus": {
-      "pending_review": 1,
+      "pending_review": 2,
       "needs_revision": 1,
       "rejected_by_admin": 1,
       "approved_by_admin": 1
     },
     "byEntityType": {
-      "risk": 4
+      "risk": 5
     },
-    "updatedAt": "2026-05-21T14:01:42.100Z"
+    "updatedAt": "2026-05-29T19:51:11.405Z"
   }
 }

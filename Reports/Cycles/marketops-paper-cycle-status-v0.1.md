@@ -1,7 +1,7 @@
 # MarketOps Paper Cycle Status v0.2
 
-Generated: 2026-05-28T19:51:54.784Z
-Source runId: paper-20260528-195105653Z
+Generated: 2026-05-29T19:51:08.924Z
+Source runId: paper-20260529-020644310Z
 Source cycleId: cycle-20260520-2356
 Source file: /home/sjohnsoniii/Projects/MarketOps/Data/paper/cycles/paper-cycle-latest-v0.1.json
 
@@ -36,11 +36,11 @@ Source file: /home/sjohnsoniii/Projects/MarketOps/Data/paper/cycles/paper-cycle-
 
 ## Latest Paper Run Applied
 
-- runId: paper-20260528-195105653Z
-- generatedAt: 2026-05-28T19:51:05.653Z
-- paperPnl: 0
-- riskApproved: 0
-- riskBlocked: 150
+- runId: paper-20260529-020644310Z
+- generatedAt: 2026-05-29T02:06:44.310Z
+- paperPnl: -830.98
+- riskApproved: 82
+- riskBlocked: 68
 
 ## Rejection Reasons
 

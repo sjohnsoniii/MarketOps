@@ -13,8 +13,8 @@
     "ESCALATE"
   ],
   "statusCounts": {
-    "PENDING_REVIEW": 51,
-    "YES_APPROVE": 0,
+    "PENDING_REVIEW": 50,
+    "YES_APPROVE": 1,
     "NO_REJECT": 0,
     "NEEDS_EDIT": 0,
     "HOLD": 0,
@@ -44,7 +44,7 @@
       ],
       "approvalQuestion": "Approve \"Weekly MarketOps Field Report Draft v0.1\" for later manual use?",
       "recommendedAction": "NEEDS_REVIEW",
-      "status": "PENDING_REVIEW",
+      "status": "YES_APPROVE",
       "yesEffect": "Mark approved for later manual review use only. Does not post, send, trade, email, or publish automatically.",
       "noEffect": "Mark rejected and keep local archive only.",
       "needsEditEffect": "Route back to the relevant MarketOps desk for a local revision.",

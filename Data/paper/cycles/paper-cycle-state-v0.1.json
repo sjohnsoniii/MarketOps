@@ -5,283 +5,46 @@
   "cycleStartingBalance": 1000,
   "depletionThreshold": 0,
   "currentCycle": {
-    "cycleId": "cycle-20260520-2356",
-    "cycleNumber": 1,
-    "status": "reset_pending",
+    "cycleId": "cycle-20260530-1322",
+    "cycleNumber": 2,
+    "status": "active",
     "startingBalance": 1000,
-    "currentBalance": -17.84,
-    "endingBalance": -17.84,
+    "currentBalance": 1000,
+    "endingBalance": null,
     "depletionThreshold": 0,
-    "cycleStartTimestamp": "2026-05-20T23:56:14.139Z",
-    "cycleEndTimestamp": "2026-05-26T14:04:10.263Z",
-    "hoursSurvived": 134.13,
-    "daysSurvived": 5.59,
-    "approvedTrades": 62,
-    "rejectedTrades": 836,
-    "rejectionReasons": [
-      {
-        "reason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
-        "count": 140
-      },
-      {
-        "reason": "Signal did not qualify as a candidate.",
-        "count": 131
-      },
-      {
-        "reason": "Missing invalidation.",
-        "count": 2
-      },
-      {
-        "reason": "Position already open for AMD.",
-        "count": 2
-      },
-      {
-        "reason": "Position already open for XLV.",
-        "count": 1
-      },
-      {
-        "reason": "Position already open for XLE.",
-        "count": 1
-      },
-      {
-        "reason": "Position already open for AAPL.",
-        "count": 1
-      },
-      {
-        "reason": "Position already open for MSFT.",
-        "count": 1
-      },
-      {
-        "reason": "Position already open for NVDA.",
-        "count": 1
-      },
-      {
-        "reason": "Position already open for ORCL.",
-        "count": 1
-      },
-      {
-        "reason": "Position already open for TXN.",
-        "count": 1
-      },
-      {
-        "reason": "Position already open for QCOM.",
-        "count": 1
-      },
-      {
-        "reason": "Position already open for NOW.",
-        "count": 1
-      },
-      {
-        "reason": "Position already open for ADI.",
-        "count": 1
-      },
-      {
-        "reason": "Position already open for PANW.",
-        "count": 1
-      },
-      {
-        "reason": "Position already open for F.",
-        "count": 1
-      },
-      {
-        "reason": "Position already open for LCID.",
-        "count": 1
-      }
-    ],
+    "cycleStartTimestamp": "2026-05-30T13:22:04.937Z",
+    "cycleEndTimestamp": null,
+    "hoursSurvived": 0,
+    "daysSurvived": 0,
+    "approvedTrades": 0,
+    "rejectedTrades": 0,
+    "rejectionReasons": [],
     "strategyVersionUsed": "strategy-v0.1-watchlist-threshold-paper",
     "riskModelVersionUsed": "risk-desk-v0.1-long-up-confidence-gate",
     "lessonsLearnedSoFar": [
-      "Clean paper start: new cycle at $1,000 with no legacy positions.",
-      "No daily reset while capital stays above the depletion threshold."
+      "Cycle 2 fresh start after depletion reset. Auto-reset enabled — no manual gate for routine depletion."
     ],
-    "proposedImprovements": [
-      "Track rejected watchlist moves after refresh to learn whether the confidence threshold is too strict or correctly cautious.",
-      "Keep long/up-only and no-leverage gates until a human approves any broader risk model."
-    ],
+    "proposedImprovements": [],
     "approvedImprovementsForNextCycle": [],
-    "humanReviewNeededItems": [
-      "Cycle depleted. Review closeout and approve next-cycle parameter changes before restart."
-    ],
-    "resetTriggerReason": "Balance -17.84 is at or below depletion threshold 0.",
-    "nextCycleScheduledStart": "2026-05-27T13:30:00.000Z",
-    "appliedRunIds": [
-      "clean-start-v0.7",
-      "paper-20260521-140043323Z",
-      "paper-20260521-140115419Z",
-      "paper-20260521-160030745Z",
-      "paper-20260521-160049511Z",
-      "paper-20260521-180033440Z",
-      "paper-20260521-180054968Z",
-      "paper-20260521-195029115Z",
-      "paper-20260521-195051692Z",
-      "paper-20260521-213554194Z",
-      "paper-20260521-215331087Z",
-      "paper-20260522-140107093Z",
-      "paper-20260522-140129268Z",
-      "paper-20260522-160018964Z",
-      "paper-20260522-160040594Z",
-      "paper-20260522-180054654Z",
-      "paper-20260522-195046248Z",
-      "paper-20260526-140410263Z"
-    ],
-    "lastRunAppliedAt": "2026-05-26T14:04:10.263Z",
+    "humanReviewNeededItems": [],
+    "resetTriggerReason": null,
+    "nextCycleScheduledStart": null,
+    "appliedRunIds": [],
+    "lastRunAppliedAt": "2026-05-30T14:18:35.192Z",
     "externalEffects": false,
     "publishAllowed": false,
-    "cleanStartV07": true,
-    "remainingBalance": 0,
-    "drawdownFromStart": -1017.84,
-    "drawdownPct": -101.78,
-    "depletionRisk": "depleted",
-    "canonicalCashBalance": 22.33,
-    "canonicalHoldingsValue": 985.02,
-    "canonicalTotalEquity": 1007.35,
-    "canonicalUnrealizedPnl": 7.36,
+    "canonicalCashBalance": 52.68,
+    "canonicalHoldingsValue": 950.88,
+    "canonicalTotalEquity": 1003.56,
+    "canonicalUnrealizedPnl": 3.56,
     "canonicalRealizedPnl": 0,
-    "canonicalOpenPositionsCount": 17,
+    "canonicalOpenPositionsCount": 18,
     "canonicalClosedPositionsCount": 0
   },
-  "cycleHistory": [
-    {
-      "cycleId": "cycle-20260520-2356",
-      "cycleNumber": 1,
-      "status": "reset_pending",
-      "startingBalance": 1000,
-      "currentBalance": -17.84,
-      "endingBalance": -17.84,
-      "depletionThreshold": 0,
-      "cycleStartTimestamp": "2026-05-20T23:56:14.139Z",
-      "cycleEndTimestamp": "2026-05-26T14:04:10.263Z",
-      "hoursSurvived": 134.13,
-      "daysSurvived": 5.59,
-      "approvedTrades": 62,
-      "rejectedTrades": 836,
-      "rejectionReasons": [
-        {
-          "reason": "Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.",
-          "count": 140
-        },
-        {
-          "reason": "Signal did not qualify as a candidate.",
-          "count": 131
-        },
-        {
-          "reason": "Missing invalidation.",
-          "count": 2
-        },
-        {
-          "reason": "Position already open for AMD.",
-          "count": 2
-        },
-        {
-          "reason": "Position already open for XLV.",
-          "count": 1
-        },
-        {
-          "reason": "Position already open for XLE.",
-          "count": 1
-        },
-        {
-          "reason": "Position already open for AAPL.",
-          "count": 1
-        },
-        {
-          "reason": "Position already open for MSFT.",
-          "count": 1
-        },
-        {
-          "reason": "Position already open for NVDA.",
-          "count": 1
-        },
-        {
-          "reason": "Position already open for ORCL.",
-          "count": 1
-        },
-        {
-          "reason": "Position already open for TXN.",
-          "count": 1
-        },
-        {
-          "reason": "Position already open for QCOM.",
-          "count": 1
-        },
-        {
-          "reason": "Position already open for NOW.",
-          "count": 1
-        },
-        {
-          "reason": "Position already open for ADI.",
-          "count": 1
-        },
-        {
-          "reason": "Position already open for PANW.",
-          "count": 1
-        },
-        {
-          "reason": "Position already open for F.",
-          "count": 1
-        },
-        {
-          "reason": "Position already open for LCID.",
-          "count": 1
-        }
-      ],
-      "strategyVersionUsed": "strategy-v0.1-watchlist-threshold-paper",
-      "riskModelVersionUsed": "risk-desk-v0.1-long-up-confidence-gate",
-      "lessonsLearnedSoFar": [
-        "Clean paper start: new cycle at $1,000 with no legacy positions.",
-        "No daily reset while capital stays above the depletion threshold."
-      ],
-      "proposedImprovements": [
-        "Track rejected watchlist moves after refresh to learn whether the confidence threshold is too strict or correctly cautious.",
-        "Keep long/up-only and no-leverage gates until a human approves any broader risk model."
-      ],
-      "approvedImprovementsForNextCycle": [],
-      "humanReviewNeededItems": [
-        "Cycle depleted. Review closeout and approve next-cycle parameter changes before restart."
-      ],
-      "resetTriggerReason": "Balance -17.84 is at or below depletion threshold 0.",
-      "nextCycleScheduledStart": "2026-05-27T13:30:00.000Z",
-      "appliedRunIds": [
-        "clean-start-v0.7",
-        "paper-20260521-140043323Z",
-        "paper-20260521-140115419Z",
-        "paper-20260521-160030745Z",
-        "paper-20260521-160049511Z",
-        "paper-20260521-180033440Z",
-        "paper-20260521-180054968Z",
-        "paper-20260521-195029115Z",
-        "paper-20260521-195051692Z",
-        "paper-20260521-213554194Z",
-        "paper-20260521-215331087Z",
-        "paper-20260522-140107093Z",
-        "paper-20260522-140129268Z",
-        "paper-20260522-160018964Z",
-        "paper-20260522-160040594Z",
-        "paper-20260522-180054654Z",
-        "paper-20260522-195046248Z",
-        "paper-20260526-140410263Z"
-      ],
-      "lastRunAppliedAt": "2026-05-26T14:04:10.263Z",
-      "externalEffects": false,
-      "publishAllowed": false,
-      "cleanStartV07": true,
-      "remainingBalance": 0,
-      "drawdownFromStart": -1017.84,
-      "drawdownPct": -101.78,
-      "depletionRisk": "depleted",
-      "canonicalCashBalance": 22.33,
-      "canonicalHoldingsValue": 985.02,
-      "canonicalTotalEquity": 1007.35,
-      "canonicalUnrealizedPnl": 7.36,
-      "canonicalRealizedPnl": 0,
-      "canonicalOpenPositionsCount": 17,
-      "canonicalClosedPositionsCount": 0
-    }
-  ],
+  "cycleHistory": [],
   "externalEffects": false,
   "publishAllowed": false,
   "liveTradingEnabled": false,
   "brokerExecutionEnabled": false,
-  "updatedAt": "2026-05-28T19:51:54.783Z",
-  "cleanStartV07": true
+  "updatedAt": "2026-05-30T14:18:35.192Z"
 }

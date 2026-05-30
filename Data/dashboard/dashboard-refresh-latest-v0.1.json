@@ -1,11 +1,11 @@
 {
   "schemaVersion": "marketops-dashboard-refresh-v0.1",
-  "generatedAt": "2026-05-28T19:51:55.089Z",
-  "status": "FAIL",
-  "errorMessage": "npm run marketdata:refresh failed: Alpaca data request failed with HTTP 429.",
-  "failureReason": "npm run marketdata:refresh failed: Alpaca data request failed with HTTP 429.",
+  "generatedAt": "2026-05-29T19:51:09.148Z",
+  "status": "CONTROLLED_DEGRADED",
+  "errorMessage": "Market data unavailable: LIMITED_FRESH_BARS. Dashboard data preserved from last successful refresh.",
+  "failureReason": "Market data unavailable: LIMITED_FRESH_BARS. Dashboard data preserved from last successful refresh.",
   "lastKnownGoodPreserved": true,
-  "lastKnownGoodGeneratedAt": "2026-05-28T19:51:54.806Z",
+  "lastKnownGoodGeneratedAt": "2026-05-29T19:51:08.943Z",
   "mode": "paper_simulation",
   "paperOnly": true,
   "externalEffects": false,
@@ -20,23 +20,23 @@
   "marketData": {
     "source": "alpaca_iex",
     "feed": "iex",
-    "generatedAt": "2026-05-28T19:50:25.338Z",
-    "latestBarTimestamp": "2026-05-28T19:48:00Z",
-    "barsLoaded": 2945,
+    "generatedAt": "2026-05-29T19:51:08.963Z",
+    "latestBarTimestamp": "2026-05-29T13:47:00Z",
+    "barsLoaded": 20,
     "quotesLoaded": 149,
-    "refreshAgeMinutes": 1.5,
-    "latestBarAgeMinutes": 3.92,
+    "refreshAgeMinutes": 0,
+    "latestBarAgeMinutes": 364.15,
     "paperOnly": true,
     "liveTradingEnabled": false
   },
   "paper": {
-    "latestRunId": "paper-20260528-195105653Z",
-    "latestRunGeneratedAt": "2026-05-28T19:51:05.653Z",
-    "endingEquity": 11.78,
-    "paperPnl": 0,
-    "paperReturnPct": 0,
-    "maxDrawdownPct": null,
-    "fakePaperTrades": 0,
+    "latestRunId": "paper-20260529-020644310Z",
+    "latestRunGeneratedAt": "2026-05-29T02:06:44.310Z",
+    "endingEquity": 172.44,
+    "paperPnl": -830.98,
+    "paperReturnPct": -82.81,
+    "maxDrawdownPct": -82.81,
+    "fakePaperTrades": 10,
     "qaStatus": "PASS"
   },
   "cycle": {
@@ -53,16 +53,16 @@
   "dashboard": {
     "latestBundlePath": "Data/dashboard/dashboard-public-safe-v0.1.json",
     "publicBundlePath": "../sj3labs/data/marketops/dashboard-bundle-public-v0.4.json",
-    "generatedAt": "2026-05-28T19:51:54.806Z",
-    "publicGeneratedAt": "2026-05-27T19:54:44.945Z",
+    "generatedAt": "2026-05-29T19:51:08.943Z",
+    "publicGeneratedAt": "2026-05-29T02:19:09.167Z",
     "chartStatuses": [
       {
         "label": "Paper equity curve",
         "key": "paperEquityCurve",
         "source": "paper_outputs",
         "fallback": false,
-        "status": "missing_or_empty",
-        "points": 0
+        "status": "updated",
+        "points": 10
       },
       {
         "label": "Paper P&L",
@@ -77,8 +77,8 @@
         "key": "drawdownSeries",
         "source": "paper_outputs",
         "fallback": false,
-        "status": "missing_or_empty",
-        "points": 0
+        "status": "updated",
+        "points": 10
       },
       {
         "label": "Watchlist movement summary",
@@ -86,7 +86,7 @@
         "source": "alpaca_iex_derived_summary",
         "fallback": false,
         "status": "updated",
-        "points": 148
+        "points": 1
       },
       {
         "label": "Up/down/flat vehicle counts",
@@ -126,7 +126,7 @@
         "source": "risk_outputs",
         "fallback": false,
         "status": "updated",
-        "points": 32
+        "points": 3
       },
       {
         "label": "Almost-approved candidates",
@@ -158,7 +158,7 @@
         "source": "paper_trade_outputs",
         "fallback": false,
         "status": "updated",
-        "points": 1
+        "points": 11
       },
       {
         "label": "Progress toward +30% target",
@@ -182,7 +182,7 @@
         "source": "risk_outputs",
         "fallback": false,
         "status": "updated",
-        "points": 1
+        "points": 4
       },
       {
         "label": "Vehicle contribution",
@@ -230,7 +230,7 @@
         "source": "alpaca_iex_derived_bars",
         "fallback": false,
         "status": "updated",
-        "points": 148
+        "points": 1
       },
       {
         "label": "Bot activity / latest run timeline",
@@ -246,7 +246,7 @@
         "source": "freshness_labels",
         "fallback": false,
         "status": "updated",
-        "points": 1
+        "points": 2
       },
       {
         "label": "Market regime summary",
@@ -275,22 +275,6 @@
     ],
     "staleOrFallbackCharts": [
       {
-        "label": "Paper equity curve",
-        "key": "paperEquityCurve",
-        "source": "paper_outputs",
-        "fallback": false,
-        "status": "missing_or_empty",
-        "points": 0
-      },
-      {
-        "label": "Drawdown",
-        "key": "drawdownSeries",
-        "source": "paper_outputs",
-        "fallback": false,
-        "status": "missing_or_empty",
-        "points": 0
-      },
-      {
         "label": "Regime score bars",
         "key": "regimeScoreBars",
         "source": "synthetic_backtest_context",
@@ -311,10 +295,55 @@
   "steps": [
     {
       "command": "npm run marketdata:refresh",
-      "status": "FAIL",
-      "startedAt": "2026-05-28T19:51:54.834Z",
-      "completedAt": "2026-05-28T19:51:55.089Z",
-      "detail": "Alpaca data request failed with HTTP 429."
+      "status": "PASS",
+      "startedAt": "2026-05-29T19:51:08.963Z",
+      "completedAt": "2026-05-29T19:51:09.148Z",
+      "detail": "complete"
+    },
+    {
+      "command": "npm run marketdata:qa",
+      "status": "SKIPPED",
+      "detail": "No fresh bars - skip"
+    },
+    {
+      "command": "npm run paper:full",
+      "status": "SKIPPED",
+      "detail": "No fresh bars - skip paper simulation"
+    },
+    {
+      "command": "npm run risk:explain",
+      "status": "SKIPPED",
+      "detail": "No fresh bars - skip"
+    },
+    {
+      "command": "npm run cycle:build",
+      "status": "SKIPPED",
+      "detail": "No fresh bars - skip"
+    },
+    {
+      "command": "npm run cycle:qa",
+      "status": "SKIPPED",
+      "detail": "No fresh bars - skip"
+    },
+    {
+      "command": "npm run dashboard:build",
+      "status": "SKIPPED",
+      "detail": "No fresh bars - preserve existing"
+    },
+    {
+      "command": "npm run paper:refresh-site",
+      "status": "SKIPPED",
+      "detail": "No fresh bars - skip"
+    },
+    {
+      "command": "npm run dashboard:qa",
+      "status": "SKIPPED",
+      "detail": "No fresh bars - skip"
+    },
+    {
+      "command": "npm run dashboard:public-refresh:qa",
+      "status": "SKIPPED",
+      "detail": "No fresh bars - skip"
     }
   ]
 }

@@ -1,6 +1,6 @@
 # MarketOps Alpaca Market Data Adapter v0.1
 
-Generated: 2026-05-29T01:44:17.318Z
+Generated: 2026-05-29T19:51:08.963Z
 
 ## Status
 

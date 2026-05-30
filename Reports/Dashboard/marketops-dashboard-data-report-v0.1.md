@@ -1,6 +1,6 @@
 # MarketOps Cruise 1 — Dashboard Data Report
 
-Generated: 2026-05-26T10:15:57.517Z
+Generated: 2026-05-29T19:51:09.820Z
 
 ## Equity Curve
 
@@ -9,11 +9,11 @@ Generated: 2026-05-26T10:15:57.517Z
 - paperStartingBalance: 1000
 - windowDays: 14
 - cycleId: cycle-20260520-2356
-- points: 23
-- cashBalance: 52.92
-- holdingsValue: 947.07
-- totalAccountValue: 999.99
-- openPositionCount: 14
+- points: 44
+- cashBalance: 172.44
+- holdingsValue: 830.99
+- totalAccountValue: 1003.43
+- openPositionCount: 10
 - totalAccountValue = cashBalance + holdingsValue: true
 - all points valid (no NaN/Infinity): true
 
@@ -22,213 +22,216 @@ Generated: 2026-05-26T10:15:57.517Z
 - cycleId: cycle-20260520-2356
 - cycleStartedAt: 2026-05-20T23:56:14.139Z
 - startingPaperBalance: 1000
-- currentCashBalance: 52.92
-- currentHoldingsValue: 947.07
-- currentTotalAccountValue: 999.99
-- buys: 14
-- sells: 0
-- openHoldings: 14
+- currentCashBalance: 172.44
+- currentHoldingsValue: 830.99
+- currentTotalAccountValue: 1003.43
+- buys: 10
+- sells: 10
+- openHoldings: 10
 - canRenderEmpty: false
 
 ### Open Holdings
 
-  1. XLV: qty=1.69056, avgPrice=147.88, currentPrice=147.88, unrealizedPnl=0, daysHeld=4.7
-  2. XLE: qty=1.109937, avgPrice=59.13, currentPrice=59.13, unrealizedPnl=0, daysHeld=4.7
-  3. AAPL: qty=0.561571, avgPrice=304.67, currentPrice=304.67, unrealizedPnl=0, daysHeld=4.7
-  4. MSFT: qty=0.306111, avgPrice=419.2, currentPrice=419.2, unrealizedPnl=0, daysHeld=4.7
-  5. NVDA: qty=0.435672, avgPrice=220.9, currentPrice=220.9, unrealizedPnl=0, daysHeld=4.7
-  6. AMD: qty=0.153271, avgPrice=470.93, currentPrice=470.93, unrealizedPnl=0, daysHeld=3.9
-  7. ORCL: qty=0.275426, avgPrice=196.55, currentPrice=196.55, unrealizedPnl=-0.01, daysHeld=3.9
-  8. QCOM: qty=0.179429, avgPrice=226.28, currentPrice=226.28, unrealizedPnl=0, daysHeld=3.9
-  9. PANW: qty=0.11887, avgPrice=256.17, currentPrice=256.17, unrealizedPnl=0, daysHeld=3.9
-  10. F: qty=1.611161, avgPrice=14.18, currentPrice=14.18, unrealizedPnl=0.01, daysHeld=3.9
-  11. TXN: qty=0.013817, avgPrice=309.9, currentPrice=309.9, unrealizedPnl=0, daysHeld=3.9
-  12. NOW: qty=0.038621, avgPrice=103.94, currentPrice=103.94, unrealizedPnl=0, daysHeld=3.9
-  13. ADI: qty=0.009479, avgPrice=397.02, currentPrice=397.02, unrealizedPnl=0, daysHeld=3.9
-  14. LCID: qty=0.593966, avgPrice=5.94, currentPrice=5.94, unrealizedPnl=0, daysHeld=3.9
+  1. SPY: qty=0.3321, avgPrice=755.36, currentPrice=0, unrealizedPnl=0, daysHeld=1
+  2. QQQ: qty=0.255616, avgPrice=736.03, currentPrice=0, unrealizedPnl=0, daysHeld=1
+  3. IWM: qty=0.483124, avgPrice=292.07, currentPrice=0, unrealizedPnl=0, daysHeld=1
+  4. DIA: qty=0.052183, avgPrice=507.01, currentPrice=0, unrealizedPnl=0, daysHeld=1
+  5. VTI: qty=0.266987, avgPrice=371.61, currentPrice=0, unrealizedPnl=0, daysHeld=1
+  6. VOO: qty=0.026818, avgPrice=693.68, currentPrice=0, unrealizedPnl=0, daysHeld=1
+  7. VXUS: qty=0.202863, avgPrice=85.97, currentPrice=0, unrealizedPnl=0, daysHeld=1
+  8. VT: qty=0.103574, avgPrice=157.86, currentPrice=0, unrealizedPnl=0, daysHeld=1
+  9. VB: qty=0.208534, avgPrice=294.02, currentPrice=0, unrealizedPnl=0, daysHeld=1
+  10. VO: qty=0.145928, avgPrice=78.78, currentPrice=0, unrealizedPnl=0, daysHeld=1
 
 ### Sells
 
-  (none)
+  1. SPY: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
+  2. QQQ: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
+  3. IWM: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
+  4. DIA: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
+  5. VTI: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
+  6. VOO: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
+  7. VXUS: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
+  8. VT: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
+  9. VB: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
+  10. VO: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
 
 ## Cycle Decision Board
 
 - totalDecisions: 150
-- bought: 0
-- watched: 150
-- rejected: 0
+- bought: 10
+- watched: 111
+- rejected: 29
 
 ### Bought Items
 
-  (none)
+  1. SPY — Risk Desk approved and paper execution opened SPY.
+  2. QQQ — Risk Desk approved and paper execution opened QQQ.
+  3. IWM — Risk Desk approved and paper execution opened IWM.
+  4. DIA — Risk Desk approved and paper execution opened DIA.
+  5. VTI — Risk Desk approved and paper execution opened VTI.
+  6. VOO — Risk Desk approved and paper execution opened VOO.
+  7. VXUS — Risk Desk approved and paper execution opened VXUS.
+  8. VT — Risk Desk approved and paper execution opened VT.
+  9. VB — Risk Desk approved and paper execution opened VB.
+  10. VO — Risk Desk approved and paper execution opened VO.
 
 ### Watched Items
 
-  1. SPY — Signal did not meet movement threshold (0%).
-  2. QQQ — Signal did not meet movement threshold (0%).
-  3. IWM — Signal did not meet movement threshold (0%).
-  4. DIA — Signal did not meet movement threshold (0%).
-  5. VTI — Signal did not meet movement threshold (0%).
-  6. VOO — Signal did not meet movement threshold (0%).
-  7. VXUS — Signal did not meet movement threshold (0%).
-  8. BND — Signal did not meet movement threshold (0%).
-  9. BNDX — Signal did not meet movement threshold (0%).
-  10. VT — Signal did not meet movement threshold (0%).
-  11. VB — Signal did not meet movement threshold (0%).
-  12. VO — Signal did not meet movement threshold (0%).
-  13. VV — Signal did not meet movement threshold (0%).
-  14. IVV — Signal did not meet movement threshold (0%).
-  15. IJR — Signal did not meet movement threshold (0%).
-  16. IJH — Signal did not meet movement threshold (0%).
-  17. SCHB — Signal did not meet movement threshold (0%).
-  18. SCHX — Signal did not meet movement threshold (0%).
-  19. SCHF — Signal did not meet movement threshold (0%).
-  20. XLF — Signal did not meet movement threshold (0%).
-  21. XLK — Signal did not meet movement threshold (0%).
-  22. XLV — Signal did not meet movement threshold (0%).
-  23. XLE — Signal did not meet movement threshold (0%).
-  24. XLI — Signal did not meet movement threshold (0%).
-  25. XLP — Signal did not meet movement threshold (0%).
-  26. XLY — Signal did not meet movement threshold (0%).
-  27. XLU — Signal did not meet movement threshold (0%).
-  28. XLRE — Signal did not meet movement threshold (0%).
-  29. XLC — Signal did not meet movement threshold (0%).
-  30. SMH — Signal did not meet movement threshold (0%).
-  31. IBB — Signal did not meet movement threshold (0%).
-  32. KRE — Signal did not meet movement threshold (0%).
-  33. KBE — Signal did not meet movement threshold (0%).
-  34. OIH — Signal did not meet movement threshold (0%).
-  35. XHB — Signal did not meet movement threshold (0%).
-  36. XRT — Signal did not meet movement threshold (0%).
-  37. GDX — Signal did not meet movement threshold (0%).
-  38. GDXJ — Signal did not meet movement threshold (0%).
-  39. SLV — Signal did not meet movement threshold (0%).
-  40. GLD — Signal did not meet movement threshold (0%).
-  41. TLT — Signal did not meet movement threshold (0%).
-  42. IEF — Signal did not meet movement threshold (0%).
-  43. SHY — Signal did not meet movement threshold (0%).
-  44. LQD — Signal did not meet movement threshold (0%).
-  45. HYG — Signal did not meet movement threshold (0%).
-  46. EMB — Signal did not meet movement threshold (0%).
-  47. TIP — Signal did not meet movement threshold (0%).
-  48. MBB — Signal did not meet movement threshold (0%).
-  49. EEM — Signal did not meet movement threshold (0%).
-  50. EFA — Signal did not meet movement threshold (0%).
-  51. VEA — Signal did not meet movement threshold (0%).
-  52. VWO — Signal did not meet movement threshold (0%).
-  53. ARKK — Signal did not meet movement threshold (0%).
-  54. ARKW — Signal did not meet movement threshold (0%).
-  55. ARKG — Signal did not meet movement threshold (0%).
-  56. ARKF — Signal did not meet movement threshold (0%).
-  57. SOXX — Signal did not meet movement threshold (0%).
-  58. TAN — Signal did not meet movement threshold (0%).
-  59. ICLN — Signal did not meet movement threshold (0%).
-  60. XBI — Signal did not meet movement threshold (0%).
-  61. LABU — Signal did not meet movement threshold (0%).
-  62. FXI — Signal did not meet movement threshold (0%).
-  63. EWJ — Signal did not meet movement threshold (0%).
-  64. EWZ — Signal did not meet movement threshold (0%).
-  65. INDA — Signal did not meet movement threshold (0%).
-  66. AAPL — Signal did not meet movement threshold (0%).
-  67. MSFT — Signal did not meet movement threshold (0%).
-  68. NVDA — Signal did not meet movement threshold (0%).
-  69. AMZN — Signal did not meet movement threshold (0%).
-  70. META — Signal did not meet movement threshold (0%).
-  71. GOOGL — Signal did not meet movement threshold (0%).
-  72. GOOG — Signal did not meet movement threshold (0%).
-  73. TSLA — Signal did not meet movement threshold (0%).
-  74. AVGO — Signal did not meet movement threshold (0%).
-  75. JPM — Signal did not meet movement threshold (0%).
-  76. V — Signal did not meet movement threshold (0%).
-  77. JNJ — Signal did not meet movement threshold (0%).
-  78. WMT — Signal did not meet movement threshold (0%).
-  79. PG — Signal did not meet movement threshold (0%).
-  80. XOM — Signal did not meet movement threshold (0%).
-  81. UNH — Signal did not meet movement threshold (0%).
-  82. HD — Signal did not meet movement threshold (0%).
-  83. COST — Signal did not meet movement threshold (0%).
-  84. MRK — Signal did not meet movement threshold (0%).
-  85. ABBV — Signal did not meet movement threshold (0%).
-  86. CRM — Signal did not meet movement threshold (0%).
-  87. AMD — Signal did not meet movement threshold (0%).
-  88. NFLX — Signal did not meet movement threshold (0%).
-  89. INTC — Signal did not meet movement threshold (0%).
-  90. BRK.B — Signal did not meet movement threshold (0%).
-  91. LLY — Signal did not meet movement threshold (0%).
-  92. MA — Signal did not meet movement threshold (0%).
-  93. ORCL — Signal did not meet movement threshold (0%).
-  94. ADBE — Signal did not meet movement threshold (0%).
-  95. CSCO — Signal did not meet movement threshold (0%).
-  96. ACN — Signal did not meet movement threshold (0%).
-  97. DIS — Signal did not meet movement threshold (0%).
-  98. PFE — Signal did not meet movement threshold (0%).
-  99. TMO — Signal did not meet movement threshold (0%).
-  100. BAC — Signal did not meet movement threshold (0%).
-  101. KO — Signal did not meet movement threshold (0%).
-  102. PEP — Signal did not meet movement threshold (0%).
-  103. ABT — Signal did not meet movement threshold (0%).
-  104. TXN — Signal did not meet movement threshold (0%).
-  105. QCOM — Signal did not meet movement threshold (0%).
-  106. AMGN — Signal did not meet movement threshold (0%).
-  107. HON — Signal did not meet movement threshold (0%).
-  108. UBER — Signal did not meet movement threshold (0%).
-  109. NKE — Signal did not meet movement threshold (0%).
-  110. BA — Signal did not meet movement threshold (0%).
-  111. MCD — Signal did not meet movement threshold (0%).
-  112. CAT — Signal did not meet movement threshold (0%).
-  113. GE — Signal did not meet movement threshold (0%).
-  114. WFC — Signal did not meet movement threshold (0%).
-  115. RTX — Signal did not meet movement threshold (0%).
-  116. IBM — Signal did not meet movement threshold (0%).
-  117. PLD — Signal did not meet movement threshold (0%).
-  118. AMAT — Signal did not meet movement threshold (0%).
-  119. AMD — Signal did not meet movement threshold (0%).
-  120. MU — Signal did not meet movement threshold (0%).
-  121. NOW — Signal did not meet movement threshold (0%).
-  122. SYK — Signal did not meet movement threshold (0%).
-  123. LRCX — Signal did not meet movement threshold (0%).
-  124. GS — Signal did not meet movement threshold (0%).
-  125. BLK — Signal did not meet movement threshold (0%).
-  126. ADI — Signal did not meet movement threshold (0%).
-  127. AXP — Signal did not meet movement threshold (0%).
-  128. BKNG — Signal did not meet movement threshold (0%).
-  129. GILD — Signal did not meet movement threshold (0%).
-  130. VRTX — Signal did not meet movement threshold (0%).
-  131. REGN — Signal did not meet movement threshold (0%).
-  132. ISRG — Signal did not meet movement threshold (0%).
-  133. PANW — Signal did not meet movement threshold (0%).
-  134. SBUX — Signal did not meet movement threshold (0%).
-  135. MDLZ — Signal did not meet movement threshold (0%).
-  136. SCHW — Signal did not meet movement threshold (0%).
-  137. C — Signal did not meet movement threshold (0%).
-  138. F — Signal did not meet movement threshold (0%).
-  139. GM — Signal did not meet movement threshold (0%).
-  140. PYPL — Signal did not meet movement threshold (0%).
-  141. SNAP — Signal did not meet movement threshold (0%).
-  142. SQ — Signal did not meet movement threshold (0%).
-  143. DASH — Signal did not meet movement threshold (0%).
-  144. RIVN — Signal did not meet movement threshold (0%).
-  145. LCID — Signal did not meet movement threshold (0%).
-  146. PLTR — Signal did not meet movement threshold (0%).
-  147. COIN — Signal did not meet movement threshold (0%).
-  148. HOOD — Signal did not meet movement threshold (0%).
-  149. MSTR — Signal did not meet movement threshold (0%).
-  150. TSM — Signal did not meet movement threshold (0%).
+  1. BND — Signal did not meet movement threshold (0.72%).
+  2. BNDX — Signal did not meet movement threshold (0.62%).
+  3. VV — Signal met criteria but no paper position was opened.
+  4. IVV — Signal met criteria but no paper position was opened.
+  5. IJR — Signal met criteria but no paper position was opened.
+  6. IJH — Signal met criteria but no paper position was opened.
+  7. SCHB — Signal met criteria but no paper position was opened.
+  8. SCHX — Signal met criteria but no paper position was opened.
+  9. XLF — Signal did not meet movement threshold (-0.25%).
+  10. XLK — Signal met criteria but no paper position was opened.
+  11. XLV — Signal met criteria but no paper position was opened.
+  12. XLI — Signal met criteria but no paper position was opened.
+  13. XLP — Signal did not meet movement threshold (-0.31%).
+  14. XLY — Signal met criteria but no paper position was opened.
+  15. XLU — Signal did not meet movement threshold (-0.71%).
+  16. XLRE — Signal did not meet movement threshold (-0.15%).
+  17. XLC — Signal did not meet movement threshold (0.51%).
+  18. SMH — Signal met criteria but no paper position was opened.
+  19. IBB — Signal met criteria but no paper position was opened.
+  20. KRE — Signal did not meet movement threshold (0.37%).
+  21. KBE — Signal did not meet movement threshold (0%).
+  22. XHB — Signal met criteria but no paper position was opened.
+  23. XRT — Signal met criteria but no paper position was opened.
+  24. GDXJ — Signal met criteria but no paper position was opened.
+  25. GLD — Signal did not meet movement threshold (-0.95%).
+  26. TLT — Signal met criteria but no paper position was opened.
+  27. IEF — Signal did not meet movement threshold (0.83%).
+  28. SHY — Signal did not meet movement threshold (0.14%).
+  29. LQD — Signal did not meet movement threshold (1.06%).
+  30. HYG — Signal did not meet movement threshold (0.43%).
+  31. TIP — Signal did not meet movement threshold (0.77%).
+  32. MBB — Signal did not meet movement threshold (0.89%).
+  33. EEM — Signal met criteria but no paper position was opened.
+  34. EFA — Signal did not meet movement threshold (0.51%).
+  35. VWO — Signal met criteria but no paper position was opened.
+  36. ARKK — Signal met criteria but no paper position was opened.
+  37. ARKW — Signal met criteria but no paper position was opened.
+  38. ARKG — Signal met criteria but no paper position was opened.
+  39. ARKF — Signal met criteria but no paper position was opened.
+  40. SOXX — Signal met criteria but no paper position was opened.
+  41. TAN — Signal met criteria but no paper position was opened.
+  42. ICLN — Signal met criteria but no paper position was opened.
+  43. XBI — Signal met criteria but no paper position was opened.
+  44. LABU — Signal met criteria but no paper position was opened.
+  45. EWJ — Signal met criteria but no paper position was opened.
+  46. AAPL — Signal met criteria but no paper position was opened.
+  47. MSFT — Signal met criteria but no paper position was opened.
+  48. AMZN — Signal met criteria but no paper position was opened.
+  49. META — Signal met criteria but no paper position was opened.
+  50. GOOGL — Signal did not meet movement threshold (-0.96%).
+  51. GOOG — Signal did not meet movement threshold (0.53%).
+  52. TSLA — Signal met criteria but no paper position was opened.
+  53. AVGO — Signal did not meet movement threshold (1.2%).
+  54. JPM — Signal did not meet movement threshold (-1.05%).
+  55. V — Signal did not meet movement threshold (-0.37%).
+  56. JNJ — Signal did not meet movement threshold (0.01%).
+  57. PG — Signal met criteria but no paper position was opened.
+  58. HD — Signal met criteria but no paper position was opened.
+  59. MRK — Signal met criteria but no paper position was opened.
+  60. ABBV — Signal met criteria but no paper position was opened.
+  61. CRM — Signal met criteria but no paper position was opened.
+  62. AMD — Signal met criteria but no paper position was opened.
+  63. INTC — Signal met criteria but no paper position was opened.
+  64. BRK.B — Signal did not meet movement threshold (-0.51%).
+  65. LLY — Signal met criteria but no paper position was opened.
+  66. MA — Signal did not meet movement threshold (-0.99%).
+  67. ORCL — Signal met criteria but no paper position was opened.
+  68. ADBE — Signal did not meet movement threshold (-1.14%).
+  69. CSCO — Signal did not meet movement threshold (0.14%).
+  70. ACN — Signal did not meet movement threshold (0.12%).
+  71. DIS — Signal did not meet movement threshold (0.06%).
+  72. PFE — Signal did not meet movement threshold (1.04%).
+  73. TMO — Signal met criteria but no paper position was opened.
+  74. BAC — Signal did not meet movement threshold (-0.95%).
+  75. KO — Signal did not meet movement threshold (-0.92%).
+  76. TXN — Signal met criteria but no paper position was opened.
+  77. QCOM — Signal met criteria but no paper position was opened.
+  78. AMGN — Signal did not meet movement threshold (-0.23%).
+  79. HON — Signal met criteria but no paper position was opened.
+  80. NKE — Signal met criteria but no paper position was opened.
+  81. BA — Signal met criteria but no paper position was opened.
+  82. CAT — Signal met criteria but no paper position was opened.
+  83. GE — Signal met criteria but no paper position was opened.
+  84. WFC — Signal did not meet movement threshold (0.65%).
+  85. IBM — Signal met criteria but no paper position was opened.
+  86. PLD — Signal did not meet movement threshold (0.69%).
+  87. AMAT — Signal met criteria but no paper position was opened.
+  88. AMD — Signal met criteria but no paper position was opened.
+  89. MU — Signal met criteria but no paper position was opened.
+  90. NOW — Signal met criteria but no paper position was opened.
+  91. LRCX — Signal met criteria but no paper position was opened.
+  92. GS — Signal met criteria but no paper position was opened.
+  93. BLK — Signal did not meet movement threshold (-1.17%).
+  94. ADI — Signal met criteria but no paper position was opened.
+  95. AXP — Signal met criteria but no paper position was opened.
+  96. BKNG — Signal met criteria but no paper position was opened.
+  97. GILD — Signal met criteria but no paper position was opened.
+  98. VRTX — Signal met criteria but no paper position was opened.
+  99. PANW — Signal met criteria but no paper position was opened.
+  100. MDLZ — Signal met criteria but no paper position was opened.
+  101. C — Signal did not meet movement threshold (-0.26%).
+  102. F — Signal met criteria but no paper position was opened.
+  103. GM — Signal met criteria but no paper position was opened.
+  104. PYPL — Signal did not meet movement threshold (0.16%).
+  105. SNAP — Signal met criteria but no paper position was opened.
+  106. SQ — Signal did not meet movement threshold (0%).
+  107. RIVN — Signal met criteria but no paper position was opened.
+  108. LCID — Signal met criteria but no paper position was opened.
+  109. PLTR — Signal met criteria but no paper position was opened.
+  110. HOOD — Signal met criteria but no paper position was opened.
+  111. TSM — Signal met criteria but no paper position was opened.
 
 ### Rejected Items
 
-  (none)
+  1. SCHF — Risk Desk blocked this candidate.
+  2. XLE — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  3. OIH — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  4. GDX — Risk Desk blocked this candidate.
+  5. SLV — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  6. EMB — Risk Desk blocked this candidate.
+  7. VEA — Risk Desk blocked this candidate.
+  8. FXI — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  9. EWZ — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  10. INDA — Risk Desk blocked this candidate.
+  11. NVDA — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  12. WMT — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  13. XOM — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  14. UNH — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  15. COST — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  16. NFLX — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  17. PEP — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  18. ABT — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  19. UBER — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  20. MCD — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  21. RTX — Risk Desk blocked this candidate.
+  22. SYK — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  23. REGN — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  24. ISRG — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  25. SBUX — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  26. SCHW — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  27. DASH — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  28. COIN — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  29. MSTR — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
 
 ## Data Freshness
 
-- generatedAt: 2026-05-26T10:15:57.517Z
-- marketDataRefreshAt: 2026-05-26T10:13:44.616Z
-- latestBarTimestamp: null
+- generatedAt: 2026-05-29T19:51:09.820Z
+- marketDataRefreshAt: 2026-05-29T01:44:17.318Z
+- latestBarTimestamp: 2026-05-28T13:45:00Z
 - marketDataSource: alpaca_iex
-- cycleBuildAt: 2026-05-22T19:50:46.248Z
-- cycleStatus: active
-- runCount: 22
-- openPositionCount: 14
+- cycleBuildAt: 2026-05-26T14:04:10.263Z
+- cycleStatus: reset_pending
+- runCount: 43
+- openPositionCount: 10
 - dataSource: alpaca_iex
 
 ## Disclaimers

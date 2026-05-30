@@ -22,7 +22,7 @@ function buildEquityCurve({ paperResults, targetBalance, generatedAt }) {
     };
   });
 
-  const endingEquity = points.length ? points[points.length - 1].equity : startingBalance;
+  const endingEquity = paperResults.totalEquity || (points.length ? points[points.length - 1].equity : startingBalance);
   const maxDrawdownPct = points.length ? Math.min(...points.map((point) => point.drawdownPct)) : null;
 
   return {

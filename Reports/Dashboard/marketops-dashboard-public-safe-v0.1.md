@@ -1,6 +1,6 @@
 # MarketOps Public-Safe Dashboard Infrastructure v0.1
 
-Generated at: 2026-05-28T19:51:54.806Z
+Generated at: 2026-05-29T19:51:08.943Z
 
 ## Scope
 
@@ -21,27 +21,27 @@ This dashboard bundle is local and preview-safe. It contains paper simulation me
 
 ## Paper Performance Cards
 
-- Starting paper equity: 11.78
-- Ending paper equity: 11.78
-- Paper P/L: 0
-- Paper return: 0%
-- Max drawdown: -0.65%
+- Starting paper equity: 1003.42
+- Ending paper equity: 172.44
+- Paper P/L: -830.98
+- Paper return: -82.81%
+- Max drawdown: -82.81%
 - Risk-adjusted score: 42.4
 
 ## Signal Funnel
 
 - Vehicles scanned: 150
 - Signals reviewed: 150
-- Candidates: 8
-- Risk approved: 0
-- Risk blocked: 150
-- Fake paper trades: 0
+- Candidates: 85
+- Risk approved: 82
+- Risk blocked: 68
+- Fake paper trades: 10
 
 ## Risk Events
 
-- Approval rate: 0%
-- Blocked rate: 100%
-- Risk posture: Risk Desk is blocking more than it approves.
+- Approval rate: 54.67%
+- Blocked rate: 45.33%
+- Risk posture: Risk Desk approvals are higher than blocks.
 
 ## Regime Summary
 
@@ -64,41 +64,42 @@ This dashboard bundle is local and preview-safe. It contains paper simulation me
 
 ## Chart-Ready Sections
 
-- Equity curve points: 0
+- Equity curve points: 10
 - Paper P&L timeline points: 30
 - Rolling equity points: 30
 - Drawdown visual sections: current run and rolling runs
 - Vehicle activity rows: 150
 - Signal/risk count rows: 30
-- Cumulative paper P&L points: 1
+- Cumulative paper P&L points: 11
 - Target progress milestones: 4
 - Signal funnel steps: 5
 - Trade outcome bars: 3
-- Risk decision bars: 1
+- Risk decision bars: 4
 - Vehicle contribution rows: 149
 - Return vs drawdown rows: 11
 - Paper account milestone strip points: 4
 - Market data freshness rows: 1
-- Recent market movement rows: 148
+- Recent market movement rows: 1
 - Bot activity timeline rows: 20
-- Stale data warning rows: 1
+- Stale data warning rows: 2
 - Regime score bars: 6
 - Synthetic benchmark comparison rows: 6
 
 ## Market Data Freshness
 
 - Source/feed: alpaca_iex / iex
-- Market refresh timestamp: 2026-05-28T19:50:25.338Z
-- Latest bar timestamp: 2026-05-28T19:48:00Z
-- Bars loaded: 2945
+- Market refresh timestamp: 2026-05-29T19:50:25.340Z
+- Latest bar timestamp: 2026-05-29T13:47:00Z
+- Bars loaded: 20
 - Quotes loaded: 149
 - Refresh freshness: fresh
-- Latest bar freshness: fresh
+- Latest bar freshness: aging
 - Raw market data published: false
 
 ## Stale/Fallback Notes
 
-- analytics_summary: stale_context_only - Analytics summary 2026-05-08T03:46:14.425Z is older than latest paper run 2026-05-28T19:51:05.653Z. Dashboard headline cards use current paper outputs instead.
+- analytics_summary: stale_context_only - Analytics summary 2026-05-08T03:46:14.425Z is older than latest paper run 2026-05-29T02:06:44.310Z. Dashboard headline cards use current paper outputs instead.
+- paper_run: stale - Latest paper run is 1064.41 minutes old.
 
 ## Notes
 

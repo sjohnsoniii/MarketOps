@@ -265,7 +265,7 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
 
   openPositionsList = updateUnrealizedPnl(openPositionsList, marketBars);
 
-  const totalEquity = cashBalance + openPositionsList.reduce((sum, p) => sum + (p.unrealizedPnl || 0), 0);
+  const totalEquity = cashBalance + openPositionsList.reduce((sum, p) => sum + (p.currentValue || p.positionValue || 0), 0);
   const dailyLossLimit = startingCash * maxDailyLossPct;
   const dailyLossSoFar = Math.abs(performance.dailyRealizedPnl < 0 ? performance.dailyRealizedPnl : 0);
 
@@ -416,7 +416,8 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
   }
 
   const totalUnrealizedPnl = openPositionsList.reduce((sum, p) => sum + (p.unrealizedPnl || 0), 0);
-  const totalEquityAfter = cashBalance + totalUnrealizedPnl;
+  const totalHoldingsValue = openPositionsList.reduce((sum, p) => sum + (p.currentValue || p.positionValue || 0), 0);
+  const totalEquityAfter = cashBalance + totalHoldingsValue;
   peakEquity = Math.max(peakEquity, totalEquityAfter);
   const currentDrawdown = peakEquity > 0 ? ((peakEquity - totalEquityAfter) / peakEquity) * 100 : 0;
   maxDrawdown = Math.max(maxDrawdown, currentDrawdown);

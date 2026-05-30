@@ -1,11 +1,11 @@
 # MarketOps Scheduled Public Data Publish Repair v0.3
 
-Generated: 2026-05-21T14:01:45Z
+Generated: 2026-05-29T19:51:13Z
 
 ## Timestamp
 
-- Run started: 2026-05-21T14:01:45Z
-- Report generated: 2026-05-21T14:01:45Z
+- Run started: 2026-05-29T19:51:13Z
+- Report generated: 2026-05-29T19:51:13Z
 
 ## Market Data Status
 
@@ -13,7 +13,7 @@ Generated: 2026-05-21T14:01:45Z
 
 ## Dashboard Refresh Status
 
-- Status: PASS
+- Status: CONTROLLED_DEGRADED
 - Exit code: 0
 
 ## Chart Status
@@ -27,12 +27,15 @@ Generated: 2026-05-21T14:01:45Z
 
 ## Git Publish Status
 
-- Status: no_changes
+- Status: blocked
+- Blocked by allowlist guard
+- Non-allowlisted files detected
+- Review report: /home/sjohnsoniii/Projects/MarketOps/Reports/Scheduler/git-publish-blocked-20260529-155024.md
 
 ## Public Update Manifest
 
 - Generated: true
-- Status: skipped_no_changes
+- Status: blocked_non_allowlisted_changes
 - Expected Vercel trigger: no
 
 ## Production Update Coordination
@@ -42,23 +45,23 @@ Generated: 2026-05-21T14:01:45Z
 - Trial status generated: YES
 - Manifest generated: YES
 - Site data synced to sj3labs: YES
-- Allowlist check passed: YES
-- Git commit created: NO (no changes)
-- Git push succeeded: NO (no_changes)
+- Allowlist check passed: NO
+- Git commit created: NO (blocked)
+- Git push succeeded: NO (blocked)
 - Vercel trigger: NOT EXPECTED (no data published)
 - Public data freshness: see manifest generatedAt
 
 ## Final Scheduler Status
 
-- Status: PASS
+- Status: CONTROLLED_DEGRADED
 
 ## Exit Code Reason
 
-- All steps completed successfully.
+- Market data unavailable (off-hours). Last-known-good data preserved.
 
 ## Log File
 
-- /home/sjohnsoniii/Projects/MarketOps/logs/marketops-refresh-20260521-100014.log
+- /home/sjohnsoniii/Projects/MarketOps/logs/marketops-refresh-20260529-155024.log
 
 ## Next Scheduled Run
 

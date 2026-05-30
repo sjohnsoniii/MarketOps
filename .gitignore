@@ -41,3 +41,7 @@ logs/*.log
 logs/public-sync-*.log
 Reports/Public/sync-report-*.md
 marketops-opencode-repair-*.txt
+Data-backup-*/
+Source-backup-*/
+Data/paper/history/run-history-corrected.json
+Reports/Scheduler/git-publish-blocked-*.md

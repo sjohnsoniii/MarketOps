@@ -20,7 +20,22 @@
       "publishAllowed": false,
       "externalSendingEnabled": false,
       "effect": "Local review-state update only. No external action occurred."
+    },
+    {
+      "id": "approval-20260520-105220-001",
+      "title": "Weekly MarketOps Field Report Draft v0.1",
+      "type": "blog_draft",
+      "platform": null,
+      "decision": "YES_APPROVE",
+      "operatorStatus": "approve_for_manual_action",
+      "reviewNotes": "",
+      "decidedAt": "2026-05-30T11:04:20.742Z",
+      "localOnly": true,
+      "publishAllowed": false,
+      "externalSendingEnabled": false,
+      "effect": "Local review-state update only. No external action occurred.",
+      "decisionId": "1780139060742-14f14228"
     }
   ],
-  "updatedAt": "2026-05-08T19:13:48.024Z"
+  "updatedAt": "2026-05-30T11:04:20.742Z"
 }

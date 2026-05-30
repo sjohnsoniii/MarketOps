@@ -1,6 +1,6 @@
 {
   "schemaVersion": "marketops-shareable-snapshot-v0.1",
-  "generatedAt": "2026-05-28T19:51:54.832Z",
+  "generatedAt": "2026-05-29T19:51:08.960Z",
   "mode": "paper_simulation",
   "paperOnly": true,
   "sampleData": false,
@@ -26,9 +26,9 @@
       "status": "reset_pending",
       "startingBalance": 1000,
       "currentBalance": -17.84,
-      "paperPnl": 0,
-      "paperReturnPct": 0,
-      "maxDrawdownPct": null,
+      "paperPnl": -830.98,
+      "paperReturnPct": -82.81,
+      "maxDrawdownPct": -82.81,
       "daysSurvived": 5.59,
       "depletionRisk": "depleted",
       "approvedTrades": 62,
@@ -36,20 +36,20 @@
     },
     "signalsAndRisk": {
       "signalsReviewed": 150,
-      "riskApproved": 0,
-      "riskBlocked": 150,
-      "fakePaperTrades": 0,
-      "noTradeReason": "Risk Desk did not approve any candidate for fake paper execution."
+      "riskApproved": 82,
+      "riskBlocked": 68,
+      "fakePaperTrades": 10,
+      "noTradeReason": null
     },
     "refreshStatus": {
-      "lastRefreshAt": "2026-05-28T18:02:03.640Z",
+      "lastRefreshAt": "2026-05-29T18:01:14.751Z",
       "lastSuccessfulRefreshAt": "2026-05-21T14:01:39.855Z",
-      "lastStatus": "FAIL",
-      "staleWarning": "Last successful refresh was 172.0 hours ago (target: 2 hours)",
-      "failureReason": "npm run marketdata:refresh failed: Alpaca data request failed with HTTP 429.",
+      "lastStatus": "CONTROLLED_DEGRADED",
+      "staleWarning": "Last successful refresh was 196.0 hours ago (target: 2 hours)",
+      "failureReason": "Market data unavailable: LIMITED_FRESH_BARS. Dashboard data preserved from last successful refresh.",
       "refreshIntervalTargetHours": 2,
       "schedulerInstalled": false,
-      "isDegraded": true
+      "isDegraded": false
     },
     "disclaimers": [
       "Paper simulation only.",

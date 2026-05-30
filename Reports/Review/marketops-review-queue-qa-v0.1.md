@@ -1,9 +1,9 @@
 # MarketOps Review Queue QA Report v0.1
 
-Generated: 2026-05-21T14:01:42.491Z
+Generated: 2026-05-29T19:51:11.796Z
 
 **Result:** PASS
-**Checks Passed:** 96 / 96
+**Checks Passed:** 105 / 105
 
 ## Check Details
 
@@ -16,7 +16,7 @@ Generated: 2026-05-21T14:01:42.491Z
 | Queue has schema field | PASS | review-queue-v0.1 |
 | Queue has proposals array | PASS | object |
 | Queue has metadata object | PASS | object |
-| Queue metadata has totalProposals | PASS | 4 |
+| Queue metadata has totalProposals | PASS | 5 |
 | Proposal prop-risk-001 is valid | PASS | Valid |
 | Proposal prop-risk-001 autoApply is false | PASS | false |
 | Proposal prop-risk-001 reviewHistory is array | PASS | object |
@@ -29,9 +29,12 @@ Generated: 2026-05-21T14:01:42.491Z
 | Proposal rec-risk-003 is valid | PASS | Valid |
 | Proposal rec-risk-003 autoApply is false | PASS | false |
 | Proposal rec-risk-003 reviewHistory is array | PASS | object |
-| Pending proposals list works | PASS | Found 1 pending |
+| Proposal rec-risk-001 is valid | PASS | Valid |
+| Proposal rec-risk-001 autoApply is false | PASS | false |
+| Proposal rec-risk-001 reviewHistory is array | PASS | object |
+| Pending proposals list works | PASS | Found 2 pending |
 | listByStatus returns object | PASS | object |
-| listByStatus count matches total | PASS | 4 === 4 |
+| listByStatus count matches total | PASS | 5 === 5 |
 | Queue does not reference sj3labs paths | PASS | No sj3labs references in queue |
 | No NaN/Infinity in queue | PASS | All finite |
 | No secrets in queue | PASS | API key: false, Secret key: false, Password: false |
@@ -79,6 +82,12 @@ Generated: 2026-05-21T14:01:42.491Z
 | Event evt-1779243177704-n9ue16 has createdAt | PASS | 2026-05-20T02:12:57.704Z |
 | Event evt-1779243177704-n9ue16 has previousStatus | PASS | pending_review |
 | Event evt-1779243177704-n9ue16 has newStatus | PASS | needs_revision |
+| Event evt-1780063279046-s2hdnw has eventId | PASS | evt-1780063279046-s2hdnw |
+| Event evt-1780063279046-s2hdnw has action | PASS | imported |
+| Event evt-1780063279046-s2hdnw has actorId | PASS | system |
+| Event evt-1780063279046-s2hdnw has createdAt | PASS | 2026-05-29T14:01:19.046Z |
+| Event evt-1780063279046-s2hdnw has previousStatus | PASS | null |
+| Event evt-1780063279046-s2hdnw has newStatus | PASS | pending_review |
 | No NaN/Infinity in events | PASS | All finite |
 | Empty queue has 0 proposals | PASS | Empty |
 | Empty queue schema correct | PASS | review-queue-v0.1 |
