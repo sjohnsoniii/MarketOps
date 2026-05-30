@@ -45,3 +45,5 @@ Data-backup-*/
 Source-backup-*/
 Data/paper/history/run-history-corrected.json
 Reports/Scheduler/git-publish-blocked-*.md
+Data/market-data/backfill-market-data-v0.1.json
+Data/market-data/rolling/rolling-market-history-v0.1.json
