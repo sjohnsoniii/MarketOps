@@ -1,5 +1,13 @@
 # MarketOps Changelog
 
+## v0.19.1 — 2026-05-30
+- Fixed equity reporting bug: totalEquity now = cash + holdings (was cash only)
+- Fixed equityBuilder.js: endingEquity uses paperResults.totalEquity
+- Cycle reset from reset_pending to active
+- Connected repo to github.com/sjohnsoniii/MarketOps
+- Public dashboard synced to sj3labs site
+- Large market data files added to gitignore
+
 ## v0.1 - Alpaca Paper Market Data Adapter
 
 Created: 2026-05-08

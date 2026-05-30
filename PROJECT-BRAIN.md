@@ -64,3 +64,6 @@ MarketOps is a local AI-powered paper trading office. It runs autonomous paper t
 - Do not commit, deploy, or publish without checkpoint
 - Do not touch Secrets/
 - Do not mark anything as working without verifying the full pipeline
+
+## Last Completed Checkpoint
+**v0.19.1 — Equity Bug Fix + GitHub** — Fixed critical equity reporting bug in paperTradeExecutor.js (totalEquity was cash-only, now cash + holdings). Fixed equityBuilder.js endingEquity. Cycle reset from reset_pending to active. Equity confirmed ,003.56 with 18 open positions. Connected local repo to github.com/sjohnsoniii/MarketOps and pushed full history. Public dashboard synced to sj3labs site via public sync script. Large market data files added to gitignore. Checkpoint: Reports/marketops-equity-fix-v0.19-checkpoint.md
