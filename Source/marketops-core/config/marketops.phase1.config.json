@@ -38,7 +38,7 @@
     "profile": "aggressive_paper_learning",
     "paperOnly": true,
     "expandedUniverseTarget": 150,
-    "maxOpenPositions": 20,
+    "maxOpenPositions": 40,
     "learningCandidateMovementThreshold": 1.2,
     "riskThresholds": {
       "standardApprovalMin": 0.58,
@@ -48,6 +48,7 @@
     },
     "sizing": {
       "learningProbePositionSizeMultiplier": 0.25,
+      "perTradeAllocationPct": 0.02,
       "maxLearningProbesPerDay": 10,
       "maxStandardTradesPerDay": 10,
       "maxTotalTradesPerDay": 20
@@ -58,11 +59,14 @@
       "requireFailureLabeling": true
     },
     "exitRules": {
-      "targetProfitPct": 8,
-      "stopLossPct": 4,
       "maxHoldHours": 72,
       "timeStopAction": "close_at_market",
-      "writelearningRecord": true
+      "writelearningRecord": true,
+      "unknownInstrumentDefault": "etf",
+      "byInstrumentType": {
+        "etf": { "targetProfitPct": 3, "stopLossPct": 2 },
+        "stock": { "targetProfitPct": 6, "stopLossPct": 3 }
+      }
     }
   },
   "safety": {

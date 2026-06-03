@@ -21,15 +21,60 @@ function loadLearningConfig() {
   return null;
 }
 
+// Named, instrument-specific exit defaults (used if config is missing/malformed).
+// ETF gets the tighter pair; an unknown instrument defaults to ETF (never stock).
+const DEFAULT_EXIT_RULES = {
+  maxHoldHours: 72,
+  unknownInstrumentDefault: "etf",
+  byInstrumentType: {
+    etf: { targetProfitPct: 3, stopLossPct: 2 },
+    stock: { targetProfitPct: 6, stopLossPct: 3 }
+  }
+};
+
 function loadExitRules() {
   try {
     const config = loadJson(paths.config);
     return config.learningMode && config.learningMode.exitRules
       ? config.learningMode.exitRules
-      : { targetProfitPct: 8, stopLossPct: 4, maxHoldHours: 72 };
+      : DEFAULT_EXIT_RULES;
   } catch {
-    return { targetProfitPct: 8, stopLossPct: 4, maxHoldHours: 72 };
+    return DEFAULT_EXIT_RULES;
   }
+}
+
+// Map the DEFINITE source field (vehicle universe `assetType`, carried onto the
+// position) to an exit-threshold key. ETF -> etf, EQUITY -> stock. Anything else
+// (missing/unknown) returns null so the caller can default to the tighter ETF
+// pair AND flag it. No ticker-string guessing.
+function instrumentKeyFromAssetType(assetType) {
+  if (assetType === "ETF") return "etf";
+  if (assetType === "EQUITY") return "stock";
+  return null;
+}
+
+// Resolve the target/stop pair for a position. `instrumentTypeAssumed` is true
+// only when assetType could not be classified and we fell back to the ETF-tight
+// default — surfaced on the closed record so an unknown is never silently a stock.
+function resolveExitThresholds(position, exitRules) {
+  const rules = exitRules || DEFAULT_EXIT_RULES;
+  const byType = rules.byInstrumentType || DEFAULT_EXIT_RULES.byInstrumentType;
+  const fallbackKey = rules.unknownInstrumentDefault || "etf";
+  let key = instrumentKeyFromAssetType(position.assetType);
+  let assumed = false;
+  if (!key || !byType[key]) {
+    key = fallbackKey;
+    assumed = true;
+  }
+  const pair = byType[key]
+    || (rules.targetProfitPct != null ? { targetProfitPct: rules.targetProfitPct, stopLossPct: rules.stopLossPct } : DEFAULT_EXIT_RULES.byInstrumentType.etf);
+  return {
+    instrumentType: key,
+    instrumentTypeAssumed: assumed,
+    targetProfitPct: pair.targetProfitPct,
+    stopLossPct: pair.stopLossPct,
+    maxHoldHours: rules.maxHoldHours != null ? rules.maxHoldHours : 72
+  };
 }
 
 function loadPositions() {
@@ -113,6 +158,8 @@ function openPosition({ symbol, assetType, entryTime, entryPrice, quantity, posi
     currentValue: round(positionValue),
     unrealizedPnl: 0,
     unrealizedPnlPct: 0,
+    maxFavorablePrice: round(entryPrice),
+    pricedThisRun: true,
     signalId,
     riskDecisionId,
     openedAt: new Date().toISOString(),
@@ -123,10 +170,19 @@ function openPosition({ symbol, assetType, entryTime, entryPrice, quantity, posi
   };
 }
 
-function closePosition(position, exitTime, exitPrice, exitReason) {
+function closePosition(position, exitTime, exitPrice, exitReason, extra = {}) {
   const realizedPnl = (exitPrice - position.entryPrice) * position.quantity;
   const returnPct = position.entryPrice > 0 ? ((exitPrice - position.entryPrice) / position.entryPrice) * 100 : 0;
   const fees = Math.abs(position.positionValue * 0.001);
+
+  // Max favorable excursion: the highest favorable price seen while held (the
+  // running bar-high water-mark persisted on the position), vs entry and vs the
+  // actual exit. `mfeBeyondExitPct` = how much further it ran after we exited.
+  const maxFav = position.maxFavorablePrice != null
+    ? position.maxFavorablePrice
+    : Math.max(position.entryPrice, exitPrice);
+  const mfeReturnPct = position.entryPrice > 0 ? ((maxFav - position.entryPrice) / position.entryPrice) * 100 : 0;
+  const mfeBeyondExitPct = exitPrice > 0 ? ((maxFav - exitPrice) / exitPrice) * 100 : 0;
 
   return {
     positionId: position.positionId,
@@ -143,10 +199,14 @@ function closePosition(position, exitTime, exitPrice, exitReason) {
     returnPct: round(returnPct),
     fees: round(fees),
     exitReason: exitReason || (realizedPnl >= 0 ? "take_profit" : "stop_loss"),
+    maxFavorablePrice: round(maxFav),
+    mfeReturnPct: round(mfeReturnPct),
+    mfeBeyondExitPct: round(mfeBeyondExitPct),
     signalId: position.signalId,
     riskDecisionId: position.riskDecisionId,
     closedAt: new Date().toISOString(),
-    paperOnly: true
+    paperOnly: true,
+    ...extra
   };
 }
 
@@ -161,36 +221,80 @@ function checkAndExecuteExits({ openPositions, marketBars, generatedAt, exitRule
       .filter((b) => b.symbol === position.symbol)
       .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
-    const currentPrice = symBars.length > 0 ? symBars[0].close : position.entryPrice;
-    const returnPct = position.entryPrice > 0
-      ? ((currentPrice - position.entryPrice) / position.entryPrice) * 100
-      : 0;
+    const hasFreshBar = symBars.length > 0;
+    const freshPrice = hasFreshBar ? symBars[0].close : null;
     const holdHours = (Date.now() - new Date(position.entryTime).getTime()) / 3600000;
 
+    // Instrument-specific thresholds from the DEFINITE assetType source.
+    const thr = resolveExitThresholds(position, exitRules);
+
+    // Update the max-favorable-excursion water-mark from this bar's HIGH (not the
+    // close), so MFE reflects the peak the position actually reached while held.
+    const priorMax = position.maxFavorablePrice != null ? position.maxFavorablePrice : position.entryPrice;
+    const barHigh = hasFreshBar && symBars[0].high != null ? symBars[0].high : freshPrice;
+    const maxFavorablePrice = barHigh != null ? Math.max(priorMax, barHigh) : priorMax;
+    position.maxFavorablePrice = round(maxFavorablePrice);
+
     let exitTrigger = null;
-    if (returnPct >= exitRules.targetProfitPct) {
-      exitTrigger = "target_hit";
-    } else if (returnPct <= -(exitRules.stopLossPct)) {
-      exitTrigger = "stop_loss";
-    } else if (holdHours >= exitRules.maxHoldHours) {
-      exitTrigger = "time_stop";
+    let exitPrice = null;
+
+    if (hasFreshBar) {
+      // Stop/target evaluate on the REAL latest price.
+      const returnPct = position.entryPrice > 0
+        ? ((freshPrice - position.entryPrice) / position.entryPrice) * 100
+        : 0;
+      if (returnPct >= thr.targetProfitPct) {
+        exitTrigger = "target_hit"; exitPrice = freshPrice;
+      } else if (returnPct <= -(thr.stopLossPct)) {
+        exitTrigger = "stop_loss"; exitPrice = freshPrice;
+      } else if (holdHours >= thr.maxHoldHours) {
+        exitTrigger = "time_stop"; exitPrice = freshPrice;
+      }
+    } else {
+      // No fresh bar this run: DO NOT synthesize a price or a 0% return. Skip
+      // stop/target entirely and let only the 72h time-stop act as backstop. If
+      // it fires, value at the best stored mark and flag the record as stale.
+      if (holdHours >= thr.maxHoldHours) {
+        exitTrigger = "time_stop";
+        exitPrice = position.latestPrice != null
+          ? position.latestPrice
+          : (position.currentValue && position.quantity ? position.currentValue / position.quantity : position.entryPrice);
+      }
     }
 
     if (exitTrigger !== null) {
-      const closed = closePosition(position, generatedAt, currentPrice, exitTrigger);
+      const returnPct = position.entryPrice > 0
+        ? ((exitPrice - position.entryPrice) / position.entryPrice) * 100
+        : 0;
+      const closed = closePosition(position, generatedAt, exitPrice, exitTrigger, {
+        instrumentType: thr.instrumentType,
+        instrumentTypeAssumed: thr.instrumentTypeAssumed,
+        targetProfitPctUsed: thr.targetProfitPct,
+        stopLossPctUsed: thr.stopLossPct,
+        pricedThisRun: hasFreshBar,
+        exitPriceStale: !hasFreshBar
+      });
       closedList.push(closed);
-      cashReturned += currentPrice * position.quantity;
+      cashReturned += exitPrice * position.quantity;
 
       learningRecordsList.push({
         learningRecordId: "learn-" + position.positionId,
         symbol: position.symbol,
+        instrumentType: thr.instrumentType,
+        instrumentTypeAssumed: thr.instrumentTypeAssumed,
         entryTime: position.entryTime,
         exitTime: generatedAt,
         entryPrice: position.entryPrice,
-        exitPrice: currentPrice,
+        exitPrice: round(exitPrice),
         returnPct: round(returnPct),
+        maxFavorablePrice: round(maxFavorablePrice),
+        mfeReturnPct: closed.mfeReturnPct,
+        mfeBeyondExitPct: closed.mfeBeyondExitPct,
         holdHours: round(holdHours),
         exitReason: exitTrigger,
+        pricedThisRun: hasFreshBar,
+        targetProfitPctUsed: thr.targetProfitPct,
+        stopLossPctUsed: thr.stopLossPct,
         approvalBand: position.approvalBand || position.entryRiskBand,
         isLearningProbe: position.approvalBand === "approved_learning_probe",
         outcome: returnPct >= 0 ? "win" : "loss",
@@ -221,7 +325,18 @@ function updateUnrealizedPnl(openPositions, marketBars) {
       .filter((b) => b.symbol === pos.symbol)
       .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
-    const latestPrice = symBars.length > 0 ? symBars[0].close : pos.entryPrice;
+    const hasFreshBar = symBars.length > 0;
+    // When there's no fresh bar, carry the last known mark forward (flagged),
+    // rather than silently reverting the mark to entry price.
+    const latestPrice = hasFreshBar
+      ? symBars[0].close
+      : (pos.latestPrice != null ? pos.latestPrice : pos.entryPrice);
+
+    // Running max-favorable-excursion water-mark from this bar's HIGH.
+    const priorMax = pos.maxFavorablePrice != null ? pos.maxFavorablePrice : pos.entryPrice;
+    const barHigh = hasFreshBar && symBars[0].high != null ? symBars[0].high : (hasFreshBar ? latestPrice : null);
+    const maxFavorablePrice = barHigh != null ? Math.max(priorMax, barHigh) : priorMax;
+
     const currentValue = pos.quantity * latestPrice;
     const unrealizedPnl = currentValue - pos.positionValue;
     const unrealizedPnlPct = pos.positionValue > 0 ? (unrealizedPnl / pos.positionValue) * 100 : 0;
@@ -231,7 +346,9 @@ function updateUnrealizedPnl(openPositions, marketBars) {
       currentValue: round(currentValue),
       unrealizedPnl: round(unrealizedPnl),
       unrealizedPnlPct: round(unrealizedPnlPct),
-      latestPrice: round(latestPrice)
+      latestPrice: round(latestPrice),
+      maxFavorablePrice: round(maxFavorablePrice),
+      pricedThisRun: hasFreshBar
     };
   });
 }
@@ -244,6 +361,11 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
     ? (learningConfig.maxOpenPositions || Math.max(dtConfig.maxOpenPositions || 5, 10))
     : (dtConfig.maxOpenPositions || 5);
   const maxPositionSizePct = dtConfig.maxPositionSizePct || 0.25;
+  // Flat per-trade allocation off a stable total-equity snapshot (replaces the
+  // 25%-of-REMAINING-cash sizing that front-loaded early trades and made a wide
+  // book impossible). Named config; falls back to 2% of equity if unset.
+  const perTradeAllocationPct = (learningConfig && learningConfig.sizing && learningConfig.sizing.perTradeAllocationPct)
+    || dtConfig.perTradeAllocationPct || 0.02;
   const maxDailyLossPct = dtConfig.maxDailyLossPct || 0.05;
   const maxLearningProbesPerDay = learningConfig ? learningConfig.sizing.maxLearningProbesPerDay : 10;
   const maxStandardTradesPerDay = learningConfig ? learningConfig.sizing.maxStandardTradesPerDay : 10;
@@ -291,7 +413,10 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
   let standardTradesExecuted = 0;
 
   for (const decision of approvedDecisions) {
-    if (tradesExecuted + openPositionsList.length >= maxOpenPositions) {
+    // openPositionsList already includes positions opened earlier in THIS loop,
+    // so the cap is just its length (the prior `tradesExecuted + length` double-
+    // counted this run's opens and effectively halved the cap).
+    if (openPositionsList.length >= maxOpenPositions) {
       skippedReasons.push(`Max open positions (${maxOpenPositions}) would be exceeded`);
       break;
     }
@@ -338,7 +463,12 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
 
     const entryBar = bars[bars.length - 1];
     const sizeMultiplier = decision.positionSizeMultiplier || 1.0;
-    const positionValue = cashBalance * maxPositionSizePct * sizeMultiplier;
+    // Size off the stable pre-loop equity snapshot (`totalEquity`), NOT the
+    // decaying `cashBalance`, so every comparable trade gets a comparable size
+    // and a wide (~40-position) book is reachable. Capped by the 25%/equity
+    // safety guardrail and never allowed to exceed remaining cash.
+    const perTradeValue = totalEquity * perTradeAllocationPct * sizeMultiplier;
+    const positionValue = Math.min(perTradeValue, totalEquity * maxPositionSizePct, cashBalance);
     const quantity = positionValue / entryBar.close;
     const cashAfterTrade = cashBalance - positionValue;
 

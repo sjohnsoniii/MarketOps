@@ -67,3 +67,70 @@ MarketOps is a local AI-powered paper trading office. It runs autonomous paper t
 
 ## Last Completed Checkpoint
 **v0.19.1 — Equity Bug Fix + GitHub** — Fixed critical equity reporting bug in paperTradeExecutor.js (totalEquity was cash-only, now cash + holdings). Fixed equityBuilder.js endingEquity. Cycle reset from reset_pending to active. Equity confirmed ,003.56 with 18 open positions. Connected local repo to github.com/sjohnsoniii/MarketOps and pushed full history. Public dashboard synced to sj3labs site via public sync script. Large market data files added to gitignore. Checkpoint: Reports/marketops-equity-fix-v0.19-checkpoint.md
+
+## 2026-06-02 — Pipeline reliability repair (publish was stale since 5/21–5/29)
+Full audit + fix in `MARKETOPS_AUDIT.md`. The public dashboard was stale for TWO root causes:
+1. **Fresh-bars gate stuck** — `alpacaMarketDataAdapter.js` fetched oldest session bars and
+   gated on an unreachable count → every refresh `CONTROLLED_DEGRADED` since 5/21. Fixed:
+   `/v2/stocks/bars/latest` + recency-based gate.
+2. **Chart bundle never regenerated** — the site renders `dashboard-bundle-public-v0.5.json`,
+   written only by `paper:refresh-site`, which was in NO systemd unit → charts frozen at 5/29.
+   Fixed: added `paper:refresh-site` (Step 1b2) to `run-marketops-refresh.sh` before the sync.
+
+Also fixed: `currentBalance` runaway accumulator → pinned to `canonicalTotalEquity`; non-atomic
+`writeJson` → tmp+rename; transient `socket hang up` failing whole run → retry-with-backoff in
+the Alpaca fetch; manifest publishing one run late → Step 5b pushes it in-run.
+
+**Verified:** manual AND unattended timer-triggered runs exit 0 and push fresh data to
+`sj3labs` origin/main (Vercel auto-deploys). v0.5 bundle `generatedAt` advances every run.
+
+**Resolved later same day (Sam-directed):** `quantity`/`positionValue` whitelisted (scoped, not
+stripped) in `runDashboardQa.js` — only those two terms, only on the public paper bundle.
+`dashboard:qa` now PASS (188/0); during market hours the refresh reaches PASS, which makes
+`refreshHealthTracker` advance `lastSuccessfulRefreshAt` + clear the stale banner (verified).
+Next market-hours timer run (Wed 10:00 ET) produces the live PASS.
+
+**Still open (need Sam, NOT changed):**
+- Latent git push race between `run` + `refresh` timers (sync has no pull/rebase).
+- Risk Desk blocks 100% of paper signals (0 trades, empty charts). `keep-awake.service` failed.
+
+Edits backed up `.bak.20260602b`. No MarketOps-repo commit made (per checkpoint rule).
+
+## 2026-06-03 — Trade-enablement cruise (Phases 1→3, local-only, NOT committed)
+Preceded by read-only `TRADER-LOGIC-REVIEW.md` (the trading-logic map) and `TRADE-ENABLEMENT-PLAN.md`
+(approved Step-0 plan). No sj3labs push; publish env vars stayed unset; no MarketOps-repo commit.
+All edited files backed up `.bak.20260603`.
+
+- **Phase 1 — jam cleared.** The Risk Desk's "100% blocked" was **capacity saturation, not confidence**:
+  the book was 20/20 full of stale `sample-signal-*` seed positions (entered 6/1, never aged to the 72h
+  time-stop). Cleared to a clean $1,000 baseline (Option B), archiving the 20 seeds into `closedPositions`
+  (preserved 38→58). Learning records / cycle history / audit logs untouched. Result: 0→approved jumped
+  **0 → 67**; real candidates now trade. (Note: every signal carries a `sample-signal-` id from
+  `simpleSignalScanner.js`, so that prefix is NOT a seed marker — identified seeds by explicit positionId +
+  pre-6/2 entryTime.)
+- **Phase 2 — sizing + cap.** `learningMode.maxOpenPositions 20→40`; added named
+  `sizing.perTradeAllocationPct 0.02`. Sizing rewritten in `paperTradeExecutor.js` to a flat % of a stable
+  **total-equity snapshot** (was 25% of *remaining* cash → front-loaded). Also fixed a **cap double-count
+  bug** (`tradesExecuted + openPositionsList.length` halved the cap). Book now fills to 40 with uniform
+  sizing ($20 standard / $5 probe). Daily trade caps (10 std / 10 probe / 20 total) throttle fill *rate* —
+  left unchanged (flagged for Sam).
+- **Phase 3 — instrument-aware exits + MFE.**
+  - Exit-pricing defect fixed (`paperTradeExecutor.js`): stop/target now evaluate on REAL prices; no
+    entry-price fallback. No-fresh-bar is explicit — skip stop/target, only the 72h time-stop acts, valued at
+    last mark and flagged (`pricedThisRun`/`exitPriceStale`); never a faked 0% flat.
+  - Instrument classification from the DEFINITE source: vehicle universe `assetType` (ETF=65 / EQUITY=85),
+    carried onto positions. ETF→+3/-2, EQUITY(stock)→+6/-3 (named config `exitRules.byInstrumentType`).
+    Unknown → ETF-tight default + `instrumentTypeAssumed` flag (never stock).
+  - MFE: running bar-HIGH water-mark persisted per position; recorded at close (`mfeReturnPct`,
+    `mfeBeyondExitPct`). New `src/execution/excursionReport.js` → `Reports/Paper/marketops-excursion-mfe-v0.1.md`
+    + `Data/paper/excursion/mfe-v0.1.json`. **REPORT-ONLY — never mutates a threshold.**
+  - Proof: `Scripts/verify/replay-exit-proof.js` — 16/16 asserts (TP/stop on real prices, correct pair per
+    type, no-fresh-bar→time-stop flagged, unknown→ETF, MFE bar-high). Live pipeline runs clean, integrity
+    gate PASS, book at 40 (ETF 30 / EQUITY 10).
+- **State left:** populated 40-position paper book at ~$1,000 equity from the verification runs. Sam may
+  reset to a clean baseline before the first scheduled run if a from-zero book is preferred.
+- **Files (all `.bak.20260603`):** `config/marketops.phase1.config.json`,
+  `src/execution/paperTradeExecutor.js`, `Data/paper/positions/...`, `Data/paper/performance/...`.
+  New: `src/execution/excursionReport.js`, `Scripts/verify/replay-exit-proof.js`,
+  `Data/paper/excursion/mfe-v0.1.json`, `Reports/Paper/marketops-excursion-mfe-v0.1.md`.
+  Awaiting Sam's review before any commit.
