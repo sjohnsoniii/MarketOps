@@ -1,6 +1,6 @@
 # MarketOps Cruise 1 — Dashboard Data Report
 
-Generated: 2026-05-29T19:51:09.820Z
+Generated: 2026-06-08T18:11:13.738Z
 
 ## Equity Curve
 
@@ -8,230 +8,232 @@ Generated: 2026-05-29T19:51:09.820Z
 - definition: Cash balance plus market value of open positions
 - paperStartingBalance: 1000
 - windowDays: 14
-- cycleId: cycle-20260520-2356
-- points: 44
-- cashBalance: 172.44
-- holdingsValue: 830.99
-- totalAccountValue: 1003.43
-- openPositionCount: 10
+- cycleId: cycle-20260530-1322
+- points: 127
+- cashBalance: 665.53
+- holdingsValue: 320.54
+- totalAccountValue: 986.07
+- openPositionCount: 20
 - totalAccountValue = cashBalance + holdingsValue: true
 - all points valid (no NaN/Infinity): true
 
 ## Current Cycle Activity
 
-- cycleId: cycle-20260520-2356
-- cycleStartedAt: 2026-05-20T23:56:14.139Z
+- cycleId: cycle-20260530-1322
+- cycleStartedAt: 2026-05-30T13:22:04.937Z
 - startingPaperBalance: 1000
-- currentCashBalance: 172.44
-- currentHoldingsValue: 830.99
-- currentTotalAccountValue: 1003.43
-- buys: 10
-- sells: 10
-- openHoldings: 10
+- currentCashBalance: 665.53
+- currentHoldingsValue: 320.54
+- currentTotalAccountValue: 986.07
+- buys: 20
+- sells: 0
+- openHoldings: 20
 - canRenderEmpty: false
 
 ### Open Holdings
 
-  1. SPY: qty=0.3321, avgPrice=755.36, currentPrice=0, unrealizedPnl=0, daysHeld=1
-  2. QQQ: qty=0.255616, avgPrice=736.03, currentPrice=0, unrealizedPnl=0, daysHeld=1
-  3. IWM: qty=0.483124, avgPrice=292.07, currentPrice=0, unrealizedPnl=0, daysHeld=1
-  4. DIA: qty=0.052183, avgPrice=507.01, currentPrice=0, unrealizedPnl=0, daysHeld=1
-  5. VTI: qty=0.266987, avgPrice=371.61, currentPrice=0, unrealizedPnl=0, daysHeld=1
-  6. VOO: qty=0.026818, avgPrice=693.68, currentPrice=0, unrealizedPnl=0, daysHeld=1
-  7. VXUS: qty=0.202863, avgPrice=85.97, currentPrice=0, unrealizedPnl=0, daysHeld=1
-  8. VT: qty=0.103574, avgPrice=157.86, currentPrice=0, unrealizedPnl=0, daysHeld=1
-  9. VB: qty=0.208534, avgPrice=294.02, currentPrice=0, unrealizedPnl=0, daysHeld=1
-  10. VO: qty=0.145928, avgPrice=78.78, currentPrice=0, unrealizedPnl=0, daysHeld=1
+  1. XLV: qty=0.128873, avgPrice=153.01, currentPrice=152.97, unrealizedPnl=-0.01, daysHeld=2.9
+  2. XHB: qty=0.047616, avgPrice=103.53, currentPrice=103.71, unrealizedPnl=0.01, daysHeld=2.9
+  3. ARKG: qty=0.590383, avgPrice=33.4, currentPrice=33.34, unrealizedPnl=-0.04, daysHeld=2.9
+  4. SOXX: qty=0.034597, avgPrice=569.95, currentPrice=578.55, unrealizedPnl=0.3, daysHeld=0.2
+  5. UNH: qty=0.049514, avgPrice=398.25, currentPrice=404.8, unrealizedPnl=0.32, daysHeld=2.9
+  6. ABBV: qty=0.086833, avgPrice=227.09, currentPrice=222.7, unrealizedPnl=-0.38, daysHeld=2.9
+  7. CRM: qty=0.106244, avgPrice=185.6, currentPrice=183.05, unrealizedPnl=-0.27, daysHeld=2.9
+  8. LLY: qty=0.017407, avgPrice=1132.8, currentPrice=1162, unrealizedPnl=0.51, daysHeld=2.9
+  9. ORCL: qty=0.092877, avgPrice=212.31, currentPrice=213.28, unrealizedPnl=0.09, daysHeld=2.9
+  10. ADBE: qty=0.078428, avgPrice=251.43, currentPrice=246.44, unrealizedPnl=-0.39, daysHeld=2.9
+  11. TMO: qty=0.041714, avgPrice=472.72, currentPrice=473.74, unrealizedPnl=0.04, daysHeld=2.9
+  12. RTX: qty=0.027233, avgPrice=181.02, currentPrice=179.21, unrealizedPnl=-0.05, daysHeld=2.9
+  13. BKNG: qty=0.029715, avgPrice=165.9, currentPrice=163.27, unrealizedPnl=-0.08, daysHeld=2.9
+  14. VRTX: qty=0.01103, avgPrice=446.93, currentPrice=443.19, unrealizedPnl=-0.04, daysHeld=2.9
+  15. CSCO: qty=0.159948, avgPrice=123.3, currentPrice=125.54, unrealizedPnl=0.36, daysHeld=0.2
+  16. BAC: qty=0.364607, avgPrice=54.09, currentPrice=53.85, unrealizedPnl=-0.09, daysHeld=0.2
+  17. ABT: qty=0.217966, avgPrice=90.48, currentPrice=90.85, unrealizedPnl=0.08, daysHeld=0.2
+  18. AMGN: qty=0.014193, avgPrice=347.38, currentPrice=345.05, unrealizedPnl=-0.03, daysHeld=0.2
+  19. CAT: qty=0.021726, avgPrice=907.73, currentPrice=908.16, unrealizedPnl=0.01, daysHeld=0.2
+  20. GE: qty=0.060313, avgPrice=326.99, currentPrice=322.84, unrealizedPnl=-0.25, daysHeld=0.2
 
 ### Sells
 
-  1. SPY: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
-  2. QQQ: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
-  3. IWM: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
-  4. DIA: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
-  5. VTI: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
-  6. VOO: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
-  7. VXUS: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
-  8. VT: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
-  9. VB: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
-  10. VO: sellDate=2026-05-29T19:51:09.820Z, realizedPnl=0
+  (none)
 
 ## Cycle Decision Board
 
 - totalDecisions: 150
-- bought: 10
-- watched: 111
-- rejected: 29
+- bought: 0
+- watched: 65
+- rejected: 85
 
 ### Bought Items
 
-  1. SPY — Risk Desk approved and paper execution opened SPY.
-  2. QQQ — Risk Desk approved and paper execution opened QQQ.
-  3. IWM — Risk Desk approved and paper execution opened IWM.
-  4. DIA — Risk Desk approved and paper execution opened DIA.
-  5. VTI — Risk Desk approved and paper execution opened VTI.
-  6. VOO — Risk Desk approved and paper execution opened VOO.
-  7. VXUS — Risk Desk approved and paper execution opened VXUS.
-  8. VT — Risk Desk approved and paper execution opened VT.
-  9. VB — Risk Desk approved and paper execution opened VB.
-  10. VO — Risk Desk approved and paper execution opened VO.
+  (none)
 
 ### Watched Items
 
-  1. BND — Signal did not meet movement threshold (0.72%).
-  2. BNDX — Signal did not meet movement threshold (0.62%).
-  3. VV — Signal met criteria but no paper position was opened.
-  4. IVV — Signal met criteria but no paper position was opened.
-  5. IJR — Signal met criteria but no paper position was opened.
-  6. IJH — Signal met criteria but no paper position was opened.
-  7. SCHB — Signal met criteria but no paper position was opened.
-  8. SCHX — Signal met criteria but no paper position was opened.
-  9. XLF — Signal did not meet movement threshold (-0.25%).
-  10. XLK — Signal met criteria but no paper position was opened.
-  11. XLV — Signal met criteria but no paper position was opened.
-  12. XLI — Signal met criteria but no paper position was opened.
-  13. XLP — Signal did not meet movement threshold (-0.31%).
-  14. XLY — Signal met criteria but no paper position was opened.
-  15. XLU — Signal did not meet movement threshold (-0.71%).
-  16. XLRE — Signal did not meet movement threshold (-0.15%).
-  17. XLC — Signal did not meet movement threshold (0.51%).
-  18. SMH — Signal met criteria but no paper position was opened.
-  19. IBB — Signal met criteria but no paper position was opened.
-  20. KRE — Signal did not meet movement threshold (0.37%).
-  21. KBE — Signal did not meet movement threshold (0%).
-  22. XHB — Signal met criteria but no paper position was opened.
-  23. XRT — Signal met criteria but no paper position was opened.
-  24. GDXJ — Signal met criteria but no paper position was opened.
-  25. GLD — Signal did not meet movement threshold (-0.95%).
-  26. TLT — Signal met criteria but no paper position was opened.
-  27. IEF — Signal did not meet movement threshold (0.83%).
-  28. SHY — Signal did not meet movement threshold (0.14%).
-  29. LQD — Signal did not meet movement threshold (1.06%).
-  30. HYG — Signal did not meet movement threshold (0.43%).
-  31. TIP — Signal did not meet movement threshold (0.77%).
-  32. MBB — Signal did not meet movement threshold (0.89%).
-  33. EEM — Signal met criteria but no paper position was opened.
-  34. EFA — Signal did not meet movement threshold (0.51%).
-  35. VWO — Signal met criteria but no paper position was opened.
-  36. ARKK — Signal met criteria but no paper position was opened.
-  37. ARKW — Signal met criteria but no paper position was opened.
-  38. ARKG — Signal met criteria but no paper position was opened.
-  39. ARKF — Signal met criteria but no paper position was opened.
-  40. SOXX — Signal met criteria but no paper position was opened.
-  41. TAN — Signal met criteria but no paper position was opened.
-  42. ICLN — Signal met criteria but no paper position was opened.
-  43. XBI — Signal met criteria but no paper position was opened.
-  44. LABU — Signal met criteria but no paper position was opened.
-  45. EWJ — Signal met criteria but no paper position was opened.
-  46. AAPL — Signal met criteria but no paper position was opened.
-  47. MSFT — Signal met criteria but no paper position was opened.
-  48. AMZN — Signal met criteria but no paper position was opened.
-  49. META — Signal met criteria but no paper position was opened.
-  50. GOOGL — Signal did not meet movement threshold (-0.96%).
-  51. GOOG — Signal did not meet movement threshold (0.53%).
-  52. TSLA — Signal met criteria but no paper position was opened.
-  53. AVGO — Signal did not meet movement threshold (1.2%).
-  54. JPM — Signal did not meet movement threshold (-1.05%).
-  55. V — Signal did not meet movement threshold (-0.37%).
-  56. JNJ — Signal did not meet movement threshold (0.01%).
-  57. PG — Signal met criteria but no paper position was opened.
-  58. HD — Signal met criteria but no paper position was opened.
-  59. MRK — Signal met criteria but no paper position was opened.
-  60. ABBV — Signal met criteria but no paper position was opened.
-  61. CRM — Signal met criteria but no paper position was opened.
-  62. AMD — Signal met criteria but no paper position was opened.
-  63. INTC — Signal met criteria but no paper position was opened.
-  64. BRK.B — Signal did not meet movement threshold (-0.51%).
-  65. LLY — Signal met criteria but no paper position was opened.
-  66. MA — Signal did not meet movement threshold (-0.99%).
-  67. ORCL — Signal met criteria but no paper position was opened.
-  68. ADBE — Signal did not meet movement threshold (-1.14%).
-  69. CSCO — Signal did not meet movement threshold (0.14%).
-  70. ACN — Signal did not meet movement threshold (0.12%).
-  71. DIS — Signal did not meet movement threshold (0.06%).
-  72. PFE — Signal did not meet movement threshold (1.04%).
-  73. TMO — Signal met criteria but no paper position was opened.
-  74. BAC — Signal did not meet movement threshold (-0.95%).
-  75. KO — Signal did not meet movement threshold (-0.92%).
-  76. TXN — Signal met criteria but no paper position was opened.
-  77. QCOM — Signal met criteria but no paper position was opened.
-  78. AMGN — Signal did not meet movement threshold (-0.23%).
-  79. HON — Signal met criteria but no paper position was opened.
-  80. NKE — Signal met criteria but no paper position was opened.
-  81. BA — Signal met criteria but no paper position was opened.
-  82. CAT — Signal met criteria but no paper position was opened.
-  83. GE — Signal met criteria but no paper position was opened.
-  84. WFC — Signal did not meet movement threshold (0.65%).
-  85. IBM — Signal met criteria but no paper position was opened.
-  86. PLD — Signal did not meet movement threshold (0.69%).
-  87. AMAT — Signal met criteria but no paper position was opened.
-  88. AMD — Signal met criteria but no paper position was opened.
-  89. MU — Signal met criteria but no paper position was opened.
-  90. NOW — Signal met criteria but no paper position was opened.
-  91. LRCX — Signal met criteria but no paper position was opened.
-  92. GS — Signal met criteria but no paper position was opened.
-  93. BLK — Signal did not meet movement threshold (-1.17%).
-  94. ADI — Signal met criteria but no paper position was opened.
-  95. AXP — Signal met criteria but no paper position was opened.
-  96. BKNG — Signal met criteria but no paper position was opened.
-  97. GILD — Signal met criteria but no paper position was opened.
-  98. VRTX — Signal met criteria but no paper position was opened.
-  99. PANW — Signal met criteria but no paper position was opened.
-  100. MDLZ — Signal met criteria but no paper position was opened.
-  101. C — Signal did not meet movement threshold (-0.26%).
-  102. F — Signal met criteria but no paper position was opened.
-  103. GM — Signal met criteria but no paper position was opened.
-  104. PYPL — Signal did not meet movement threshold (0.16%).
-  105. SNAP — Signal met criteria but no paper position was opened.
-  106. SQ — Signal did not meet movement threshold (0%).
-  107. RIVN — Signal met criteria but no paper position was opened.
-  108. LCID — Signal met criteria but no paper position was opened.
-  109. PLTR — Signal met criteria but no paper position was opened.
-  110. HOOD — Signal met criteria but no paper position was opened.
-  111. TSM — Signal met criteria but no paper position was opened.
+  1. SPY — Signal did not meet movement threshold (-1.15%).
+  2. QQQ — Signal did not meet movement threshold (-0.79%).
+  3. IWM — Signal did not meet movement threshold (-1.19%).
+  4. DIA — Signal did not meet movement threshold (0.33%).
+  5. VTI — Signal did not meet movement threshold (-0.9%).
+  6. VOO — Signal did not meet movement threshold (-1.14%).
+  7. BND — Signal did not meet movement threshold (-0.56%).
+  8. BNDX — Signal did not meet movement threshold (-0.51%).
+  9. VB — Signal did not meet movement threshold (-0.42%).
+  10. VO — Signal did not meet movement threshold (0.29%).
+  11. VV — Signal did not meet movement threshold (-0.91%).
+  12. IVV — Signal did not meet movement threshold (-1.14%).
+  13. IJR — Signal did not meet movement threshold (0.32%).
+  14. IJH — Signal did not meet movement threshold (0.26%).
+  15. SCHB — Signal did not meet movement threshold (-0.95%).
+  16. SCHX — Signal did not meet movement threshold (-0.93%).
+  17. XLF — Signal did not meet movement threshold (0.2%).
+  18. XLE — Signal did not meet movement threshold (-0.54%).
+  19. XLI — Signal did not meet movement threshold (0.32%).
+  20. SMH — Signal met criteria but no paper position was opened.
+  21. KRE — Signal did not meet movement threshold (0.69%).
+  22. KBE — Signal did not meet movement threshold (0.79%).
+  23. XRT — Signal did not meet movement threshold (0.76%).
+  24. TLT — Signal did not meet movement threshold (-0.35%).
+  25. IEF — Signal did not meet movement threshold (-0.73%).
+  26. SHY — Signal did not meet movement threshold (-0.36%).
+  27. LQD — Signal did not meet movement threshold (-0.73%).
+  28. HYG — Signal did not meet movement threshold (-0.74%).
+  29. EMB — Signal did not meet movement threshold (-0.25%).
+  30. MBB — Signal did not meet movement threshold (-0.62%).
+  31. EWJ — Signal did not meet movement threshold (-1.11%).
+  32. MSFT — Signal did not meet movement threshold (-0.77%).
+  33. JPM — Signal met criteria but no paper position was opened.
+  34. JNJ — Signal did not meet movement threshold (-0.68%).
+  35. WMT — Signal did not meet movement threshold (0.01%).
+  36. PG — Signal did not meet movement threshold (0.66%).
+  37. XOM — Signal did not meet movement threshold (-1.05%).
+  38. AMD — Signal met criteria but no paper position was opened.
+  39. BRK.B — Signal did not meet movement threshold (0.38%).
+  40. ACN — Signal did not meet movement threshold (-0.11%).
+  41. PFE — Signal did not meet movement threshold (-0.75%).
+  42. AMGN — Signal did not meet movement threshold (0.99%).
+  43. WFC — Signal met criteria but no paper position was opened.
+  44. RTX — Signal did not meet movement threshold (0.67%).
+  45. IBM — Signal met criteria but no paper position was opened.
+  46. AMAT — Signal met criteria but no paper position was opened.
+  47. AMD — Signal met criteria but no paper position was opened.
+  48. MU — Signal met criteria but no paper position was opened.
+  49. NOW — Signal met criteria but no paper position was opened.
+  50. LRCX — Signal met criteria but no paper position was opened.
+  51. GS — Signal met criteria but no paper position was opened.
+  52. ADI — Signal did not meet movement threshold (-0.46%).
+  53. AXP — Signal did not meet movement threshold (0.32%).
+  54. BKNG — Signal did not meet movement threshold (0.2%).
+  55. VRTX — Signal did not meet movement threshold (0.73%).
+  56. PANW — Signal met criteria but no paper position was opened.
+  57. MDLZ — Signal did not meet movement threshold (-0.53%).
+  58. C — Signal met criteria but no paper position was opened.
+  59. F — Signal met criteria but no paper position was opened.
+  60. GM — Signal met criteria but no paper position was opened.
+  61. SQ — Signal did not meet movement threshold (0%).
+  62. RIVN — Signal met criteria but no paper position was opened.
+  63. PLTR — Signal did not meet movement threshold (0.61%).
+  64. HOOD — Signal met criteria but no paper position was opened.
+  65. TSM — Signal met criteria but no paper position was opened.
 
 ### Rejected Items
 
-  1. SCHF — Risk Desk blocked this candidate.
-  2. XLE — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  3. OIH — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  4. GDX — Risk Desk blocked this candidate.
-  5. SLV — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  6. EMB — Risk Desk blocked this candidate.
-  7. VEA — Risk Desk blocked this candidate.
-  8. FXI — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  9. EWZ — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  10. INDA — Risk Desk blocked this candidate.
-  11. NVDA — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  12. WMT — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  13. XOM — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  14. UNH — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  15. COST — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  16. NFLX — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  17. PEP — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  18. ABT — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  19. UBER — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  20. MCD — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  21. RTX — Risk Desk blocked this candidate.
-  22. SYK — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  23. REGN — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  24. ISRG — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  25. SBUX — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  26. SCHW — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  27. DASH — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  28. COIN — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
-  29. MSTR — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  1. VXUS — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  2. VT — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  3. SCHF — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  4. XLK — Risk Desk blocked this candidate.
+  5. XLV — Position already open for XLV.
+  6. XLP — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  7. XLY — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  8. XLU — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  9. XLRE — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  10. XLC — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  11. IBB — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  12. OIH — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  13. XHB — Position already open for XHB.
+  14. GDX — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  15. GDXJ — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  16. SLV — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  17. GLD — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  18. TIP — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  19. EEM — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  20. EFA — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  21. VEA — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  22. VWO — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  23. ARKK — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  24. ARKW — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  25. ARKG — Position already open for ARKG.
+  26. ARKF — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  27. SOXX — Position already open for SOXX.
+  28. TAN — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  29. ICLN — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  30. XBI — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  31. LABU — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  32. FXI — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  33. EWZ — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  34. INDA — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  35. AAPL — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  36. NVDA — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  37. AMZN — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  38. META — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  39. GOOGL — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  40. GOOG — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  41. TSLA — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  42. AVGO — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  43. V — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  44. UNH — Position already open for UNH.
+  45. HD — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  46. COST — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  47. MRK — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  48. ABBV — Position already open for ABBV.
+  49. CRM — Position already open for CRM.
+  50. NFLX — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  51. INTC — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  52. LLY — Position already open for LLY.
+  53. MA — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  54. ORCL — Position already open for ORCL.
+  55. ADBE — Position already open for ADBE.
+  56. CSCO — Position already open for CSCO.
+  57. DIS — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  58. TMO — Position already open for TMO.
+  59. BAC — Position already open for BAC.
+  60. KO — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  61. PEP — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  62. ABT — Position already open for ABT.
+  63. TXN — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  64. QCOM — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  65. HON — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  66. UBER — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  67. NKE — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  68. BA — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  69. MCD — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  70. CAT — Position already open for CAT.
+  71. GE — Position already open for GE.
+  72. PLD — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  73. SYK — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  74. BLK — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  75. GILD — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  76. REGN — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  77. ISRG — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  78. SBUX — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  79. SCHW — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  80. PYPL — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  81. SNAP — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  82. DASH — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  83. LCID — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  84. COIN — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
+  85. MSTR — Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.
 
 ## Data Freshness
 
-- generatedAt: 2026-05-29T19:51:09.820Z
-- marketDataRefreshAt: 2026-05-29T01:44:17.318Z
-- latestBarTimestamp: 2026-05-28T13:45:00Z
+- generatedAt: 2026-06-08T18:11:13.738Z
+- marketDataRefreshAt: 2026-06-08T18:07:40.583Z
+- latestBarTimestamp: 2026-06-08T18:06:00Z
 - marketDataSource: alpaca_iex
-- cycleBuildAt: 2026-05-26T14:04:10.263Z
-- cycleStatus: reset_pending
-- runCount: 43
-- openPositionCount: 10
+- cycleBuildAt: 2026-06-08T18:07:40.794Z
+- cycleStatus: active
+- runCount: 168
+- openPositionCount: 20
 - dataSource: alpaca_iex
 
 ## Disclaimers

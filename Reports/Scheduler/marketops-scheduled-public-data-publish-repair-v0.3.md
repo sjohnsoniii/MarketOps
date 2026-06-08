@@ -1,11 +1,11 @@
 # MarketOps Scheduled Public Data Publish Repair v0.3
 
-Generated: 2026-05-29T19:51:13Z
+Generated: 2026-06-08T18:11:20Z
 
 ## Timestamp
 
-- Run started: 2026-05-29T19:51:13Z
-- Report generated: 2026-05-29T19:51:13Z
+- Run started: 2026-06-08T18:11:20Z
+- Report generated: 2026-06-08T18:11:20Z
 
 ## Market Data Status
 
@@ -13,12 +13,12 @@ Generated: 2026-05-29T19:51:13Z
 
 ## Dashboard Refresh Status
 
-- Status: CONTROLLED_DEGRADED
+- Status: PASS
 - Exit code: 0
 
 ## Chart Status
 
-- Status: 0 empty/27 total
+- Status: 2 empty/27 total
 
 ## sj3labs Sync Status
 
@@ -27,16 +27,13 @@ Generated: 2026-05-29T19:51:13Z
 
 ## Git Publish Status
 
-- Status: blocked
-- Blocked by allowlist guard
-- Non-allowlisted files detected
-- Review report: /home/sjohnsoniii/Projects/MarketOps/Reports/Scheduler/git-publish-blocked-20260529-155024.md
+- Status: pushed
 
 ## Public Update Manifest
 
 - Generated: true
-- Status: blocked_non_allowlisted_changes
-- Expected Vercel trigger: no
+- Status: published
+- Expected Vercel trigger: yes
 
 ## Production Update Coordination
 
@@ -45,23 +42,23 @@ Generated: 2026-05-29T19:51:13Z
 - Trial status generated: YES
 - Manifest generated: YES
 - Site data synced to sj3labs: YES
-- Allowlist check passed: NO
-- Git commit created: NO (blocked)
-- Git push succeeded: NO (blocked)
-- Vercel trigger: NOT EXPECTED (no data published)
+- Allowlist check passed: YES
+- Git commit created: YES
+- Git push succeeded: YES
+- Vercel trigger: EXPECTED (data commit pushed to main)
 - Public data freshness: see manifest generatedAt
 
 ## Final Scheduler Status
 
-- Status: CONTROLLED_DEGRADED
+- Status: PUBLISHED_WITH_WARNINGS
 
 ## Exit Code Reason
 
-- Market data unavailable (off-hours). Last-known-good data preserved.
+- Published with degraded step(s): risk:learning:qa (refresh status: PASS).
 
 ## Log File
 
-- /home/sjohnsoniii/Projects/MarketOps/logs/marketops-refresh-20260529-155024.log
+- /home/sjohnsoniii/Projects/MarketOps/logs/marketops-refresh-20260608-140018.log
 
 ## Next Scheduled Run
 

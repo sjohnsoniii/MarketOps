@@ -3,6 +3,7 @@ const { URL } = require("url");
 
 const { loadVehicles } = require("../data/sampleLoaders");
 const { writeJson, writeText } = require("../utils/fileStore");
+const { withTransientRetry } = require("../utils/transientRetry");
 const { paths } = require("../utils/paths");
 const { parseLocalEnv } = require("./localEnv");
 
@@ -11,6 +12,12 @@ const DEFAULT_DATA_BASE_URL = "https://data.alpaca.markets";
 const DEFAULT_FEED = "iex";
 const DEFAULT_TIMEFRAME = "1Min";
 const DEFAULT_BAR_LIMIT = 20;
+// Freshness gate: a snapshot is "fresh" only when the newest bar across the
+// universe is within this many minutes of now (i.e. the market is open and IEX
+// data is flowing), not merely when some bar count is hit. Tunable via env.
+const FRESH_BAR_MAX_AGE_MINUTES = Number(process.env.MARKETOPS_FRESH_BAR_MAX_AGE_MIN || 25);
+// Require latest bars for at least this fraction of requested symbols.
+const MIN_COVERAGE_FRACTION = 0.5;
 const SUPPORTED_ASSET_TYPES = new Set(["EQUITY", "ETF"]);
 const LEGACY_KEY_NAME = ["ALPACA", "API", "KEY"].join("_");
 const LEGACY_SECRET_NAME = ["ALPACA", "SECRET", "KEY"].join("_");
@@ -103,13 +110,21 @@ function requestJson(url, headers) {
   });
 }
 
+// Transient network/server hiccups (socket hang up, connection reset, DNS blips,
+// timeouts, rate limiting, 5xx) used to fail the WHOLE dashboard refresh on a
+// single occurrence. The latest-bars fetch is idempotent, so it is wrapped in the
+// shared transient-retry policy (src/utils/transientRetry.js) — the SAME policy
+// used for git pushes. Permanent 4xx (e.g. bad key, 404) are not retried.
 function buildBarsUrl(config, symbols) {
-  const url = new URL("/v2/stocks/bars", config.baseUrl);
+  // Use the LATEST-bar-per-symbol endpoint. The historical `/v2/stocks/bars`
+  // endpoint without `sort`/`start` returns the OLDEST bars of the session
+  // (Alpaca defaults to sort=asc), and `limit` caps the multi-symbol response,
+  // so the old request could never surface current data for a 150-symbol
+  // universe — the freshness gate was permanently stale. The latest endpoint
+  // returns the most recent bar for every symbol: `{ bars: { SYM: {...} } }`.
+  const url = new URL("/v2/stocks/bars/latest", config.baseUrl);
   url.searchParams.set("symbols", symbols.join(","));
-  url.searchParams.set("timeframe", config.timeframe);
-  url.searchParams.set("limit", String(config.barLimit));
   url.searchParams.set("feed", config.feed);
-  url.searchParams.set("adjustment", "raw");
   return url.toString();
 }
 
@@ -228,24 +243,46 @@ async function refreshAlpacaMarketData({ generatedAt = new Date().toISOString() 
   };
 
   const [barsResponse, quotesResponse] = await Promise.all([
-    requestJson(buildBarsUrl(config, symbols), headers),
-    requestJson(buildQuotesUrl(config, symbols), headers)
+    withTransientRetry(() => requestJson(buildBarsUrl(config, symbols), headers), { label: "alpaca-bars" }),
+    withTransientRetry(() => requestJson(buildQuotesUrl(config, symbols), headers), { label: "alpaca-quotes" })
   ]);
 
-  const bars = normalizeBars(barsResponse.bars || {});
+  // The latest-bars endpoint returns one bar object per symbol
+  // (`{ bars: { SYM: {...} } }`). normalizeBars expects an array per symbol, so
+  // wrap each single bar in an array. (Still tolerates the legacy array shape.)
+  const rawBars = barsResponse.bars || {};
+  const barsBySymbol = Array.isArray(rawBars)
+    ? rawBars
+    : Object.fromEntries(
+        Object.entries(rawBars).map(([symbol, bar]) => [symbol, Array.isArray(bar) ? bar : [bar]])
+      );
+  const bars = normalizeBars(barsBySymbol);
   const quotes = normalizeQuotes(quotesResponse.quotes);
-
-  const freshBarCount = bars.length;
-  const expectedBarCount = symbols.length * 2;
-  const freshBarsStatus = freshBarCount >= expectedBarCount
-    ? "FRESH_BARS_AVAILABLE"
-    : freshBarCount === 0
-      ? "OFF_HOURS_NO_FRESH_BARS"
-      : "LIMITED_FRESH_BARS";
 
   const latestBarTimestamp = bars.reduce((latest, bar) => (
     !latest || new Date(bar.timestamp) > new Date(latest) ? bar.timestamp : latest
   ), null);
+
+  const newestBarAgeMinutes = latestBarTimestamp
+    ? Math.round((Date.now() - new Date(latestBarTimestamp).getTime()) / 60000)
+    : null;
+
+  const freshBarCount = bars.length;
+  // One current bar per symbol is expected; require coverage for a healthy share
+  // of the universe to avoid false "fresh" on a partial response.
+  const expectedBarCount = symbols.length;
+  const minCoverage = Math.max(1, Math.floor(symbols.length * MIN_COVERAGE_FRACTION));
+
+  // Fresh = the market is open and data is flowing: broad coverage AND the newest
+  // bar is recent. Recency (not raw count) is what distinguishes a live session
+  // from a stale last-known-good bar, and it is reachable during market hours.
+  const freshBarsStatus = freshBarCount === 0
+    ? "OFF_HOURS_NO_FRESH_BARS"
+    : (freshBarCount >= minCoverage
+        && newestBarAgeMinutes !== null
+        && newestBarAgeMinutes <= FRESH_BAR_MAX_AGE_MINUTES)
+      ? "FRESH_BARS_AVAILABLE"
+      : "LIMITED_FRESH_BARS";
 
   const marketDataStatus = freshBarsStatus === "FRESH_BARS_AVAILABLE" ? "OPERATIONAL" : "DEGRADED_OFF_HOURS";
 
@@ -262,6 +299,8 @@ async function refreshAlpacaMarketData({ generatedAt = new Date().toISOString() 
     symbolsRequested: symbols,
     unsupportedSymbols,
     latestBarTimestamp,
+    newestBarAgeMinutes,
+    freshBarMaxAgeMinutes: FRESH_BAR_MAX_AGE_MINUTES,
     freshBarsStatus,
     marketDataStatus,
     freshBarCount,

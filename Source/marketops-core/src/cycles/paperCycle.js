@@ -1,6 +1,6 @@
 const path = require("path");
 
-const { fileExists, loadJson, writeJson, writeText } = require("../utils/fileStore");
+const { fileExists, loadJson, writeJson, writeText, writeJsonWithBackup } = require("../utils/fileStore");
 const { round } = require("../utils/number");
 const { paths } = require("../utils/paths");
 const { loadConfig } = require("../config/configLoader");
@@ -122,8 +122,8 @@ function updateCycleFromLatestRun({ state = loadCycleState(), generatedAt = new 
   const cycle = ensureCurrentCycle(state, latestRun.generatedAt || generatedAt);
   if (cycle.status === "reset_pending") {
     state.updatedAt = generatedAt;
-    writeJson(paths.cycleStateJson, state);
-    writeJson(paths.cycleLatestJson, cycle);
+    writeJsonWithBackup(paths.cycleStateJson, state);
+    writeJsonWithBackup(paths.cycleLatestJson, cycle);
     writeText(paths.cycleStatusReport, buildCycleReport(cycle, latestRun));
     return { state, cycle, latestRun };
   }
@@ -136,7 +136,6 @@ function updateCycleFromLatestRun({ state = loadCycleState(), generatedAt = new 
         ? (loadJson(paths.paperPerformanceJson).cashBalance || getStartingBalance())
         : (Number(latestRun.startingBalance) || getStartingBalance());
       cycle.currentBalance = round(paperBalance);
-      cycle.startingBalance = round(paperBalance);
     }
     cycle.currentBalance = round(Number(cycle.currentBalance || CYCLE_STARTING_BALANCE) + paperPnlDelta);
     cycle.approvedTrades += Number(latestRun.riskApproved || 0);
@@ -159,6 +158,15 @@ function updateCycleFromLatestRun({ state = loadCycleState(), generatedAt = new 
       cycle.canonicalOpenPositionsCount = (positions.openPositions || []).length;
       cycle.canonicalClosedPositionsCount = (positions.closedPositions || []).length;
     } catch {}
+  }
+
+  // currentBalance is the depletion basis and must equal the true mark-to-market
+  // account value (cash + holdings), NOT a per-run accumulator. The previous
+  // `currentBalance += paperPnlDelta` (above) compounded every 30-min run and had
+  // drifted to ~5x real equity. Pin it to the canonical total equity so it is
+  // internally consistent and idempotent across repeated refreshes.
+  if (cycle.canonicalTotalEquity !== undefined && Number.isFinite(cycle.canonicalTotalEquity)) {
+    cycle.currentBalance = cycle.canonicalTotalEquity;
   }
 
   cycle.rejectionReasons = countRejectionReasons(risk);
@@ -191,8 +199,8 @@ function updateCycleFromLatestRun({ state = loadCycleState(), generatedAt = new 
   state.liveTradingEnabled = false;
   state.brokerExecutionEnabled = false;
 
-  writeJson(paths.cycleStateJson, state);
-  writeJson(paths.cycleLatestJson, cycle);
+  writeJsonWithBackup(paths.cycleStateJson, state);
+  writeJsonWithBackup(paths.cycleLatestJson, cycle);
   writeJson(path.join(paths.cycleArchiveRoot, `${cycle.cycleId}.json`), cycle);
   writeText(paths.cycleStatusReport, buildCycleReport(cycle, latestRun));
 

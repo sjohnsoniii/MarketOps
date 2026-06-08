@@ -1,71 +1,76 @@
 # MarketOps Paper Cycle Status v0.2
 
-Generated: 2026-05-29T19:51:08.924Z
-Source runId: paper-20260529-020644310Z
-Source cycleId: cycle-20260520-2356
+Generated: 2026-06-08T18:11:12.814Z
+Source runId: paper-20260608-180740794Z
+Source cycleId: cycle-20260530-1322
 Source file: /home/sjohnsoniii/Projects/MarketOps/Data/paper/cycles/paper-cycle-latest-v0.1.json
 
 ## Cycle
 
-- cycleId: cycle-20260520-2356
-- status: reset_pending
+- cycleId: cycle-20260530-1322
+- status: active
 - startingBalance: 1000
-- currentBalance (depletion basis): -17.84
-- endingBalance: -17.84
+- currentBalance (depletion basis): 986.07
+- endingBalance: null
 - depletionThreshold: 0
-- cycleStartTimestamp: 2026-05-20T23:56:14.139Z
-- cycleEndTimestamp: 2026-05-26T14:04:10.263Z
-- hoursSurvived: 134.13
-- daysSurvived: 5.59
-- approvedTrades: 62
-- rejectedTrades: 836
-- depletionRisk: depleted
-- resetTriggerReason: Balance -17.84 is at or below depletion threshold 0.
-- nextCycleScheduledStart: 2026-05-27T13:30:00.000Z
+- cycleStartTimestamp: 2026-05-30T13:22:04.937Z
+- cycleEndTimestamp: null
+- hoursSurvived: 220.76
+- daysSurvived: 9.2
+- approvedTrades: 1134
+- rejectedTrades: 5766
+- depletionRisk: normal
+- resetTriggerReason: null
+- nextCycleScheduledStart: null
 
 ## Canonical Account (from paper performance + positions)
 
-- cashBalance: 22.33
-- holdingsValue: 985.02
-- totalEquity: 1007.35
-- unrealizedPnl: 7.36
-- realizedPnl: 0
-- openPositionsCount: 17
-- closedPositionsCount: 0
+- cashBalance: 665.53
+- holdingsValue: 320.54
+- totalEquity: 986.07
+- unrealizedPnl: 0.09
+- realizedPnl: -14.6
+- openPositionsCount: 20
+- closedPositionsCount: 99
 - totalEquity = cashBalance + holdingsValue: true
 
 ## Latest Paper Run Applied
 
-- runId: paper-20260529-020644310Z
-- generatedAt: 2026-05-29T02:06:44.310Z
-- paperPnl: -830.98
-- riskApproved: 82
-- riskBlocked: 68
+- runId: paper-20260608-180740794Z
+- generatedAt: 2026-06-08T18:07:40.794Z
+- paperPnl: 320.54
+- riskApproved: 18
+- riskBlocked: 132
 
 ## Rejection Reasons
 
-- Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.: 140
-- Signal did not qualify as a candidate.: 131
-- Missing invalidation.: 2
-- Position already open for AMD.: 2
+- Phase 1 only allows long/up paper candidates. Downside, shorting, margin, leverage, options, and futures stay disabled.: 115
+- Signal did not qualify as a candidate.: 47
 - Position already open for XLV.: 1
-- Position already open for XLE.: 1
-- Position already open for AAPL.: 1
-- Position already open for MSFT.: 1
-- Position already open for NVDA.: 1
+- Position already open for XHB.: 1
+- Position already open for ARKG.: 1
+- Position already open for SOXX.: 1
+- Position already open for UNH.: 1
+- Position already open for ABBV.: 1
+- Position already open for CRM.: 1
+- Position already open for LLY.: 1
 - Position already open for ORCL.: 1
-- Position already open for TXN.: 1
-- Position already open for QCOM.: 1
-- Position already open for NOW.: 1
-- Position already open for ADI.: 1
-- Position already open for PANW.: 1
-- Position already open for F.: 1
-- Position already open for LCID.: 1
+- Position already open for ADBE.: 1
+- Position already open for CSCO.: 1
+- Position already open for TMO.: 1
+- Position already open for BAC.: 1
+- Position already open for ABT.: 1
+- Position already open for AMGN.: 1
+- Position already open for CAT.: 1
+- Position already open for GE.: 1
+- Position already open for RTX.: 1
+- Position already open for BKNG.: 1
+- Position already open for VRTX.: 1
+- Missing invalidation.: 1
 
 ## Lessons So Far
 
-- Clean paper start: new cycle at $1,000 with no legacy positions.
-- No daily reset while capital stays above the depletion threshold.
+- Cycle 2 fresh start after depletion reset. Auto-reset enabled — no manual gate for routine depletion.
 
 ## Proposed Improvements
 
@@ -74,7 +79,7 @@ Source file: /home/sjohnsoniii/Projects/MarketOps/Data/paper/cycles/paper-cycle-
 
 ## Human Review Needed
 
-- Cycle depleted. Review closeout and approve next-cycle parameter changes before restart.
+- Review whether 0-approved-trade cycles should tune signal threshold or remain observation-only.
 
 ## Rule Confirmation
 

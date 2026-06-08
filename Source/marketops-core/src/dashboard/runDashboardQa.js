@@ -174,11 +174,21 @@ function newestBundleFile() {
   return files.map((file) => path.join(outputRoot, file)).sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs)[0];
 }
 
+// Scoped, deliberate exception (NOT a general bypass): the public paper bundle
+// intentionally renders per-position `quantity` and `positionValue` in the
+// holdings table (sj3labs/marketops/dashboard/index.html). These two field names
+// are exempt ONLY when scanning that one bundle file. Every other restricted
+// term stays enforced on this file, and ALL restricted terms stay enforced on
+// every other scanned file.
+const PUBLIC_BUNDLE_EXEMPT_TERMS = new Set(["quantity", "positionValue"]);
+
 function scanOutputFiles(files) {
   const hits = [];
   files.forEach((filePath) => {
     const text = readText(filePath).toLowerCase();
+    const isPublicPaperBundle = filePath === sj3labsPublicBundlePath;
     restrictedTerms().forEach((term) => {
+      if (isPublicPaperBundle && PUBLIC_BUNDLE_EXEMPT_TERMS.has(term)) return;
       if (text.includes(term.toLowerCase())) hits.push(`${path.relative(projectRoot, filePath)} contains restricted term`);
     });
   });

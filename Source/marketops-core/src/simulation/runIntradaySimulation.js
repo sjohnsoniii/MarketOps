@@ -10,7 +10,7 @@ const { reviewSignals } = require("../risk/riskDesk");
 const { executePaperTrades, checkAndExecuteExits, loadExitRules, resetCycleIfDepleted } = require("../execution/paperTradeExecutor");
 const { buildEquityCurve } = require("../performance/equityBuilder");
 const { appendRunHistory } = require("../paper/writeHistory");
-const { writeJson } = require("../utils/fileStore");
+const { writeJson, writeJsonWithBackup } = require("../utils/fileStore");
 const { paths } = require("../utils/paths");
 const { round } = require("../utils/number");
 
@@ -152,7 +152,7 @@ async function runIntradaySimulation() {
     const currentPositions = fileExists(paths.paperPositionsJson) ? loadJson(paths.paperPositionsJson) : { openPositions: [], closedPositions: [] };
     currentPositions.openPositions = exitResult.keptOpenPositions;
     currentPositions.closedPositions = [...(currentPositions.closedPositions || []), ...exitResult.closedPositions];
-    writeJson(paths.paperPositionsJson, currentPositions);
+    writeJsonWithBackup(paths.paperPositionsJson, currentPositions);
 
     const currentPerf = fileExists(paths.paperPerformanceJson) ? loadJson(paths.paperPerformanceJson) : {};
     const realizedFromExits = exitResult.closedPositions.reduce((sum, p) => sum + (p.realizedPnl || 0), 0);

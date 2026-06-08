@@ -2,24 +2,24 @@
 
 Mode: paper_simulation
 
-Generated: 2026-05-29T02:06:44.310Z
+Generated: 2026-06-08T19:00:19.207Z
 Data source: alpaca_iex
 Vehicles scanned: 150
-Market bars scanned: 239580
-Signals generated: 85
-Risk approved: 82
-Risk blocked: 68
-New trades this run: 10
-Open positions: 10
+Market bars scanned: 455023
+Signals generated: 82
+Risk approved: 17
+Risk blocked: 133
+New trades this run: 0
+Open positions: 20
 Closed trades: 0
 Win rate: 0.00%
-Cash balance: $172.44
-Total equity: $172.44
-Realized P/L: $2.43
-Unrealized P/L: $0.00
-Paper return: -82.81%
-Max drawdown: -82.81%
-Drawdown status: -82.81%
+Cash balance: $665.53
+Total equity: $985.76
+Realized P/L: $-14.60
+Unrealized P/L: $-0.22
+Paper return: 0.00%
+Max drawdown: N/A
+Drawdown status: not enough history yet
 
 ## Notes
 

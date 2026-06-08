@@ -34,6 +34,10 @@ Backups/
 *.bak
 *.backup
 
+# Last-known-good state snapshots (internal only; never published to sj3labs)
+*.lkg
+**/*.lkg
+
 # MarketOps generated runtime artifacts
 Data/dashboard/dashboard-public-safe-*.json
 Data/paper/history/runs/*.json

@@ -1,0 +1,54 @@
+const fs = require("fs");
+const path = require("path");
+
+function ensureDir(dirPath) {
+  fs.mkdirSync(dirPath, { recursive: true });
+}
+
+function ensureParent(filePath) {
+  ensureDir(path.dirname(filePath));
+}
+
+function loadJson(filePath) {
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`File not found: ${filePath}`);
+  }
+
+  const raw = fs.readFileSync(filePath, "utf8").replace(/^\uFEFF/, "");
+  return JSON.parse(raw);
+}
+
+function writeJson(filePath, value) {
+  ensureParent(filePath);
+  // Atomic write: serialize to a temp file in the same directory, then rename.
+  // rename() is atomic on the same filesystem, so a reader (or an interrupted
+  // process / machine sleep mid-write) never sees a truncated JSON file. This
+  // matters for the large rolling-history / backfill bundles rewritten every
+  // refresh, which were corrupting with "Unexpected end of JSON input".
+  const tmpPath = `${filePath}.tmp.${process.pid}.${Date.now()}`;
+  try {
+    fs.writeFileSync(tmpPath, JSON.stringify(value, null, 2) + "\n", "utf8");
+    fs.renameSync(tmpPath, filePath);
+  } catch (error) {
+    try { fs.unlinkSync(tmpPath); } catch { /* ignore cleanup failure */ }
+    throw error;
+  }
+}
+
+function writeText(filePath, text) {
+  ensureParent(filePath);
+  fs.writeFileSync(filePath, text.trimEnd() + "\n", "utf8");
+}
+
+function fileExists(filePath) {
+  return fs.existsSync(filePath);
+}
+
+module.exports = {
+  ensureDir,
+  ensureParent,
+  fileExists,
+  loadJson,
+  writeJson,
+  writeText
+};

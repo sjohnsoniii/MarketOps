@@ -1,50 +1,13 @@
 {
-  "generatedAt": "2026-05-30T14:16:22.328Z",
+  "generatedAt": "2026-06-08T19:00:19.207Z",
   "mode": "paper_simulation",
   "paperOnly": true,
-  "startingBalance": 79.92,
+  "startingBalance": 665.53,
   "targetBalance": 13000,
-  "endingEquity": 1003.56,
-  "totalPnl": 923.64,
-  "totalReturnPct": 1155.71,
-  "maxDrawdownPct": -34.08,
+  "endingEquity": 985.76,
+  "totalPnl": 320.23,
+  "totalReturnPct": 48.12,
+  "maxDrawdownPct": null,
   "targetMet": false,
-  "points": [
-    {
-      "step": 0,
-      "timestamp": "2026-05-29T20:00:00Z",
-      "event": "position_opened",
-      "symbol": "SCHX",
-      "pnl": 0,
-      "equity": 74.93,
-      "drawdownPct": -6.24,
-      "targetProgressPct": 0.58,
-      "mode": "paper_simulation",
-      "paperOnly": true
-    },
-    {
-      "step": 1,
-      "timestamp": "2026-05-29T19:59:00Z",
-      "event": "position_opened",
-      "symbol": "SCHF",
-      "pnl": 0,
-      "equity": 70.24,
-      "drawdownPct": -12.11,
-      "targetProgressPct": 0.54,
-      "mode": "paper_simulation",
-      "paperOnly": true
-    },
-    {
-      "step": 2,
-      "timestamp": "2026-05-29T19:59:00Z",
-      "event": "position_opened",
-      "symbol": "XLK",
-      "pnl": 0,
-      "equity": 52.68,
-      "drawdownPct": -34.08,
-      "targetProgressPct": 0.41,
-      "mode": "paper_simulation",
-      "paperOnly": true
-    }
-  ]
+  "points": []
 }

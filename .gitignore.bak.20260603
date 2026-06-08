@@ -1,0 +1,49 @@
+# Secrets / credentials
+Secrets/
+**/.env
+**/.env.*
+*.local.env
+*API Keys*
+*api keys*
+*token*
+*secret*
+*credentials*
+*.pem
+*.key
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS/editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Heavy/generated runtime output
+Data/logs/
+Data/email-queue/
+Data/approvals/audit/
+Backups/
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+
+# MarketOps generated runtime artifacts
+Data/dashboard/dashboard-public-safe-*.json
+Data/paper/history/runs/*.json
+logs/*.log
+logs/public-sync-*.log
+Reports/Public/sync-report-*.md
+marketops-opencode-repair-*.txt
+Data-backup-*/
+Source-backup-*/
+Data/paper/history/run-history-corrected.json
+Reports/Scheduler/git-publish-blocked-*.md
+Data/market-data/backfill-market-data-v0.1.json
+Data/market-data/rolling/rolling-market-history-v0.1.json

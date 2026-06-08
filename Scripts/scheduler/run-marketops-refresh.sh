@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -uo pipefail
 
 # MarketOps Refresh Runner v0.4 (Cruise 5)
 # Runs the full paper simulation loop.
@@ -37,11 +37,17 @@ cd "$CORE_DIR"
     echo "================================================"
 } >> "$LOG_FILE"
 
+# Shared resilience machine (run_step, retry_cmd, git_push_retry, integrity_gate)
+# — same library sourced by the run + premarket entry points. One hardened
+# machine, three doors. Requires LOG_FILE, CORE_DIR, SJ3LABS_ROOT (set above).
+source "$PROJECT_ROOT/Scripts/lib/marketops-steplib.sh"
+
 # --------------------------------------------------
-# Step 1: Run the full refresh
+# Step 1: Run the full refresh (DEGRADABLE — off-hours CONTROLLED_DEGRADED is
+# normal; the inner runner already continues past sub-step failures)
 # --------------------------------------------------
-npm run marketops:refresh >> "$LOG_FILE" 2>&1
-REFRESH_EXIT_CODE=$?
+run_step "marketops:refresh" DEGRADABLE npm run marketops:refresh
+REFRESH_EXIT_CODE=$LAST_STEP_CODE
 
 echo "" >> "$LOG_FILE"
 echo "Refresh exit code: $REFRESH_EXIT_CODE" >> "$LOG_FILE"
@@ -66,46 +72,83 @@ echo "Chart status: $CHART_STATUS" >> "$LOG_FILE"
 # --------------------------------------------------
 echo "" >> "$LOG_FILE"
 echo "Building Cruise 1 dashboard data bundle..." >> "$LOG_FILE"
-npm run dashboard:data:build >> "$LOG_FILE" 2>&1
-echo "Dashboard data build exit code: $?" >> "$LOG_FILE"
-npm run dashboard:data:qa >> "$LOG_FILE" 2>&1
-echo "Dashboard data QA exit code: $?" >> "$LOG_FILE"
+run_step "dashboard:data:build" DEGRADABLE npm run dashboard:data:build
+run_step "dashboard:data:qa" DEGRADABLE npm run dashboard:data:qa
+
+# --------------------------------------------------
+# Step 1b2: Regenerate the public dashboard CHART bundle the live site renders
+# --------------------------------------------------
+# The site (sj3labs/marketops/dashboard/index.html) fetches
+# data/marketops/dashboard-bundle-public-v0.5.json FIRST and only falls back to
+# the smaller public-safe file if that is missing. That v0.5 chart bundle is
+# written ONLY by paper:refresh-site (refreshSiteDashboard) into sj3labs/data,
+# and that step was wired into NO scheduled unit — so the charts stayed frozen
+# even while the 6 small status files updated every run. Regenerate it here,
+# after the sim + dashboard build, so the sync step (git add data/marketops/)
+# commits the current charts. Non-fatal: the publish must proceed regardless.
+echo "" >> "$LOG_FILE"
+echo "Regenerating public dashboard chart bundle (refresh-site)..." >> "$LOG_FILE"
+run_step "paper:refresh-site" DEGRADABLE npm run paper:refresh-site
 
 # --------------------------------------------------
 # Step 1c: Cruise 3 - Risk Desk Learning Records
 # --------------------------------------------------
 echo "" >> "$LOG_FILE"
 echo "Building Risk Desk learning records..." >> "$LOG_FILE"
-npm run risk:learning >> "$LOG_FILE" 2>&1
-echo "Risk learning exit code: $?" >> "$LOG_FILE"
-npm run risk:learning:qa >> "$LOG_FILE" 2>&1
-echo "Risk learning QA exit code: $?" >> "$LOG_FILE"
+run_step "risk:learning" DEGRADABLE npm run risk:learning
+run_step "risk:learning:qa" DEGRADABLE npm run risk:learning:qa
 
 # --------------------------------------------------
 # Step 1d: Cruise 4 - Review Queue Import
 # --------------------------------------------------
 echo "" >> "$LOG_FILE"
 echo "Importing proposals to review queue..." >> "$LOG_FILE"
-npm run review:import >> "$LOG_FILE" 2>&1
-echo "Review import exit code: $?" >> "$LOG_FILE"
-npm run review:qa >> "$LOG_FILE" 2>&1
-echo "Review QA exit code: $?" >> "$LOG_FILE"
+run_step "review:import" DEGRADABLE npm run review:import
+run_step "review:qa" DEGRADABLE npm run review:qa
 
 # --------------------------------------------------
 # Step 2: Generate public trial status
 # --------------------------------------------------
 echo "" >> "$LOG_FILE"
 echo "Generating public trial status..." >> "$LOG_FILE"
-npm run public:trial-status >> "$LOG_FILE" 2>&1
-STATUS_EXIT_CODE=$?
-echo "Public trial status exit code: $STATUS_EXIT_CODE" >> "$LOG_FILE"
+run_step "public:trial-status" DEGRADABLE npm run public:trial-status
+STATUS_EXIT_CODE=$LAST_STEP_CODE
+
+# --------------------------------------------------
+# Step 2b: PRE-PUBLISH DATA-INTEGRITY GATE (CRITICAL)
+# --------------------------------------------------
+# The publish must never push corrupt/truncated state to the public site. Verify
+# that the files about to be published — and the core cycle/positions state —
+# parse as JSON. This is the ONE condition that blocks publish (everything else
+# is DEGRADABLE and publishes last-known-good).
+echo "" >> "$LOG_FILE"
+echo "Pre-publish data-integrity gate (parse + cycle invariants)..." >> "$LOG_FILE"
+integrity_gate \
+  "$PROJECT_ROOT/Data/dashboard/dashboard-public-safe-v0.1.json" \
+  "$PROJECT_ROOT/Data/dashboard/marketops-shareable-snapshot-v0.1.json" \
+  "$PROJECT_ROOT/Data/dashboard/dashboard-refresh-health-v0.1.json" \
+  "$PROJECT_ROOT/Data/dashboard/dashboard-refresh-latest-v0.1.json" \
+  "$PROJECT_ROOT/Data/public/marketops-public-trial-status-v0.1.json" \
+  "$PROJECT_ROOT/Data/paper/cycles/paper-cycle-state-v0.1.json" \
+  "$PROJECT_ROOT/Data/paper/cycles/paper-cycle-latest-v0.1.json" \
+  "$PROJECT_ROOT/Data/paper/positions/paper-positions-v0.1.json"
 
 # --------------------------------------------------
 # Step 3: Sync to sj3labs
 # --------------------------------------------------
 SYNC_EXIT_CODE=0
 SYNC_STATUS="not_run"
-if [ "$SYNC_ALLOWED" = "1" ]; then
+# Record sj3labs HEAD before the sync so Step 4 can tell whether the sync
+# (which is the authoritative publisher) actually committed + pushed new data.
+SJ3_HEAD_BEFORE=""
+if [ -d "$SJ3LABS_ROOT/.git" ]; then
+    SJ3_HEAD_BEFORE=$(git -C "$SJ3LABS_ROOT" rev-parse HEAD 2>/dev/null || echo "")
+fi
+if [ -n "$CRITICAL_FAIL" ]; then
+    echo "" >> "$LOG_FILE"
+    echo "[ABORT PUBLISH] Data integrity compromised by CRITICAL step '$CRITICAL_FAIL'. Not syncing/publishing." >> "$LOG_FILE"
+    SYNC_STATUS="skipped_integrity"
+elif [ "$SYNC_ALLOWED" = "1" ]; then
     echo "" >> "$LOG_FILE"
     echo "Syncing public-safe outputs to sj3labs..." >> "$LOG_FILE"
     bash "$PROJECT_ROOT/Scripts/public-sync/sync-marketops-to-sj3labs.sh" >> "$LOG_FILE" 2>&1
@@ -131,11 +174,28 @@ GIT_PUBLISH_STATUS="not_run"
 GIT_PUBLISH_BLOCKED=false
 GIT_PUBLISH_REPORT=""
 
-if [ "$DATA_PUBLISH_ALLOWED" = "1" ] && [ -d "$SJ3LABS_ROOT/.git" ]; then
+if [ -n "$CRITICAL_FAIL" ]; then
+    echo "" >> "$LOG_FILE"
+    echo "[ABORT PUBLISH] Data integrity compromised ('$CRITICAL_FAIL'); skipping data-only git publish." >> "$LOG_FILE"
+    GIT_PUBLISH_STATUS="skipped_integrity"
+elif [ "$DATA_PUBLISH_ALLOWED" = "1" ] && [ -d "$SJ3LABS_ROOT/.git" ]; then
     echo "" >> "$LOG_FILE"
     echo "Checking data-only git publish (allowlist: $ALLOWLIST_PATTERN)..." >> "$LOG_FILE"
 
     cd "$SJ3LABS_ROOT"
+
+    # If Step 3 (public sync) already committed AND pushed new data to origin/main,
+    # the data-only publish is done. Don't let the redundant allowlist guard below
+    # mislabel the run as "blocked" just because an unrelated file (e.g. index.html)
+    # is dirty in the working tree.
+    SJ3_HEAD_AFTER=$(git rev-parse HEAD 2>/dev/null || echo "")
+    SJ3_ORIGIN_MAIN=$(git rev-parse origin/main 2>/dev/null || echo "none")
+    if [ -n "$SJ3_HEAD_BEFORE" ] && [ -n "$SJ3_HEAD_AFTER" ] \
+        && [ "$SJ3_HEAD_AFTER" != "$SJ3_HEAD_BEFORE" ] \
+        && [ "$SJ3_ORIGIN_MAIN" = "$SJ3_HEAD_AFTER" ]; then
+        echo "[OK] Public sync already pushed $SJ3_HEAD_AFTER to origin main; data publish complete." >> "$LOG_FILE"
+        GIT_PUBLISH_STATUS="pushed"
+    else
 
     # Check for any changed files (tracked or untracked)
     GIT_CHANGED_FILES=$(git status --porcelain | awk '{print $2}')
@@ -170,7 +230,7 @@ if [ "$DATA_PUBLISH_ALLOWED" = "1" ] && [ -d "$SJ3LABS_ROOT/.git" ]; then
             echo "[COMMITTED]" >> "$LOG_FILE"
             CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
             if [ "$CURRENT_BRANCH" = "main" ]; then
-                git push origin main >> "$LOG_FILE" 2>&1
+                git_push_retry >> "$LOG_FILE" 2>&1
                 echo "[PUSHED] origin main" >> "$LOG_FILE"
                 GIT_PUBLISH_STATUS="pushed"
             else
@@ -210,6 +270,7 @@ if [ "$DATA_PUBLISH_ALLOWED" = "1" ] && [ -d "$SJ3LABS_ROOT/.git" ]; then
         } > "$GIT_PUBLISH_REPORT"
         echo "Human-review report: $GIT_PUBLISH_REPORT" >> "$LOG_FILE"
     fi
+    fi
 elif [ "$DATA_PUBLISH_ALLOWED" = "0" ]; then
     echo "Data-only git publish not allowed (MARKETOPS_ALLOW_DATA_ONLY_GIT_PUBLISH != 1)." >> "$LOG_FILE"
 else
@@ -239,27 +300,72 @@ MANIFEST_EXIT_CODE=$?
 echo "Public update manifest exit code: $MANIFEST_EXIT_CODE" >> "$LOG_FILE"
 
 # --------------------------------------------------
+# Step 5b: Publish the freshly-generated manifest
+# --------------------------------------------------
+# The manifest describes the publish that just happened (publishStatus, the
+# sj3labs commit, bundle generatedAt), so it can't be in the same commit it
+# describes. The Step 3 sync ran BEFORE this manifest existed, so without this
+# the manifest lands one run late and the live status banner shows the PREVIOUS
+# run's verdict ("delayed/blocked") even when the charts are current. Push the
+# single manifest file now so the banner reflects this run. Non-fatal.
+if [ "$SYNC_ALLOWED" = "1" ] && [ "$GIT_PUBLISH_STATUS" = "pushed" ] && [ -d "$SJ3LABS_ROOT/.git" ]; then
+    MANIFEST_REL="data/marketops/marketops-public-update-manifest-v0.1.json"
+    if git -C "$SJ3LABS_ROOT" diff --quiet -- "$MANIFEST_REL" 2>/dev/null; then
+        echo "Manifest unchanged in sj3labs; nothing to publish." >> "$LOG_FILE"
+    else
+        echo "Publishing refreshed manifest to sj3labs..." >> "$LOG_FILE"
+        git -C "$SJ3LABS_ROOT" add "$MANIFEST_REL" >> "$LOG_FILE" 2>&1
+        if git -C "$SJ3LABS_ROOT" commit -m "Update MarketOps public update manifest" >> "$LOG_FILE" 2>&1; then
+            if [ "$(git -C "$SJ3LABS_ROOT" rev-parse --abbrev-ref HEAD)" = "main" ]; then
+                git_push_retry >> "$LOG_FILE" 2>&1 \
+                    && echo "[PUSHED] manifest -> origin main" >> "$LOG_FILE" \
+                    || echo "[WARN] manifest push failed (data already published)." >> "$LOG_FILE"
+            fi
+        fi
+    fi
+fi
+
+# --------------------------------------------------
 # Step 6: Determine final scheduler status and exit code
 # --------------------------------------------------
 FINAL_SCHEDULER_STATUS="UNKNOWN"
 EXIT_CODE_REASON=""
+DEGRADED_SUMMARY="none"
+[ "${#DEGRADED_STEPS[@]}" -gt 0 ] && DEGRADED_SUMMARY="${DEGRADED_STEPS[*]}"
 
-if [ "$REFRESH_EXIT_CODE" -eq 0 ] && [ "$REFRESH_STATUS" = "PASS" ]; then
+if [ -n "$CRITICAL_FAIL" ]; then
+    # CRITICAL = data-integrity/safety. Publish was skipped. The only hard-fail.
+    FINAL_SCHEDULER_STATUS="FAIL"
+    EXIT_CODE_REASON="CRITICAL data-integrity failure in step '$CRITICAL_FAIL'. Publish skipped to avoid pushing corrupt data."
+elif [ "$REFRESH_STATUS" = "CONTROLLED_DEGRADED" ]; then
+    # Off-hours / no fresh bars — preserved exactly. Note any degraded steps but
+    # keep CONTROLLED_DEGRADED as the headline (the dashboard banner reads this).
+    FINAL_SCHEDULER_STATUS="CONTROLLED_DEGRADED"
+    if [ "${#DEGRADED_STEPS[@]}" -gt 0 ]; then
+        EXIT_CODE_REASON="Off-hours: last-known-good preserved. Degraded step(s): $DEGRADED_SUMMARY."
+    else
+        EXIT_CODE_REASON="Market data unavailable (off-hours). Last-known-good data preserved."
+    fi
+elif [ "${#DEGRADED_STEPS[@]}" -gt 0 ]; then
+    # One or more DEGRADABLE steps failed but the run continued and published.
+    FINAL_SCHEDULER_STATUS="PUBLISHED_WITH_WARNINGS"
+    EXIT_CODE_REASON="Published with degraded step(s): $DEGRADED_SUMMARY (refresh status: $REFRESH_STATUS)."
+elif [ "$REFRESH_EXIT_CODE" -eq 0 ] && [ "$REFRESH_STATUS" = "PASS" ]; then
     FINAL_SCHEDULER_STATUS="PASS"
     EXIT_CODE_REASON="All steps completed successfully."
-elif [ "$REFRESH_EXIT_CODE" -eq 0 ] && [ "$REFRESH_STATUS" = "CONTROLLED_DEGRADED" ]; then
-    FINAL_SCHEDULER_STATUS="CONTROLLED_DEGRADED"
-    EXIT_CODE_REASON="Market data unavailable (off-hours). Last-known-good data preserved."
 elif [ "$REFRESH_EXIT_CODE" -eq 0 ] && [ "$REFRESH_STATUS" = "PUBLISHED_WITH_WARNINGS" ]; then
     FINAL_SCHEDULER_STATUS="PUBLISHED_WITH_WARNINGS"
-    EXIT_CODE_REASON="Dashboard published but some charts are empty (labeled for no-trades state)."
+    EXIT_CODE_REASON="Dashboard published with warnings (e.g. empty charts labeled for no-trades state)."
 elif [ "$REFRESH_EXIT_CODE" -ne 0 ]; then
-    FINAL_SCHEDULER_STATUS="FAIL"
-    EXIT_CODE_REASON="Refresh exited with code $REFRESH_EXIT_CODE. Check logs for details."
+    FINAL_SCHEDULER_STATUS="PUBLISHED_WITH_WARNINGS"
+    EXIT_CODE_REASON="Inner refresh exit code $REFRESH_EXIT_CODE; data published last-known-good. Check logs."
 else
     FINAL_SCHEDULER_STATUS="$REFRESH_STATUS"
     EXIT_CODE_REASON="Refresh status: $REFRESH_STATUS (exit code: $REFRESH_EXIT_CODE)"
 fi
+
+# Step-level resilience summary (shared lib)
+log_step_summary
 
 # --------------------------------------------------
 # Step 7: Write scheduler report

@@ -1,6 +1,6 @@
 # MarketOps Automation Readiness Check v0.1
 
-Generated at: 2026-05-29T19:51:09.158Z
+Generated at: 2026-06-08T18:11:12.902Z
 
 ## Readiness Verdict
 

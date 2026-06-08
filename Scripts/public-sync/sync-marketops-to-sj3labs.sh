@@ -209,7 +209,10 @@ if [ "$SYNC_ALLOWED" = "1" ]; then
             echo "Current branch: $CURRENT_BRANCH"
 
             if [ "$CURRENT_BRANCH" = "main" ]; then
-                git push origin main
+                # Push via the shared transient-retry wrapper (same policy as the
+                # Alpaca fetch): retries socket hangups / timeouts / 5xx, never a
+                # non-fast-forward or auth rejection.
+                node "$PROJECT_ROOT/Source/marketops-core/src/utils/transientRetry.js" git push origin main
                 echo "[PUSHED] origin main"
                 PUSH_RESULT="success"
             else

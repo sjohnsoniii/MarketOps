@@ -1,19 +1,19 @@
 # MarketOps Dashboard Refresh Health v0.1
 
-Generated: 2026-05-29T19:51:09.153Z
+Generated: 2026-06-08T18:11:12.894Z
 
 ## Status
 
-- lastStatus: CONTROLLED_DEGRADED
-- isDegraded: true
-- lastAttemptAt: 2026-05-29T19:51:09.153Z
-- lastSuccessfulRefreshAt: 2026-05-21T14:01:39.855Z
-- lastFailureAt: 2026-05-28T19:51:55.102Z
-- consecutiveFailures: 22
+- lastStatus: PASS
+- isDegraded: false
+- lastAttemptAt: 2026-06-08T18:11:12.894Z
+- lastSuccessfulRefreshAt: 2026-06-08T18:11:12.894Z
+- lastFailureAt: 2026-06-02T20:08:29.740Z
+- consecutiveFailures: 0
 
 ## Health
 
-- staleWarning: Last successful refresh was 197.8 hours ago (target: 2 hours)
+- staleWarning: none
 - refreshIntervalTargetHours: 2
 - schedulerInstalled: false
 

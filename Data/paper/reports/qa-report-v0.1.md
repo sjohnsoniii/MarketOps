@@ -2,7 +2,7 @@
 
 Mode: paper_simulation
 
-Generated: 2026-05-29T02:07:53.136Z
+Generated: 2026-06-08T19:03:59.917Z
 Result: QA PASS
 
 | Check | Status | Detail |
@@ -31,13 +31,13 @@ Result: QA PASS
 | output exists: Data/paper/reports/equity-curve-v0.1.md | PASS | /home/sjohnsoniii/Projects/MarketOps/Data/paper/reports/equity-curve-v0.1.md |
 | output exists: Data/paper/reports/performance-summary-v0.1.md | PASS | /home/sjohnsoniii/Projects/MarketOps/Data/paper/reports/performance-summary-v0.1.md |
 | output exists: Data/paper/reports/staff-writer-brief-v0.1.md | PASS | /home/sjohnsoniii/Projects/MarketOps/Data/paper/reports/staff-writer-brief-v0.1.md |
-| paper trades are paper-only | PASS | 10 trades checked |
-| trades timestamp is not stale sample default | PASS | generatedAt=2026-05-29T02:06:44.310Z |
-| max drawdown is finite | PASS | maxDrawdown=98.54 |
-| open position count present | PASS | count=10 |
-| cash balance present | PASS | cash=172.44 |
-| total equity present | PASS | equity=172.44 |
-| open position count matches trades | PASS | trades_with_open_status=10 positions=10 |
+| paper trades are paper-only | PASS | 0 trades checked |
+| trades timestamp is not stale sample default | PASS | generatedAt=2026-06-08T19:00:19.207Z |
+| max drawdown is finite | PASS | maxDrawdown=1.55 |
+| open position count present | PASS | count=20 |
+| cash balance present | PASS | cash=665.53 |
+| total equity present | PASS | equity=985.76 |
+| open position count matches trades | PASS | trades_with_open_status=0 positions=20 |
 | no sample-only language in real-data simulation | PASS | sampleDataOnly=undefined |
 | automation output exists: Data/paper/history/run-history.json | PASS | /home/sjohnsoniii/Projects/MarketOps/Data/paper/history/run-history.json |
 | automation output exists: Data/paper/history/latest-run-summary.json | PASS | /home/sjohnsoniii/Projects/MarketOps/Data/paper/history/latest-run-summary.json |

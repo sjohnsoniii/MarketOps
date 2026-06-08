@@ -1,95 +1,39 @@
 # MarketOps Risk Desk Learning Report v0.1
 
-Generated: 2026-05-29T19:51:10.603Z
+Generated: 2026-06-08T18:11:15.206Z
 Paper Simulation: true
-Cycle: cycle-20260520-2356
-Cycle Started: 2026-05-20T23:56:14.139Z
+Cycle: cycle-20260530-1322
+Cycle Started: 2026-05-30T13:22:04.937Z
 
 ## Summary
 
 | Metric | Count |
 |---|---:|
-| Approved Trades | 82 |
-| Rejected Trades | 68 |
-| Watched Signals | 111 |
-| Shadow Trades Tracked | 68 |
-| Possible False Positives (bad_approval) | 10 |
-| Possible False Negatives (bad_rejection) | 0 |
-| Good Approvals | 1 |
-| Bad Approvals | 10 |
-| Good Rejections | 0 |
-| Bad Rejections / Missed Winners | 0 |
-| Inconclusive | 250 |
+| Approved Trades | 18 |
+| Rejected Trades | 132 |
+| Watched Signals | 65 |
+| Shadow Trades Tracked | 132 |
+| Possible False Positives (bad_approval) | 4 |
+| Possible False Negatives (bad_rejection) | 1 |
+| Good Approvals | 0 |
+| Bad Approvals | 4 |
+| Good Rejections | 29 |
+| Bad Rejections / Missed Winners | 1 |
+| Inconclusive | 181 |
 
-**Best Decision:** Approved AAPL: Position performing well (good_approval).
-**Worst Decision:** Approved XLV: Position underperforming (bad_approval). Needs review.
+**Best Decision:** No clear best decision yet.
+**Worst Decision:** Rejected SQ: Price moved higher after rejection (bad_rejection_missed_winner).
 
-**Learning Notes:** Risk Desk reviewed 261 total items. 1 good approvals, 10 possible false positives, 0 good rejections, 0 possible false negatives, 250 inconclusive. Learning records built from Cruise 1 cycle data. Most outcomes are still early (positions held less than 1 week).
+**Learning Notes:** Risk Desk reviewed 215 total items. 0 good approvals, 4 possible false positives, 29 good rejections, 1 possible false negatives, 181 inconclusive. Learning records built from Cruise 1 cycle data. Most outcomes are still early (positions held less than 1 week).
 
 ## Approved Trades
 
 | Symbol | Outcome | P&L % | Plain English |
 |---|---:|---:|:---|
-| SPY | inconclusive | 0.00% | Risk Desk approved this trade. Position is currently flat. |
-| QQQ | inconclusive | 0.00% | Risk Desk approved this trade. Position is currently flat. |
-| IWM | inconclusive | 0.00% | Risk Desk approved this trade. Position is currently flat. |
-| DIA | inconclusive | 0.00% | Risk Desk approved this trade. Position is currently flat. |
-| VTI | inconclusive | 0.00% | Risk Desk approved this trade. Position is currently flat. |
-| VOO | inconclusive | 0.00% | Risk Desk approved this trade. Position is currently flat. |
-| VXUS | inconclusive | 0.00% | Risk Desk approved this trade. Position is currently flat. |
-| VT | inconclusive | 0.00% | Risk Desk approved this trade. Position is currently flat. |
-| VB | inconclusive | 0.00% | Risk Desk approved this trade. Position is currently flat. |
-| VO | inconclusive | 0.00% | Risk Desk approved this trade. Position is currently flat. |
-| VV | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| IVV | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| IJR | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| IJH | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| SCHB | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| SCHX | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| XLK | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| XLV | bad_approval | N/A | Risk Desk approved this trade but it closed at -$0.25 loss (0%). Needs review. |
-| XLI | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| XLY | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
 | SMH | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| IBB | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| XHB | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| XRT | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| GDXJ | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| TLT | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| EEM | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| VWO | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| ARKK | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| ARKW | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| ARKG | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| ARKF | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| SOXX | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| TAN | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| ICLN | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| XBI | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| LABU | bad_approval | N/A | Risk Desk approved this trade but it closed at -$0.01 loss (0%). Needs review. |
-| EWJ | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| AAPL | good_approval | N/A | Risk Desk approved this trade. Closed with +$3.23 gain (0%). |
-| MSFT | bad_approval | N/A | Risk Desk approved this trade but it closed at -$0.13 loss (0%). Needs review. |
-| AMZN | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| META | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| TSLA | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| PG | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| HD | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| MRK | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| ABBV | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| CRM | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
+| JPM | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
 | AMD | bad_approval | N/A | Risk Desk approved this trade but it closed at -$0.07 loss (0%). Needs review. |
-| INTC | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| LLY | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| ORCL | bad_approval | N/A | Risk Desk approved this trade but it closed at -$0.05 loss (0%). Needs review. |
-| TMO | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| TXN | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| QCOM | bad_approval | N/A | Risk Desk approved this trade but it closed at -$0.04 loss (0%). Needs review. |
-| HON | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| NKE | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| BA | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| CAT | bad_approval | N/A | Risk Desk approved this trade but it closed at -$0.01 loss (0%). Needs review. |
-| GE | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
+| WFC | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
 | IBM | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
 | AMAT | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
 | AMD | bad_approval | N/A | Risk Desk approved this trade but it closed at -$0.07 loss (0%). Needs review. |
@@ -97,19 +41,11 @@ Cycle Started: 2026-05-20T23:56:14.139Z
 | NOW | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
 | LRCX | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
 | GS | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| ADI | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| AXP | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| BKNG | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| GILD | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| VRTX | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
 | PANW | bad_approval | N/A | Risk Desk approved this trade but it closed at -$0.03 loss (0%). Needs review. |
-| MDLZ | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
+| C | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
 | F | bad_approval | N/A | Risk Desk approved this trade but it closed at -$0.02 loss (0%). Needs review. |
 | GM | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| SNAP | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
 | RIVN | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| LCID | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
-| PLTR | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
 | HOOD | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
 | TSM | inconclusive | N/A | Approved but no matching position data yet. Trade may not have been executed. |
 
@@ -117,201 +53,225 @@ Cycle Started: 2026-05-20T23:56:14.139Z
 
 | Symbol | Outcome | Shadow P&L % | Block Reason | Plain English |
 |---|---:|---:|:---|:---|
-| BND | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| BNDX | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| SCHF | inconclusive | N/A | Risk Desk blocked this signal for Phase 1 paper simulation. | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| XLF | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| XLE | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| XLP | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| XLU | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| XLRE | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| XLC | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| KRE | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| KBE | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| OIH | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| GDX | inconclusive | N/A | Risk Desk blocked this signal for Phase 1 paper simulation. | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| SLV | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| GLD | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| IEF | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| SHY | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| LQD | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| HYG | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| EMB | inconclusive | N/A | Risk Desk blocked this signal for Phase 1 paper simulation. | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| TIP | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| MBB | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| EFA | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| VEA | inconclusive | N/A | Risk Desk blocked this signal for Phase 1 paper simulation. | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| FXI | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| EWZ | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| INDA | inconclusive | N/A | Risk Desk blocked this signal for Phase 1 paper simulation. | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| NVDA | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| GOOGL | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| GOOG | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| AVGO | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| JPM | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| V | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| JNJ | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| WMT | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| XOM | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| UNH | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| COST | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| NFLX | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| BRK.B | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| MA | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| ADBE | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| CSCO | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| ACN | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| DIS | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| PFE | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| BAC | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| KO | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| PEP | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| ABT | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| AMGN | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| UBER | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| MCD | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| WFC | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| RTX | inconclusive | N/A | Risk Desk blocked this signal for Phase 1 paper simulation. | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| PLD | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| SYK | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| BLK | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| REGN | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| ISRG | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| SBUX | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| SCHW | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| C | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| PYPL | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| SQ | inconclusive | N/A | Signal did not qualify as a candidate.; Phase 1 only allows  | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| DASH | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| COIN | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
-| MSTR | inconclusive | N/A | Phase 1 only allows long/up paper candidates. Downside, shor | Rejected by Risk Desk. Market data insufficient for shadow price calculation. |
+| SPY | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| QQQ | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| IWM | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| DIA | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| VTI | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| VOO | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| VXUS | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| BND | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| BNDX | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| VT | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| VB | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| VO | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| VV | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| IVV | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| IJR | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| IJH | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| SCHB | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| SCHX | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| SCHF | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| XLF | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| XLK | inconclusive | 0.00% | Risk Desk blocked this signal for Phase 1 paper simulation. | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| XLV | inconclusive | 0.00% | Position already open for XLV. | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| XLE | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| XLI | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| XLP | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| XLY | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| XLU | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| XLRE | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| XLC | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| IBB | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| KRE | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| KBE | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| OIH | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| XHB | inconclusive | 0.00% | Position already open for XHB. | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| XRT | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| GDX | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| GDXJ | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| SLV | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| GLD | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| TLT | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| IEF | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| SHY | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| LQD | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| HYG | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| EMB | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| TIP | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| MBB | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| EEM | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| EFA | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| VEA | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| VWO | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| ARKK | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| ARKW | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| ARKG | inconclusive | 0.00% | Position already open for ARKG. | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| ARKF | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| SOXX | inconclusive | 0.00% | Position already open for SOXX. | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| TAN | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| ICLN | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| XBI | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| LABU | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| FXI | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| EWJ | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| EWZ | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| INDA | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| AAPL | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| MSFT | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| NVDA | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| AMZN | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| META | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| GOOGL | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| GOOG | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| TSLA | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| AVGO | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| V | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| JNJ | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| WMT | good_rejection | -0.07% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price has since declined 0.07% (-$0.08 per share). Avoided a losing trade. |
+| PG | good_rejection | -0.09% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price has since declined 0.09% (-$0.13 per share). Avoided a losing trade. |
+| XOM | good_rejection | -0.01% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price has since declined 0.01% (-$0.02 per share). Avoided a losing trade. |
+| UNH | good_rejection | -0.03% | Position already open for UNH. | Risk Desk rejected this trade. Price has since declined 0.03% (-$0.11 per share). Avoided a losing trade. |
+| HD | good_rejection | -0.02% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price has since declined 0.02% (-$0.06 per share). Avoided a losing trade. |
+| COST | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| MRK | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| ABBV | inconclusive | 0.00% | Position already open for ABBV. | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| CRM | inconclusive | 0.00% | Position already open for CRM. | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| NFLX | inconclusive | 0.01% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price has edged up 0.01% (+$0.01 per share). Movement is minor. |
+| INTC | inconclusive | 0.10% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price has edged up 0.1% (+$0.11 per share). Movement is minor. |
+| BRK.B | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| LLY | good_rejection | -0.02% | Position already open for LLY. | Risk Desk rejected this trade. Price has since declined 0.02% (-$0.18 per share). Avoided a losing trade. |
+| MA | good_rejection | -0.01% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price has since declined 0.01% (-$0.04 per share). Avoided a losing trade. |
+| ORCL | inconclusive | 0.00% | Position already open for ORCL. | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| ADBE | good_rejection | -0.04% | Position already open for ADBE. | Risk Desk rejected this trade. Price has since declined 0.04% (-$0.11 per share). Avoided a losing trade. |
+| CSCO | inconclusive | 0.10% | Position already open for CSCO. | Risk Desk rejected this trade. Price has edged up 0.1% (+$0.13 per share). Movement is minor. |
+| ACN | good_rejection | -0.22% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price has since declined 0.22% (-$0.38 per share). Avoided a losing trade. |
+| DIS | good_rejection | -0.02% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price has since declined 0.02% (-$0.02 per share). Avoided a losing trade. |
+| PFE | inconclusive | 0.02% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price has edged up 0.02% (+$0.01 per share). Movement is minor. |
+| TMO | good_rejection | -0.01% | Position already open for TMO. | Risk Desk rejected this trade. Price has since declined 0.01% (-$0.06 per share). Avoided a losing trade. |
+| BAC | good_rejection | -0.02% | Position already open for BAC. | Risk Desk rejected this trade. Price has since declined 0.02% (-$0.01 per share). Avoided a losing trade. |
+| KO | good_rejection | -0.05% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price has since declined 0.05% (-$0.04 per share). Avoided a losing trade. |
+| PEP | good_rejection | -0.04% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price has since declined 0.04% (-$0.05 per share). Avoided a losing trade. |
+| ABT | good_rejection | -0.05% | Position already open for ABT. | Risk Desk rejected this trade. Price has since declined 0.05% (-$0.05 per share). Avoided a losing trade. |
+| TXN | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| QCOM | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| AMGN | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| HON | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| UBER | inconclusive | 0.09% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price has edged up 0.09% (+$0.06 per share). Movement is minor. |
+| NKE | good_rejection | -0.05% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price has since declined 0.05% (-$0.02 per share). Avoided a losing trade. |
+| BA | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| MCD | good_rejection | -0.02% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price has since declined 0.02% (-$0.06 per share). Avoided a losing trade. |
+| CAT | inconclusive | 0.00% | Position already open for CAT. | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| GE | inconclusive | 0.02% | Position already open for GE. | Risk Desk rejected this trade. Price has edged up 0.02% (+$0.06 per share). Movement is minor. |
+| RTX | good_rejection | -0.01% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price has since declined 0.01% (-$0.01 per share). Avoided a losing trade. |
+| PLD | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| SYK | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| BLK | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| ADI | good_rejection | -0.01% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price has since declined 0.01% (-$0.05 per share). Avoided a losing trade. |
+| AXP | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| BKNG | good_rejection | -0.04% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price has since declined 0.04% (-$0.07 per share). Avoided a losing trade. |
+| GILD | good_rejection | -0.06% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price has since declined 0.06% (-$0.08 per share). Avoided a losing trade. |
+| VRTX | inconclusive | 0.00% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| REGN | inconclusive | 0.02% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price has edged up 0.02% (+$0.13 per share). Movement is minor. |
+| ISRG | good_rejection | -0.04% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price has since declined 0.04% (-$0.18 per share). Avoided a losing trade. |
+| SBUX | good_rejection | -0.03% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price has since declined 0.03% (-$0.03 per share). Avoided a losing trade. |
+| MDLZ | good_rejection | -0.11% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price has since declined 0.11% (-$0.07 per share). Avoided a losing trade. |
+| SCHW | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| PYPL | good_rejection | -0.16% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price has since declined 0.16% (-$0.06 per share). Avoided a losing trade. |
+| SNAP | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| SQ | bad_rejection_missed_winner | N/A% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price has since risen Infinity% (+$86.95 per share). Possible missed winner. |
+| DASH | inconclusive | 0.00% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price is essentially unchanged since rejection. |
+| LCID | good_rejection | -0.19% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price has since declined 0.19% (-$0.01 per share). Avoided a losing trade. |
+| PLTR | good_rejection | -0.10% | Signal did not qualify as a candidate.; Phase 1 only allows  | Risk Desk rejected this trade. Price has since declined 0.1% (-$0.13 per share). Avoided a losing trade. |
+| COIN | good_rejection | -0.32% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price has since declined 0.32% (-$0.52 per share). Avoided a losing trade. |
+| MSTR | good_rejection | -0.13% | Phase 1 only allows long/up paper candidates. Downside, shor | Risk Desk rejected this trade. Price has since declined 0.13% (-$0.16 per share). Avoided a losing trade. |
 
 ## Watched Signals
 
 | Symbol | Outcome | Reason Watched |
 |---|---:|:---|
-| BND | inconclusive | Signal did not meet movement threshold (0.72%). |
-| BNDX | inconclusive | Signal did not meet movement threshold (0.62%). |
-| VV | inconclusive | Signal met criteria but no paper position was opened. |
-| IVV | inconclusive | Signal met criteria but no paper position was opened. |
-| IJR | inconclusive | Signal met criteria but no paper position was opened. |
-| IJH | inconclusive | Signal met criteria but no paper position was opened. |
-| SCHB | inconclusive | Signal met criteria but no paper position was opened. |
-| SCHX | inconclusive | Signal met criteria but no paper position was opened. |
-| XLF | inconclusive | Signal did not meet movement threshold (-0.25%). |
-| XLK | inconclusive | Signal met criteria but no paper position was opened. |
-| XLV | inconclusive | Signal met criteria but no paper position was opened. |
-| XLI | inconclusive | Signal met criteria but no paper position was opened. |
-| XLP | inconclusive | Signal did not meet movement threshold (-0.31%). |
-| XLY | inconclusive | Signal met criteria but no paper position was opened. |
-| XLU | inconclusive | Signal did not meet movement threshold (-0.71%). |
-| XLRE | inconclusive | Signal did not meet movement threshold (-0.15%). |
-| XLC | inconclusive | Signal did not meet movement threshold (0.51%). |
+| SPY | inconclusive | Signal did not meet movement threshold (-1.15%). |
+| QQQ | inconclusive | Signal did not meet movement threshold (-0.79%). |
+| IWM | inconclusive | Signal did not meet movement threshold (-1.19%). |
+| DIA | inconclusive | Signal did not meet movement threshold (0.33%). |
+| VTI | inconclusive | Signal did not meet movement threshold (-0.9%). |
+| VOO | inconclusive | Signal did not meet movement threshold (-1.14%). |
+| BND | inconclusive | Signal did not meet movement threshold (-0.56%). |
+| BNDX | inconclusive | Signal did not meet movement threshold (-0.51%). |
+| VB | inconclusive | Signal did not meet movement threshold (-0.42%). |
+| VO | inconclusive | Signal did not meet movement threshold (0.29%). |
+| VV | inconclusive | Signal did not meet movement threshold (-0.91%). |
+| IVV | inconclusive | Signal did not meet movement threshold (-1.14%). |
+| IJR | inconclusive | Signal did not meet movement threshold (0.32%). |
+| IJH | inconclusive | Signal did not meet movement threshold (0.26%). |
+| SCHB | inconclusive | Signal did not meet movement threshold (-0.95%). |
+| SCHX | inconclusive | Signal did not meet movement threshold (-0.93%). |
+| XLF | inconclusive | Signal did not meet movement threshold (0.2%). |
+| XLE | inconclusive | Signal did not meet movement threshold (-0.54%). |
+| XLI | inconclusive | Signal did not meet movement threshold (0.32%). |
 | SMH | inconclusive | Signal met criteria but no paper position was opened. |
-| IBB | inconclusive | Signal met criteria but no paper position was opened. |
-| KRE | inconclusive | Signal did not meet movement threshold (0.37%). |
-| KBE | inconclusive | Signal did not meet movement threshold (0%). |
-| XHB | inconclusive | Signal met criteria but no paper position was opened. |
-| XRT | inconclusive | Signal met criteria but no paper position was opened. |
-| GDXJ | inconclusive | Signal met criteria but no paper position was opened. |
-| GLD | inconclusive | Signal did not meet movement threshold (-0.95%). |
-| TLT | inconclusive | Signal met criteria but no paper position was opened. |
-| IEF | inconclusive | Signal did not meet movement threshold (0.83%). |
-| SHY | inconclusive | Signal did not meet movement threshold (0.14%). |
-| LQD | inconclusive | Signal did not meet movement threshold (1.06%). |
-| HYG | inconclusive | Signal did not meet movement threshold (0.43%). |
-| TIP | inconclusive | Signal did not meet movement threshold (0.77%). |
-| MBB | inconclusive | Signal did not meet movement threshold (0.89%). |
-| EEM | inconclusive | Signal met criteria but no paper position was opened. |
-| EFA | inconclusive | Signal did not meet movement threshold (0.51%). |
-| VWO | inconclusive | Signal met criteria but no paper position was opened. |
-| ARKK | inconclusive | Signal met criteria but no paper position was opened. |
-| ARKW | inconclusive | Signal met criteria but no paper position was opened. |
-| ARKG | inconclusive | Signal met criteria but no paper position was opened. |
-| ARKF | inconclusive | Signal met criteria but no paper position was opened. |
-| SOXX | inconclusive | Signal met criteria but no paper position was opened. |
-| TAN | inconclusive | Signal met criteria but no paper position was opened. |
-| ICLN | inconclusive | Signal met criteria but no paper position was opened. |
-| XBI | inconclusive | Signal met criteria but no paper position was opened. |
-| LABU | inconclusive | Signal met criteria but no paper position was opened. |
-| EWJ | inconclusive | Signal met criteria but no paper position was opened. |
-| AAPL | inconclusive | Signal met criteria but no paper position was opened. |
-| MSFT | inconclusive | Signal met criteria but no paper position was opened. |
-| AMZN | inconclusive | Signal met criteria but no paper position was opened. |
-| META | inconclusive | Signal met criteria but no paper position was opened. |
-| GOOGL | inconclusive | Signal did not meet movement threshold (-0.96%). |
-| GOOG | inconclusive | Signal did not meet movement threshold (0.53%). |
-| TSLA | inconclusive | Signal met criteria but no paper position was opened. |
-| AVGO | inconclusive | Signal did not meet movement threshold (1.2%). |
-| JPM | inconclusive | Signal did not meet movement threshold (-1.05%). |
-| V | inconclusive | Signal did not meet movement threshold (-0.37%). |
-| JNJ | inconclusive | Signal did not meet movement threshold (0.01%). |
-| PG | inconclusive | Signal met criteria but no paper position was opened. |
-| HD | inconclusive | Signal met criteria but no paper position was opened. |
-| MRK | inconclusive | Signal met criteria but no paper position was opened. |
-| ABBV | inconclusive | Signal met criteria but no paper position was opened. |
-| CRM | inconclusive | Signal met criteria but no paper position was opened. |
+| KRE | inconclusive | Signal did not meet movement threshold (0.69%). |
+| KBE | inconclusive | Signal did not meet movement threshold (0.79%). |
+| XRT | inconclusive | Signal did not meet movement threshold (0.76%). |
+| TLT | inconclusive | Signal did not meet movement threshold (-0.35%). |
+| IEF | inconclusive | Signal did not meet movement threshold (-0.73%). |
+| SHY | inconclusive | Signal did not meet movement threshold (-0.36%). |
+| LQD | inconclusive | Signal did not meet movement threshold (-0.73%). |
+| HYG | inconclusive | Signal did not meet movement threshold (-0.74%). |
+| EMB | inconclusive | Signal did not meet movement threshold (-0.25%). |
+| MBB | inconclusive | Signal did not meet movement threshold (-0.62%). |
+| EWJ | inconclusive | Signal did not meet movement threshold (-1.11%). |
+| MSFT | inconclusive | Signal did not meet movement threshold (-0.77%). |
+| JPM | inconclusive | Signal met criteria but no paper position was opened. |
+| JNJ | inconclusive | Signal did not meet movement threshold (-0.68%). |
+| WMT | inconclusive | Signal did not meet movement threshold (0.01%). |
+| PG | inconclusive | Signal did not meet movement threshold (0.66%). |
+| XOM | inconclusive | Signal did not meet movement threshold (-1.05%). |
 | AMD | inconclusive | Signal met criteria but no paper position was opened. |
-| INTC | inconclusive | Signal met criteria but no paper position was opened. |
-| BRK.B | inconclusive | Signal did not meet movement threshold (-0.51%). |
-| LLY | inconclusive | Signal met criteria but no paper position was opened. |
-| MA | inconclusive | Signal did not meet movement threshold (-0.99%). |
-| ORCL | inconclusive | Signal met criteria but no paper position was opened. |
-| ADBE | inconclusive | Signal did not meet movement threshold (-1.14%). |
-| CSCO | inconclusive | Signal did not meet movement threshold (0.14%). |
-| ACN | inconclusive | Signal did not meet movement threshold (0.12%). |
-| DIS | inconclusive | Signal did not meet movement threshold (0.06%). |
-| PFE | inconclusive | Signal did not meet movement threshold (1.04%). |
-| TMO | inconclusive | Signal met criteria but no paper position was opened. |
-| BAC | inconclusive | Signal did not meet movement threshold (-0.95%). |
-| KO | inconclusive | Signal did not meet movement threshold (-0.92%). |
-| TXN | inconclusive | Signal met criteria but no paper position was opened. |
-| QCOM | inconclusive | Signal met criteria but no paper position was opened. |
-| AMGN | inconclusive | Signal did not meet movement threshold (-0.23%). |
-| HON | inconclusive | Signal met criteria but no paper position was opened. |
-| NKE | inconclusive | Signal met criteria but no paper position was opened. |
-| BA | inconclusive | Signal met criteria but no paper position was opened. |
-| CAT | inconclusive | Signal met criteria but no paper position was opened. |
-| GE | inconclusive | Signal met criteria but no paper position was opened. |
-| WFC | inconclusive | Signal did not meet movement threshold (0.65%). |
+| BRK.B | inconclusive | Signal did not meet movement threshold (0.38%). |
+| ACN | inconclusive | Signal did not meet movement threshold (-0.11%). |
+| PFE | inconclusive | Signal did not meet movement threshold (-0.75%). |
+| AMGN | inconclusive | Signal did not meet movement threshold (0.99%). |
+| WFC | inconclusive | Signal met criteria but no paper position was opened. |
+| RTX | inconclusive | Signal did not meet movement threshold (0.67%). |
 | IBM | inconclusive | Signal met criteria but no paper position was opened. |
-| PLD | inconclusive | Signal did not meet movement threshold (0.69%). |
 | AMAT | inconclusive | Signal met criteria but no paper position was opened. |
 | AMD | inconclusive | Signal met criteria but no paper position was opened. |
 | MU | inconclusive | Signal met criteria but no paper position was opened. |
 | NOW | inconclusive | Signal met criteria but no paper position was opened. |
 | LRCX | inconclusive | Signal met criteria but no paper position was opened. |
 | GS | inconclusive | Signal met criteria but no paper position was opened. |
-| BLK | inconclusive | Signal did not meet movement threshold (-1.17%). |
-| ADI | inconclusive | Signal met criteria but no paper position was opened. |
-| AXP | inconclusive | Signal met criteria but no paper position was opened. |
-| BKNG | inconclusive | Signal met criteria but no paper position was opened. |
-| GILD | inconclusive | Signal met criteria but no paper position was opened. |
-| VRTX | inconclusive | Signal met criteria but no paper position was opened. |
+| ADI | inconclusive | Signal did not meet movement threshold (-0.46%). |
+| AXP | inconclusive | Signal did not meet movement threshold (0.32%). |
+| BKNG | inconclusive | Signal did not meet movement threshold (0.2%). |
+| VRTX | inconclusive | Signal did not meet movement threshold (0.73%). |
 | PANW | inconclusive | Signal met criteria but no paper position was opened. |
-| MDLZ | inconclusive | Signal met criteria but no paper position was opened. |
-| C | inconclusive | Signal did not meet movement threshold (-0.26%). |
+| MDLZ | inconclusive | Signal did not meet movement threshold (-0.53%). |
+| C | inconclusive | Signal met criteria but no paper position was opened. |
 | F | inconclusive | Signal met criteria but no paper position was opened. |
 | GM | inconclusive | Signal met criteria but no paper position was opened. |
-| PYPL | inconclusive | Signal did not meet movement threshold (0.16%). |
-| SNAP | inconclusive | Signal met criteria but no paper position was opened. |
 | SQ | inconclusive | Signal did not meet movement threshold (0%). |
 | RIVN | inconclusive | Signal met criteria but no paper position was opened. |
-| LCID | inconclusive | Signal met criteria but no paper position was opened. |
-| PLTR | inconclusive | Signal met criteria but no paper position was opened. |
+| PLTR | inconclusive | Signal did not meet movement threshold (0.61%). |
 | HOOD | inconclusive | Signal met criteria but no paper position was opened. |
 | TSM | inconclusive | Signal met criteria but no paper position was opened. |
 
 ## Recommendations (All require admin review, none auto-applied)
 
 ### rec-risk-001: Review approval criteria for underperforming positions
-- **Summary:** 10 approved trade(s) are showing losses. Review whether confidence threshold or entry timing rules need adjustment.
+- **Summary:** 4 approved trade(s) are showing losses. Review whether confidence threshold or entry timing rules need adjustment.
+- **Risk Level:** low
+- **Auto-apply:** false
+- **Requires Admin Review:** true
+
+### rec-risk-002: Review rejection criteria that may have missed winners
+- **Summary:** 1 rejected trade(s) have since moved favorably. Review if block rules were appropriate.
 - **Risk Level:** low
 - **Auto-apply:** false
 - **Requires Admin Review:** true
 
 ### rec-risk-003: Continue shadow tracking for comprehensive learning
-- **Summary:** 68 shadow trades tracked for rejected signals. Continue monitoring to build historical performance baseline.
+- **Summary:** 132 shadow trades tracked for rejected signals. Continue monitoring to build historical performance baseline.
 - **Risk Level:** low
 - **Auto-apply:** false
 - **Requires Admin Review:** false
@@ -328,7 +288,7 @@ Cycle Started: 2026-05-20T23:56:14.139Z
 
 ### prop-risk-002: Consider lowering confidence threshold for high-quality signals
 - **Type:** threshold_adjustment
-- **Summary:** If shadow tracking shows consistent missed winners with confidence near 0.55, consider adjusting the minimum confidence gate.
+- **Summary:** If shadow tracking shows 1 missed winners with confidence near 0.55, consider adjusting the minimum confidence gate.
 - **Risk Level:** low
 - **Safety Impact:** none
 - **Status:** pending_future_review_queue

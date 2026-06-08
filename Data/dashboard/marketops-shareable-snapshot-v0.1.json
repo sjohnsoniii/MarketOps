@@ -1,6 +1,6 @@
 {
   "schemaVersion": "marketops-shareable-snapshot-v0.1",
-  "generatedAt": "2026-05-29T19:51:08.960Z",
+  "generatedAt": "2026-06-08T18:11:12.829Z",
   "mode": "paper_simulation",
   "paperOnly": true,
   "sampleData": false,
@@ -22,31 +22,31 @@
       "note": "Use config paperAccountPreset to switch: micro (100), small (250), standard (1000)."
     },
     "paperCycle": {
-      "cycleId": "cycle-20260520-2356",
-      "status": "reset_pending",
+      "cycleId": "cycle-20260530-1322",
+      "status": "active",
       "startingBalance": 1000,
-      "currentBalance": -17.84,
-      "paperPnl": -830.98,
-      "paperReturnPct": -82.81,
-      "maxDrawdownPct": -82.81,
-      "daysSurvived": 5.59,
-      "depletionRisk": "depleted",
-      "approvedTrades": 62,
-      "rejectedTrades": 836
+      "currentBalance": 986.07,
+      "paperPnl": 320.54,
+      "paperReturnPct": 48.16,
+      "maxDrawdownPct": null,
+      "daysSurvived": 9.2,
+      "depletionRisk": "normal",
+      "approvedTrades": 1134,
+      "rejectedTrades": 5766
     },
     "signalsAndRisk": {
       "signalsReviewed": 150,
-      "riskApproved": 82,
-      "riskBlocked": 68,
-      "fakePaperTrades": 10,
-      "noTradeReason": null
+      "riskApproved": 18,
+      "riskBlocked": 132,
+      "fakePaperTrades": 0,
+      "noTradeReason": "Risk Desk did not approve any candidate for fake paper execution."
     },
     "refreshStatus": {
-      "lastRefreshAt": "2026-05-29T18:01:14.751Z",
-      "lastSuccessfulRefreshAt": "2026-05-21T14:01:39.855Z",
-      "lastStatus": "CONTROLLED_DEGRADED",
-      "staleWarning": "Last successful refresh was 196.0 hours ago (target: 2 hours)",
-      "failureReason": "Market data unavailable: LIMITED_FRESH_BARS. Dashboard data preserved from last successful refresh.",
+      "lastRefreshAt": "2026-06-08T16:10:51.879Z",
+      "lastSuccessfulRefreshAt": "2026-06-08T16:10:51.879Z",
+      "lastStatus": "PASS",
+      "staleWarning": null,
+      "failureReason": null,
       "refreshIntervalTargetHours": 2,
       "schedulerInstalled": false,
       "isDegraded": false
