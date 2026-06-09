@@ -43,6 +43,15 @@ function loadExitRules() {
   }
 }
 
+function loadCooldownConfig() {
+  try {
+    const config = loadJson(paths.config);
+    return (config.learningMode && config.learningMode.reEntryCooldown) || null;
+  } catch {
+    return null;
+  }
+}
+
 // Map the DEFINITE source field (vehicle universe `assetType`, carried onto the
 // position) to an exit-threshold key. ETF -> etf, EQUITY -> stock. Anything else
 // (missing/unknown) returns null so the caller can default to the tighter ETF
@@ -356,6 +365,7 @@ function updateUnrealizedPnl(openPositions, marketBars) {
 function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDataInfo = {}, generatedAt }) {
   const dtConfig = loadDayTradingConfig();
   const learningConfig = loadLearningConfig();
+  const cooldownCfg = loadCooldownConfig();
   const maxTradesPerDay = learningConfig ? learningConfig.sizing.maxTotalTradesPerDay : (dtConfig.maxTradesPerDay || 10);
   const maxOpenPositions = learningConfig
     ? (learningConfig.maxOpenPositions || Math.max(dtConfig.maxOpenPositions || 5, 10))
@@ -376,6 +386,16 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
 
   if (isNewTradeDay(positions, generatedAt)) {
     resetDailyCounts(positions, generatedAt, performance);
+  }
+
+  // Prune stale cooldown entries (older than 2× cooldownHours) to keep the map lean.
+  if (cooldownCfg && positions.reEntryCooldowns) {
+    const pruneCutoffMs = Date.now() - (cooldownCfg.cooldownHours * 2) * 3600000;
+    Object.keys(positions.reEntryCooldowns).forEach(sym => {
+      if (new Date(positions.reEntryCooldowns[sym]).getTime() < pruneCutoffMs) {
+        delete positions.reEntryCooldowns[sym];
+      }
+    });
   }
 
   let cashBalance = performance.cashBalance;
@@ -452,6 +472,7 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
       continue;
     }
 
+    // Fetch bars early — needed for both the entry and the volume conviction gate.
     const bars = (marketBars || [])
       .filter((b) => b.symbol === signal.symbol)
       .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
@@ -459,6 +480,54 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
     if (bars.length < 2) {
       skippedReasons.push(`${signal.symbol}: insufficient bars`);
       continue;
+    }
+
+    // Re-entry cooldown: bar any symbol that exited within cooldownHours unless
+    // the conviction override clears both the momentum gate and the band gate
+    // (and the volume gate when volume data is present).
+    if (cooldownCfg && cooldownCfg.cooldownHours > 0) {
+      const reEntryCooldowns = positions.reEntryCooldowns || {};
+      const lastExitAt = reEntryCooldowns[signal.symbol];
+      if (lastExitAt) {
+        const hoursSinceExit = (Date.now() - new Date(lastExitAt).getTime()) / 3600000;
+        if (hoursSinceExit < cooldownCfg.cooldownHours) {
+          const ovr = cooldownCfg.convictionOverride;
+          let overrideGranted = false;
+          const ovrDetails = [];
+          if (ovr && ovr.enabled) {
+            const absChange = Math.abs(signal.sampleChangePct || 0);
+            const baseTrigger = cooldownCfg.entryMovementThresholdPct || 2.0;
+            const momentumRequired = baseTrigger * ovr.momentumMultiplier;
+            const momentumOk = absChange >= momentumRequired;
+            ovrDetails.push(`momentum:${momentumOk}(${absChange.toFixed(2)}%>=${momentumRequired.toFixed(2)}%)`);
+
+            const bandOk = decision.approvalBand === ovr.requiredApprovalBand;
+            ovrDetails.push(`band:${bandOk}(${decision.approvalBand})`);
+
+            // Volume gate: latest bar vs average of prior lookbackBars.
+            // Skipped (passes) if all bars have zero volume (data not populated).
+            let volumeOk = true;
+            if (ovr.volumeMultiplier && bars.length >= 2) {
+              const lookback = ovr.volumeLookbackBars || 30;
+              const priorBars = bars.slice(0, -1).slice(-lookback);
+              const avgVol = priorBars.length > 0
+                ? priorBars.reduce((s, b) => s + (b.volume || 0), 0) / priorBars.length
+                : 0;
+              const latestVol = bars[bars.length - 1].volume || 0;
+              volumeOk = avgVol === 0 || latestVol >= avgVol * ovr.volumeMultiplier;
+              ovrDetails.push(`vol:${volumeOk}(${latestVol}>=${(avgVol * ovr.volumeMultiplier).toFixed(0)})`);
+            }
+
+            overrideGranted = momentumOk && bandOk && volumeOk;
+          }
+
+          if (!overrideGranted) {
+            skippedReasons.push(`${signal.symbol}: cooldown(${hoursSinceExit.toFixed(1)}h/${cooldownCfg.cooldownHours}h) override-denied[${ovrDetails.join(' ')}]`);
+            continue;
+          }
+          console.log(`[COOLDOWN OVERRIDE] ${signal.symbol}: re-entry granted (${hoursSinceExit.toFixed(1)}h in ${cooldownCfg.cooldownHours}h window) [${ovrDetails.join(' ')}]`);
+        }
+      }
     }
 
     const entryBar = bars[bars.length - 1];

@@ -14,16 +14,37 @@ function buildRunSummary({ generatedAt = new Date().toISOString(), qaStatus = "U
   const dataSource = paperResults.dataSource || "";
   const isRealData = dataSource && (dataSource.includes("alpaca") || dataSource.includes("iex") || dataSource.includes("backfill"));
 
+  // Use the epoch starting capital (set at clean-start or depletion reset) so that
+  // paperPnl reflects the true change from configured starting capital, not the
+  // post-exit cashBalance snapshot that executePaperTrades captured mid-run.
+  let epochStartingBalance = null;
+  try {
+    const { fileExists } = require("../utils/fileStore");
+    if (fileExists(paths.paperPerformanceJson)) {
+      const perf = loadJson(paths.paperPerformanceJson);
+      epochStartingBalance = perf.startingCash || null;
+    }
+  } catch {}
+
+  const startingBalance = epochStartingBalance
+    || equityCurve.startingBalance
+    || paperResults.startingBalance;
+  const endingEquity = equityCurve.endingEquity || paperResults.endingBalance;
+  const paperPnl = round(endingEquity - startingBalance);
+  const paperReturnPct = startingBalance > 0
+    ? round((paperPnl / startingBalance) * 100)
+    : (equityCurve.totalReturnPct || paperResults.totalReturnPct);
+
   return {
     runId: `paper-${safeStamp}`,
     generatedAt,
     mode: "paper_simulation",
     paperOnly: true,
     sampleData: !isRealData,
-    startingBalance: equityCurve.startingBalance || paperResults.startingBalance,
-    endingEquity: equityCurve.endingEquity || paperResults.endingBalance,
-    paperPnl: equityCurve.totalPnl || paperResults.totalPnl,
-    paperReturnPct: equityCurve.totalReturnPct || paperResults.totalReturnPct,
+    startingBalance,
+    endingEquity,
+    paperPnl,
+    paperReturnPct,
     maxDrawdownPct: equityCurve.maxDrawdownPct,
     vehiclesScanned: signals.totalVehicles || 0,
     signalsReviewed: (signals.signals || []).length,

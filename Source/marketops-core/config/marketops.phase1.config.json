@@ -67,6 +67,17 @@
         "etf": { "targetProfitPct": 3, "stopLossPct": 2 },
         "stock": { "targetProfitPct": 6, "stopLossPct": 3 }
       }
+    },
+    "reEntryCooldown": {
+      "cooldownHours": 24,
+      "entryMovementThresholdPct": 2.0,
+      "convictionOverride": {
+        "enabled": true,
+        "momentumMultiplier": 2.0,
+        "requiredApprovalBand": "approved_standard",
+        "volumeMultiplier": 1.5,
+        "volumeLookbackBars": 30
+      }
     }
   },
   "safety": {

@@ -152,6 +152,15 @@ async function runIntradaySimulation() {
     const currentPositions = fileExists(paths.paperPositionsJson) ? loadJson(paths.paperPositionsJson) : { openPositions: [], closedPositions: [] };
     currentPositions.openPositions = exitResult.keptOpenPositions;
     currentPositions.closedPositions = [...(currentPositions.closedPositions || []), ...exitResult.closedPositions];
+
+    // Record exit timestamp per symbol so executeIntradayPaperTrades can enforce
+    // the re-entry cooldown window even within the same run.
+    const cooldowns = currentPositions.reEntryCooldowns || {};
+    exitResult.closedPositions.forEach(p => {
+      cooldowns[p.symbol] = p.exitTime || generatedAt;
+    });
+    currentPositions.reEntryCooldowns = cooldowns;
+
     writeJsonWithBackup(paths.paperPositionsJson, currentPositions);
 
     const currentPerf = fileExists(paths.paperPerformanceJson) ? loadJson(paths.paperPerformanceJson) : {};

@@ -1,6 +1,6 @@
 # MarketOps — Project Brain
-Last Updated: 2026-05-29
-Current Version: v0.19
+Last Updated: 2026-06-08
+Current Version: v0.20
 
 ## What This Is
 MarketOps is a local AI-powered paper trading office. It runs autonomous paper trading cycles, generates public-safe dashboard bundles, manages agent desk reviews, and preps content for future social/video publishing. No real money. No live keys. No automated posting.
@@ -134,3 +134,32 @@ All edited files backed up `.bak.20260603`.
   New: `src/execution/excursionReport.js`, `Scripts/verify/replay-exit-proof.js`,
   `Data/paper/excursion/mfe-v0.1.json`, `Reports/Paper/marketops-excursion-mfe-v0.1.md`.
   Awaiting Sam's review before any commit.
+
+## 2026-06-08 — Dashboard stale-refresh fix (branch: fix/stale-refresh, commit ee05607)
+Root-cause investigation: dashboard showed 0 open positions and 0 recently-closed even with 8 live positions and 111 closed exits in paper-positions.json.
+
+**Fixed (committed):**
+- `execution/paperTradeExecutor.js` — added `openPositions: openPositionsList` to `tradeLedger`. The count field existed; the array did not. `buildOpenPositionsDetailed` reads the array, so it always returned `[]`.
+- `dashboard/dashboardAggregator.js` — added `positions` input path pointing to `paper-positions-v0.1.json`; `buildRecentlyClosedPositions` now reads `positionsOutput.closedPositions` (authoritative exit history) instead of `tradeOutput.trades` (same-run-only, always empty between runs).
+- `recentlyClosedPositions` resolves correctly on the next dashboard build (verified: 20 entries from live closed list).
+- `openPositionsDetailed` shows correctly after the next `paper:run` writes the updated tradeLedger.
+
+**OPEN / unverified:**
+- Auto-liquidation reclassified as "not a bug": ORCL entered 2026-06-05T20:39Z, crossed 72h at ~20:39Z on 2026-06-08, expected to fire on the ~17:00 EDT scheduled run. This is a PREDICTION, not verified. Do not mark liquidation resolved until a real scheduled run actually fires a time-stop.
+
+## 2026-06-09 — Re-entry cooldown + paperPnl baseline (branch: fix/stale-refresh)
+Investigation revealed a same-run re-open pattern: after `checkAndExecuteExits` closes a time-stopped position at step 1, the signal scanner (step 0, same scan) still has that symbol approved, so the executor opens a fresh position in the same run — not a bug in exit logic, but an unintended churn pattern.
+
+**Fixed (staged for commit):**
+- `config/marketops.phase1.config.json` — added `learningMode.reEntryCooldown` block: `cooldownHours: 24`, `entryMovementThresholdPct: 2.0`, conviction override gates (momentum ×2.0, `approved_standard` band, volume ×1.5 over 30-bar average).
+- `simulation/runIntradaySimulation.js` — added cooldown timestamp recording in exit block: writes `reEntryCooldowns[symbol] = exitTime` to `paper-positions-v0.1.json` before the atomic write, so the entry gate in the same run sees it.
+- `execution/paperTradeExecutor.js` — added `loadCooldownConfig()`, loaded at top of `executeIntradayPaperTrades`. Prunes stale entries (>2× cooldownHours old). Cooldown gate after `alreadyOpen` check: skips entry unless conviction override clears momentum, band, and volume gates. Logs `[COOLDOWN OVERRIDE]` when granted.
+- `paper/writeHistory.js` — fixed `startingBalance` to read `performance.startingCash` (epoch capital, $1000 set at clean-start) instead of `performance.cashBalance` (post-exit cash snapshot). `paperPnl` now reflects true change from configured starting capital.
+
+**Verified (node test):**
+- AAPL (1h since exit, 1.5% move): blocked — `momentum:false(1.50%>=4.00%)` ✓
+- MSFT (no cooldown): opened normally ✓
+- TSLA (2h since exit, 10% move, 12k vol vs 4.5k threshold): override granted — `[COOLDOWN OVERRIDE]` logged ✓
+- `buildRunSummary`: `startingBalance: 1000`, `paperPnl: -17.77` (correct delta from epoch capital) ✓
+
+**Cooldown state stored in:** `Data/paper/positions/paper-positions-v0.1.json` → `reEntryCooldowns: { SYMBOL: ISO-timestamp }`. Pruned automatically after 48h.
