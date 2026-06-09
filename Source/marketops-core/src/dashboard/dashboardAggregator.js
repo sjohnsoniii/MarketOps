@@ -12,6 +12,7 @@ const inputPaths = {
   signals: path.join(dataRoot, "paper", "signals", "signal-scan-v0.1.json"),
   risk: path.join(dataRoot, "paper", "risk", "risk-decisions-v0.1.json"),
   trades: path.join(dataRoot, "paper", "trades", "paper-trades-v0.1.json"),
+  positions: path.join(dataRoot, "paper", "positions", "paper-positions-v0.1.json"),
   runHistory: path.join(dataRoot, "paper", "history", "run-history.json"),
   contentSummary: path.join(dataRoot, "content", "queue", "latest-office-run-summary.json"),
   contentQueue: path.join(dataRoot, "content", "queue", "content-queue-v0.1.json"),
@@ -650,10 +651,9 @@ function buildOpenPositionsDetailed(signalOutput, riskOutput, tradeOutput) {
   });
 }
 
-function buildRecentlyClosedPositions(signalOutput, riskOutput, tradeOutput) {
+function buildRecentlyClosedPositions(signalOutput, riskOutput, tradeOutput, positionsOutput) {
   const decisions = Array.isArray(riskOutput.decisions) ? riskOutput.decisions : [];
   const signals = Array.isArray(signalOutput.signals) ? signalOutput.signals : [];
-  const trades = Array.isArray(tradeOutput.trades) ? tradeOutput.trades : [];
 
   const decisionsBySymbol = {};
   decisions.forEach((d) => { decisionsBySymbol[d.symbol] = d; });
@@ -661,9 +661,13 @@ function buildRecentlyClosedPositions(signalOutput, riskOutput, tradeOutput) {
   const signalsBySymbol = {};
   signals.forEach((s) => { signalsBySymbol[s.symbol] = s; });
 
-  const closedTrades = trades.filter((t) => t.status === "closed" || t.exitPrice);
+  // Read from paper-positions.json closedPositions — the authoritative exit record.
+  // tradeOutput.trades only contains same-run opens, so exits from prior runs were missing.
+  const closedList = Array.isArray(positionsOutput && positionsOutput.closedPositions)
+    ? positionsOutput.closedPositions
+    : [];
 
-  return closedTrades.slice(-20).map((trade) => {
+  return closedList.slice(-20).map((trade) => {
     const symbol = trade.symbol;
     const decision = decisionsBySymbol[symbol] || {};
     const signal = signalsBySymbol[symbol] || {};
@@ -868,6 +872,7 @@ function buildDashboardBundle() {
   const signals = readJson(inputPaths.signals, { signals: [] });
   const risk = readJson(inputPaths.risk, { decisions: [] });
   const trades = readJson(inputPaths.trades, { trades: [] });
+  const positions = readJson(inputPaths.positions, { openPositions: [], closedPositions: [] });
   const runHistory = readJson(inputPaths.runHistory, { runs: [] });
   const contentSummary = readJson(inputPaths.contentSummary, {});
   const contentQueue = readJson(inputPaths.contentQueue, {});
@@ -901,7 +906,7 @@ function buildDashboardBundle() {
   const vehicleUniverse = buildVehicleUniverseInfo(signals);
   const riskPipeline = buildRiskPipeline(signals, risk, trades);
   const openPositionsDetailed = buildOpenPositionsDetailed(signals, risk, trades);
-  const recentlyClosed = buildRecentlyClosedPositions(signals, risk, trades);
+  const recentlyClosed = buildRecentlyClosedPositions(signals, risk, trades, positions);
 
   const learningMode = cachedConfig.learningMode && cachedConfig.learningMode.enabled
     ? {

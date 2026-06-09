@@ -583,6 +583,7 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
     dailyTradeCount: positions.dailyTradeCount,
     maxDailyTrades: maxTradesPerDay,
     openPositionCount: openPositionsList.length,
+    openPositions: openPositionsList,
     maxOpenPositions,
     executedTrades: trades.length,
     learningProbesExecuted,
