@@ -2,11 +2,7 @@ const path = require("path");
 const { writeJson, writeText, ensureDir } = require("../utils/fileStore");
 const { buildDashboardData } = require("./dashboardDataBuilder");
 const { paths } = require("../utils/paths");
-
-function stampForFile(date = new Date()) {
-  const pad = (value) => String(value).padStart(2, "0");
-  return `${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}-${pad(date.getHours())}${pad(date.getMinutes())}${pad(date.getSeconds())}`;
-}
+const { insertDashboardSnapshot, pruneDashboardSnapshots } = require("../db/dashboardSnapshots");
 
 function runDashboardDataBuild() {
   const outputRoot = path.join(paths.dataRoot, "dashboard");
@@ -14,11 +10,12 @@ function runDashboardDataBuild() {
 
   const data = buildDashboardData();
 
-  const timestampedPath = path.join(outputRoot, `dashboard-data-bundle-${stampForFile()}.json`);
   const latestPath = path.join(outputRoot, "dashboard-data-bundle-v0.1.json");
 
-  writeJson(timestampedPath, data);
   writeJson(latestPath, data);
+
+  insertDashboardSnapshot({ bundleType: "data-bundle", generatedAt: data.generatedAt, payload: JSON.stringify(data) });
+  const pruned = pruneDashboardSnapshots(data.generatedAt);
 
   const summary = {
     generatedAt: data.generatedAt,
@@ -53,8 +50,9 @@ function runDashboardDataBuild() {
   console.log(`totalAccountValue: ${summary.totalAccountValue} (cash: ${summary.cashBalance} + holdings: ${summary.holdingsValue})`);
   console.log(`latest bundle: ${latestPath}`);
   console.log(`report: ${reportPath}`);
+  console.log(`dashboard data snapshot stored in SQLite (pruned ${pruned} snapshot(s) older than 30 days)`);
 
-  return { data, summary, latestPath, timestampedPath, reportPath };
+  return { data, summary, latestPath, reportPath };
 }
 
 function buildReport(data, summary) {

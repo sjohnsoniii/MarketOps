@@ -1,4 +1,5 @@
 const { fileExists, loadJson, writeJson } = require("../utils/fileStore");
+const { syncPositions } = require("../db/positions");
 const { round } = require("../utils/number");
 const { paths } = require("../utils/paths");
 
@@ -634,6 +635,7 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
 
   writeJson(paths.paperPositionsJson, positions);
   writeJson(paths.paperPerformanceJson, performance);
+  syncPositions(positions);
 
   const hasTrades = tradesExecuted > 0;
   const tradeLedger = {
@@ -760,6 +762,7 @@ function resetCycleIfDepleted({ cashBalance, openPositions, generatedAt }) {
 
   writeJson(paths.paperPositionsJson, freshPositions);
   writeJson(paths.paperPerformanceJson, freshPerformance);
+  syncPositions(freshPositions);
 
   console.log(`[CYCLE RESET] Cash depleted to $${totalEquity.toFixed(2)} — resetting to $1,000 paper balance`);
   console.log(`[CYCLE RESET] Learning records preserved: ${existing.records.length}`);

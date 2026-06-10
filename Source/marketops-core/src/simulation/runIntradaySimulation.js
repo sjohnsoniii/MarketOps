@@ -13,6 +13,9 @@ const { appendRunHistory } = require("../paper/writeHistory");
 const { writeJson, writeJsonWithBackup } = require("../utils/fileStore");
 const { paths } = require("../utils/paths");
 const { round } = require("../utils/number");
+const { syncPositions } = require("../db/positions");
+const { syncTrades } = require("../db/trades");
+const { syncRiskDecisions } = require("../db/riskDecisions");
 
 async function runIntradaySimulation() {
   const generatedAt = new Date().toISOString();
@@ -162,6 +165,7 @@ async function runIntradaySimulation() {
     currentPositions.reEntryCooldowns = cooldowns;
 
     writeJsonWithBackup(paths.paperPositionsJson, currentPositions);
+    syncPositions(currentPositions);
 
     const currentPerf = fileExists(paths.paperPerformanceJson) ? loadJson(paths.paperPerformanceJson) : {};
     const realizedFromExits = exitResult.closedPositions.reduce((sum, p) => sum + (p.realizedPnl || 0), 0);
@@ -186,6 +190,7 @@ async function runIntradaySimulation() {
   const riskReview = reviewSignals({ signals: scan.signals, generatedAt, portfolioState });
   riskReview.generatedAt = generatedAt;
   writeJson(paths.riskJson, riskReview);
+  syncRiskDecisions(riskReview);
   console.log(`Risk review: ${riskReview.approvedCount} approved, ${riskReview.blockedCount} blocked`);
   console.log(`  Standard: ${riskReview.approvalBands.approved_standard}, Learning probe: ${riskReview.approvalBands.approved_learning_probe}`);
   console.log(`  Watched: ${riskReview.approvalBands.watched}, Rejected: ${riskReview.approvalBands.rejected}`);
@@ -201,6 +206,7 @@ async function runIntradaySimulation() {
     generatedAt
   });
   writeJson(paths.tradesJson, paperResults);
+  syncTrades(paperResults);
   console.log(`Paper trades: ${paperResults.executedTrades} executed, ${paperResults.openPositionCount} open positions`);
   console.log(`Cash balance: $${paperResults.cashBalance.toFixed(2)}, Equity: $${paperResults.totalEquity.toFixed(2)}`);
 

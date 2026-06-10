@@ -3,6 +3,9 @@ const fs = require("fs");
 const { fileExists, loadJson, writeJson, writeText } = require("../utils/fileStore");
 const { paths } = require("../utils/paths");
 const { loadConfig } = require("../config/configLoader");
+const { insertRun, clearRuns, getTotalRunCount } = require("../db/runs");
+const { syncPositions } = require("../db/positions");
+const { syncTrades } = require("../db/trades");
 
 const CLEAN_BALANCE = 1000;
 const REPORT_ROOT = path.join(paths.projectRoot, "Reports", "Training");
@@ -60,6 +63,7 @@ function resetPerformance() {
 function resetPositions() {
   const data = { openPositions: [], closedPositions: [], dailyTradeCount: 0, tradeDate: new Date().toISOString().slice(0, 10) };
   writeJson(paths.paperPositionsJson, data);
+  syncPositions(data);
   console.log("  paper-positions-v0.1.json cleared (open positions = 0)");
 }
 
@@ -99,6 +103,7 @@ function resetTrades() {
     approvedSignals: 0
   };
   writeJson(paths.tradesJson, data);
+  syncTrades(data);
   console.log("  paper-trades-v0.1.json reset to $1000");
 }
 
@@ -216,45 +221,52 @@ function resetCycle() {
 
 function resetRunHistory(legacyRunsCount = 0) {
   const now = new Date().toISOString();
+  const baselineRun = {
+    runId: "clean-start-v0.7",
+    generatedAt: now,
+    mode: "paper_simulation",
+    paperOnly: true,
+    sampleData: false,
+    startingBalance: CLEAN_BALANCE,
+    endingEquity: CLEAN_BALANCE,
+    paperPnl: 0,
+    paperReturnPct: 0,
+    maxDrawdownPct: 0,
+    vehiclesScanned: 0,
+    signalsReviewed: 0,
+    riskApproved: 0,
+    riskBlocked: 0,
+    fakePaperTrades: 0,
+    openPositionCount: 0,
+    realizedPnl: 0,
+    unrealizedPnl: 0,
+    cashBalance: CLEAN_BALANCE,
+    totalEquity: CLEAN_BALANCE,
+    qaStatus: "PASS",
+    cleanStartV07: true,
+    notes: [
+      "Clean paper start v0.7.",
+      "Account reset to $1000 training baseline.",
+      "All previous positions and history archived."
+    ]
+  };
+
+  clearRuns();
+  insertRun(baselineRun);
+
   const history = {
     updatedAt: now,
+    totalRuns: 1,
+    storage: "sqlite:runs",
     cleanStartV07: {
       note: "Clean paper start v0.7. Legacy run history was archived to Backups; public charts restart from $1000 only.",
       resetAt: now,
       previousLegacyRunsCount: legacyRunsCount
     },
-    runs: [{
-      runId: "clean-start-v0.7",
-      generatedAt: now,
-      mode: "paper_simulation",
-      paperOnly: true,
-      sampleData: false,
-      startingBalance: CLEAN_BALANCE,
-      endingEquity: CLEAN_BALANCE,
-      paperPnl: 0,
-      paperReturnPct: 0,
-      maxDrawdownPct: 0,
-      vehiclesScanned: 0,
-      signalsReviewed: 0,
-      riskApproved: 0,
-      riskBlocked: 0,
-      fakePaperTrades: 0,
-      openPositionCount: 0,
-      realizedPnl: 0,
-      unrealizedPnl: 0,
-      cashBalance: CLEAN_BALANCE,
-      totalEquity: CLEAN_BALANCE,
-      qaStatus: "PASS",
-      cleanStartV07: true,
-      notes: [
-        "Clean paper start v0.7.",
-        "Account reset to $1000 training baseline.",
-        "All previous positions and history archived."
-      ]
-    }]
+    runs: [baselineRun]
   };
   writeJson(paths.runHistoryJson, history);
-  console.log("  run-history.json replaced with clean-start baseline only");
+  console.log("  run-history.json and runs table replaced with clean-start baseline only");
 }
 
 function resetDashboardRefresh() {
@@ -342,9 +354,7 @@ function cleanStart() {
 
   const backup = backupDir();
   archiveState(backup);
-  const legacyRunsCount = fileExists(paths.runHistoryJson)
-    ? (loadJson(paths.runHistoryJson).runs || []).length
-    : 0;
+  const legacyRunsCount = getTotalRunCount();
 
   console.log("\nResetting active paper state to $1000...");
   resetPerformance();

@@ -3,6 +3,7 @@ const path = require("path");
 const { loadJson, writeJson } = require("../utils/fileStore");
 const { round } = require("../utils/number");
 const { paths } = require("../utils/paths");
+const { insertRun, pruneRuns, getRecentRuns, getTotalRunCount, RUN_HISTORY_RETENTION_DAYS } = require("../db/runs");
 
 function buildRunSummary({ generatedAt = new Date().toISOString(), qaStatus = "UNKNOWN" } = {}) {
   const signals = loadJson(paths.signalsJson);
@@ -65,19 +66,24 @@ function buildRunSummary({ generatedAt = new Date().toISOString(), qaStatus = "U
   };
 }
 
+// Run history is stored in the `runs` SQLite table (Data/marketops.db). The
+// run-history.json file remains as a lightweight rolling window (retention
+// days) for any downstream code that checks file existence / recent runs
+// without querying SQLite.
 function appendRunHistory({ qaStatus = "PASS", generatedAt = new Date().toISOString() } = {}) {
   const summary = buildRunSummary({ generatedAt, qaStatus });
-  let history = { updatedAt: generatedAt, runs: [] };
 
-  try {
-    history = loadJson(paths.runHistoryJson);
-    if (!Array.isArray(history.runs)) history.runs = [];
-  } catch (error) {
-    history = { updatedAt: generatedAt, runs: [] };
-  }
+  insertRun(summary);
+  pruneRuns(RUN_HISTORY_RETENTION_DAYS);
 
-  history.updatedAt = generatedAt;
-  history.runs.push(summary);
+  const history = {
+    updatedAt: generatedAt,
+    totalRuns: getTotalRunCount(),
+    retentionDays: RUN_HISTORY_RETENTION_DAYS,
+    runs: getRecentRuns(RUN_HISTORY_RETENTION_DAYS),
+    storage: "sqlite:runs"
+  };
+
   writeJson(paths.runHistoryJson, history);
   writeJson(paths.latestRunSummaryJson, summary);
   writeJson(path.join(paths.historyRoot, "runs", `${summary.runId}.json`), summary);

@@ -1,6 +1,7 @@
 const { fileExists, loadJson, writeJson, writeText } = require("../utils/fileStore");
 const { round } = require("../utils/number");
 const { paths } = require("../utils/paths");
+const { getBarsForSymbol } = require("../db/marketBars");
 
 const MIN_BARS_FOR_CONFIDENCE = 10;
 const MIN_FRESHNESS_MINUTES = 390;
@@ -54,9 +55,7 @@ function calculateConfidence(symbol) {
   if (rollingData && rollingData.symbols && rollingData.symbols[symbol]) {
     const symInfo = rollingData.symbols[symbol];
     freshnessMinutes = symInfo.freshnessMinutes !== null ? symInfo.freshnessMinutes : null;
-    if (rollingData.history) {
-      bars = rollingData.history.filter((b) => b.symbol === symbol);
-    }
+    bars = getBarsForSymbol(symbol);
   }
 
   if (bars.length === 0) {

@@ -2,6 +2,7 @@ const path = require("path");
 const { fileExists, loadJson } = require("../utils/fileStore");
 const { paths } = require("../utils/paths");
 const { loadConfig } = require("../config/configLoader");
+const { getDistinctSymbols } = require("../db/marketBars");
 
 const TARGET_UNIVERSE_SIZE = 32;
 
@@ -27,17 +28,12 @@ function loadActiveVehicles() {
   }
 }
 
-function countSymbolsWithMarketData(vehicles, backfillData) {
-  if (!backfillData || !Array.isArray(backfillData.bars)) return 0;
-  const backfillSymbols = new Set(backfillData.bars.map(b => b.symbol));
-  const rolling = loadOptional(paths.rollingHistoryJson);
-  if (rolling && Array.isArray(rolling.history)) {
-    rolling.history.forEach(b => backfillSymbols.add(b.symbol));
-  }
+function countSymbolsWithMarketData(vehicles) {
+  const barSymbols = new Set(getDistinctSymbols());
   const vehicleSymbols = new Set(vehicles.map(v => v.symbol));
   let count = 0;
   for (const vs of vehicleSymbols) {
-    if (backfillSymbols.has(vs)) count++;
+    if (barSymbols.has(vs)) count++;
   }
   return count;
 }
@@ -80,7 +76,7 @@ function prepMarketOpen() {
   const activeVehicles = loadActiveVehicles();
   const backfill = loadOptional(paths.backfillDataJson) || {};
   const backfillSummary = getBackfillReportSummary();
-  const usableDataCount = countSymbolsWithMarketData(activeVehicles, backfill);
+  const usableDataCount = countSymbolsWithMarketData(activeVehicles);
 
   const cycleId = cycle.cycleId || "not_initialized";
   const paperBalance = safeNum(cycle.currentBalance, safeNum(trial.paperBalance, 1000));

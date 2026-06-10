@@ -88,5 +88,8 @@
     "learning:lower:full": "npm run learning:lower && npm run learning:lower:qa"
   },
   "private": true,
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "dependencies": {
+    "better-sqlite3": "^12.10.0"
+  }
 }

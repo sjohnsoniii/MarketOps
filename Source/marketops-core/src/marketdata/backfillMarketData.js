@@ -5,6 +5,7 @@ const { loadVehicles } = require("../data/sampleLoaders");
 const { fileExists, loadJson, writeJson, writeText } = require("../utils/fileStore");
 const { paths } = require("../utils/paths");
 const { parseLocalEnv } = require("./localEnv");
+const { upsertMarketBars } = require("../db/marketBars");
 
 const DATA_SOURCE = "alpaca_iex_backfill";
 const DEFAULT_DATA_BASE_URL = "https://data.alpaca.markets";
@@ -149,6 +150,11 @@ async function backfillMarketData({ days = BACKFILL_DAYS, generatedAt = new Date
   const symbolsCovered = Object.keys(perSymbolResults);
   const totalBars = results.length;
 
+  upsertMarketBars(results, { provenance: "backfill", mergedAt: generatedAt });
+
+  // Lightweight snapshot: the full `bars` array now lives in market_bars
+  // (Data/marketops.db). Kept for any downstream code that still checks
+  // file existence / perSymbol summaries without reading `.bars`.
   const bundle = {
     schemaVersion: "0.1",
     generatedAt,
@@ -164,7 +170,7 @@ async function backfillMarketData({ days = BACKFILL_DAYS, generatedAt = new Date
     liveTradingEnabled: false,
     orderPlacementEnabled: false,
     perSymbol: perSymbolResults,
-    bars: results,
+    storage: "sqlite:market_bars",
     safetyLabels: ["paper_simulation", "market_data_only", "backfill", "no_order_placement", "no_live_trading"]
   };
 

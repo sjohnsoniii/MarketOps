@@ -127,6 +127,7 @@ const requiredCards = [
 
 const { paths } = require("../utils/paths");
 const { fileExists, loadJson } = require("../utils/fileStore");
+const { getLatestDashboardSnapshot } = require("../db/dashboardSnapshots");
 
 function restrictedTerms() {
   return [
@@ -167,11 +168,8 @@ function check(checks, name, passed, detail = "") {
   checks.push({ name, passed: Boolean(passed), detail });
 }
 
-function newestBundleFile() {
-  if (!fs.existsSync(outputRoot)) return null;
-  const files = fs.readdirSync(outputRoot).filter((file) => /^dashboard-public-safe-\d{8}-\d{6}\.json$/.test(file));
-  if (!files.length) return null;
-  return files.map((file) => path.join(outputRoot, file)).sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs)[0];
+function newestBundleSnapshot() {
+  return getLatestDashboardSnapshot("public-safe") || null;
 }
 
 // Scoped, deliberate exception (NOT a general bypass): the public-safe paper
@@ -204,6 +202,19 @@ function scanOutputFiles(files) {
   return hits;
 }
 
+// Same restricted-terms scan as scanOutputFiles, applied to a SQLite-stored
+// snapshot payload (treated as a public-safe bundle, so quantity/positionValue
+// remain exempt per the 06-02 decision).
+function scanSnapshotPayload(payload, label) {
+  const hits = [];
+  const text = (payload || "").toLowerCase();
+  restrictedTerms().forEach((term) => {
+    if (PUBLIC_BUNDLE_EXEMPT_TERMS.has(term)) return;
+    if (text.includes(term.toLowerCase())) hits.push(`${label} contains restricted term`);
+  });
+  return hits;
+}
+
 function runDashboardQa() {
   const checks = [];
   const packageJson = readJson(path.join(coreRoot, "package.json"));
@@ -212,8 +223,8 @@ function runDashboardQa() {
   requiredSourceFiles.forEach((filePath) => check(checks, `source exists: ${path.basename(filePath)}`, fs.existsSync(filePath), filePath));
   check(checks, "latest dashboard bundle exists", fs.existsSync(latestBundlePath), latestBundlePath);
   check(checks, "latest dashboard summary exists", fs.existsSync(latestSummaryPath), latestSummaryPath);
-  const timestampedBundle = newestBundleFile();
-  check(checks, "timestamped dashboard bundle exists", Boolean(timestampedBundle), timestampedBundle || "missing");
+  const timestampedBundle = newestBundleSnapshot();
+  check(checks, "dashboard snapshot exists in SQLite", Boolean(timestampedBundle), timestampedBundle ? `generated_at=${timestampedBundle.generated_at}` : "missing");
   check(checks, "dashboard report exists", fs.existsSync(reportPath), reportPath);
   check(checks, "public v0.4 dashboard bundle exists", fs.existsSync(sj3labsPublicBundlePath), sj3labsPublicBundlePath);
 
@@ -380,8 +391,10 @@ function runDashboardQa() {
   }
 
   const filesToScan = [latestBundlePath, latestSummaryPath, reportPath, sj3labsPublicBundlePath].filter((filePath) => fs.existsSync(filePath));
-  if (timestampedBundle) filesToScan.push(timestampedBundle);
   const hits = scanOutputFiles(filesToScan);
+  if (timestampedBundle) {
+    hits.push(...scanSnapshotPayload(timestampedBundle.payload, "dashboard_snapshots (public-safe, latest)"));
+  }
   check(checks, "dashboard outputs contain no private IDs/paths/risky terms", hits.length === 0, hits.join("; "));
 
   if (fileExists(paths.vehicleHistoryJson)) {

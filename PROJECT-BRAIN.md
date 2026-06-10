@@ -1,6 +1,6 @@
 # MarketOps — Project Brain
-Last Updated: 2026-06-08
-Current Version: v0.20
+Last Updated: 2026-06-10
+Current Version: v0.21
 
 ## What This Is
 MarketOps is a local AI-powered paper trading office. It runs autonomous paper trading cycles, generates public-safe dashboard bundles, manages agent desk reviews, and preps content for future social/video publishing. No real money. No live keys. No automated posting.
@@ -163,3 +163,27 @@ Investigation revealed a same-run re-open pattern: after `checkAndExecuteExits` 
 - `buildRunSummary`: `startingBalance: 1000`, `paperPnl: -17.77` (correct delta from epoch capital) ✓
 
 **Cooldown state stored in:** `Data/paper/positions/paper-positions-v0.1.json` → `reEntryCooldowns: { SYMBOL: ISO-timestamp }`. Pruned automatically after 48h.
+
+## 2026-06-10 — SQLite migration, Phases 1-3 complete (local-only, NOT committed)
+Per `Reports/marketops-sqlite-migration-audit-v0.1.md`. New SQLite store: `Data/marketops.db` (better-sqlite3, WAL mode, `src/db/db.js` `getDb()`). All three phases verified via full scheduled pipeline run (`bash Scripts/scheduler/run-marketops-refresh.sh`) → exit 0, all `[PASS]`, `Status: PUBLISHED_WITH_WARNINGS` (only pre-existing `risk:learning:qa` 811/812 degradation, unrelated).
+
+**ABI/PATH fix (prerequisite, applies to all phases):** `export PATH="$HOME/.nvm/versions/node/v24.15.0/bin:$PATH"` added to all 3 scheduler scripts (`run-marketops-run.sh`, `run-marketops-refresh.sh`, `run-marketops-premarket.sh`) so systemd timers use the Node version better-sqlite3 was built against.
+
+- **Phase 1 — `dashboard_snapshots` table (FULLY MIGRATED).** Replaces growing `dashboard-public-safe-*.json` / `dashboard-data-bundle-*.json` timestamped files. SQLite is now source of truth; only latest `*-v0.1.json` pointer files kept on disk for site sync. 30-day retention auto-prune. Verified: timestamped files stop accumulating, refresh writes to SQLite.
+
+- **Phase 2 — `market_bars` table (FULLY MIGRATED).** Replaces `rolling-market-history-v0.1.json` and `backfill-market-data-v0.1.json` write paths (`src/db/marketBars.js`, upsert). All readers updated: `prepMarketOpen.js` (`countSymbolsWithMarketData` now uses `getDistinctSymbols()`), `confidenceCalibration.js` (uses `getBarsForSymbol`), plus verified-no-change readers (`marketWeatherStation.js`, `backfillPriorDay.js`, `runFullSimulationQa.js` — all use lightweight-JSON-preserved fields only). Lightweight rolling/backfill JSON snapshots kept for downstream compat.
+  - **Performance win:** `confidence:calibrate` 150s → 0.4s; `dashboard:refresh` ~160-220s → 8-11s; `intraday:simulate` ~157s → 9-12s. Populated: 235,850 bars / 148 symbols.
+
+- **Phase 3 — runs/positions/trades/risk_decisions tables.**
+  - **`runs` table (FULLY MIGRATED, Phase 1/2-style).** Replaces ever-growing `run-history.json` (was 146KB/171+ entries). New `src/db/runs.js`: `insertRun`, `pruneRuns` (30-day retention via `RUN_HISTORY_RETENTION_DAYS`), `getRecentRuns`, `getTotalRunCount`, `clearRuns`. `paper/writeHistory.js` `appendRunHistory()` rewritten to insert+prune+write a lightweight rolling-window `run-history.json` flagged `storage: "sqlite:runs"`. Reader updated: `dashboardDataBuilder.js` `runCount` now reads `runHistory.totalRuns`. `cleanStart.js` rewritten to use `clearRuns()`/`insertRun()`/`getTotalRunCount()` for the clean-start baseline run.
+  - **`positions` / `re_entry_cooldowns` / `cycle_state` tables (DUAL-WRITE / additive).** New `src/db/positions.js` `syncPositions()` — full DELETE+INSERT-OR-REPLACE transaction, called alongside every existing `writeJson(paths.paperPositionsJson, ...)` (in `runIntradaySimulation.js`, `paperTradeExecutor.js` x2, `cleanStart.js`). **JSON remains source of truth** for the 8+ existing readers — full reader migration deferred (flagged below).
+  - **`trade_ledger` / `trades` tables (DUAL-WRITE / additive).** New `src/db/trades.js` `syncTrades()` — same DELETE+INSERT-OR-REPLACE pattern, called alongside every `writeJson(paths.tradesJson, ...)` (in `runIntradaySimulation.js`, `runSimulation.js`, `cleanStart.js`). JSON remains source of truth.
+  - **`risk_decisions` table (DUAL-WRITE / additive).** New `src/db/riskDecisions.js` `syncRiskDecisions()` — same pattern, called alongside every `writeJson(paths.riskJson, ...)` (in `runIntradaySimulation.js`, `runSimulation.js`). JSON remains source of truth. `scan_id` kept as plain INTEGER (no FK — no `signal_scans` table exists).
+  - All four sync modules use `INSERT OR REPLACE` (fixed a `UNIQUE constraint failed: risk_decisions.risk_decision_id` error caused by duplicate IDs within a single 150-vehicle scan batch).
+  - **Verified post-pipeline-run:** `positions` (closed=115, open=24), `risk_decisions` (149), `trade_ledger`/`trades` (0/0, correct for a 0-trade cycle), `runs` (total=11), `cycle_state` (4 rows: dailyTradeCount, tradeDate, resetAt, resetReason).
+
+**Schema additions:** all in `src/db/db.js` SCHEMA string — `runs`, `positions`, `re_entry_cooldowns`, `cycle_state`, `trade_ledger`, `trades`, `risk_decisions` (plus Phase 1/2's `dashboard_snapshots`, `market_bars`).
+
+**FLAGGED FOLLOW-UP (not done this cruise):** `positions`, `trade_ledger`/`trades`, and `risk_decisions` are dual-write only — SQLite is populated but NOT yet the source of truth. Their JSON files (`paper-positions-v0.1.json`, `paper-trades-v0.1.json`, `risk-decisions-v0.1.json`) are "fully overwritten each cycle" so they're not a disk-growth problem like Phase 1/2/runs were, but each has 8-10+ readers with deeply nested JSON (`entryPlan`/`exitPlan`/`riskPlan`/`learningMetadata`). Migrating those readers was judged too high-risk for one session on a live 30-min pipeline — recommend a dedicated follow-up cruise per table.
+
+No commit made (per standing orders) — all changes local, awaiting Sam's review.

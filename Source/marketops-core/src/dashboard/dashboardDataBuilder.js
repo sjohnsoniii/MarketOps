@@ -400,7 +400,7 @@ function buildDashboardData() {
     marketDataSource,
     cycleBuildAt: cycle.lastRunAppliedAt || null,
     cycleStatus: cycle.status || "missing",
-    runCount: Array.isArray(runHistory.runs) ? runHistory.runs.length : 0,
+    runCount: typeof runHistory.totalRuns === "number" ? runHistory.totalRuns : (Array.isArray(runHistory.runs) ? runHistory.runs.length : 0),
     openPositionCount: (positions.openPositions || []).length,
     dataSource: marketDataSource
   };

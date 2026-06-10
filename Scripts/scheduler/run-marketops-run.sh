@@ -8,6 +8,11 @@ set -uo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 CORE_DIR="$PROJECT_ROOT/Source/marketops-core"
+
+# Use the nvm-managed Node 24 toolchain so native modules (better-sqlite3)
+# match the ABI they were built against; systemd's default PATH resolves
+# `node` to the older /usr/bin/node otherwise.
+export PATH="$HOME/.nvm/versions/node/v24.15.0/bin:$PATH"
 LOG_DIR="$PROJECT_ROOT/logs"
 TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
 LOG_FILE="$LOG_DIR/marketops-run-$TIMESTAMP.log"

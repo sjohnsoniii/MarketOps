@@ -1,6 +1,6 @@
 const { fileExists, loadJson, writeJson, writeText } = require("../utils/fileStore");
-const { round } = require("../utils/number");
 const { paths } = require("../utils/paths");
+const { upsertMarketBars, pruneMarketBars, getSymbolIndex, getTotalBarCount } = require("../db/marketBars");
 
 const HISTORY_RETENTION_DAYS = 14;
 const MIN_BARS_FOR_USABLE = 10;
@@ -10,110 +10,39 @@ function loadRollingHistory() {
     try {
       return loadJson(paths.rollingHistoryJson);
     } catch {
-      return { schemaVersion: "0.1", history: [], symbols: {}, generatedAt: null, lastMergedAt: null };
+      return { schemaVersion: "0.1", generatedAt: null, lastMergedAt: null };
     }
   }
-  return { schemaVersion: "0.1", history: [], symbols: {}, generatedAt: null, lastMergedAt: null };
+  return { schemaVersion: "0.1", generatedAt: null, lastMergedAt: null };
 }
 
-function loadLatestBars() {
-  if (fileExists(paths.backfillDataJson)) {
-    return loadJson(paths.backfillDataJson);
-  }
-  if (fileExists(paths.alpacaMarketBarsLatestJson)) {
-    return { bars: loadJson(paths.alpacaMarketBarsLatestJson), dataSource: "alpaca_iex", generatedAt: new Date().toISOString() };
-  }
-  return null;
-}
-
-function deduplicateBars(bars) {
-  const seen = new Set();
-  return bars.filter((bar) => {
-    const key = `${bar.symbol}|${bar.timestamp}`;
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
-}
-
-function mergeHistory(existingHistory, newBars, dataSource) {
-  const sourceLabel = dataSource === "alpaca_iex_backfill" ? "backfill" : "live_refresh";
-
-  const annotated = newBars.map((bar) => ({
-    ...bar,
-    provenance: sourceLabel,
-    mergedAt: new Date().toISOString()
-  }));
-
-  const merged = (existingHistory || []).concat(annotated);
-
-  const deduped = deduplicateBars(merged);
-
-  const cutoff = new Date(Date.now() - HISTORY_RETENTION_DAYS * 24 * 60 * 60 * 1000);
-  const pruned = deduped.filter((bar) => new Date(bar.timestamp) >= cutoff);
-
-  pruned.sort((a, b) => {
-    if (a.symbol !== b.symbol) return a.symbol.localeCompare(b.symbol);
-    return new Date(a.timestamp) - new Date(b.timestamp);
-  });
-
-  return pruned;
-}
-
-function buildSymbolIndex(history) {
-  const symbols = {};
-  const bySymbol = {};
-
-  for (const bar of history) {
-    if (!bySymbol[bar.symbol]) bySymbol[bar.symbol] = [];
-    bySymbol[bar.symbol].push(bar);
-  }
-
-  for (const [symbol, bars] of Object.entries(bySymbol)) {
-    const sorted = bars.slice().sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-    const first = sorted[0];
-    const last = sorted[sorted.length - 1];
-    const provenanceLabels = [...new Set(sorted.map((b) => b.provenance || b.dataSource))];
-
-    symbols[symbol] = {
-      symbol,
-      barCount: sorted.length,
-      firstTimestamp: first.timestamp,
-      lastTimestamp: last.timestamp,
-      freshnessMinutes: last ? round((Date.now() - new Date(last.timestamp).getTime()) / 60000) : null,
-      usableForSignal: sorted.length >= MIN_BARS_FOR_USABLE,
-      provenanceLabels
-    };
-  }
-
-  return symbols;
-}
-
+// Backfill (and, when present, live refresh bars) are upserted into
+// market_bars by their own write paths before this runs. This step prunes
+// retention and rebuilds the per-symbol index/report from market_bars.
 function updateRollingHistory() {
   const state = loadRollingHistory();
-  const source = loadLatestBars();
+  const lastMergedAt = new Date().toISOString();
 
-  if (!source || !source.bars || !Array.isArray(source.bars) || source.bars.length === 0) {
-    return { merged: false, reason: "no source data available", history: state.history };
+  pruneMarketBars(HISTORY_RETENTION_DAYS);
+
+  const totalBarsBefore = getTotalBarCount();
+  if (totalBarsBefore === 0) {
+    return { merged: false, reason: "no source data available", totalBars: 0 };
   }
 
-  const newBars = source.bars;
-  const dataSource = source.dataSource || "unknown";
-
-  const history = mergeHistory(state.history, newBars, dataSource);
-  const symbols = buildSymbolIndex(history);
+  const symbols = getSymbolIndex();
 
   const output = {
     schemaVersion: "0.1",
-    generatedAt: state.generatedAt || new Date().toISOString(),
-    lastMergedAt: new Date().toISOString(),
-    history,
+    generatedAt: state.generatedAt || lastMergedAt,
+    lastMergedAt,
     symbols,
-    totalBars: history.length,
+    totalBars: getTotalBarCount(),
     symbolsCovered: Object.keys(symbols).sort(),
     retentionDays: HISTORY_RETENTION_DAYS,
     minBarsForUsable: MIN_BARS_FOR_USABLE,
-    paperOnly: true
+    paperOnly: true,
+    storage: "sqlite:market_bars"
   };
 
   writeJson(paths.rollingHistoryJson, output);

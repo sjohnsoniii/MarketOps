@@ -9,6 +9,8 @@ const { reviewSignals } = require("../risk/riskDesk");
 const { DEFAULT_GENERATED_AT, generateSampleSignals } = require("../signals/simpleSignalScanner");
 const { writeJson, writeText } = require("../utils/fileStore");
 const { paths } = require("../utils/paths");
+const { syncTrades } = require("../db/trades");
+const { syncRiskDecisions } = require("../db/riskDecisions");
 
 function runSimulation({ writeOutputs = true } = {}) {
   const generatedAt = DEFAULT_GENERATED_AT;
@@ -70,7 +72,9 @@ function runSimulation({ writeOutputs = true } = {}) {
   if (writeOutputs) {
     writeJson(paths.signalsJson, scan);
     writeJson(paths.riskJson, riskReview);
+    syncRiskDecisions(riskReview);
     writeJson(paths.tradesJson, paperResults);
+    syncTrades(paperResults);
     writeJson(paths.equityJson, equityCurve);
     writeJson(paths.dashboardJson, dashboardBundle);
     writeText(paths.signalReport, signalReport(scan));

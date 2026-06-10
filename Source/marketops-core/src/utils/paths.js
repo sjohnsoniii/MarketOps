@@ -32,6 +32,7 @@ const paths = {
   coreRoot,
   projectRoot,
   dataRoot,
+  sqliteDbPath: path.join(dataRoot, "marketops.db"),
   marketDataRoot,
   alpacaMarketDataRoot,
   rollingMarketDataRoot,

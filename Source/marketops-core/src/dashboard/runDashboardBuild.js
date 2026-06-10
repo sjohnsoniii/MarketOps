@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const { buildDashboardBundle } = require("./dashboardAggregator");
 const { writeShareableSnapshot } = require("./shareableSnapshot");
+const { insertDashboardSnapshot, pruneDashboardSnapshots } = require("../db/dashboardSnapshots");
 
 const coreRoot = path.join(__dirname, "..", "..");
 const projectRoot = path.join(coreRoot, "..", "..");
@@ -10,11 +11,6 @@ const reportRoot = path.join(projectRoot, "Reports", "Dashboard");
 const latestBundlePath = path.join(outputRoot, "dashboard-public-safe-v0.1.json");
 const latestSummaryPath = path.join(outputRoot, "latest-dashboard-summary.json");
 const reportPath = path.join(reportRoot, "marketops-dashboard-public-safe-v0.1.md");
-
-function stampForFile(date = new Date()) {
-  const pad = (value) => String(value).padStart(2, "0");
-  return `${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}-${pad(date.getHours())}${pad(date.getMinutes())}${pad(date.getSeconds())}`;
-}
 
 function ensureDir(dirPath) {
   fs.mkdirSync(dirPath, { recursive: true });
@@ -152,7 +148,6 @@ ${stale.warnings.map((item) => `- ${item.item}: ${item.status} - ${item.detail}`
 
 function runDashboardBuild() {
   const bundle = buildDashboardBundle();
-  const timestampedPath = path.join(outputRoot, `dashboard-public-safe-${stampForFile()}.json`);
   const summary = {
     generatedAt: bundle.generatedAt,
     mode: bundle.mode,
@@ -175,10 +170,12 @@ function runDashboardBuild() {
     weakestPaperRegime: bundle.dashboardCards.regimeSummary.weakestPaperRegime
   };
 
-  writeJson(timestampedPath, bundle);
   writeJson(latestBundlePath, bundle);
   writeJson(latestSummaryPath, summary);
   writeText(reportPath, buildReport(bundle));
+
+  insertDashboardSnapshot({ bundleType: "public-safe", generatedAt: bundle.generatedAt, payload: JSON.stringify(bundle) });
+  const pruned = pruneDashboardSnapshots(bundle.generatedAt);
 
   console.log("MarketOps public-safe dashboard bundle complete");
   console.log(`cards generated: ${summary.cardsGenerated}`);
@@ -186,13 +183,13 @@ function runDashboardBuild() {
   console.log(`rolling runs reviewed: ${summary.rollingRunsReviewed}`);
   console.log(`strongest paper regime: ${summary.strongestPaperRegime}`);
   console.log(`bundle: ${latestBundlePath}`);
-  console.log(`timestamped bundle: ${timestampedPath}`);
   console.log(`report: ${reportPath}`);
+  console.log(`dashboard snapshot stored in SQLite (pruned ${pruned} snapshot(s) older than 30 days)`);
 
   const snapshot = writeShareableSnapshot();
   console.log(`shareable snapshot: ${snapshot.snapshotJsonPath}`);
 
-  return { bundle, summary, latestBundlePath, timestampedPath, reportPath, snapshot };
+  return { bundle, summary, latestBundlePath, reportPath, snapshot };
 }
 
 if (require.main === module) {
