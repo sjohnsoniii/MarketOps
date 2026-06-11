@@ -53,6 +53,47 @@ function loadCooldownConfig() {
   }
 }
 
+function loadEntryFilters() {
+  try {
+    const config = loadJson(paths.config);
+    return (config.learningMode && config.learningMode.entryFilters) || null;
+  } catch {
+    return null;
+  }
+}
+
+// ET (America/New_York) date key + minutes-since-midnight for a timestamp.
+// Used for the day's-open lookup and the late-session cutoff filter.
+function getEtParts(timestamp) {
+  const date = new Date(timestamp);
+  const fmt = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", hour12: false
+  });
+  const parts = fmt.formatToParts(date).reduce((acc, p) => { acc[p.type] = p.value; return acc; }, {});
+  return {
+    dateKey: `${parts.year}-${parts.month}-${parts.day}`,
+    minutesOfDay: (parseInt(parts.hour, 10) % 24) * 60 + parseInt(parts.minute, 10)
+  };
+}
+
+// "HH:MM" -> minutes since midnight, or null if malformed/missing.
+function parseEtCutoffMinutes(cutoff) {
+  if (!cutoff) return null;
+  const [h, m] = String(cutoff).split(":").map(Number);
+  if (Number.isNaN(h) || Number.isNaN(m)) return null;
+  return h * 60 + m;
+}
+
+// First bar's open for the same ET trading day as `timestamp`, or null if
+// no bar from that day is present in `bars`.
+function getDayOpen(bars, timestamp) {
+  const dateKey = getEtParts(timestamp).dateKey;
+  const dayBars = bars.filter((b) => getEtParts(b.timestamp).dateKey === dateKey);
+  return dayBars.length > 0 ? dayBars[0].open : null;
+}
+
 // Map the DEFINITE source field (vehicle universe `assetType`, carried onto the
 // position) to an exit-threshold key. ETF -> etf, EQUITY -> stock. Anything else
 // (missing/unknown) returns null so the caller can default to the tighter ETF
@@ -253,9 +294,12 @@ function checkAndExecuteExits({ openPositions, marketBars, generatedAt, exitRule
       const returnPct = position.entryPrice > 0
         ? ((freshPrice - position.entryPrice) / position.entryPrice) * 100
         : 0;
+      const minHoldHoursBeforeStop = exitRules && exitRules.minHoldHoursBeforeStop != null
+        ? exitRules.minHoldHoursBeforeStop
+        : 0;
       if (returnPct >= thr.targetProfitPct) {
         exitTrigger = "target_hit"; exitPrice = freshPrice;
-      } else if (returnPct <= -(thr.stopLossPct)) {
+      } else if (returnPct <= -(thr.stopLossPct) && holdHours >= minHoldHoursBeforeStop) {
         exitTrigger = "stop_loss"; exitPrice = freshPrice;
       } else if (holdHours >= thr.maxHoldHours) {
         exitTrigger = "time_stop"; exitPrice = freshPrice;
@@ -367,6 +411,10 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
   const dtConfig = loadDayTradingConfig();
   const learningConfig = loadLearningConfig();
   const cooldownCfg = loadCooldownConfig();
+  const exitRules = loadExitRules();
+  const entryFilters = loadEntryFilters() || {};
+  const riskPerTradePct = (learningConfig && learningConfig.sizing && learningConfig.sizing.riskPerTradePct)
+    || 0.015;
   const maxTradesPerDay = learningConfig ? learningConfig.sizing.maxTotalTradesPerDay : (dtConfig.maxTradesPerDay || 10);
   const maxOpenPositions = learningConfig
     ? (learningConfig.maxOpenPositions || Math.max(dtConfig.maxOpenPositions || 5, 10))
@@ -483,6 +531,8 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
       continue;
     }
 
+    const entryBar = bars[bars.length - 1];
+
     // Re-entry cooldown: bar any symbol that exited within cooldownHours unless
     // the conviction override clears both the momentum gate and the band gate
     // (and the volume gate when volume data is present).
@@ -531,13 +581,59 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
       }
     }
 
-    const entryBar = bars[bars.length - 1];
+    // Falling-knife filter: reject entries already down sharply from the day's open.
+    if (entryFilters.fallingKnifeThresholdPct != null) {
+      const dayOpen = getDayOpen(bars, entryBar.timestamp);
+      if (dayOpen) {
+        const changeFromOpenPct = ((entryBar.close - dayOpen) / dayOpen) * 100;
+        if (changeFromOpenPct <= -entryFilters.fallingKnifeThresholdPct) {
+          skippedReasons.push(`${signal.symbol}: falling knife (${changeFromOpenPct.toFixed(2)}% from day open)`);
+          continue;
+        }
+      }
+    }
+
+    // Thin-market filter: reject entries on a low-volume bar.
+    if (entryFilters.minVolumeThreshold != null) {
+      const entryVolume = entryBar.volume || 0;
+      if (entryVolume < entryFilters.minVolumeThreshold) {
+        skippedReasons.push(`${signal.symbol}: thin market (volume ${entryVolume} < ${entryFilters.minVolumeThreshold})`);
+        continue;
+      }
+    }
+
+    // Late-session cutoff: reject entries inside the close-of-session window.
+    const cutoffMinutes = parseEtCutoffMinutes(entryFilters.lateSessionCutoffEt);
+    if (cutoffMinutes != null) {
+      const { minutesOfDay } = getEtParts(entryBar.timestamp);
+      if (minutesOfDay >= cutoffMinutes) {
+        skippedReasons.push(`${signal.symbol}: late session cutoff (entry bar at ${Math.floor(minutesOfDay / 60)}:${String(minutesOfDay % 60).padStart(2, "0")} ET)`);
+        continue;
+      }
+    }
+
+    // Minimum risk/reward filter: per-signal exit-plan target distance must be
+    // at least minRiskRewardRatio times the per-signal stop distance.
+    if (entryFilters.minRiskRewardRatio != null) {
+      const exitPlan = decision.exitPlan || signal.exitPlan;
+      if (exitPlan && exitPlan.profitTargetPct != null && exitPlan.stopLossPct) {
+        const rr = exitPlan.profitTargetPct / exitPlan.stopLossPct;
+        if (rr < entryFilters.minRiskRewardRatio) {
+          skippedReasons.push(`${signal.symbol}: risk/reward ${rr.toFixed(2)} below minimum ${entryFilters.minRiskRewardRatio}`);
+          continue;
+        }
+      }
+    }
+
     const sizeMultiplier = decision.positionSizeMultiplier || 1.0;
-    // Size off the stable pre-loop equity snapshot (`totalEquity`), NOT the
-    // decaying `cashBalance`, so every comparable trade gets a comparable size
-    // and a wide (~40-position) book is reachable. Capped by the 25%/equity
-    // safety guardrail and never allowed to exceed remaining cash.
-    const perTradeValue = totalEquity * perTradeAllocationPct * sizeMultiplier;
+    // Fixed-fractional risk-based sizing: size so that hitting the (instrument-
+    // type) stop loses riskPerTradePct of total equity. Falls back to the flat
+    // perTradeAllocationPct if the stop distance is unusable.
+    const thr = resolveExitThresholds({ assetType: signal.assetType }, exitRules);
+    const riskBasedValue = thr.stopLossPct > 0
+      ? (totalEquity * riskPerTradePct) / (thr.stopLossPct / 100)
+      : totalEquity * perTradeAllocationPct;
+    const perTradeValue = riskBasedValue * sizeMultiplier;
     const positionValue = Math.min(perTradeValue, totalEquity * maxPositionSizePct, cashBalance);
     const quantity = positionValue / entryBar.close;
     const cashAfterTrade = cashBalance - positionValue;

@@ -1,6 +1,6 @@
 # MarketOps — Project Brain
-Last Updated: 2026-06-10
-Current Version: v0.22
+Last Updated: 2026-06-11
+Current Version: v0.23
 
 ## What This Is
 MarketOps is a local AI-powered paper trading office. It runs autonomous paper trading cycles, generates public-safe dashboard bundles, manages agent desk reviews, and preps content for future social/video publishing. No real money. No live keys. No automated posting.
@@ -229,3 +229,60 @@ see commit immediately following this brain update.
 **Note:** sj3labs `index.html` (homepage project-card reorder — MarketOps card moved up,
 Business Builder linked externally) was left **uncommitted** — it's Sam's pre-existing
 in-progress edit, unrelated to this dashboard work, not touched or included in this push.
+
+## 2026-06-11 — Signal quality hardening cruise (implemented, NOT committed — awaiting review)
+Per Sam's approved plan: encode proven entry/exit/sizing rules to give the bots a better
+baseline, addressing the data finding that 72h time-stops were averaging +$0.11 P&L while
+target/stop exits averaged -$0.36 (stops triggering too early on noise).
+
+**Files changed (uncommitted):**
+- `Source/marketops-core/config/marketops.phase1.config.json`
+  - `learningMode.exitRules.byInstrumentType`: ETF stopLossPct 2→4, stock stopLossPct 3→6
+    (targets unchanged: ETF 3, stock 6).
+  - Added `learningMode.exitRules.minHoldHoursBeforeStop: 4` — stop-loss exits cannot fire
+    within the first 4 hours of a position's entry (target_hit and time_stop unaffected).
+  - Added `learningMode.entryFilters`: `fallingKnifeThresholdPct: 3`, `minVolumeThreshold:
+    500`, `lateSessionCutoffEt: "15:30"`, `minRiskRewardRatio: 1.5`.
+  - Added `learningMode.sizing.riskPerTradePct: 0.015` (1.5% of equity risked per trade).
+- `Source/marketops-core/src/execution/paperTradeExecutor.js`
+  - New helpers: `loadEntryFilters()`, `getEtParts(timestamp)` (ET date-key + minutes-of-day
+    via `Intl.DateTimeFormat`), `parseEtCutoffMinutes("HH:MM")`, `getDayOpen(bars, timestamp)`
+    (first bar's open for the entry bar's ET trading day).
+  - `checkAndExecuteExits()`: `stop_loss` branch now requires `holdHours >=
+    minHoldHoursBeforeStop` in addition to the return-pct breach.
+  - `executeIntradayPaperTrades()`: per-decision loop (after the re-entry cooldown gate, before
+    sizing) now applies 4 new entry filters in order — falling-knife (>3% below day's open),
+    thin-market (entry-bar volume < 500), late-session cutoff (entry bar >= 15:30 ET), and
+    minimum risk/reward (`decision.exitPlan.profitTargetPct / stopLossPct >= 1.5`, using the
+    per-signal `exitPlan` from `buildExitPlan()`, NOT the instrument-type stops — this was the
+    flagged design decision, resolved per Sam's direction). Each rejection pushes a labeled
+    reason to `skippedReasons` and `continue`s, matching the existing cooldown-gate pattern.
+  - Position sizing replaced: flat `perTradeAllocationPct * totalEquity` →
+    `riskBasedValue = (totalEquity * riskPerTradePct) / (instrumentTypeStopLossPct / 100)`,
+    still capped by `maxPositionSizePct * totalEquity` and `cashBalance`, with the existing
+    learning-probe `sizeMultiplier` applied on top.
+
+**Verified (no real paper-state files or DB rows touched):**
+- `node -c` syntax check passed.
+- ET time-of-day helper logic spot-checked (15:29/15:30 ET boundary, midnight rollover).
+- `npm run intraday:simulate` ran clean end-to-end (0 candidates this cycle — normal market
+  condition, not caused by these changes).
+- Standalone harness (mocked `fileStore.writeJson`/`syncPositions` to no-ops, real config)
+  exercised `executeIntradayPaperTrades` and `checkAndExecuteExits` against synthetic
+  signals/bars:
+  - Falling-knife, thin-market, late-cutoff, and low-R:R signals were each correctly rejected
+    with the expected `skippedReasons` messages; a signal passing all four executed with
+    `positionValue: 2500` = `totalEquity(10000) * maxPositionSizePct(0.25)` — risk-based value
+    (3750) was correctly capped by the existing safety guardrail.
+  - A position 2h into its hold with a -5% return (breaching the new 4% ETF stop) correctly
+    stayed open (`minHoldHoursBeforeStop` not yet met); an otherwise-identical position at 5h
+    correctly closed with `exitReason: "stop_loss"`.
+- `npm run qa:full`: 71/72 checks pass. The 1 failure ("performance cash vs run summary
+  match", perf_cash=569.68 vs summary(endingEquity)=979.49) is a **pre-existing QA-script
+  issue, not a regression** — confirmed present in run-history entries from before this
+  session (24 open positions worth ~$409.81 mean cash != total equity by design; the QA check
+  assumes they're always equal).
+
+**Not done / flagged:** no commit made (per standing orders + Sam's explicit "do not commit"
+for this cruise) — stopping point is here, awaiting Sam's review of the diff and the R:R
+design choice (per-signal `exitPlan` ratios, not instrument-type stops).

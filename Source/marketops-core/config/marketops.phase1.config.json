@@ -49,6 +49,7 @@
     "sizing": {
       "learningProbePositionSizeMultiplier": 0.25,
       "perTradeAllocationPct": 0.02,
+      "riskPerTradePct": 0.015,
       "maxLearningProbesPerDay": 10,
       "maxStandardTradesPerDay": 10,
       "maxTotalTradesPerDay": 20
@@ -60,13 +61,20 @@
     },
     "exitRules": {
       "maxHoldHours": 72,
+      "minHoldHoursBeforeStop": 4,
       "timeStopAction": "close_at_market",
       "writelearningRecord": true,
       "unknownInstrumentDefault": "etf",
       "byInstrumentType": {
-        "etf": { "targetProfitPct": 3, "stopLossPct": 2 },
-        "stock": { "targetProfitPct": 6, "stopLossPct": 3 }
+        "etf": { "targetProfitPct": 3, "stopLossPct": 4 },
+        "stock": { "targetProfitPct": 6, "stopLossPct": 6 }
       }
+    },
+    "entryFilters": {
+      "fallingKnifeThresholdPct": 3,
+      "minVolumeThreshold": 500,
+      "lateSessionCutoffEt": "15:30",
+      "minRiskRewardRatio": 1.5
     },
     "reEntryCooldown": {
       "cooldownHours": 24,
