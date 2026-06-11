@@ -409,6 +409,11 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
   const wins = pnlPoints.filter((point) => point.paperPnl > 0).length;
   const losses = pnlPoints.filter((point) => point.paperPnl < 0).length;
   const flat = pnlPoints.filter((point) => point.paperPnl === 0).length;
+  const recentlyClosed = closedPositionsFromPaperPositions(paperPositions, riskReview, signals);
+  const closedWins = recentlyClosed.filter((p) => p.realizedPnl > 0).length;
+  const closedLosses = recentlyClosed.filter((p) => p.realizedPnl < 0).length;
+  const closedDecided = closedWins + closedLosses;
+  const winRatePct = closedDecided > 0 ? round((closedWins / closedDecided) * 100) : null;
   const startingBalance = equityCurve.startingBalance || paperResults.startingBalance;
   const targetBalance = equityCurve.targetBalance || config.paperAccount.targetBalance || 13000;
   const endingEquity = equityCurve.endingEquity || paperResults.endingBalance;
@@ -779,7 +784,14 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
       learningProbesExecutedToday: (paperResults.trades || []).filter((t) => t.isLearningProbe === true).length
     },
     openPositionsDetailed: openPositionsFromSignals(signals, riskReview, paperResults, paperPositions),
-    recentlyClosedPositions: recentlyClosedFromSignals(signals, riskReview, paperResults),
+    recentlyClosedPositions: recentlyClosed,
+    tradeStats: {
+      closedTrades: recentlyClosed.length,
+      closedWins,
+      closedLosses,
+      closedFlat: recentlyClosed.length - closedDecided,
+      winRatePct
+    },
     vehicleUniverse: {
       targetCount: 150,
       actualCount: signals.totalVehicles || signalsReviewed,
@@ -850,23 +862,31 @@ function openPositionsFromSignals(signals, riskReview, paperResults, paperPositi
   });
 }
 
-function recentlyClosedFromSignals(signals, riskReview, paperResults) {
+function closedPositionsFromPaperPositions(paperPositions, riskReview, signals, limit = 30) {
   const decisionsBySymbol = {};
   (riskReview.decisions || []).forEach((d) => { decisionsBySymbol[d.symbol] = d; });
   const signalsBySymbol = {};
   (signals.signals || []).forEach((s) => { signalsBySymbol[s.symbol] = s; });
 
-  const closed = (paperResults.trades || []).filter((t) => t.status === "closed" || t.exitPrice);
-  return closed.slice(-20).map((trade) => {
-    const symbol = trade.symbol;
+  const closed = Array.isArray(paperPositions.closedPositions) ? paperPositions.closedPositions : [];
+  const sorted = [...closed].sort((a, b) => {
+    const aTime = new Date(a.closedAt || a.exitTime || 0).getTime();
+    const bTime = new Date(b.closedAt || b.exitTime || 0).getTime();
+    return aTime - bTime;
+  });
+
+  return sorted.slice(-limit).map((pos) => {
+    const symbol = pos.symbol;
     const decision = decisionsBySymbol[symbol] || {};
     const signal = signalsBySymbol[symbol] || {};
-    const entryPrice = Number(trade.entryPrice || 0);
-    const exitPrice = Number(trade.exitPrice || 0);
-    const realizedPnl = Number(trade.realizedPnl || 0);
-    const realizedPnlPct = entryPrice > 0 ? ((exitPrice - entryPrice) / entryPrice) * 100 : 0;
-    const boughtAt = trade.entryTime || null;
-    const soldAt = trade.exitTime || trade.generatedAt || null;
+    const entryPrice = Number(pos.entryPrice || 0);
+    const exitPrice = Number(pos.exitPrice || 0);
+    const realizedPnl = Number(pos.realizedPnl || 0);
+    const realizedPnlPct = pos.returnPct != null
+      ? Number(pos.returnPct)
+      : (entryPrice > 0 ? ((exitPrice - entryPrice) / entryPrice) * 100 : 0);
+    const boughtAt = pos.entryTime || pos.openedAt || null;
+    const soldAt = pos.exitTime || pos.closedAt || null;
     let holdDurationDays = null;
     if (boughtAt && soldAt) {
       holdDurationDays = Math.round((new Date(soldAt) - new Date(boughtAt)) / 86400000 * 10) / 10;
@@ -880,9 +900,9 @@ function recentlyClosedFromSignals(signals, riskReview, paperResults) {
       exitPrice: Math.round(exitPrice * 100) / 100,
       realizedPnl: Math.round(realizedPnl * 100) / 100,
       realizedPnlPct: Math.round(realizedPnlPct * 100) / 100,
-      exitReason: trade.exitReason || "Position closed",
-      riskBand: decision.approvalBand || trade.approvalBand || "unknown",
-      isLearningProbe: trade.isLearningProbe === true || decision.approvalBand === "approved_learning_probe",
+      exitReason: pos.exitReason || "Position closed",
+      riskBand: pos.approvalBand || pos.entryRiskBand || decision.approvalBand || "unknown",
+      isLearningProbe: pos.isLearningProbe === true || decision.approvalBand === "approved_learning_probe",
       holdDurationDays
     };
   });

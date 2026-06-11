@@ -1,6 +1,6 @@
 # MarketOps — Project Brain
 Last Updated: 2026-06-10
-Current Version: v0.21
+Current Version: v0.22
 
 ## What This Is
 MarketOps is a local AI-powered paper trading office. It runs autonomous paper trading cycles, generates public-safe dashboard bundles, manages agent desk reviews, and preps content for future social/video publishing. No real money. No live keys. No automated posting.
@@ -187,3 +187,45 @@ Per `Reports/marketops-sqlite-migration-audit-v0.1.md`. New SQLite store: `Data/
 **FLAGGED FOLLOW-UP (not done this cruise):** `positions`, `trade_ledger`/`trades`, and `risk_decisions` are dual-write only — SQLite is populated but NOT yet the source of truth. Their JSON files (`paper-positions-v0.1.json`, `paper-trades-v0.1.json`, `risk-decisions-v0.1.json`) are "fully overwritten each cycle" so they're not a disk-growth problem like Phase 1/2/runs were, but each has 8-10+ readers with deeply nested JSON (`entryPlan`/`exitPlan`/`riskPlan`/`learningMetadata`). Migrating those readers was judged too high-risk for one session on a live 30-min pipeline — recommend a dedicated follow-up cruise per table.
 
 No commit made (per standing orders) — all changes local, awaiting Sam's review.
+
+## 2026-06-10 — Public dashboard UX overhaul (committed + pushed live)
+Per Sam's approved plan: combined trade table + two-tier dashboard/reports split + trade analytics.
+
+**Shipped to sj3labs (live, Vercel auto-deploys on push):**
+- `Source/marketops-core/src/site/publicDashboardBundle.js` — fixed `tradeStats.winRatePct`
+  computation from closed positions (was broken/missing). Regenerated
+  `dashboard-bundle-public-v0.4.json` / `-v0.5.json` via `npm run paper:refresh-site`.
+- `marketops/dashboard/index.html` (sj3labs) — rewritten as the casual-audience main page:
+  hero with new plain-English bot status line ("Bot is active · N positions open · last run X
+  ago", derived from `dashboardRefreshHealth` + `accountSummary`), 4-metric Account Snapshot
+  (Total Account Value, Total Return, Win Rate, Open Positions), equity curve, and a single
+  combined trade table (`renderTradeTable()`) merging `openPositionsDetailed` +
+  `recentlyClosedPositions` — columns Ticker/Entry/Exit/P&L/Hold Time/Status, sorted by hold
+  time **ascending** (youngest entry/shortest-held first across open and closed rows).
+  Removed all signal-confidence/risk-desk/cycle-history/deep-dive content (moved to reports).
+- `marketops/reports/index.html` (sj3labs) — new live deep-dive page: Signal Pipeline &
+  Confidence, Risk Desk Decision Board (incl. capacity-blocked + almost-approved), Drawdown &
+  Target Progress, **new Trade Analytics section** (position sizing distribution, win/loss
+  P&L distribution, hold-time-vs-P&L scatter, drawdown recovery episodes, signal-to-trade
+  conversion funnel), Cycle History, Performance Deep-Dive.
+- `marketops/marketops.css` (sj3labs) — bumped `.chart-text` 11px→12px, added `.axis-title`
+  (12px bold) class.
+- All SVG charts on the reports page now have explicit labeled X/Y axis titles via a new
+  `addAxisTitles()` helper (threaded through `renderLine`/`renderBars`/`renderHorizontal`/
+  `renderMix` and the bespoke return-drawdown/vehicle-activity charts).
+
+**Verified before push:** local `python3 -m http.server 8123` from sj3labs root — both pages
++ bundle JSON return 200; `node --check` passed on both pages' inline scripts; every
+`getElementById` cross-checked against HTML ids; computed values checked against the live
+v0.5 bundle (status line, headline metrics, 54-row trade table, histogram/scatter/funnel
+inputs all sane).
+
+**Pushed:** sj3labs commit `e22e67e` → origin/main (live site).
+
+**Not yet committed in MarketOps repo:** this same session also leaves
+`Source/marketops-core/src/site/publicDashboardBundle.js` (win-rate fix) staged for commit —
+see commit immediately following this brain update.
+
+**Note:** sj3labs `index.html` (homepage project-card reorder — MarketOps card moved up,
+Business Builder linked externally) was left **uncommitted** — it's Sam's pre-existing
+in-progress edit, unrelated to this dashboard work, not touched or included in this push.
