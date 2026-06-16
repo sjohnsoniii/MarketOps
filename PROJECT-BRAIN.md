@@ -1,5 +1,5 @@
 # MarketOps — Project Brain
-Last Updated: 2026-06-11
+Last Updated: 2026-06-16
 Current Version: v0.23
 
 ## What This Is
@@ -17,6 +17,11 @@ MarketOps is a local AI-powered paper trading office. It runs autonomous paper t
 ## Active Issues
 - dashboard-public-safe-v0.1.json schema mismatch — stale, written by different pipeline than paper:refresh-site (low priority)
 - Cycle reset_pending status in cycle file — will clear on next successful run with new depletion logic
+- qa:full "performance cash vs run summary match" check fails (pre-existing QA-script bug, not a
+  regression) — the check assumes cash == total equity, but open positions make them differ by design
+- Account is capital-bound: with $1,000 starting equity + risk-based sizing the book fills (~14–20
+  positions) and cash hits $0, so many risk-approved decisions are skipped for insufficient cash. Not
+  a bug; expected for the small paper account.
 
 ## Autonomous Operation Status
 - Scheduler: ACTIVE — systemd timers installed, market hours M-F 9:25 AM - 4:30 PM ET
@@ -286,3 +291,61 @@ target/stop exits averaged -$0.36 (stops triggering too early on noise).
 **Not done / flagged:** no commit made (per standing orders + Sam's explicit "do not commit"
 for this cruise) — stopping point is here, awaiting Sam's review of the diff and the R:R
 design choice (per-signal `exitPlan` ratios, not instrument-type stops).
+
+## 2026-06-16 — "Not trading" outage: root cause + 3 fixes (committed, awaiting push)
+Symptom: scheduler running on cadence but 0 buys / 0 open positions for days. Every run showed
+`riskApproved: 0, riskBlocked: 150`. Initial suspicion (per the hardening cruise) was the new
+entry filters — that was a **red herring**. Investigation traced the failure upstream and found
+three issues; the outage was caused by #1, and #2/#3 were exposed once trading was restored.
+
+**Root cause (the outage) — market-data wiring broke in the SQLite migration (bcae512):**
+- `updateRollingHistory()` was rewritten to store bars in SQLite `market_bars` and return only a
+  summary index — it **dropped the flat `history` array** its callers depend on.
+- `runIntradaySimulation.js` still did `if (rolling.history) { marketBars = rolling.history }`; with
+  `rolling.history` now `undefined`, it fell back to `loadMarketBars()` (one latest bar/symbol).
+- Scanner saw `<2 bars` for every symbol → all 150 flagged `no_data` → Risk Desk correctly rejected
+  every non-candidate ("Signal did not qualify as a candidate") → 0 approvals → executor's
+  `for (const decision of approvedDecisions)` loop never ran, so the entry filters never executed.
+- The data itself was intact the whole time (405k+ bars in SQLite); only the retrieval was broken.
+- Note: this means CLAUDE.md's "Risk Desk blocking too aggressively" was a misdiagnosis — the Risk
+  Desk was doing the right thing with empty signals.
+
+**Fix #1 — `src/marketdata/rollingHistoryStore.js` (commit 99d1921):**
+- Reassemble `history` from `getBarsForSymbol()` across `getDistinctSymbols()`, restoring the
+  original in-process contract. Persisted JSON stays summary-only (bars live in SQLite); `history`
+  is returned to in-process callers only.
+- After fix: 91 candidates, 68 risk-approved, 14 trades executed (was 0/0/0).
+
+**Fix #2 — thin-market volume unit, `paperTradeExecutor.js` + config (commit 4ab0da8):**
+- `minVolumeThreshold: 500` was compared against a **single 1-minute IEX bar's** volume. IEX carries
+  only a few % of consolidated volume, so liquid ETFs/blue chips (DIA, VB, VO, COST, LLY…) read in
+  the tens-to-hundreds of shares — 37 of 148 symbols (25%) were wrongly rejected as "thin."
+- Switched to **average shares/bar over `volumeLookbackBars` (30) bars**; renamed the config key to
+  `minAvgBarVolume` so the unit is explicit; recalibrated threshold 500 → 100 (lowest in universe
+  ~123). Verified all previously-rejected liquid ETFs now pass; only degenerate near-zero bars reject.
+- (Also confirmed during this cruise that the `minRiskRewardRatio` filter correctly reads the
+  per-signal `exitPlan` ratios from `buildExitPlan()`, NOT the instrument-type stops — no change
+  needed; the flagged R:R design choice is working as intended.)
+
+**Fix #3 — FK constraint on positions rebuild, `src/db/db.js` (commit 9949435):**
+- `trades.position_id` had a bare `REFERENCES positions(position_id)` (implicit ON DELETE NO ACTION).
+  `syncPositions()` rebuilds the snapshot each cycle via `DELETE FROM positions`, which
+  RESTRICT-failed (`SQLITE_CONSTRAINT_FOREIGNKEY`) once any trade referenced a live position. Latent
+  until Fix #1 restored trading: the first run that opened positions made the next cycle crash.
+- Changed FK to `ON DELETE SET NULL` (preserves append-only trade rows, nulls the stale link). SQLite
+  can't alter an FK in place, so added an **idempotent migration** in `getDb()` that rebuilds the
+  trades table and copies rows; no-ops once `on_delete` is `SET NULL`.
+
+**Verified:**
+- Pre-migration `DELETE FROM positions` reproduces the crash; post-migration the same delete succeeds
+  with the trade preserved (`position_id` NULL); `foreign_key_check`/`integrity_check` clean.
+- Two consecutive full `intraday:simulate` cycles run green with no FK error (97 candidates, 53
+  approved each; 0 new trades only because the book was already full / cash $0 — capacity-bound).
+- Filter-level check: DIA/VB/VO/IJH/IBB/KBE/XHB/XRT/ARKF + blue chips VV/COST/LLY all clear the new
+  volume gate.
+
+**Note on `trades` table semantics:** `syncTrades()` fully overwrites `trades`/`trade_ledger` each
+cycle (snapshot of the current cycle's executions, per its own comment) — it is NOT cumulative
+history. Durable history lives in `Data/paper/history/run-history.json` and the paper-trades archives.
+
+**State:** 3 commits made on `main` (99d1921, 4ab0da8, 9949435). NOT pushed — awaiting Sam's review.
