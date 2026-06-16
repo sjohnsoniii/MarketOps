@@ -348,4 +348,33 @@ three issues; the outage was caused by #1, and #2/#3 were exposed once trading w
 cycle (snapshot of the current cycle's executions, per its own comment) — it is NOT cumulative
 history. Durable history lives in `Data/paper/history/run-history.json` and the paper-trades archives.
 
-**State:** 3 commits made on `main` (99d1921, 4ab0da8, 9949435). NOT pushed — awaiting Sam's review.
+**State:** 3 commits on `main` (99d1921, 4ab0da8, 9949435) + brain doc (097b742) — reviewed and pushed.
+
+## 2026-06-16 — Public dashboard "$2,000" account-value glitch (committed + synced live)
+After trading was restored, the public site (sj3labs.com/marketops/dashboard) showed **Total
+Account Value $1,984.16** and **Total Return +98.42%** — Sam asked if it was real profit. It was
+not: the engine's own books were always correct (peak equity $1,000.74; current ~$982, a ~-1.6%
+loss). The glitch was two falsy-zero bugs in the public-bundle builder, NOT an accounting error.
+
+**Root cause — `src/site/publicDashboardBundle.js` (commit 305037f):**
+1. **Total Account Value double-counted starting cash.** `buildTotalAccountValueCurve()` used
+   `paperResults.cashBalance || ... || originalStartingBalance`. With the book fully deployed, current
+   cash is legitimately `0` (falsy), so `||` fell through to the $1,000 starting balance → card showed
+   `$1,000 + holdings (~$984)` = `$1,984`. Fixed with `??` so a real `0` is preserved.
+2. **Total Return anchored to the wrong baseline.** `startingBalance` came from
+   `equityCurve.startingBalance || paperResults.startingBalance`, which carry the per-run starting
+   *cash* (also `0` once deployed and the cycle hasn't reset). Combined with bug 1 this produced the
+   fake `(1984-1000)/1000 = +98%`; alone it gave a meaningless 0%. Fixed by anchoring return/PnL to
+   the ORIGINAL paper baseline (`cycle.startingBalance || config.paperAccount.paperStartingBalance`,
+   $1,000).
+
+**Verified end-to-end:** rebuilt bundle reconciles (cash $0 + holdings = total $982.36) and return %
+matches manual calc against the $1,000 baseline (-1.76%). Pushed `305037f` to MarketOps `main`,
+rebuilt via `paper:refresh-site`, synced via `public:sync` (leak checks passed), pushed sj3labs-site
+`main` (c2f158b..40702ea). Confirmed LIVE: `sj3labs.com/.../dashboard-bundle-public-v0.5.json` now
+serves `totalAccountValue 982.36`, `totalPnlPct -1.76`. The sync touched only data bundles; the
+frontend `index.html` was untouched.
+
+**Reusable lesson:** in this codebase, money fields can legitimately be `0` (cash fully deployed).
+Use `??` not `||` for cash/balance fallbacks, and never anchor returns to per-run starting *cash* —
+use the original paper baseline (`cycle.startingBalance` / `config.paperAccount.paperStartingBalance`).
