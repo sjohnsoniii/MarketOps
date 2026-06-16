@@ -72,7 +72,8 @@
     },
     "entryFilters": {
       "fallingKnifeThresholdPct": 3,
-      "minVolumeThreshold": 500,
+      "minAvgBarVolume": 100,
+      "volumeLookbackBars": 30,
       "lateSessionCutoffEt": "15:30",
       "minRiskRewardRatio": 1.5
     },

@@ -593,11 +593,23 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
       }
     }
 
-    // Thin-market filter: reject entries on a low-volume bar.
-    if (entryFilters.minVolumeThreshold != null) {
-      const entryVolume = entryBar.volume || 0;
-      if (entryVolume < entryFilters.minVolumeThreshold) {
-        skippedReasons.push(`${signal.symbol}: thin market (volume ${entryVolume} < ${entryFilters.minVolumeThreshold})`);
+    // Thin-market filter: reject entries when liquidity is too low.
+    //
+    // Measured as AVERAGE SHARES PER BAR over the last `volumeLookbackBars`
+    // bars, NOT a single bar. The bars are 1-minute IEX bars; IEX carries only
+    // a few percent of consolidated volume, so a single bar for even a liquid
+    // ETF routinely reads in the tens-to-hundreds of shares. Averaging over a
+    // window gives a stable per-bar liquidity proxy; the config key
+    // `minAvgBarVolume` names that unit explicitly so the threshold is not
+    // misread as consolidated or full-session volume.
+    if (entryFilters.minAvgBarVolume != null) {
+      const lookback = entryFilters.volumeLookbackBars || 30;
+      const window = bars.slice(-lookback);
+      const avgBarVolume = window.length > 0
+        ? window.reduce((sum, b) => sum + (b.volume || 0), 0) / window.length
+        : 0;
+      if (avgBarVolume < entryFilters.minAvgBarVolume) {
+        skippedReasons.push(`${signal.symbol}: thin market (avg ${avgBarVolume.toFixed(0)} shares/bar over ${window.length} bars < ${entryFilters.minAvgBarVolume})`);
         continue;
       }
     }
