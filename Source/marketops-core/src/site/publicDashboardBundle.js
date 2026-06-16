@@ -11,7 +11,11 @@ function computeHoldingsValue(positions) {
 
 function buildTotalAccountValueCurve({ paperResults, positions, cycle, runHistory, generatedAt, startingBalanceOverride }) {
   const originalStartingBalance = startingBalanceOverride || 1000;
-  const cashBalance = Number(paperResults.cashBalance || paperResults.endingBalance || originalStartingBalance);
+  // Use ?? (not ||) so a legitimate $0 cash balance — every dollar deployed
+  // into open positions — is preserved. With ||, cash of 0 is falsy and falls
+  // through to originalStartingBalance ($1,000), double-counting it on top of
+  // holdings and inflating Total Account Value (e.g. 0 -> 1000 + 984 = 1984).
+  const cashBalance = Number(paperResults.cashBalance ?? paperResults.endingBalance ?? originalStartingBalance);
   const holdingsValue = computeHoldingsValue(positions);
   const totalAccountValue = round(cashBalance + holdingsValue);
 
@@ -414,7 +418,15 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
   const closedLosses = recentlyClosed.filter((p) => p.realizedPnl < 0).length;
   const closedDecided = closedWins + closedLosses;
   const winRatePct = closedDecided > 0 ? round((closedWins / closedDecided) * 100) : null;
-  const startingBalance = equityCurve.startingBalance || paperResults.startingBalance;
+  // Anchor return/PnL to the ORIGINAL paper baseline (cycle start / configured
+  // preset), NOT paperResults.startingBalance — that field is the per-run
+  // starting *cash*, which reads 0 once the book is fully deployed and the
+  // cycle hasn't reset, yielding a meaningless 0% (or, with the old cash
+  // double-count, a fake +98%) return.
+  const originalPaperStartingBalance = cycle.startingBalance
+    || (config.paperAccount && config.paperAccount.paperStartingBalance)
+    || 1000;
+  const startingBalance = originalPaperStartingBalance;
   const targetBalance = equityCurve.targetBalance || config.paperAccount.targetBalance || 13000;
   const endingEquity = equityCurve.endingEquity || paperResults.endingBalance;
   const signalsReviewed = (signals.signals || []).length || (riskReview.decisions || []).length;
@@ -455,7 +467,6 @@ function buildPublicDashboardBundle({ generatedAt = new Date().toISOString(), ru
   const latestBarAgeMinutes = minutesOld(latestBarTimestamp, new Date(generatedAt));
   const staleDataWarnings = buildStaleWarnings({ generatedAt, latestMarketDataRefreshAt, latestBarTimestamp, rollingHistory });
 
-  const originalPaperStartingBalance = cycle.startingBalance || config.paperAccount && config.paperAccount.paperStartingBalance || 1000;
   const totalAccountValueCurve = buildTotalAccountValueCurve({
     paperResults,
     positions: paperPositions,
