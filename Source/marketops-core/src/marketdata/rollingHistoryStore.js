@@ -1,6 +1,6 @@
 const { fileExists, loadJson, writeJson, writeText } = require("../utils/fileStore");
 const { paths } = require("../utils/paths");
-const { upsertMarketBars, pruneMarketBars, getSymbolIndex, getTotalBarCount } = require("../db/marketBars");
+const { upsertMarketBars, pruneMarketBars, getSymbolIndex, getTotalBarCount, getBarsForSymbol, getDistinctSymbols } = require("../db/marketBars");
 
 const HISTORY_RETENTION_DAYS = 14;
 const MIN_BARS_FOR_USABLE = 10;
@@ -27,15 +27,22 @@ function updateRollingHistory() {
 
   const totalBarsBefore = getTotalBarCount();
   if (totalBarsBefore === 0) {
-    return { merged: false, reason: "no source data available", totalBars: 0 };
+    return { merged: false, reason: "no source data available", totalBars: 0, history: [] };
   }
 
   const symbols = getSymbolIndex();
+
+  // Reassemble the flat per-bar `history` array that signal scanning and
+  // vehicle-history building consume. The SQLite migration moved bar storage
+  // into market_bars and this return value carried only the summary index;
+  // restore the original contract by reading the bars back out of the DB.
+  const history = getDistinctSymbols().flatMap((symbol) => getBarsForSymbol(symbol));
 
   const output = {
     schemaVersion: "0.1",
     generatedAt: state.generatedAt || lastMergedAt,
     lastMergedAt,
+    history,
     symbols,
     totalBars: getTotalBarCount(),
     symbolsCovered: Object.keys(symbols).sort(),
@@ -45,7 +52,11 @@ function updateRollingHistory() {
     storage: "sqlite:market_bars"
   };
 
-  writeJson(paths.rollingHistoryJson, output);
+  // The persisted JSON keeps only the summary index (the bars live in SQLite);
+  // `history` is large and is provided to in-process callers via the return
+  // value, not the on-disk artifact.
+  const { history: _omit, ...persisted } = output;
+  writeJson(paths.rollingHistoryJson, persisted);
 
   const reportLines = [
     "# MarketOps Rolling Market History v0.1",
