@@ -125,7 +125,7 @@ CREATE INDEX IF NOT EXISTS idx_trade_ledger_timestamp ON trade_ledger(timestamp)
 
 CREATE TABLE IF NOT EXISTS trades (
   trade_id                 TEXT PRIMARY KEY,
-  position_id              TEXT REFERENCES positions(position_id),
+  position_id              TEXT REFERENCES positions(position_id) ON DELETE SET NULL,
   signal_id                TEXT,
   risk_decision_id         TEXT,
   symbol                   TEXT,
@@ -168,12 +168,72 @@ CREATE INDEX IF NOT EXISTS idx_risk_decisions_generated_at ON risk_decisions(gen
 CREATE INDEX IF NOT EXISTS idx_risk_decisions_symbol ON risk_decisions(symbol);
 `;
 
+// trades.position_id originally had a bare REFERENCES positions(position_id)
+// (implicit ON DELETE NO ACTION). syncPositions() rebuilds the positions
+// snapshot each cycle with DELETE FROM positions, which RESTRICT-fails the
+// moment any trade references a live position. Rebuild the trades table with
+// ON DELETE SET NULL so the snapshot can be replaced while the append-only
+// trade history is preserved (the position link is nulled, not the trade).
+// SQLite can't alter a foreign key in place, so the table is recreated and
+// rows are copied. Idempotent: skips once on_delete is already SET NULL.
+function migrateTradesPositionFkSetNull(db) {
+  const fkList = db.pragma("foreign_key_list(trades)");
+  const positionFk = fkList.find((fk) => fk.table === "positions" && fk.from === "position_id");
+  if (!positionFk || positionFk.on_delete === "SET NULL") return;
+
+  db.pragma("foreign_keys = OFF");
+  try {
+    const rebuild = db.transaction(() => {
+      db.exec(`
+        CREATE TABLE trades_new (
+          trade_id                 TEXT PRIMARY KEY,
+          position_id              TEXT REFERENCES positions(position_id) ON DELETE SET NULL,
+          signal_id                TEXT,
+          risk_decision_id         TEXT,
+          symbol                   TEXT,
+          asset_type               TEXT,
+          side                     TEXT,
+          status                   TEXT,
+          entry_time               TEXT,
+          entry_price              REAL,
+          quantity                 REAL,
+          position_value           REAL,
+          cash_balance_after_entry REAL,
+          data_source              TEXT,
+          paper_only               INTEGER,
+          live_trading_enabled     INTEGER,
+          approval_band            TEXT,
+          position_size_multiplier REAL,
+          is_learning_probe        INTEGER,
+          entry_plan               TEXT,
+          exit_plan                TEXT,
+          risk_plan                TEXT,
+          learning_metadata        TEXT
+        );
+      `);
+      db.exec(`INSERT INTO trades_new SELECT * FROM trades;`);
+      db.exec(`DROP TABLE trades;`);
+      db.exec(`ALTER TABLE trades_new RENAME TO trades;`);
+      db.exec(`CREATE INDEX IF NOT EXISTS idx_trades_position_id ON trades(position_id);`);
+      db.exec(`CREATE INDEX IF NOT EXISTS idx_trades_signal_id ON trades(signal_id);`);
+    });
+    rebuild();
+    const violations = db.pragma("foreign_key_check");
+    if (violations.length > 0) {
+      throw new Error(`foreign_key_check failed after trades migration: ${JSON.stringify(violations)}`);
+    }
+  } finally {
+    db.pragma("foreign_keys = ON");
+  }
+}
+
 function getDb() {
   if (dbInstance) return dbInstance;
   ensureDir(path.dirname(paths.sqliteDbPath));
   dbInstance = new Database(paths.sqliteDbPath);
   dbInstance.pragma("journal_mode = WAL");
   dbInstance.exec(SCHEMA);
+  migrateTradesPositionFkSetNull(dbInstance);
   return dbInstance;
 }
 
