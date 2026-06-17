@@ -60,14 +60,16 @@
       "requireFailureLabeling": true
     },
     "exitRules": {
-      "maxHoldHours": 72,
-      "minHoldHoursBeforeStop": 4,
+      "maxHoldHours": 7,
+      "minHoldHoursBeforeStop": 0,
+      "forceCloseBeforeSessionEnd": true,
+      "sessionEndCloseEt": "15:55",
       "timeStopAction": "close_at_market",
       "writelearningRecord": true,
       "unknownInstrumentDefault": "etf",
       "byInstrumentType": {
-        "etf": { "targetProfitPct": 3, "stopLossPct": 4 },
-        "stock": { "targetProfitPct": 6, "stopLossPct": 6 }
+        "etf": { "targetProfitPct": 2.0, "stopLossPct": 1.5 },
+        "stock": { "targetProfitPct": 2.0, "stopLossPct": 1.5 }
       }
     },
     "entryFilters": {
@@ -75,7 +77,7 @@
       "minAvgBarVolume": 100,
       "volumeLookbackBars": 30,
       "lateSessionCutoffEt": "15:30",
-      "minRiskRewardRatio": 1.5
+      "minRiskRewardRatio": 1.2
     },
     "reEntryCooldown": {
       "cooldownHours": 24,

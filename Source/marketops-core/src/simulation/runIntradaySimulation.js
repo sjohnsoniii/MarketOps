@@ -122,7 +122,11 @@ async function runIntradaySimulation() {
     }
     if (fileExists(paths.paperPerformanceJson)) {
       const perfData = loadJson(paths.paperPerformanceJson);
-      portfolioState.cashBalance = perfData.cashBalance || 1000;
+      // Use ?? not || — a legitimate $0 cash balance (every dollar deployed into
+      // open positions) must be preserved. With ||, 0 is falsy and falls through
+      // to the $1,000 starting balance, which then gets credited again when
+      // positions close (e.g. force-close) → phantom +$1,000 equity.
+      portfolioState.cashBalance = perfData.cashBalance ?? 1000;
     }
   } catch {}
 

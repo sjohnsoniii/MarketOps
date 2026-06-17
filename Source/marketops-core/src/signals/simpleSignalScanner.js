@@ -23,16 +23,23 @@ function buildEntryPlan(signal, vehicle) {
 }
 
 function buildExitPlan(signal) {
-  const profitTargetPct = signal.riskLevel === "high" ? 5 : signal.riskLevel === "medium" ? 8 : 10;
-  const stopLossPct = signal.riskLevel === "high" ? 4 : signal.riskLevel === "medium" ? 5 : 6;
-  const maxHoldDays = signal.riskLevel === "high" ? 3 : signal.riskLevel === "medium" ? 5 : 10;
-  const maxHoldUntil = new Date(new Date(signal.generatedAt).getTime() + maxHoldDays * 24 * 60 * 60 * 1000).toISOString();
+  // Mirror the actual execution thresholds (learningMode.exitRules.byInstrumentType
+  // = 2.0/1.5 for the intraday model) so this stored metadata matches how the
+  // position is really managed. Execution reads byInstrumentType, not this plan;
+  // and the entry R:R filter gates on byInstrumentType directly — this is kept
+  // coherent so the persisted exitPlan isn't misleading.
+  const profitTargetPct = 2.0;
+  const stopLossPct = 1.5;
+  // Same-session intraday hold: force-closed before the bell, so the plan's
+  // horizon is the trading day, not multi-day.
+  const maxHoldHours = 7;
+  const maxHoldUntil = new Date(new Date(signal.generatedAt).getTime() + maxHoldHours * 60 * 60 * 1000).toISOString();
 
   return {
     profitTargetPct,
     stopLossPct,
     maxHoldUntil,
-    maxHoldDays,
+    maxHoldHours,
     invalidationRules: signal.invalidation || "No invalidation defined",
     exitIfDataDegraded: true,
     exitIfCycleStops: true

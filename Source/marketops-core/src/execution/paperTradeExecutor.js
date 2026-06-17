@@ -289,6 +289,16 @@ function checkAndExecuteExits({ openPositions, marketBars, generatedAt, exitRule
     let exitTrigger = null;
     let exitPrice = null;
 
+    // Force-close-before-session-end: no overnight holds. If this run is at/after
+    // the ET cutoff, any still-open position is force-closed ("session_end").
+    // Evaluated independently of fresh-bar presence so a position can never carry
+    // overnight just because its last bar was stale at the close run.
+    const cutoffMinutes = (exitRules && exitRules.forceCloseBeforeSessionEnd)
+      ? parseEtCutoffMinutes(exitRules.sessionEndCloseEt)
+      : null;
+    const pastSessionEnd = cutoffMinutes != null
+      && getEtParts(generatedAt).minutesOfDay >= cutoffMinutes;
+
     if (hasFreshBar) {
       // Stop/target evaluate on the REAL latest price.
       const returnPct = position.entryPrice > 0
@@ -301,15 +311,18 @@ function checkAndExecuteExits({ openPositions, marketBars, generatedAt, exitRule
         exitTrigger = "target_hit"; exitPrice = freshPrice;
       } else if (returnPct <= -(thr.stopLossPct) && holdHours >= minHoldHoursBeforeStop) {
         exitTrigger = "stop_loss"; exitPrice = freshPrice;
+      } else if (pastSessionEnd) {
+        exitTrigger = "session_end"; exitPrice = freshPrice;
       } else if (holdHours >= thr.maxHoldHours) {
         exitTrigger = "time_stop"; exitPrice = freshPrice;
       }
     } else {
       // No fresh bar this run: DO NOT synthesize a price or a 0% return. Skip
-      // stop/target entirely and let only the 72h time-stop act as backstop. If
-      // it fires, value at the best stored mark and flag the record as stale.
-      if (holdHours >= thr.maxHoldHours) {
-        exitTrigger = "time_stop";
+      // stop/target entirely. The session-end force-close and the time-stop act
+      // as backstops; if either fires, value at the best stored mark and flag
+      // the record as stale.
+      if (pastSessionEnd || holdHours >= thr.maxHoldHours) {
+        exitTrigger = pastSessionEnd ? "session_end" : "time_stop";
         exitPrice = position.latestPrice != null
           ? position.latestPrice
           : (position.currentValue && position.quantity ? position.currentValue / position.quantity : position.entryPrice);
@@ -624,12 +637,14 @@ function executeIntradayPaperTrades({ signals, riskReview, marketBars, marketDat
       }
     }
 
-    // Minimum risk/reward filter: per-signal exit-plan target distance must be
-    // at least minRiskRewardRatio times the per-signal stop distance.
+    // Minimum risk/reward filter. Gate on the ACTUAL execution thresholds the
+    // trade will use (byInstrumentType via resolveExitThresholds), NOT the
+    // scanner's separate per-signal exitPlan — so the R:R checked here is always
+    // the R:R the position is really managed with (single source of truth).
     if (entryFilters.minRiskRewardRatio != null) {
-      const exitPlan = decision.exitPlan || signal.exitPlan;
-      if (exitPlan && exitPlan.profitTargetPct != null && exitPlan.stopLossPct) {
-        const rr = exitPlan.profitTargetPct / exitPlan.stopLossPct;
+      const rrThr = resolveExitThresholds({ assetType: signal.assetType }, exitRules);
+      if (rrThr.stopLossPct > 0 && rrThr.targetProfitPct != null) {
+        const rr = rrThr.targetProfitPct / rrThr.stopLossPct;
         if (rr < entryFilters.minRiskRewardRatio) {
           skippedReasons.push(`${signal.symbol}: risk/reward ${rr.toFixed(2)} below minimum ${entryFilters.minRiskRewardRatio}`);
           continue;
