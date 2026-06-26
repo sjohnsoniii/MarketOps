@@ -378,3 +378,58 @@ frontend `index.html` was untouched.
 **Reusable lesson:** in this codebase, money fields can legitimately be `0` (cash fully deployed).
 Use `??` not `||` for cash/balance fallbacks, and never anchor returns to per-run starting *cash* —
 use the original paper baseline (`cycle.startingBalance` / `config.paperAccount.paperStartingBalance`).
+
+## Daily Review Log
+- 2026-06-16 daily review: CHANGE RECOMMENDED, win rate 32.7%, cumulative P&L $-13.18 (139 closed)
+
+## 2026-06-25 — Signal rebuild cruise (implemented, NOT committed — awaiting Sam approval)
+Replaced the directional signal in `simpleSignalScanner.js`. The old signal (single coarse
+full-history trailing return, bet in its direction) was measured ANTI-predictive, not just random.
+
+**Phase 1 backtest** (`Reports/marketops-signal-rebuild-phase1-backtest-v0.1.md`, read-only harness
+over `market_bars` 2026-06-11..06-25, 148 symbols, 12,949 forward-outcome samples):
+- Old signal session corr −0.078; its go-long cohort won **31.4%** vs 40.5% for ignored names (−9.1
+  edge) — the worst cohort in the study. Confirms the prior −0.06 diagnosis.
+- The prompt's lead candidates (EMA 8/21 cross, multi-timeframe momentum alignment) tested as
+  **noise** (corr +0.03–0.07). The real edges: 1-day trend PERSISTS (ROC-1d corr +0.118) while
+  short-term/VWAP extension MEAN-REVERTS (VWAP-distance corr −0.163, strongest single signal).
+- Winning combo "buy the dip in an uptrend" (`roc1d>0 AND price<VWAP`): cohort win% 44.6/45.7/36.3
+  (1h/4h/session) vs 41.1/34.0/30.7 rest; avg-return edge flips negative→positive. Dip-depth gradient
+  is monotonic (31%→46% session win% as price goes from above to >0.5% below VWAP). NOTE: only ~2
+  weeks, one down/choppy regime — the `roc1d>0` filter is the falling-knife guard; re-validate as bars
+  accumulate.
+
+**Phase 2 (Sam approved Option 2: no roc2h gate, volume > marginal edge):**
+- `simpleSignalScanner.js` rewritten to `signalModel: "trend_filtered_mean_reversion_v1"`. Gates:
+  1-day ROC > 0 (uptrend) AND price below session VWAP (pullback) AND NOT a falling knife. Long-only.
+  Output contract preserved (status candidate/learning_candidate, directionBias "up",
+  confidence/normalizedConfidence, trigger, invalidation, entry/exit/risk plans).
+- **Falling-knife filter** (`learningMode.entryFilters.fallingKnifeThresholdPct`, default 3%) is now
+  loaded and evaluated INSIDE the scanner, before the signal fires — a name down >3% from the day's
+  open is rejected even when below VWAP. The executor keeps its own falling-knife filter as the
+  downstream safety net (executor untouched).
+- **Confidence rebuilt as setup quality**, not a magnitude transform of trailing return:
+  `0.10 + 0.80*(0.5*clamp(roc1d/2%) + 0.5*clamp(-vwapDist/0.5%))` → [0.10,0.90]. Stronger 1-day trend
+  + deeper dip below VWAP = higher confidence. Maps onto risk-desk bands (standard ≥0.58, probe ≥0.42).
+- Scope honored: ONLY the scanner + confidence touched. Nothing else changed.
+
+**Verified:**
+- New unit test `src/signals/__tests__/simpleSignalScanner.test.js` (standalone node-assert, TDD —
+  watched 3 behavior tests fail RED first): **9/9 pass** (extended-above-VWAP rejected, 1-day
+  downtrend rejected, falling-knife rejected, confidence rewards setup quality and is not a trailing-
+  return magnitude transform).
+- `npm run intraday:simulate`: 150 vehicles → **23 candidates + 11 learning_candidates (34 up), 26
+  risk-approved**. Every up-signal satisfies `roc1d>0 AND vwapDist<0` (0 violations). 12 falling-knife
+  names rejected (AAPL −5.5%, QCOM −5.9%…); 31 extended-above-VWAP names rejected (old scanner would
+  have chased these). Confidence spread real: GDXJ (roc1d 1.96 / dip −0.44) → 0.85; DIA (0.12/−0.52) →
+  0.52; weak learning_candidates 0.34–0.48.
+- 0 trades executed this run is NOT a signal issue: run timestamp 20:43 ET is after the executor's
+  15:30 ET late-session cutoff, so approved decisions are correctly held by the (untouched) executor
+  filter. A market-hours run would execute them.
+- QA gates: `signal:qa` 107/0, `risk:qa` 1048/0, `qa:full` 72/0 — all PASS, no regression.
+
+**Files (uncommitted):** `src/signals/simpleSignalScanner.js` (rewrite), new
+`src/signals/__tests__/simpleSignalScanner.test.js`, new
+`Reports/marketops-signal-rebuild-phase1-backtest-v0.1.md`. No commit, no publish (per standing
+orders + Sam's "report before committing"). Paper state essentially unchanged (0 trades; 0 open / 280
+closed / cash $948.90).
